@@ -1,0 +1,23 @@
+{
+  "title": "PASQAL two-atom L3 covariant tensor + L4 bound audit",
+  "version": "1.0",
+  "validation_seed": 20260803,
+  "tensor_direction_seed": 20260804,
+  "coordinate_seed": 20260805,
+  "n_new_paths": 12,
+  "n_tensor_directions": 36,
+  "zero_point_jet_method": "order-6 block-matrix exponential coefficients at t=0",
+  "jet_order": 6,
+  "target_t": 1.0,
+  "axis_scales": [
+    0.06,
+    0.04,
+    0.05
+  ],
+  "A4_definition": "q4(v)=A4_ijkl v_i v_j v_k v_l",
+  "G4_definition": "A4:M4",
+  "coordinate_rule": "z=R y",
+  "remainder_bound": "mean_k sum_{m>=3}(2*K_k*|t|)^(2m)/(2m)!",
+  "primary_ranking_gate": 0.95,
+  "claim_boundary": "L3 is a numerical tensor-covariance audit. L4 uses an analytic finite-dimensional Dyson norm bound and only certifies pairs with disjoint prediction intervals."
+}

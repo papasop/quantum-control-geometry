@@ -1,0 +1,77 @@
+{
+  "title": "PASQAL two-atom zero-point G4 prospective audit",
+  "version": "3.0",
+  "training_role": "formula_selection_only_not_confirmation",
+  "training_seed": 20260731,
+  "training_paths": 12,
+  "training_G4_spearman": 0.9930069930069931,
+  "training_G4_plus_G6_spearman": 0.9930069930069931,
+  "formula_selection_rule": "choose the lowest even order reaching training Spearman >= 0.95; G4 selected because adding G6 did not improve Spearman",
+  "validation_seed": 20260802,
+  "n_new_validation_paths": 20,
+  "candidate_generation_uses_validation_outcomes": false,
+  "coefficient_fit_uses_validation_outcomes": false,
+  "fit_radii": [
+    0.03125,
+    0.041666666666666664,
+    0.05,
+    0.0625,
+    0.07142857142857142,
+    0.08333333333333333,
+    0.1,
+    0.125
+  ],
+  "primary_tmax": 0.125,
+  "stability_tmax": 0.1,
+  "formula": "G4 = mean_axis a4_axis",
+  "score": "-G4",
+  "prediction": "smaller_G4_predicts_lower_mean_infidelity",
+  "primary_endpoint": "mean held-out state infidelity",
+  "primary_gate": {
+    "spearman_minimum": 0.95
+  },
+  "top1_required": true,
+  "coefficient_rank_stability_gate": 0.95,
+  "a2_relative_spread_tolerance": 2e-05,
+  "local_max_error_component": 0.0075,
+  "held_out_min_nonzero_component": 0.04,
+  "held_out_errors": [
+    {
+      "label": "amp_minus",
+      "amplitude": -0.06,
+      "detuning": 0.0,
+      "interaction": 0.0
+    },
+    {
+      "label": "amp_plus",
+      "amplitude": 0.06,
+      "detuning": 0.0,
+      "interaction": 0.0
+    },
+    {
+      "label": "det_minus",
+      "amplitude": 0.0,
+      "detuning": -0.04,
+      "interaction": 0.0
+    },
+    {
+      "label": "det_plus",
+      "amplitude": 0.0,
+      "detuning": 0.04,
+      "interaction": 0.0
+    },
+    {
+      "label": "int_minus",
+      "amplitude": 0.0,
+      "detuning": 0.0,
+      "interaction": -0.05
+    },
+    {
+      "label": "int_plus",
+      "amplitude": 0.0,
+      "detuning": 0.0,
+      "interaction": 0.05
+    }
+  ],
+  "claim_boundary": "G4 is extracted as a fourth-order coefficient from near-zero symmetric infidelity responses; this is local emulator evidence, not PASQAL Cloud or QPU evidence"
+}

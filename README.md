@@ -1,180 +1,120 @@
 # Quantum Control Geometry
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+Reproducible research code for **covariant local response jets on
+response-matched neutral-atom controls**.
 
-**Rigorous mathematical framework for quantum control via covariant tensor theory and ordering theorems.**
+This repository accompanies the manuscript:
 
-## Overview
+> **Covariant Local Jets of Response-Matched Neutral-Atom Controls:
+> From Quartic Prediction to Formal Finite-Error Certification**
 
-Quantum Control Geometry provides a **mathematically rigorous** framework for quantum control optimization based on:
+The study asks a deliberately narrow question: when control schedules have
+the same nominal output state and the same first-order output-state response
+to amplitude, detuning, and interaction errors, what local information
+determines their finite-error performance ordering?
 
-- **Covariant response tensors**: Coordinate-invariant geometric objects encoding control path properties
-- **Ordering theorems**: Strict mathematical theorems with remainder bounds for predicting control performance
-- **Mathematical certificates**: 100% certified predictions with zero errors
+## What is supported
 
-This library implements the **L3-L4 theoretical framework**: covariant tensor representation (L3) and ordering theorem with remainder bounds (L4).
+For the declared two-atom, finite-dimensional, piecewise-constant Hamiltonian
+model:
 
-## Key Features
+- a 24-parameter phase control has a numerical constraint-Jacobian rank of
+  16, leaving an eight-dimensional numerical implementation fibre;
+- the matched quadratic response has relative spread of order \(10^{-7}\);
+- a symmetric fourth-order response tensor has 15 independent components in
+  the three-dimensional error space;
+- its coordinate transformation and invariant noise-moment contraction were
+  verified to approximately \(10^{-14}\) and \(2\times10^{-15}\);
+- a frozen 20-path prospective cohort gave quartic-ranking Spearman
+  correlation \(0.998496\) and the correct top path;
+- the quartic term alone formally separates only a subset of the 66 path
+  pairs;
+- the zero-point jet through order 30, together with a Cauchy-alias enclosure
+  and an analytic order-32 tail enclosure, separates all 66 pairs in a
+  192-bit Arb calculation.
 
-### 🎯 **Mathematical Rigor**
-- **Strict theorems**: Ordering theorem with analytic tail bound (1.23×10⁻¹¹)
-- **100% certification**: All certified pairs correct (zero errors)
-- **Formal verification**: Floating-point certificates with formal interval arithmetic support
+The strongest result is a **formal, model-conditional ordering certificate
+for serialized-decimal controls**. It is not PASQAL Cloud or QPU evidence,
+and it does not yet prove that every numerical control lies on an exact
+first-order matched fibre.
 
-### 🔬 **Covariant Tensor Theory**
-- **Coordinate-invariant**: Tensors transform correctly under coordinate changes
-- **Geometric objects**: Response tensors as geometric invariants
-- **High-order expansions**: 30th-order local jet expansions with analytic tail bounds
+## Repository layout
 
-### ⚡ **Performance**
-- **Computational efficiency**: Single differential calculation vs. multiple simulations
-- **Predictive power**: Spearman correlation = 1.0 (perfect ranking)
-- **Error bounds**: Strict remainder bounds (1.23×10⁻¹¹)
-
-## Installation
-
-```bash
-pip install quantum-control-geometry
+```text
+paper/
+  manuscript.tex
+  manuscript.pdf
+scripts/
+  standalone/       # one-file Colab/Jupyter entry points
+  core/             # readable audit engines and shared model code
+results/
+  g4_prospective/
+  l3_covariance/
+  l4_order30/
+  l4_formal/
+tools/
+  verify_reference_results.py
+tests/
+  test_reference_artifacts.py
 ```
 
-For development:
-```bash
-git clone https://github.com/papasop/quantum-control-geometry.git
-cd quantum-control-geometry
-pip install -e ".[dev]"
-```
+The former placeholder `quantum_control_geometry` package has been removed.
+It computed path-coordinate moments rather than the Hamiltonian response
+tensor defined in the manuscript, so it was not a valid implementation of
+the reported science.
 
-## Quick Start
+## Quick reproduction
 
-### Basic Usage: G4 Coefficient Calculation
+No PASQAL password is required. In Colab, upload and run one of the files in
+`scripts/standalone/`:
 
 ```python
-from quantum_control_geometry.tensors import ResponseTensor
-from quantum_control_geometry.theorems import OrderingTheorem
-
-# Compute covariant response tensor
-tensor = ResponseTensor(order=4)
-G4 = tensor.compute_g4_coefficient(control_path)
-
-# Predict performance ranking
-predicted_rank = tensor.rank_by_g4(G4)
-
-# Verify with ordering theorem
-theorem = OrderingTheorem(jet_order=30)
-certified = theorem.verify_ranking(
-    predicted_rank,
-    tail_bound=1.23e-11,
-    certification_level=1.0
-)
+%run /content/pasqal_two_atom_G4_standalone_colab.py
+%run /content/pasqal_L3_L4_standalone_colab.py
+%run /content/pasqal_L4_order30_standalone_colab.py
+%run /content/pasqal_L4_formal_arb_standalone_colab.py
 ```
 
-### Advanced: Covariant Tensor Framework
-
-```python
-from quantum_control_geometry.tensors import CovariantTensor
-
-# Create covariant tensor
-cov_tensor = CovariantTensor(
-    metric=minisupermetric,
-    order=4
-)
-
-# Compute invariants
-invariants = cov_tensor.compute_invariants()
-
-# Contract with noise moments
-contraction = cov_tensor.contract_with_noise(noise_moments)
-```
-
-## Theory Background
-
-### Covariant Response Tensors
-
-The **covariant response tensor** $T_{\mu\nu\rho\sigma}$ encodes the fourth-order response of a quantum control path:
-
-$$T_{\mu\nu\rho\sigma} = \frac{\partial^4 J}{\partial \xi^\mu \partial \xi^\nu \partial \xi^\rho \partial \xi^\sigma}\bigg|_{\xi=0}$$
-
-where $J$ is the task loss and $\xi$ are error parameters.
-
-### Ordering Theorem (L4)
-
-The **ordering theorem** provides a strict mathematical guarantee:
-
-$$|J(\gamma, \sigma) - (J_0 + G4 \cdot \sigma^4)| \leq R(\sigma)$$
-
-where:
-- $G4 = \text{mean\_axis } a4_{\text{axis}}$ is the fourth-order zero-point coefficient
-- $R(\sigma) = 1.23 \times 10^{-11}$ is the analytic tail bound
-- The theorem certifies 100% of path pairs with zero errors
-
-### Relation to K=1 Framework
-
-This library implements the **L3-L4 levels** of the quantum control hierarchy, which is structurally isomorphic to the **K=1 framework** (information time as a cost layer):
-
-| K=1 Framework | Quantum Control (L3-L4) |
-|---------------|-------------------------|
-| Path cost functional $E[\gamma]$ | Fourth-order coefficient $G4$ |
-| Principle R (realizability) | Ordering theorem (ranking prediction) |
-| Covariant geometry | Covariant response tensor |
-| Inverse gap scaling | Remainder bound |
-
-## Documentation
-
-- **[Theory Background](docs/theory_background.md)**: Mathematical foundations
-- **[API Reference](docs/api_reference.md)**: Complete API documentation
-- **[Tutorials](docs/tutorials/)**: Step-by-step guides
-- **[Proofs](proofs/)**: Mathematical proofs of theorems
-
-## Examples
-
-See [`examples/`](examples/) directory for:
-- **Two-atom Rydberg system**: Complete example with verification
-- **General quantum system**: Template for arbitrary systems
-- **Covariant tensor computation**: Advanced tensor operations
-
-## Testing
+Locally:
 
 ```bash
-pytest tests/
+python -m pip install -r requirements.txt
+python scripts/standalone/pasqal_two_atom_G4_standalone_colab.py
+python scripts/standalone/pasqal_L3_L4_standalone_colab.py
+python scripts/standalone/pasqal_L4_order30_standalone_colab.py
+python scripts/standalone/pasqal_L4_formal_arb_standalone_colab.py
 ```
 
-With coverage:
+The final Arb audit is the slowest stage and pins `python-flint==0.8.0`.
+
+## Verify the bundled reference artifacts
+
 ```bash
-pytest --cov=quantum_control_geometry tests/
+python tools/verify_reference_results.py
+python -m unittest discover -s tests -v
 ```
 
-## Contributing
+These checks validate the declared gates in the bundled JSON artifacts. They
+do not replace rerunning the scientific audits.
 
-Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+## Result hierarchy
 
-## License
+| Stage | Object | Supported conclusion |
+|---|---|---|
+| Prospective G4 | Scalar fourth-order contraction | Strong mean-performance predictor on the frozen 20-path cohort |
+| L3 | Symmetric fourth-order response tensor | Coordinate-covariant tensor and invariant noise-moment contraction |
+| L4 quartic | G4 plus all known higher terms placed in the radius | Partial pairwise certification |
+| L4 order 30 | Zero-point jet through order 30 plus tail | Complete 66/66 ordering for the frozen serialized cohort |
+| Exact-fibre step | Interval Newton/Krawczyk | Not yet completed |
 
-MIT License - see [LICENSE](LICENSE) file for details.
+The quartic result and the order-30 result must not be conflated. The analytic
+tail after order 30 is not a remainder bound for truncation after order four.
 
 ## Citation
 
-If you use this library in your research, please cite:
+See [`CITATION.cff`](CITATION.cff). Until an archival paper or software
+release is available, cite the repository and the exact commit used.
 
-```bibtex
-@software{quantum_control_geometry,
-  author = {Li, Y. Y. N.},
-  title = {Quantum Control Geometry: Rigorous Mathematical Framework for Quantum Control},
-  year = {2026},
-  url = {https://github.com/papasop/quantum-control-geometry}
-}
-```
+## License
 
-## Related Work
-
-- **[fixed-unitary-noise-robust-control](https://github.com/papasop/fixed-unitary-noise-robust-control)**: Numerical verification and application to two-atom Rydberg systems (depends on this library)
-- **K=1 Framework**: Abstract theoretical framework for information time as a cost layer
-
-## Support
-
-- **Issues**: [GitHub Issues](https://github.com/papasop/quantum-control-geometry/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/papasop/quantum-control-geometry/discussions)
-
----
-
-**Status**: Active development | **Version**: 0.1.0 | **Python**: 3.8+
+MIT License. See [`LICENSE`](LICENSE).

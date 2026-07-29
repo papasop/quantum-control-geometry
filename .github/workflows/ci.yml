@@ -1,64 +1,45 @@
-name: CI
+name: Artifact checks
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main]
 
 jobs:
-  test:
+  reference-artifacts:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        python-version: ["3.10", "3.11", "3.12"]
 
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -e ".[dev]"
-    
-    - name: Run tests
-      run: |
-        pytest --cov=quantum_control_geometry --cov-report=xml
-    
-    - name: Upload coverage
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
+      - uses: actions/checkout@v4
 
-  lint:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Verify bundled scientific gates
+        run: python tools/verify_reference_results.py
+
+      - name: Run regression tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Compile Python sources
+        run: python -m compileall -q scripts tools tests
+
+  manuscript:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.12'
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install black flake8 mypy
-    
-    - name: Check formatting
-      run: |
-        black --check src/ tests/
-    
-    - name: Lint
-      run: |
-        flake8 src/ tests/ --max-line-length=100
-    
-    - name: Type check
-      run: |
-        mypy src/
+      - uses: actions/checkout@v4
+
+      - name: Compile manuscript
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: paper/manuscript.tex
+
+      - name: Confirm PDF was produced
+        run: test -s manuscript.pdf

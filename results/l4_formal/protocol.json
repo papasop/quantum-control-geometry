@@ -1,0 +1,17 @@
+{
+  "title": "PASQAL L4 formal Arb ball certificate",
+  "version": "1.0",
+  "validation_seed": 20260807,
+  "n_new_paths": 12,
+  "jet_order": 30,
+  "cauchy_points": 64,
+  "arb_precision_bits": 192,
+  "alias_enclosure": "1e-40",
+  "tail_enclosure": "2e-11",
+  "G4_pair_coverage_gate": 0.1,
+  "order30_pair_coverage_gate": 0.95,
+  "formal_interval_arithmetic": true,
+  "infidelity_target": "single common Arb-propagated reference-path nominal state",
+  "model_boundary": "serialized decimal pulse phases and constants in the stated finite-dimensional piecewise two-atom Hamiltonian",
+  "outcomes_used_before_certificate": false
+}

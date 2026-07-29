@@ -1,0 +1,898 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=blue!55!black,
+  urlcolor=blue!55!black
+}
+
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}{Remark}
+
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cR}{\mathcal{R}}
+
+\title{\textbf{Covariant Local Jets of Response-Matched Neutral-Atom Controls:\\
+From Quartic Prediction to Formal Finite-Error Certification}}
+
+\author{Y.\,Y.\,N.\ Li\\
+\small Independent Researcher}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Control sequences can agree at their ideal endpoint and in their complete
+first-order response to specified implementation errors while differing at
+finite error.  We study this phenomenon in a two-atom Rydberg model with
+piecewise-constant phase control.  Twenty-four control phases are constrained
+to match the output state and its first-order state response to global
+amplitude, detuning, and interaction errors.  The resulting numerical
+constraint Jacobian has rank sixteen, leaving an eight-dimensional
+implementation fibre.  Paths on this fibre display distinct finite-error
+infidelities.
+
+We first identify a fourth-order symmetric response coefficient,
+$\cG_4$, as a strong low-order predictor of mean finite-error performance.
+In a protocol-frozen prospective twenty-path validation it attains Spearman correlation
+$0.998496$ and predicts the best path correctly.  We then recover the full
+three-dimensional symmetric fourth-order tensor.  Under a nonorthogonal
+change of error coordinates, direct recomputation agrees with the tensor
+transformation law to $1.1\times10^{-14}$, while contraction with the
+transformed fourth noise moment is invariant to $2.0\times10^{-15}$.
+
+The quartic term is not universally sufficient.  We therefore compute the
+zero-error Taylor jet through order thirty by block-matrix exponentials and
+bound the uncomputed tail analytically.  Finally, a 192-bit Arb
+midpoint-radius calculation uses outward-rounded complex balls, a
+64-point Cauchy extraction, a rigorous alias enclosure, and an analytic
+order-32 tail enclosure.  For a frozen twelve-path cohort, the quartic term
+alone certifies 35 of 66 path pairs, whereas the order-thirty jet certifies
+all 66 pairs.  All ordinary held-out outcomes lie inside the formal
+intervals.
+
+The result is a formal ordering certificate for a serialized-decimal,
+finite-dimensional Hamiltonian model.  It is not evidence from PASQAL
+hardware, and exact existence of the numerically matched implementation
+fibre remains to be certified by an interval-Newton or Krawczyk argument.
+\end{abstract}
+
+\section{Introduction}
+
+Pulse-level control of programmable neutral-atom arrays provides direct
+access to Rabi amplitude, phase, detuning, geometry, and Rydberg-mediated
+interactions \cite{Silverio2022,Henriet2020,Saffman2016}.  This flexibility
+also creates a basic identification problem.  Two implementations may
+realize the same ideal state and have the same leading response to calibrated
+errors, yet behave differently when the errors are finite.  Endpoint
+agreement alone does not identify an implementation, and even first-order
+robustness data may leave a nontrivial family of controls.
+
+Composite-pulse and robust-control methods commonly cancel or suppress
+leading error terms \cite{Wimperis1994,Kukita2022,Barnes2015}.  The question
+asked here is different:
+\begin{quote}
+\emph{After the ideal output state and the complete first-order output-state
+response have been matched, what local object predicts the residual
+finite-error ordering inside the remaining implementation fibre?}
+\end{quote}
+
+We address the question in four stages.
+\begin{enumerate}[leftmargin=2.2em]
+\item We construct phase schedules with a common endpoint and common
+first-order state response to amplitude, detuning, and Rydberg-interaction
+errors.
+\item We test a low-order quartic response scalar, $\cG_4$, using a frozen
+ranking followed by held-out finite-error evaluation.
+\item We promote $\cG_4$ to a coordinate-covariant fourth-order tensor whose
+contraction with a physical noise moment is invariant.
+\item We compute higher local derivatives and produce an outward-rounded
+Arb ball-arithmetic certificate of finite-error ordering.
+\end{enumerate}
+
+The central outcome is deliberately narrower than a universal robustness
+law.  The fourth-order term is often predictive and can certify a substantial
+subset of pairwise comparisons, but close paths require higher derivatives.
+For the serialized model studied here, the order-thirty local jet plus an
+analytic tail bound certifies the complete finite-error ordering.  This
+distinguishes three statements that are often conflated:
+\[
+\text{low-order correlation}
+\;\neq\;
+\text{partial pairwise certification}
+\;\neq\;
+\text{complete bounded reconstruction}.
+\]
+
+\section{Two-atom control model}
+
+\subsection{Hamiltonian}
+
+We use the ordered basis
+\[
+\{|gg\rangle,|gr\rangle,|rg\rangle,|rr\rangle\}.
+\]
+Let
+\[
+X_\Sigma=X\otimes I+I\otimes X,\qquad
+Y_\Sigma=Y\otimes I+I\otimes Y,
+\]
+\[
+N_\Sigma=n\otimes I+I\otimes n,\qquad
+N_{rr}=n\otimes n,
+\]
+where $n=|r\rangle\langle r|$.  During segment $j$, the Hamiltonian is
+\begin{align}
+H_j(\boldsymbol{\epsilon})
+={}&
+\frac{\Omega}{2}(1+\epsilon_\Omega)
+\left(\cos\phi_j\,X_\Sigma+\sin\phi_j\,Y_\Sigma\right)
+\nonumber\\
+&-\Omega\,\epsilon_\Delta N_\Sigma
++V(1+\epsilon_V)N_{rr}.
+\label{eq:Hamiltonian}
+\end{align}
+The dimensionless error vector is
+\[
+\boldsymbol{\epsilon}
+=(\epsilon_\Omega,\epsilon_\Delta,\epsilon_V).
+\]
+The nominal parameters are
+\[
+\Omega=2\pi~\mathrm{rad}/\mu\mathrm{s},\qquad
+V=4\Omega,
+\]
+with 24 segments of duration
+\[
+\tau=0.1~\mu\mathrm{s},
+\qquad
+T=24\tau=2.4~\mu\mathrm{s}.
+\]
+The nominal interaction can be represented as $V=C_6/R^6$; using the
+Pulser DigitalAnalogDevice coefficient in the accompanying implementation
+gives a nominal separation of approximately $7.744~\mu\mathrm{m}$.
+
+For a control path
+\[
+\gamma=(\phi_1,\ldots,\phi_{24})\in\mathbb{T}^{24},
+\]
+the output state is
+\begin{equation}
+|\psi_\gamma(\boldsymbol{\epsilon})\rangle
+=
+\prod_{j=24}^{1}
+\exp[-\ii\tau H_j(\boldsymbol{\epsilon})]
+|gg\rangle.
+\label{eq:state}
+\end{equation}
+All primary calculations use exact matrix exponentials for the
+piecewise constant, finite-dimensional model.  Pulser/QutipEmulator was used
+in an earlier two-atom cross-check, but the formal certificate in this work
+is independent of Pulser and does not invoke a cloud backend.
+
+\subsection{Loss and held-out error law}
+
+Let $\gamma_{\mathrm{ref}}$ denote the reference schedule and define
+\[
+|\psi_{\mathrm{ref}}\rangle
+=|\psi_{\gamma_{\mathrm{ref}}}(\mathbf{0})\rangle.
+\]
+The state infidelity is
+\begin{equation}
+\cI_\gamma(\boldsymbol{\epsilon})
+=1-\left|
+\langle\psi_{\mathrm{ref}}|
+\psi_\gamma(\boldsymbol{\epsilon})\rangle
+\right|^2.
+\label{eq:infidelity}
+\end{equation}
+
+The held-out error design contains the six signed axial errors
+\begin{equation}
+\mathcal{E}
+=
+\left\{
+\pm0.06\,e_\Omega,\,
+\pm0.04\,e_\Delta,\,
+\pm0.05\,e_V
+\right\}.
+\label{eq:errorlaw}
+\end{equation}
+The primary performance functional is the mean
+\begin{equation}
+\overline{\cI}_\gamma
+=\frac{1}{6}
+\sum_{\boldsymbol{\epsilon}\in\mathcal{E}}
+\cI_\gamma(\boldsymbol{\epsilon}).
+\label{eq:meanloss}
+\end{equation}
+Worst-case infidelity is retained as a secondary diagnostic.  The present
+predictors do not reliably rank the worst case, and no worst-case theorem is
+claimed.
+
+\section{Matched implementation fibre}
+
+\subsection{Endpoint and first-order constraints}
+
+At zero error, remove the unobservable global phase by the horizontal
+projector
+\[
+P_\perp=I-|\psi_0\rangle\langle\psi_0|.
+\]
+Define the horizontal first-order responses
+\begin{equation}
+J_{\gamma,a}
+=
+P_\perp
+\left.
+\frac{\partial}{\partial\epsilon_a}
+|\psi_\gamma(\boldsymbol{\epsilon})\rangle
+\right|_{\boldsymbol{\epsilon}=0},
+\qquad
+a\in\{\Omega,\Delta,V\}.
+\label{eq:tangents}
+\end{equation}
+
+\begin{definition}[Numerically matched implementation fibre]
+For a declared tolerance $\eta$, the numerical matched fibre
+$\cF_\eta$ consists of controls $\gamma$ satisfying
+\begin{align}
+\cI_\gamma(\mathbf{0})&\le\eta,
+\nonumber\\
+\|J_{\gamma,a}-J_{\mathrm{ref},a}\|&\le\eta,
+\qquad a\in\{\Omega,\Delta,V\}.
+\label{eq:fibre}
+\end{align}
+\end{definition}
+
+The actual optimizer retains the full phase-aligned complex output state and
+the three full phase-aligned complex state tangents.  Redundant real
+components are retained in the residual vector, while singular-value
+decomposition determines the independent rank.
+
+\subsection{Dimension count and generation}
+
+The control has 24 phase variables.  At the reference solution, the numerical
+constraint Jacobian has rank
+\[
+\rank D\cC(\gamma_{\mathrm{ref}})=16,
+\]
+leaving an eight-dimensional numerical null space.  Candidate paths are
+generated by:
+\begin{enumerate}[leftmargin=2.2em]
+\item drawing a seeded direction in the numerical null space;
+\item applying a finite displacement;
+\item projecting back to the constraint set by nonlinear least squares;
+\item rejecting candidates whose constraint residual or pairwise phase
+distance fails a predeclared gate.
+\end{enumerate}
+No held-out finite-error outcome is evaluated during candidate generation.
+The maximum constraint residual in the reported runs is of order
+$10^{-11}$.
+
+\begin{remark}[Unfinished exact-fibre step]
+The numerical rank and residual establish a highly accurate computational
+fibre, not the exact existence of an eight-dimensional solution manifold.
+A complete exact-fibre theorem requires a square transverse formulation and
+an interval-Newton or Krawczyk inclusion proof.  This limitation is kept
+separate from the formal ordering certificate below.
+\end{remark}
+
+\section{Local response hierarchy}
+
+\subsection{Symmetric local response}
+
+Introduce normalized error coordinates $z\in\R^3$ through
+\[
+\boldsymbol{\epsilon}=Dz,\qquad
+D=\operatorname{diag}(0.06,0.04,0.05).
+\]
+For a direction $v\in\R^3$, define the symmetric response
+\begin{equation}
+S_\gamma(t,v)
+=
+\frac{
+\cI_\gamma(tDv)+
+\cI_\gamma(-tDv)
+}{2}.
+\label{eq:symmetric}
+\end{equation}
+Analyticity of the finite matrix exponential gives
+\begin{equation}
+S_\gamma(t,v)
+=
+q_{2,\gamma}(v)t^2
++q_{4,\gamma}(v)t^4
++q_{6,\gamma}(v)t^6+\cdots.
+\label{eq:jet}
+\end{equation}
+Odd powers cancel by construction.
+
+First-order output-state matching fixes the leading quadratic loss to
+numerical precision.  Across the validation cohorts, the relative spread of
+the averaged quadratic coefficient is approximately $10^{-7}$.  The first
+useful discriminator is therefore the quartic coefficient.
+
+\subsection{Quartic tensor}
+
+There exists a symmetric fourth-order tensor $A^{(4)}_\gamma$ such that
+\begin{equation}
+q_{4,\gamma}(v)
+=
+A^{(4)}_{\gamma,ijkl}
+v_i v_j v_k v_l.
+\label{eq:A4}
+\end{equation}
+In three dimensions a symmetric fourth-order tensor has
+\[
+\binom{3+4-1}{4}=15
+\]
+independent components.  We recover them from 36 seeded directions.  The
+directional Taylor coefficients are computed directly at $t=0$ through
+order six by block-matrix exponentials, rather than by fitting nonzero-radius
+samples.
+
+For the six-axis law in Eq.~\eqref{eq:errorlaw}, define the fourth moment
+\[
+M^{(4)}_{ijkl}
+=\E[z_i z_j z_k z_l].
+\]
+The scalar quartic predictor is
+\begin{equation}
+\cG_4(\gamma;M^{(4)})
+=A^{(4)}_{\gamma,ijkl}M^{(4)}_{ijkl}.
+\label{eq:G4}
+\end{equation}
+For the equally weighted signed axes,
+\[
+\cG_4
+=\frac{1}{3}
+\left(
+A^{(4)}_{\Omega\Omega\Omega\Omega}
++A^{(4)}_{\Delta\Delta\Delta\Delta}
++A^{(4)}_{VVVV}
+\right).
+\]
+
+\subsection{Coordinate covariance}
+
+\begin{proposition}[Covariance and invariant contraction]
+Let $z=Ry$ for an invertible real matrix $R$.  Then
+\begin{align}
+A^{(4)}_{y,abcd}
+&=
+A^{(4)}_{z,ijkl}
+R_{ia}R_{jb}R_{kc}R_{ld},
+\label{eq:Atransform}\\
+M^{(4)}_{y,abcd}
+&=
+(R^{-1})_{ai}(R^{-1})_{bj}
+(R^{-1})_{ck}(R^{-1})_{dl}
+M^{(4)}_{z,ijkl},
+\label{eq:Mtransform}
+\end{align}
+and
+\begin{equation}
+A^{(4)}_y:M^{(4)}_y
+=A^{(4)}_z:M^{(4)}_z.
+\label{eq:invariance}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Equation~\eqref{eq:Atransform} follows by substituting $z=Ry$ into the
+quartic form.  Equation~\eqref{eq:Mtransform} follows from
+$y=R^{-1}z$.  Contracting all four indices cancels each $R$ with the
+corresponding $R^{-1}$, proving Eq.~\eqref{eq:invariance}.
+\end{proof}
+
+This proposition is algebraic.  The numerical audit additionally recomputes
+the tensor directly in the transformed coordinates.  For a nonorthogonal
+map of condition number approximately $1.82$, the direct-refit relative
+error is $1.08\times10^{-14}$ and the maximum invariant-contraction relative
+error is $1.99\times10^{-15}$.
+
+\section{Prospective quartic ranking}
+
+\subsection{Discovery and validation separation}
+
+The initial four named controls were used only for discovery and orientation.
+A twelve-path cohort was then used to compare candidate formulas.  The
+smallest sufficient rule on that training cohort was
+\[
+\text{smaller }\cG_4
+\quad\Longrightarrow\quad
+\text{smaller mean finite-error infidelity}.
+\]
+The addition of the sixth-order coefficient did not improve the training
+rank correlation, so the quartic rule was frozen.
+
+A new twenty-path cohort was generated with a different seed.  For each
+candidate, a ranking certificate containing phases, local coefficients,
+and predicted order was written and SHA-256 hashed before the held-out
+outcome evaluator was enabled.  The predeclared primary gate was
+\[
+\rho_{\mathrm{Spearman}}\ge0.95,
+\]
+together with correct top-path identification.
+
+\subsection{Quartic validation result}
+
+The twenty-path Colab run gave
+\begin{equation}
+\rho_{\mathrm{Spearman}}
+\left(
+-\cG_4,-\overline{\cI}
+\right)
+=0.998496,
+\qquad
+p=3.71\times10^{-24}.
+\label{eq:g4rho}
+\end{equation}
+The predicted and observed top path agreed.  Only one adjacent pair was
+inverted in the complete ranking.  Two local coefficient-extraction windows
+had rank correlation one, and the maximum local fit residual was
+$1.15\times10^{-10}$.
+
+Subsequent cohorts show that $\cG_4$ is not universally sufficient.  Depending
+on the generated matched paths, prospective quartic Spearman correlations
+ranged from approximately $0.85$ to $1.00$.  This variation motivated the
+bounded higher-order analysis rather than post hoc replacement of the
+quartic formula.
+
+\section{High-order local reconstruction}
+
+\subsection{Exact zero-point coefficients}
+
+For one segment, write
+\[
+U_j(t)=\exp(A_j+tB_j),
+\qquad
+A_j=-\ii\tau H_j(0).
+\]
+The coefficient of $t^n$ can be obtained from the $(0,n)$ block of the
+exponential of an upper-bidiagonal block matrix with $A_j$ on the diagonal
+and $B_j$ on the first superdiagonal.  Segment series are multiplied and
+truncated to order $N=30$.  This produces the zero-point state jet without
+finite-radius differencing.
+
+For the symmetric mean loss,
+\begin{equation}
+\overline{\cI}_\gamma(t)
+=
+C_{0,\gamma}
++C_{2,\gamma}t^2
++\cG_{4,\gamma}t^4
++\sum_{m=3}^{15}
+\cG_{2m,\gamma}t^{2m}
++\cR_{32,\gamma}(t).
+\label{eq:order30}
+\end{equation}
+The small $C_0$ term is retained because the numerical candidate endpoint is
+not symbolically identical to the reference endpoint.
+
+\subsection{Analytic tail bound}
+
+Let $K_a$ be the integrated spectral norm of the Hamiltonian perturbation
+along axis $a$:
+\[
+K_a=\int_0^T\|\partial_t H_a(t)\|_2\,\dd t.
+\]
+For the normalized held-out axes,
+\[
+(K_\Omega,K_\Delta,K_V)
+\approx(0.90478,1.20637,3.01593).
+\]
+A Dyson-series norm estimate yields
+\begin{equation}
+|\cR_{32,\gamma}(1)|
+\le
+\frac{1}{3}
+\sum_{a\in\{\Omega,\Delta,V\}}
+\sum_{\substack{n\ge32\\n\ \mathrm{even}}}
+\frac{(2K_a)^n}{n!}.
+\label{eq:tail}
+\end{equation}
+The floating-point order-thirty audit evaluates the right-hand side as
+approximately $1.2343\times10^{-11}$.  The maximum difference between the
+order-thirty reconstruction and ordinary held-out propagation was below
+$10^{-15}$ in the reported runs.
+
+\subsection{Two notions of certification}
+
+To test the quartic term alone, define the quartic centre
+\[
+\mu_{\gamma}^{(4)}
+=\overline C_0+\overline C_2+\cG_{4,\gamma},
+\]
+and place the complete known correction
+\[
+(C_{0,\gamma}-\overline C_0)
++(C_{2,\gamma}-\overline C_2)
++\sum_{m=3}^{15}\cG_{2m,\gamma}
+\]
+inside the interval radius together with the tail bound.  Two paths are
+quartic-certified only if these conservative intervals are disjoint.
+
+For the order-thirty certificate, the centre includes all known terms through
+order thirty and the radius contains only the analytic tail and verified
+rounding enclosure.
+
+\section{Formal Arb ball certificate}
+
+\subsection{Outward-rounded coefficient extraction}
+
+Arb implements arbitrary-precision midpoint-radius arithmetic with automatic
+error tracking \cite{Johansson2017}.  The final audit uses 192-bit real and
+complex balls.  Instead of exponentiating large block matrices in ball
+arithmetic, amplitude coefficients are extracted by a 64-point Cauchy
+discrete Fourier transform on the complex unit circle:
+\begin{equation}
+\widehat g_n
+=\frac{1}{64}
+\sum_{k=0}^{63}
+g(\zeta_k)\zeta_k^{-n},
+\qquad
+\zeta_k=e^{2\pi\ii k/64}.
+\label{eq:cauchy}
+\end{equation}
+The discrete transform aliases coefficients $g_{n+64\ell}$.  A path-uniform
+Dyson bound encloses this alias.  The implemented enclosure is $10^{-40}$,
+and the formal gate verifies that
+\[
+e^{K_a}\frac{K_a^{64}}{64!}<10^{-40}
+\]
+for every physical error axis.  Fidelity coefficients are then formed by
+ball convolution,
+\[
+F_n=\sum_{r=0}^n\overline{g_r}g_{n-r},
+\]
+and the infidelity coefficients follow from $1-F$.
+
+\subsection{Conditional formal theorem}
+
+\begin{theorem}[Certified ordering for the serialized model]
+\label{thm:formal}
+Consider the twelve controls serialized in the formal certificate with
+protocol hash
+\begin{center}
+\texttt{2c27f222ff6bcb7e87f9073da1b3f151}\\
+\texttt{9c08498124e772796d363cab8f5c5338}.
+\end{center}
+For the finite-dimensional Hamiltonian in Eq.~\eqref{eq:Hamiltonian}, the
+common reference target, and the six-axis error law in
+Eq.~\eqref{eq:errorlaw}, the 192-bit Arb order-thirty intervals are pairwise
+disjoint and certify the complete ordering of all 66 unordered path pairs.
+\end{theorem}
+
+\begin{proof}[Computer-assisted proof]
+All pulse phases and constants are parsed as serialized decimals or exact
+rational multiples of the Arb enclosure of $\pi$.  Arb complex balls enclose
+every trigonometric evaluation, matrix exponential, propagation, Cauchy sum,
+and coefficient convolution.  The Cauchy alias gate proves that the omitted
+Fourier aliases lie inside the declared $10^{-40}$ complex enclosure.  The
+analytic even Dyson tail after order thirty is enclosed by $2\times10^{-11}$.
+The resulting 12 order-thirty real balls are pairwise disjoint in the order
+recorded in the pre-outcome certificate.  Direct interval comparisons certify
+all $\binom{12}{2}=66$ pairs.  The certificate is written and hashed before
+ordinary held-out outcomes are evaluated.  Finally, every ordinary outcome
+is verified to lie inside its corresponding formal ball.
+\end{proof}
+
+\begin{remark}[Scope of Theorem~\ref{thm:formal}]
+The theorem is conditional on the serialized-decimal finite Hamiltonian
+model and the listed candidate controls.  It does not certify model
+discrepancy, calibration drift, sampling noise, or PASQAL hardware.  It also
+does not prove that the numerical paths lie on an exact first-order matched
+fibre; it proves the finite-error ordering of those serialized controls.
+\end{remark}
+
+\section{Results}
+
+\begin{table}[t]
+\centering
+\caption{Representative prospective and formal audits.  ``Pairs'' denotes
+certified unordered comparisons.  Candidate sets differ between stages and
+between numerical environments; every stage freezes its protocol and
+ranking before held-out evaluation.}
+\label{tab:results}
+\small
+\begin{tabular}{p{3.2cm}cccc}
+\toprule
+Audit & Paths & Spearman $\rho$ & Certified pairs & Result\\
+\midrule
+Quartic prospective validation
+&20&0.998496&--&pass\\
+Covariant tensor validation
+&12&1.000000&--&pass\\
+Order-30 floating certificate
+&12&1.000000&66/66&pass\\
+Arb formal: quartic only
+&12&--&35/66&partial\\
+Arb formal: order 30
+&12&1.000000&66/66&pass\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Numerical integrity diagnostics from representative Colab runs.}
+\label{tab:integrity}
+\small
+\begin{tabular}{lr}
+\toprule
+Diagnostic & Value\\
+\midrule
+Fourth-tensor independent components & 15\\
+Maximum tensor recovery relative residual & $4.16\times10^{-15}$\\
+Direct coordinate-refit relative error & $1.08\times10^{-14}$\\
+Invariant-contraction relative error & $1.99\times10^{-15}$\\
+Quadratic-coefficient relative spread & $1.33\times10^{-7}$\\
+Arb precision & 192 bits\\
+Cauchy points & 64\\
+Taylor order & 30\\
+Formal quartic pair coverage & $35/66=53.03\%$\\
+Formal order-30 pair coverage & $66/66=100\%$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The sequence of results supports the following hierarchy.
+\begin{enumerate}[leftmargin=2.2em]
+\item \textbf{Implementation memory:} endpoint and complete first-order
+output-state matching do not numerically determine finite-error performance.
+\item \textbf{Low-order organization:} the covariant quartic contraction
+$\cG_4$ strongly organizes mean performance and formally certifies a
+substantial subset of path pairs.
+\item \textbf{High-order closure:} close comparisons depend on higher local
+derivatives.  The order-thirty local jet plus a bounded tail certifies the
+complete ordering for the serialized cohort.
+\end{enumerate}
+
+\section{Discussion}
+
+\subsection{What is geometrical?}
+
+The geometrical object is not the scalar $\cG_4$ in isolation.  It is the
+fourth-order response tensor $A^{(4)}$ together with the physical fourth noise
+moment $M^{(4)}$.  Their contraction is independent of a linear reparameter-
+ization of error coordinates.  This avoids interpreting a coordinate-specific
+axis average as an intrinsic curvature.
+
+The tensor should also not be identified automatically with Riemann
+curvature.  It is a quartic susceptibility of the endpoint loss---a component
+of the fourth jet of the endpoint map composed with infidelity.  Establishing
+a relation to a canonical connection or curvature on a control quotient
+would require additional structure.
+
+\subsection{Why the quartic term is useful but incomplete}
+
+First-order matching makes the quadratic loss nearly common.  This promotes
+the quartic term to the first visible discriminator.  It explains why
+$\cG_4$ often gives almost perfect rankings.  However, if two quartic
+coefficients are close, the sixth and higher terms can reverse their order.
+The formal intervals expose this distinction directly: 35 pairs are
+quartic-certified, while the remaining pairs require higher jet data.
+
+This is preferable to declaring the quartic rule either universally true or
+false.  The correct statement is gap-dependent:
+\begin{equation}
+|\cG_{4,a}-\cG_{4,b}|
+>
+B_{a}^{(\ge6)}+B_{b}^{(\ge6)}
+\quad\Longrightarrow\quad
+\text{quartic ordering is certified}.
+\label{eq:gap}
+\end{equation}
+
+\subsection{Relation to analyticity}
+
+An analytic finite-dimensional propagator is determined by its full local
+germ, so the existence of some sufficiently high reconstructing order is not
+by itself surprising.  The nontrivial computational content is quantitative:
+\begin{itemize}[leftmargin=2em]
+\item a finite order, 30, suffices at the full held-out scale;
+\item the omitted tail is explicitly bounded;
+\item all pairwise intervals are disjoint;
+\item a much lower fourth-order object already certifies a substantial
+fraction of comparisons.
+\end{itemize}
+Thus the result is not that ``analytic functions have Taylor series,'' but
+that a finite, auditable local resource closes a nontrivial control-ranking
+problem.
+
+\subsection{Implications for control selection}
+
+For a noise moment $M$, the low-cost screening problem is
+\[
+\gamma^\star
+\in
+\arg\min_{\gamma\in\cF_\eta}
+A^{(4)}_\gamma:M^{(4)}.
+\]
+Pairs that fail the quartic gap test in Eq.~\eqref{eq:gap} can be escalated
+adaptively to sixth, eighth, or higher jet order until their intervals
+separate.  This suggests a certified branch-and-bound control selector:
+compute low-order local tensors for all candidates, refine only ambiguous
+pairs, and reserve direct finite-error simulation or hardware evaluation for
+model validation rather than exhaustive ranking.
+
+\section{Limitations and next theorem}
+
+The present work has five explicit limitations.
+\begin{enumerate}[leftmargin=2.2em]
+\item \textbf{Exact-fibre existence.}
+The matching constraints are satisfied to numerical tolerance.  A formal
+interval-Newton/Krawczyk proof has not yet established a nearby exact matched
+solution for every candidate.
+\item \textbf{Finite-dimensional model.}
+Spontaneous emission, Doppler effects, laser phase noise, position
+fluctuations, leakage levels, and waveform filtering are absent.
+\item \textbf{Two atoms.}
+No many-body scaling theorem is claimed.
+\item \textbf{Mean axial error law.}
+The primary result concerns the declared six-axis mean.  Worst-case ranking
+is not supported by the present scalar.
+\item \textbf{No QPU evidence.}
+The calculations are local and require no PASQAL credentials.  They do not
+constitute PASQAL Cloud, FRESNEL, or physical-QPU evidence.
+\end{enumerate}
+
+The next mathematical step is to decompose the 24-dimensional phase space
+into sixteen transverse variables and eight fibre variables, formulate an
+independent analytic constraint map, and prove a Krawczyk inclusion
+\[
+K(X)\subset\operatorname{int}(X)
+\]
+for a box $X$ around each numerical path.  Propagating the resulting phase
+balls through the formal jet calculation would close the chain
+\[
+\text{exact matched control}
+\;+\;
+\text{bounded local jet}
+\;\Longrightarrow\;
+\text{finite-error ordering}.
+\]
+
+\section{Reproducibility}
+
+The principal standalone scripts are:
+\begin{itemize}[leftmargin=2em]
+\item \texttt{pasqal\_two\_atom\_G4\_standalone\_colab.py};
+\item \texttt{pasqal\_L3\_L4\_standalone\_colab.py};
+\item \texttt{pasqal\_L4\_order30\_standalone\_colab.py};
+\item \texttt{pasqal\_L4\_formal\_arb\_standalone\_colab.py}.
+\end{itemize}
+The final formal protocol hash is
+\begin{center}
+\texttt{2c27f222ff6bcb7e87f9073da1b3f151}\\
+\texttt{9c08498124e772796d363cab8f5c5338}.
+\end{center}
+The certificate hash is run-specific because the certificate contains a
+creation time and the actual accepted path realization.  The formal
+standalone script pins \texttt{python-flint==0.8.0}; NumPy and SciPy are used
+for path generation, while Arb/ACB is used for the formal interval
+certificate.
+
+\section{Conclusion}
+
+We have separated finite-error robustness inside a numerically matched
+neutral-atom implementation fibre into a hierarchy of local information.
+The common endpoint and complete first-order state response leave residual
+path dependence.  A coordinate-covariant fourth-order response tensor
+provides a strong and partially certifying low-order description.  Close
+comparisons require higher derivatives.  For a frozen twelve-path
+serialized model, the zero-error jet through order thirty, combined with
+rigorous Cauchy-alias and Dyson-tail enclosures, yields an Arb
+outward-rounded certificate of all 66 finite-error pairwise orderings.
+
+The strongest justified conclusion is therefore conditional but precise:
+finite-error ordering in this model is recoverable from a finite local jet
+with a formal remainder enclosure.  Establishing exact matched-fibre
+existence and extending the certificate to open-system, many-atom, and
+hardware data are the remaining steps.
+
+\begin{thebibliography}{99}
+
+\bibitem{Silverio2022}
+H.~Silv\'erio, S.~Grijalva, C.~Dalyac, L.~Leclerc,
+P.-J.~Karalekas, N.~Shammah, M.~Beji, L.-P.~Henry, and L.~Henriet,
+``Pulser: An open-source package for the design of pulse sequences in
+programmable neutral-atom arrays,''
+\emph{Quantum} \textbf{6}, 629 (2022).
+\href{https://doi.org/10.22331/q-2022-01-24-629}
+{doi:10.22331/q-2022-01-24-629}.
+
+\bibitem{Henriet2020}
+L.~Henriet, L.~Beguin, A.~Signoles, T.~Lahaye, A.~Browaeys,
+G.-O.~Reymond, and C.~Jurczak,
+``Quantum computing with neutral atoms,''
+\emph{Quantum} \textbf{4}, 327 (2020).
+\href{https://doi.org/10.22331/q-2020-09-21-327}
+{doi:10.22331/q-2020-09-21-327}.
+
+\bibitem{Saffman2016}
+M.~Saffman,
+``Quantum computing with atomic qubits and Rydberg interactions:
+progress and challenges,''
+\emph{J. Phys. B: At. Mol. Opt. Phys.} \textbf{49}, 202001 (2016).
+\href{https://doi.org/10.1088/0953-4075/49/20/202001}
+{doi:10.1088/0953-4075/49/20/202001}.
+
+\bibitem{Wimperis1994}
+S.~Wimperis,
+``Broadband, narrowband, and passband composite pulses for use in
+advanced NMR experiments,''
+\emph{J. Magn. Reson. A} \textbf{109}, 221--231 (1994).
+\href{https://doi.org/10.1006/jmra.1994.1159}
+{doi:10.1006/jmra.1994.1159}.
+
+\bibitem{Kukita2022}
+S.~Kukita, H.~Kiya, and Y.~Kondo,
+``General off-resonance-error-robust symmetric composite pulses with
+three elementary operations,''
+\emph{Phys. Rev. A} \textbf{106}, 042613 (2022).
+\href{https://doi.org/10.1103/PhysRevA.106.042613}
+{doi:10.1103/PhysRevA.106.042613}.
+
+\bibitem{Barnes2015}
+E.~Barnes, X.~Wang, and S.~Das Sarma,
+``Robust quantum control using smooth pulses and topological winding,''
+\emph{Sci. Rep.} \textbf{5}, 12685 (2015).
+\href{https://doi.org/10.1038/srep12685}
+{doi:10.1038/srep12685}.
+
+\bibitem{Johansson2017}
+F.~Johansson,
+``Arb: Efficient arbitrary-precision midpoint-radius interval
+arithmetic,''
+\emph{IEEE Trans. Comput.} \textbf{66}, 1281--1292 (2017).
+\href{https://doi.org/10.1109/TC.2017.269063}
+{doi:10.1109/TC.2017.269063}.
+
+\bibitem{Dyson1949}
+F.~J.~Dyson,
+``The radiation theories of Tomonaga, Schwinger, and Feynman,''
+\emph{Phys. Rev.} \textbf{75}, 486--502 (1949).
+\href{https://doi.org/10.1103/PhysRev.75.486}
+{doi:10.1103/PhysRev.75.486}.
+
+\bibitem{Tucker2011}
+W.~Tucker,
+\emph{Validated Numerics: A Short Introduction to Rigorous Computations},
+Princeton University Press, Princeton (2011).
+
+\bibitem{Moore2009}
+R.~E.~Moore, R.~B.~Kearfott, and M.~J.~Cloud,
+\emph{Introduction to Interval Analysis},
+SIAM, Philadelphia (2009).
+
+\end{thebibliography}
+
+\end{document}

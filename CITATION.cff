@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this research artifact, please cite the repository and the exact release or commit."
+title: "Quantum Control Geometry: Covariant Local Jets and Formal Finite-Error Certification"
+type: software
+authors:
+  - family-names: "Li"
+    given-names: "Y. Y. N."
+year: 2026
+repository-code: "https://github.com/papasop/quantum-control-geometry"
+license: MIT
+version: 0.2.0

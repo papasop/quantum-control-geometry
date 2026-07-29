@@ -1,0 +1,20 @@
+{
+  "title": "PASQAL L4 order-30 local-jet tail audit",
+  "version": "1.0",
+  "validation_seed": 20260806,
+  "n_new_paths": 12,
+  "jet_order": 30,
+  "target_t": 1.0,
+  "axis_scales": [
+    0.06,
+    0.04,
+    0.05
+  ],
+  "numerical_margin": 1e-09,
+  "G4_pair_coverage_gate": 0.1,
+  "high_jet_pair_coverage_gate": 0.95,
+  "heldout_reconstruction_tolerance": 2e-08,
+  "outcomes_used_before_certificate": false,
+  "formal_interval_arithmetic": false,
+  "claim_boundary": "Analytic Dyson tail plus double-precision block-exponential coefficients and an explicit numerical margin. This is a floating-point computer-assisted certificate, not yet a formal outward-rounded interval proof."
+}

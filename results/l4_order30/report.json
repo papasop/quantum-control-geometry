@@ -1,0 +1,259 @@
+{
+  "scientific_status": "L4_ORDER30_BOUND_SUPPORTED_G4_ONLY_INCONCLUSIVE",
+  "claim_boundary": "Analytic Dyson tail plus double-precision block-exponential coefficients and an explicit numerical margin. This is a floating-point computer-assisted certificate, not yet a formal outward-rounded interval proof.",
+  "protocol_sha256": "d603a5be66247f7899048e12ef15af2b1cafdbeadf2342e2aa1854685f2f55ad",
+  "certificate_sha256": "d3657524d636984c1335c8d7d22971b142f61f76536e1b5487ddbb73ed940245",
+  "integrity_gates": {
+    "certificate_before_outcomes": true,
+    "all_constraints_pass": true,
+    "analytic_tail_finite": true,
+    "heldout_reconstruction_within_bound": true,
+    "heldout_reconstruction_tolerance": true
+  },
+  "G4_only": {
+    "partially_supported": false,
+    "gates": {
+      "prospective_spearman": false,
+      "certified_pair_coverage": true,
+      "all_certified_pairs_correct": true
+    },
+    "prospective_spearman": 0.8531468531468532,
+    "prospective_spearman_pvalue": 0.0004181179404149967,
+    "certified_pairs": 27,
+    "possible_pairs": 66,
+    "coverage": 0.4090909090909091,
+    "all_certified_pairs_correct": true
+  },
+  "order30_local_jet": {
+    "supported": true,
+    "gates": {
+      "certified_pair_coverage": true,
+      "all_certified_pairs_correct": true
+    },
+    "prospective_spearman": 1.0,
+    "prospective_spearman_pvalue": 0.0,
+    "certified_pairs": 66,
+    "possible_pairs": 66,
+    "coverage": 1.0,
+    "all_certified_pairs_correct": true,
+    "maximum_heldout_reconstruction_error": 9.575673587391975e-16
+  },
+  "jet_order": 30,
+  "analytic_tail_bound": 1.2342575895962995e-11,
+  "axis_tail_bounds": [
+    6.639626485611849e-28,
+    6.609722401405313e-24,
+    3.7027727687882376e-11
+  ],
+  "numerical_margin": 1e-09,
+  "predicted_G4_order": [
+    "pv05",
+    "pv10",
+    "pv01",
+    "pv04",
+    "pv03",
+    "pv08",
+    "pv07",
+    "pv12",
+    "pv09",
+    "pv06",
+    "pv11",
+    "pv02"
+  ],
+  "predicted_order30_order": [
+    "pv05",
+    "pv10",
+    "pv01",
+    "pv08",
+    "pv09",
+    "pv03",
+    "pv12",
+    "pv04",
+    "pv07",
+    "pv06",
+    "pv11",
+    "pv02"
+  ],
+  "actual_order": [
+    "pv05",
+    "pv10",
+    "pv01",
+    "pv08",
+    "pv09",
+    "pv03",
+    "pv12",
+    "pv04",
+    "pv07",
+    "pv06",
+    "pv11",
+    "pv02"
+  ],
+  "maximum_constraint_residual": 4.5259044066121204e-11,
+  "constraint_info": {
+    "rank": 16,
+    "nullity": 8,
+    "singular_values": [
+      28.158379787036694,
+      21.84442739324497,
+      11.278107415289254,
+      10.052969878337866,
+      7.988817573361994,
+      4.568482977683473,
+      3.9295241171114665,
+      3.057537342283385,
+      2.438579721305262,
+      1.7190069300448974,
+      1.2686900888502994,
+      0.9633780136477023,
+      0.6018438508679862,
+      0.40747396117431917,
+      0.28638656298596915,
+      0.13996679447673308,
+      5.126234178230378e-07,
+      4.124959387782773e-07,
+      4.0558598457987014e-07,
+      1.380812155933916e-07,
+      9.683115016818839e-08,
+      8.865630898960425e-08,
+      7.285170918839267e-11,
+      3.140075502583199e-11
+    ],
+    "rank_cutoff": 1e-06
+  },
+  "generation_attempts": [
+    {
+      "attempt_index": 0,
+      "optimizer_success": true,
+      "optimizer_nfev": 29,
+      "initial_null_scale": 1.1124303762709102,
+      "constraint_residual_norm": 3.317210151721153e-11,
+      "reference_phase_distance": 1.8966661090692019,
+      "minimum_previous_pair_distance": Infinity,
+      "accepted": true
+    },
+    {
+      "attempt_index": 1,
+      "optimizer_success": true,
+      "optimizer_nfev": 33,
+      "initial_null_scale": 1.4517839259536727,
+      "constraint_residual_norm": 3.7839956850652576e-11,
+      "reference_phase_distance": 1.3143827015992737,
+      "minimum_previous_pair_distance": 2.1283991639784476,
+      "accepted": true
+    },
+    {
+      "attempt_index": 2,
+      "optimizer_success": true,
+      "optimizer_nfev": 24,
+      "initial_null_scale": 0.6034801861348974,
+      "constraint_residual_norm": 3.6337226663218444e-11,
+      "reference_phase_distance": 1.2041774547352575,
+      "minimum_previous_pair_distance": 1.447154629902275,
+      "accepted": true
+    },
+    {
+      "attempt_index": 3,
+      "optimizer_success": true,
+      "optimizer_nfev": 28,
+      "initial_null_scale": 1.172558974311084,
+      "constraint_residual_norm": 4.5259044066121204e-11,
+      "reference_phase_distance": 2.1017031992287776,
+      "minimum_previous_pair_distance": 2.19426660572181,
+      "accepted": true
+    },
+    {
+      "attempt_index": 4,
+      "optimizer_success": true,
+      "optimizer_nfev": 27,
+      "initial_null_scale": 0.7070792611816663,
+      "constraint_residual_norm": 2.589465402972555e-11,
+      "reference_phase_distance": 1.491327774347184,
+      "minimum_previous_pair_distance": 1.5095864132750447,
+      "accepted": true
+    },
+    {
+      "attempt_index": 5,
+      "optimizer_success": true,
+      "optimizer_nfev": 29,
+      "initial_null_scale": 1.3052963119029715,
+      "constraint_residual_norm": 4.4106263713708375e-11,
+      "reference_phase_distance": 2.616177374221641,
+      "minimum_previous_pair_distance": 2.1826777251761365,
+      "accepted": true
+    },
+    {
+      "attempt_index": 6,
+      "optimizer_success": true,
+      "optimizer_nfev": 23,
+      "initial_null_scale": 0.5122337982473203,
+      "constraint_residual_norm": 4.3001179997555135e-11,
+      "reference_phase_distance": 1.041756514012082,
+      "minimum_previous_pair_distance": 1.1027845148743878,
+      "accepted": true
+    },
+    {
+      "attempt_index": 7,
+      "optimizer_success": true,
+      "optimizer_nfev": 32,
+      "initial_null_scale": 1.1314416117462882,
+      "constraint_residual_norm": 3.6861155223671205e-11,
+      "reference_phase_distance": 1.794655760091725,
+      "minimum_previous_pair_distance": 2.5128251967726745,
+      "accepted": true
+    },
+    {
+      "attempt_index": 8,
+      "optimizer_success": true,
+      "optimizer_nfev": 33,
+      "initial_null_scale": 0.8146480494827818,
+      "constraint_residual_norm": 4.362240953459918e-11,
+      "reference_phase_distance": 2.279281766233592,
+      "minimum_previous_pair_distance": 2.372667474327763,
+      "accepted": true
+    },
+    {
+      "attempt_index": 9,
+      "optimizer_success": true,
+      "optimizer_nfev": 26,
+      "initial_null_scale": 0.6895428035100405,
+      "constraint_residual_norm": 2.757526041957678e-11,
+      "reference_phase_distance": 1.2934604790028654,
+      "minimum_previous_pair_distance": 1.3852715984200419,
+      "accepted": true
+    },
+    {
+      "attempt_index": 10,
+      "optimizer_success": true,
+      "optimizer_nfev": 30,
+      "initial_null_scale": 1.268499574821323,
+      "constraint_residual_norm": 3.7088378087370615e-11,
+      "reference_phase_distance": 1.9061659940421922,
+      "minimum_previous_pair_distance": 1.7788281386962779,
+      "accepted": true
+    },
+    {
+      "attempt_index": 11,
+      "optimizer_success": true,
+      "optimizer_nfev": 29,
+      "initial_null_scale": 1.0398011279877832,
+      "constraint_residual_norm": 3.133238646456603e-11,
+      "reference_phase_distance": 1.849724770287102,
+      "minimum_previous_pair_distance": 1.9081722302408148,
+      "accepted": true
+    }
+  ],
+  "pre_outcome_error_audit": {
+    "phase": "constraints_and_order30_zero_point_jet",
+    "evaluations": 34328,
+    "distinct_vectors": 7,
+    "maximum_absolute_component": 2e-05,
+    "minimum_nonzero_absolute_component": 2e-05
+  },
+  "held_out_error_audit": {
+    "phase": "held_out_outcomes",
+    "evaluations": 72,
+    "distinct_vectors": 6,
+    "maximum_absolute_component": 0.06,
+    "minimum_nonzero_absolute_component": 0.04
+  }
+}

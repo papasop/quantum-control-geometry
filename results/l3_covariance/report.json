@@ -1,0 +1,333 @@
+{
+  "scientific_status": "L3_COVARIANT_G4_SUPPORTED_L4_BOUND_INCONCLUSIVE",
+  "protocol_sha256": "0fb36ed301cdc458ff445a80b2c63de1089d831ab719e2298dc8ab975caf531f",
+  "ranking_certificate_sha256": "666936463d0d2af0dfb4c386ed5a726687c912d6557a5c0cef068a87b3d6544e",
+  "L3": {
+    "supported": true,
+    "gates": {
+      "tensor_design_full_rank": true,
+      "tensor_fit_residual": true,
+      "zero_point_jet_real": true,
+      "direct_coordinate_refit": true,
+      "invariant_contraction": true,
+      "G2_matching": true,
+      "prospective_ranking": true
+    },
+    "coordinate_matrix_condition_number": 1.8181818181818183,
+    "maximum_tensor_fit_relative_residual": 4.629060780423307e-15,
+    "maximum_jet_imaginary_residual": 3.469446951953614e-18,
+    "direct_covariance_relative_error": 1.0761611037344798e-14,
+    "maximum_contraction_relative_error": 2.3555867391856647e-15,
+    "G2_relative_spread": 1.0946501207931267e-07,
+    "prospective_mean_spearman": 0.965034965034965,
+    "prospective_mean_spearman_pvalue": 3.880985299627466e-07,
+    "predicted_order": [
+      "pv05",
+      "pv10",
+      "pv01",
+      "pv02",
+      "pv07",
+      "pv09",
+      "pv04",
+      "pv11",
+      "pv03",
+      "pv12",
+      "pv08",
+      "pv06"
+    ],
+    "actual_order": [
+      "pv05",
+      "pv01",
+      "pv10",
+      "pv02",
+      "pv07",
+      "pv11",
+      "pv04",
+      "pv09",
+      "pv03",
+      "pv12",
+      "pv08",
+      "pv06"
+    ],
+    "covariance_rows": [
+      {
+        "path": "pv01",
+        "z_contraction": -0.024753268516441395,
+        "y_contraction": -0.0247532685164414,
+        "absolute_contraction_error": 3.469446951953614e-18,
+        "relative_contraction_error": 1.4016116496490834e-16
+      },
+      {
+        "path": "pv02",
+        "z_contraction": -0.024663070663499726,
+        "y_contraction": -0.02466307066349973,
+        "absolute_contraction_error": 3.469446951953614e-18,
+        "relative_contraction_error": 1.4067376278040856e-16
+      },
+      {
+        "path": "pv03",
+        "z_contraction": -0.019147166022419195,
+        "y_contraction": -0.01914716602241924,
+        "absolute_contraction_error": 4.5102810375396984e-17,
+        "relative_contraction_error": 2.3555867391856647e-15
+      },
+      {
+        "path": "pv04",
+        "z_contraction": -0.021199607865235136,
+        "y_contraction": -0.021199607865235143,
+        "absolute_contraction_error": 6.938893903907228e-18,
+        "relative_contraction_error": 3.273123704937108e-16
+      },
+      {
+        "path": "pv05",
+        "z_contraction": -0.02567164982361839,
+        "y_contraction": -0.025671649823618387,
+        "absolute_contraction_error": 3.469446951953614e-18,
+        "relative_contraction_error": 1.3514701921345387e-16
+      },
+      {
+        "path": "pv06",
+        "z_contraction": -0.015105647160359361,
+        "y_contraction": -0.015105647160359347,
+        "absolute_contraction_error": 1.3877787807814457e-17,
+        "relative_contraction_error": 9.187152103110758e-16
+      },
+      {
+        "path": "pv07",
+        "z_contraction": -0.022287792583440998,
+        "y_contraction": -0.02228779258344102,
+        "absolute_contraction_error": 2.0816681711721685e-17,
+        "relative_contraction_error": 9.339947701769132e-16
+      },
+      {
+        "path": "pv08",
+        "z_contraction": -0.018673103955268663,
+        "y_contraction": -0.018673103955268663,
+        "absolute_contraction_error": 0.0,
+        "relative_contraction_error": 0.0
+      },
+      {
+        "path": "pv09",
+        "z_contraction": -0.02123837746435351,
+        "y_contraction": -0.021238377464353555,
+        "absolute_contraction_error": 4.5102810375396984e-17,
+        "relative_contraction_error": 2.1236467075273304e-15
+      },
+      {
+        "path": "pv10",
+        "z_contraction": -0.02510824334934418,
+        "y_contraction": -0.02510824334934423,
+        "absolute_contraction_error": 4.85722573273506e-17,
+        "relative_contraction_error": 1.9345143605444343e-15
+      },
+      {
+        "path": "pv11",
+        "z_contraction": -0.021087846809907888,
+        "y_contraction": -0.021087846809907922,
+        "absolute_contraction_error": 3.469446951953614e-17,
+        "relative_contraction_error": 1.6452352785128985e-15
+      },
+      {
+        "path": "pv12",
+        "z_contraction": -0.018786206156126268,
+        "y_contraction": -0.018786206156126292,
+        "absolute_contraction_error": 2.42861286636753e-17,
+        "relative_contraction_error": 1.292763874826077e-15
+      }
+    ]
+  },
+  "L4": {
+    "supported": false,
+    "gates": {
+      "analytic_bound_computed_before_outcomes": true,
+      "zero_point_coefficients_from_block_exponential": true,
+      "at_least_one_pair_certified": false,
+      "all_certified_pairs_correct": true
+    },
+    "target_t": 1.0,
+    "integrated_perturbation_norms_K": [
+      0.9047786842338621,
+      1.2063715789784821,
+      3.0159289474462025
+    ],
+    "axis_remainder_bounds": [
+      0.051722025315945,
+      0.3043975948781832,
+      133.8975458274386
+    ],
+    "common_remainder_bound": 44.75122181587758,
+    "n_certified_ordered_pairs": 0,
+    "n_possible_unordered_pairs": 66,
+    "certified_pairs": [],
+    "interpretation": "The analytic bound is valid but may be too conservative. No theorem claim is made unless at least one pair has disjoint prediction intervals."
+  },
+  "constraint_rank": 16,
+  "constraint_info": {
+    "rank": 16,
+    "nullity": 8,
+    "singular_values": [
+      28.158379787036694,
+      21.84442739324497,
+      11.278107415289254,
+      10.052969878337866,
+      7.988817573361994,
+      4.568482977683473,
+      3.9295241171114665,
+      3.057537342283385,
+      2.438579721305262,
+      1.7190069300448974,
+      1.2686900888502994,
+      0.9633780136477023,
+      0.6018438508679862,
+      0.40747396117431917,
+      0.28638656298596915,
+      0.13996679447673308,
+      5.126234178230378e-07,
+      4.124959387782773e-07,
+      4.0558598457987014e-07,
+      1.380812155933916e-07,
+      9.683115016818839e-08,
+      8.865630898960425e-08,
+      7.285170918839267e-11,
+      3.140075502583199e-11
+    ],
+    "rank_cutoff": 1e-06
+  },
+  "maximum_constraint_residual": 5.494837801895586e-11,
+  "generation_attempts": [
+    {
+      "attempt_index": 0,
+      "optimizer_success": true,
+      "optimizer_nfev": 34,
+      "initial_null_scale": 0.6731822124426262,
+      "constraint_residual_norm": 5.494837801895586e-11,
+      "reference_phase_distance": 1.6719922972082188,
+      "minimum_previous_pair_distance": Infinity,
+      "accepted": true
+    },
+    {
+      "attempt_index": 1,
+      "optimizer_success": true,
+      "optimizer_nfev": 29,
+      "initial_null_scale": 1.1130263457916918,
+      "constraint_residual_norm": 4.244727816994785e-11,
+      "reference_phase_distance": 2.296948601129259,
+      "minimum_previous_pair_distance": 2.95408386490391,
+      "accepted": true
+    },
+    {
+      "attempt_index": 2,
+      "optimizer_success": true,
+      "optimizer_nfev": 33,
+      "initial_null_scale": 1.2021873342809226,
+      "constraint_residual_norm": 2.5175181810635747e-11,
+      "reference_phase_distance": 2.8157376121253472,
+      "minimum_previous_pair_distance": 3.1597284083392956,
+      "accepted": true
+    },
+    {
+      "attempt_index": 3,
+      "optimizer_success": true,
+      "optimizer_nfev": 24,
+      "initial_null_scale": 0.9974713402168657,
+      "constraint_residual_norm": 3.266634055962285e-11,
+      "reference_phase_distance": 1.8284044093749716,
+      "minimum_previous_pair_distance": 2.2036745563172926,
+      "accepted": true
+    },
+    {
+      "attempt_index": 4,
+      "optimizer_success": true,
+      "optimizer_nfev": 31,
+      "initial_null_scale": 1.1058789966948566,
+      "constraint_residual_norm": 3.9838695274017773e-11,
+      "reference_phase_distance": 2.2486362405091995,
+      "minimum_previous_pair_distance": 2.1817345682648406,
+      "accepted": true
+    },
+    {
+      "attempt_index": 5,
+      "optimizer_success": true,
+      "optimizer_nfev": 31,
+      "initial_null_scale": 1.2376494521105281,
+      "constraint_residual_norm": 3.011902073251767e-11,
+      "reference_phase_distance": 2.030382604848371,
+      "minimum_previous_pair_distance": 1.8963365719589202,
+      "accepted": true
+    },
+    {
+      "attempt_index": 6,
+      "optimizer_success": true,
+      "optimizer_nfev": 26,
+      "initial_null_scale": 0.7123488270682495,
+      "constraint_residual_norm": 4.2400171308047016e-11,
+      "reference_phase_distance": 1.34419082094276,
+      "minimum_previous_pair_distance": 1.2787144036751612,
+      "accepted": true
+    },
+    {
+      "attempt_index": 7,
+      "optimizer_success": true,
+      "optimizer_nfev": 30,
+      "initial_null_scale": 0.9360333526406249,
+      "constraint_residual_norm": 2.671980606056092e-11,
+      "reference_phase_distance": 2.3058414800470426,
+      "minimum_previous_pair_distance": 2.3319185097599755,
+      "accepted": true
+    },
+    {
+      "attempt_index": 8,
+      "optimizer_success": true,
+      "optimizer_nfev": 30,
+      "initial_null_scale": 0.7515503355684766,
+      "constraint_residual_norm": 4.1471221378567434e-11,
+      "reference_phase_distance": 2.292415437828506,
+      "minimum_previous_pair_distance": 2.1061132713770423,
+      "accepted": true
+    },
+    {
+      "attempt_index": 9,
+      "optimizer_success": true,
+      "optimizer_nfev": 31,
+      "initial_null_scale": 1.2346762861333338,
+      "constraint_residual_norm": 3.0707494249479254e-11,
+      "reference_phase_distance": 3.1498424608722604,
+      "minimum_previous_pair_distance": 3.238259217217602,
+      "accepted": true
+    },
+    {
+      "attempt_index": 10,
+      "optimizer_success": true,
+      "optimizer_nfev": 30,
+      "initial_null_scale": 1.4916276867268217,
+      "constraint_residual_norm": 4.5421883796739285e-11,
+      "reference_phase_distance": 2.5537631859777274,
+      "minimum_previous_pair_distance": 1.719581251225631,
+      "accepted": true
+    },
+    {
+      "attempt_index": 11,
+      "optimizer_success": true,
+      "optimizer_nfev": 27,
+      "initial_null_scale": 0.5834577787122383,
+      "constraint_residual_norm": 4.0967853746358666e-11,
+      "reference_phase_distance": 0.9623100152301536,
+      "minimum_previous_pair_distance": 1.5964135622051367,
+      "accepted": true
+    }
+  ],
+  "pre_outcome_error_audit": {
+    "phase": "constraints_and_local_tensor",
+    "evaluations": 36099,
+    "distinct_vectors": 7,
+    "maximum_absolute_component": 2e-05,
+    "minimum_nonzero_absolute_component": 2e-05
+  },
+  "held_out_error_audit": {
+    "phase": "held_out_outcomes",
+    "evaluations": 72,
+    "distinct_vectors": 6,
+    "maximum_absolute_component": 0.06,
+    "minimum_nonzero_absolute_component": 0.04
+  }
+}

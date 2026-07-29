@@ -27,7 +27,7 @@ What actually happened.
 ## Environment
 
 - Python version: [e.g., 3.12]
-- Package version: [e.g., 0.1.0]
+- Artifact version: [e.g., 0.2.0]
 - OS: [e.g., Ubuntu 22.04]
 
 ## Minimal Code Example
@@ -35,6 +35,13 @@ What actually happened.
 ```python
 # Your code here
 ```
+
+## Scientific context
+
+- Audit stage: [G4 / L3 / L4 order 30 / formal Arb]
+- Protocol hash:
+- Output report attached: [yes/no]
+- Ordinary floating point or interval arithmetic:
 
 ## Additional Context
 
