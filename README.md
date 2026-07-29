@@ -1,5 +1,17 @@
 # Da
 
+## Da Chat
+
+This repository now includes a static prototype for **Da Chat**, an open-source Slack-like collaboration workspace. Open `index.html` in a browser to try:
+
+- switch between workspace channels and direct messages
+- search messages inside the active room
+- send local messages with browser persistence
+- create new channels with topics
+- inspect members, channel details, and the open-source roadmap
+
+The current prototype is intentionally frontend-only. A production version can add realtime sync, account permissions, file uploads, threads, bots, webhooks, and a self-hosted backend.
+
 
 # Fractional Structural Derivative Framework with Entropy-Based Indicator Kα
 

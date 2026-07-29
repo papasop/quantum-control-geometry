@@ -1,4 +1,9 @@
 import numpy as np
+import os
+os.environ.setdefault("MPLCONFIGDIR", os.path.join(os.path.dirname(__file__), ".matplotlib"))
+
+import matplotlib
+matplotlib.use("Agg")
 from scipy.special import gamma
 import matplotlib.pyplot as plt
 
@@ -36,7 +41,9 @@ def compute_K_alpha(f, H_func, alpha=0.5, x_start=0.1, x_end=0.14, num_points=5,
     plt.title("Structural Ratio K_α vs x")
     plt.grid(True)
     plt.legend()
-    plt.show()
+    plt.tight_layout()
+    plt.savefig("k_alpha_structural_ratio.png", dpi=160)
+    print("Saved plot to k_alpha_structural_ratio.png")
 
     return x_vals[1:], K_alpha
 

@@ -1,4 +1,9 @@
 import numpy as np
+import os
+os.environ.setdefault("MPLCONFIGDIR", os.path.join(os.path.dirname(__file__), ".matplotlib"))
+
+import matplotlib
+matplotlib.use("Agg")
 from scipy.special import gamma
 import matplotlib.pyplot as plt
 
@@ -47,5 +52,7 @@ plt.ylabel('K_α')
 plt.title('K_α Evolution with Real NASA Strain Data')
 plt.legend()
 plt.grid(True)
-plt.show()
+plt.tight_layout()
+plt.savefig("k_alpha_nasa_strain.png", dpi=160)
+print("Saved plot to k_alpha_nasa_strain.png")
 print(f"Kα at x=0.11: {(log_H[1] - log_H[0]) / (log_Phi[1] - log_Phi[0]):.4f}")

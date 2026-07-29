@@ -1,0 +1,4 @@
+.matplotlib/
+__pycache__/
+*.pyc
+k_alpha_*.png
