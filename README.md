@@ -89,17 +89,30 @@ python -m pip install -r requirements.txt
 
 The formal dependency pin is `python-flint==0.8.0`.
 
-For an external blank-session Colab reproduction, upload and run:
+## External Clean-Environment Reproduction
+
+No PASQAL account is required. The external runner checks out the frozen
+`v0.3.1` tag, verifies its commit and SHA-256 snapshot, runs the regression
+tests, and recomputes the complete formal certificate twice.
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/papasop/quantum-control-geometry/blob/main/notebooks/reproduce_v0_3_1.ipynb)
+
+Expected frozen commit:
+
+```text
+284974c9f6b952f4e114c8c5bdc9c2c299c4065c
+```
+
+To run the same clean-environment reproduction script manually in Colab,
+upload and run:
 
 ```python
 %run /content/external_reproduce_v0_3_1.py
 ```
 
-That wrapper clones the public repository at tag `v0.3.1`, checks that the
-tag resolves to canonical commit
-`284974c9f6b952f4e114c8c5bdc9c2c299c4065c`, installs the frozen
-dependencies, verifies the bundled artifacts, and optionally reruns the
-complete formal v1.3 certificate.
+This remains a reproduction of the same frozen model, code, and certificate
+pipeline; it is not independent scientific validation or PASQAL hardware
+evidence.
 
 ## Stage-Specific Entry Points
 
@@ -127,6 +140,9 @@ paper/
 scripts/
   standalone/       single-file Colab/Jupyter entry points
   core/             readable audit engines and shared model code
+
+notebooks/
+  reproduce_v0_3_1.ipynb
 
 results/
   g4_prospective/          prospective quartic ranking artifacts

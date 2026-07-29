@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-External Colab reproduction for Quantum Control Geometry v0.3.1.
+Clean-environment Colab reproduction for Quantum Control Geometry v0.3.1.
 
 Colab usage
 -----------
@@ -73,7 +73,7 @@ def checked_output(arguments: Sequence[str], *, cwd: Path) -> str:
 def main() -> None:
     total_started = time.time()
 
-    banner("QUANTUM CONTROL GEOMETRY v0.3.1 - EXTERNAL REPRODUCTION")
+    banner("QUANTUM CONTROL GEOMETRY v0.3.1 - CLEAN-ENVIRONMENT REPRODUCTION")
     print("No PASQAL account or password is required.", flush=True)
     print(f"Working directory: {WORK_DIRECTORY}", flush=True)
 
@@ -169,7 +169,7 @@ def main() -> None:
     else:
         formal_status = "SKIPPED_BY_LOCAL_CONFIGURATION"
 
-    banner("EXTERNAL REPRODUCTION COMPLETED")
+    banner("CLEAN-ENVIRONMENT REPRODUCTION COMPLETED")
 
     print(f"Frozen tag:                         {FROZEN_TAG}")
     print(f"Frozen commit:                      {actual_commit}")
@@ -210,6 +210,6 @@ if __name__ == "__main__":
     try:
         main()
     except Exception as error:
-        banner("EXTERNAL REPRODUCTION: FAIL")
+        banner("CLEAN-ENVIRONMENT REPRODUCTION: FAIL")
         print(f"{type(error).__name__}: {error}", flush=True)
         raise
