@@ -89,11 +89,24 @@ python -m pip install -r requirements.txt
 
 The formal dependency pin is `python-flint==0.8.0`.
 
+For an external blank-session Colab reproduction, upload and run:
+
+```python
+%run /content/external_reproduce_v0_3_1.py
+```
+
+That wrapper clones the public repository at tag `v0.3.1`, checks that the
+tag resolves to canonical commit
+`284974c9f6b952f4e114c8c5bdc9c2c299c4065c`, installs the frozen
+dependencies, verifies the bundled artifacts, and optionally reruns the
+complete formal v1.3 certificate.
+
 ## Stage-Specific Entry Points
 
 Earlier standalone audits remain available for inspecting individual layers:
 
 ```bash
+python scripts/standalone/external_reproduce_v0_3_1.py
 python scripts/standalone/pasqal_two_atom_G4_standalone_colab.py
 python scripts/standalone/pasqal_L3_L4_standalone_colab.py
 python scripts/standalone/pasqal_L4_order30_standalone_colab.py

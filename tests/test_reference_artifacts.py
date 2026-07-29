@@ -22,6 +22,7 @@ class ReferenceArtifactTests(unittest.TestCase):
 
     def test_standalone_entry_points_exist(self) -> None:
         expected = (
+            "external_reproduce_v0_3_1.py",
             "pasqal_two_atom_G4_standalone_colab.py",
             "pasqal_L3_L4_standalone_colab.py",
             "pasqal_L4_order30_standalone_colab.py",
