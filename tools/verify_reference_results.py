@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 from typing import Any
 
@@ -15,6 +16,11 @@ def load_report(relative: str) -> dict[str, Any]:
     path = ROOT / relative
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def file_sha256(relative: str) -> str:
+    path = ROOT / relative
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def field(report: dict[str, Any], name: str) -> Any:
@@ -69,9 +75,16 @@ def verify() -> list[str]:
     )
     assert bool(krawczyk["formal_interval_arithmetic"])
     assert int(krawczyk["evaluated_paths"]) == 12
-    assert int(krawczyk["krawczyk_inclusions"]) == 12
+    assert int(krawczyk["declared_paths"]) == 12
+    assert len(krawczyk["paths"]) == 12
     assert bool(krawczyk["all_evaluated_krawczyk_inclusions_pass"])
     assert bool(krawczyk["full_declared_cohort"])
+    assert krawczyk["krawczyk_certificate_sha256"] == file_sha256(
+        "results/exact_fibre_krawczyk/krawczyk_certificate.json"
+    )
+    assert krawczyk["protocol_sha256"] == file_sha256(
+        "results/exact_fibre_krawczyk/protocol.json"
+    )
     messages.append("Exact-fibre Krawczyk gates: PASS")
 
     exact_root = load_report("results/exact_root_ordering/report.json")
@@ -82,11 +95,17 @@ def verify() -> list[str]:
     assert int(exact_root["n_exact_root_boxes"]) == 12
     assert int(exact_root["direct_certified_pairs"]) == 66
     assert float(exact_root["direct_pair_coverage"]) == 1.0
-    assert bool(exact_root["direct_matches_frozen_order"])
-    assert int(exact_root["order30_certified_pairs"]) == 42
+    assert bool(field(exact_root, "direct_matches_frozen_order"))
+    assert int(exact_root["order30_certified_pairs"]) == 52
     assert int(exact_root["order30_incorrect_certified_pairs"]) == 0
     assert bool(
-        exact_root["order30_all_certified_pairs_match_frozen_order"]
+        field(exact_root, "order30_all_certified_pairs_match_frozen_order")
+    )
+    assert exact_root["exact_root_ordering_certificate_sha256"] == file_sha256(
+        "results/exact_root_ordering/exact_root_ordering_certificate.json"
+    )
+    assert exact_root["protocol_sha256"] == file_sha256(
+        "results/exact_root_ordering/protocol.json"
     )
     messages.append("Exact-root direct ordering gates: PASS")
 

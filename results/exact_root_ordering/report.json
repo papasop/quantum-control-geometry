@@ -1,21 +1,37 @@
 {
   "scientific_status": "L4_EXACT_ROOT_DIRECT_FINITE_ERROR_ORDERING_SUPPORTED",
+  "claim_boundary": "Formal for exact roots enclosed by the supplied Krawczyk phase boxes in the serialized finite-dimensional model. Not hardware, model-discrepancy, or many-body evidence.",
+  "protocol_sha256": "ffa3aec065fb2e97f6865e4f60f76c10bc0c912ac82d04ce9f90c5e659ef7c0e",
+  "exact_root_ordering_certificate_sha256": "79461ee9a8950b183ad08c4f65569a241458a6ac58b532b9aa7deb110ae3d098",
   "formal_interval_arithmetic": true,
   "arb_precision_bits": 192,
   "n_exact_root_boxes": 12,
-  "order30_certified_pairs": 42,
-  "order30_correct_certified_pairs": 42,
+  "order30_certified_pairs": 52,
+  "order30_correct_certified_pairs": 52,
   "order30_incorrect_certified_pairs": 0,
-  "order30_pair_coverage": 0.6363636363636364,
+  "order30_pair_coverage": 0.7878787878787878,
   "order30_status": "ORDER30_PARTIAL_ORDER_SUPPORTED",
   "direct_certified_pairs": 66,
   "direct_pair_coverage": 1.0,
   "possible_pairs": 66,
-  "order30_all_certified_pairs_match_frozen_order": true,
-  "order30_full_order_matches_frozen_order": false,
-  "direct_matches_frozen_order": true,
-  "order30_direct_interval_overlap": true,
-  "protocol_sha256": "6f055d4c33d3af3619123d4e2f87d12d062d232849744037c59a605c86727674",
-  "exact_root_ordering_certificate_sha256": "c1aea9572f503221f526b03fbe2b2acb4892d1efb95952eb596eff8b7424ced9",
-  "claim_boundary": "Formal for the exact roots enclosed by the supplied Krawczyk boxes in the serialized finite-dimensional model; not PASQAL hardware or model-discrepancy evidence."
+  "primary_supported": true,
+  "primary_gate_names": [
+    "valid_full_krawczyk_certificate",
+    "cohort_identity_match",
+    "direct_pair_coverage",
+    "direct_matches_frozen_order"
+  ],
+  "maximum_cohort_phase_mismatch": 6.052053165284121e-07,
+  "gates": {
+    "valid_full_krawczyk_certificate": true,
+    "cohort_identity_match": true,
+    "formal_alias_bound": true,
+    "formal_order32_tail_bound": true,
+    "order30_pair_coverage": false,
+    "direct_pair_coverage": true,
+    "order30_all_certified_pairs_match_frozen_order": true,
+    "order30_full_order_matches_frozen_order": false,
+    "direct_matches_frozen_order": true,
+    "order30_direct_interval_overlap": true
+  }
 }

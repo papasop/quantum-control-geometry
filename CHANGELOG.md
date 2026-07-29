@@ -4,6 +4,8 @@
 
 ### Added
 
+- L4 certificate bundle v1.3.0 with full exact-fibre Krawczyk and exact-root
+  ordering certificates plus SHA256-backed verification.
 - Standalone exact response-fibre Krawczyk audit v1.2 Colab script.
 - Exact-root direct finite-error ordering audit v1.1, with direct Arb
   propagation as the primary theorem gate and order-30 as a separately

@@ -1,0 +1,17 @@
+{
+  "title": "PASQAL exact response-fibre Krawczyk audit",
+  "version": "1.2",
+  "validation_seed": 20260807,
+  "declared_paths": 12,
+  "evaluated_paths": 12,
+  "constraint_dimension": 16,
+  "control_dimension": 24,
+  "fixed_fibre_dimension": 8,
+  "box_radius": 3e-12,
+  "fixed_radius_mode": true,
+  "adaptive_radius_schedule": [],
+  "arb_precision_bits": 192,
+  "constraint_map": "two complex symmetric-subspace projective endpoint coordinates plus their exact first derivatives in amplitude, detuning, and interaction directions",
+  "formal_interval_arithmetic": true,
+  "hardware_evidence": false
+}

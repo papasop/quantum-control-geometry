@@ -1,0 +1,17 @@
+{
+  "title": "Exact-root direct finite-error ordering theorem with secondary order-30 jet audit",
+  "version": "1.1",
+  "arb_precision_bits": 192,
+  "jet_order": 30,
+  "cauchy_points": 64,
+  "alias_enclosure": "1e-40",
+  "tail_enclosure": "2e-11",
+  "n_paths": 12,
+  "possible_pairs": 66,
+  "krawczyk_protocol_sha256": "413979346d75aa054e9f55e845d59702c1be09773140b4ecafccd68718d69bed",
+  "krawczyk_certificate_sha256": "a67d2807cbf3f065cb183bbfcb9b41d8496ff5e22c730a1ef3f70a0b54b6bbed",
+  "frozen_ordering_protocol_sha256": "50a50ed60fe3feb8fd8e20cef9406151cd2a40f1a21b2c94b8dd268103c15d99",
+  "frozen_ordering_certificate_sha256": "62541c81ddaf1c324ef6b10993f859a797d1a3185949e3cd971ddb33d89389c0",
+  "finite_error_outcomes_used_to_choose_order": false,
+  "formal_interval_arithmetic": true
+}
