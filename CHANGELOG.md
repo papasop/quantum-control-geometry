@@ -6,6 +6,8 @@
   numerical values with the frozen v0.3.1 artifacts.
 - Corrected manuscript quartic-only coverage to 34/66 (51.52%) and the
   prospective $G_4$ Spearman value to 0.996992.
+- Updated the manuscript title to emphasize finite-error ordering and added
+  the explicit projective phase-alignment factor used by the constraints.
 
 ## [0.3.1] - 2026-07-29
 

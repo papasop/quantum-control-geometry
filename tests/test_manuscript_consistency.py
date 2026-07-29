@@ -18,10 +18,15 @@ SPEC.loader.exec_module(VERIFY)
 
 EXPECTED_TITLE = (
     "Geometric Prediction and Exact-Root Certification of\\\\\n"
-    "Finite-Error Robustness in Quantum Control"
+    "Finite-Error Ordering in Quantum Control"
 )
 REPOSITORY_URL = "https://github.com/papasop/quantum-control-geometry"
 FROZEN_COMMIT = "284974c9f6b952f4e114c8c5bdc9c2c299c4065c"
+PHASE_FACTOR = (
+    "c_\\gamma=\n"
+    "\\frac{\\overline{\\langle\\psi_{\\mathrm{ref}}|\\psi_\\gamma(\\mathbf 0)\\rangle}}\n"
+    "{|\\langle\\psi_{\\mathrm{ref}}|\\psi_\\gamma(\\mathbf 0)\\rangle|}."
+)
 
 
 class ManuscriptConsistencyTests(unittest.TestCase):
@@ -54,6 +59,7 @@ class ManuscriptConsistencyTests(unittest.TestCase):
             "twenty-path cohort",
             "twelve-path formal cohort",
             EXPECTED_TITLE,
+            PHASE_FACTOR,
             REPOSITORY_URL,
             FROZEN_COMMIT,
         )
@@ -66,6 +72,7 @@ class ManuscriptConsistencyTests(unittest.TestCase):
             "0.998496",
             "35/66",
             "53.03\\%",
+            "Finite-Error Robustness in Quantum Control",
         )
         for fragment in stale_fragments:
             with self.subTest(fragment=fragment):
