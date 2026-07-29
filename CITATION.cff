@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this research artifact, please cite the repository and the exact release or commit."
-title: "Quantum Control Geometry: Exact Matched Roots and Formal Finite-Error Ordering"
+title: "Geometric Prediction and Exact-Root Certification of Finite-Error Robustness in Quantum Control"
 type: software
 authors:
   - family-names: "Li"

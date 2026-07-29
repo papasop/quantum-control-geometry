@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+- Synchronized the manuscript title, PDF, citation metadata, and reported
+  numerical values with the frozen v0.3.1 artifacts.
+- Corrected manuscript quartic-only coverage to 34/66 (51.52%) and the
+  prospective $G_4$ Spearman value to 0.996992.
+
 ## [0.3.1] - 2026-07-29
 
 ### Added
@@ -22,8 +27,8 @@
 
 ### Scientific closure
 
-- Certified one locally unique exact state-and-first-response-matched root
-  inside every declared transverse Krawczyk box.
+- Certified one locally unique root exactly matched in projective output state
+  and first projective response inside every declared transverse Krawczyk box.
 - Certified all 66 frozen finite-error pair orderings by direct
   outward-rounded propagation of the exact-root phase boxes.
 - Improved the exact-root order-30 phase-box mechanism result to 52/66
