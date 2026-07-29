@@ -6,8 +6,8 @@ control model.
 
 This repository accompanies the manuscript:
 
-> **Geometric Prediction of Noise-Robust Quantum Control:
-> From Covariant Local Jets to Exact-Root Finite-Error Certification**
+> **Geometric Prediction and Exact-Root Certification of
+> Finite-Error Robustness in Quantum Control**
 
 Canonical v0.3.1 commit:
 
@@ -184,7 +184,7 @@ Those canonical hashes are recomputed by `tools/verify_reference_results.py`.
 | L3 tensor | Symmetric fourth-order response tensor | Coordinate-covariant tensor and invariant noise-moment contraction |
 | L4 quartic | G4 interval with higher terms placed in the radius | Partial pairwise certification: 34/66 (51.52%) |
 | L4 order 30 | Zero-point jet through order 30 plus alias and tail bounds | Complete 66/66 ordering for frozen serialized controls |
-| Exact-fibre Krawczyk | Interval Newton/Krawczyk in transverse charts | 12/12 locally unique exact matched roots |
+| Exact-fibre Krawczyk | Interval Newton/Krawczyk in transverse charts | 12/12 locally unique roots exactly matched in projective output state and first projective response |
 | Exact-root order-30 mechanism | Jet propagation over certified root boxes | 52/66 pairs certified, zero reversals |
 | Exact-root direct L4 | Direct Arb propagation over certified root boxes | Complete 66/66 frozen finite-error ordering |
 | Reproducibility closure | Two complete frozen-cohort formal runs | Byte-identical protocols, certificates, and reports |
