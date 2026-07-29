@@ -74,6 +74,8 @@ Thumbs.db
 # Project specific
 .matplotlib/
 *.log
+*.aux
+*.out
 outputs/
 *.png
 *.jpg

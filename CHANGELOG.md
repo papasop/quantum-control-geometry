@@ -2,10 +2,17 @@
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-07-29
+
 ### Added
 
-- L4 certificate bundle v1.3.0 with full exact-fibre Krawczyk and exact-root
-  ordering certificates plus SHA256-backed verification.
+- Single-file reproducible-certificate audit v1.3.
+- Frozen phase centres, transverse bases, and point preconditioners for the
+  declared twelve-path cohort.
+- Complete deterministic Krawczyk and exact-root ordering certificates.
+- Canonical-hash verification and rejection of runtime fields inside hashed
+  proof objects.
+- Two-run byte-identity regression gate.
 - Standalone exact response-fibre Krawczyk audit v1.2 Colab script.
 - Exact-root direct finite-error ordering audit v1.1, with direct Arb
   propagation as the primary theorem gate and order-30 as a separately
@@ -19,8 +26,9 @@
   inside every declared transverse Krawczyk box.
 - Certified all 66 frozen finite-error pair orderings by direct
   outward-rounded propagation of the exact-root phase boxes.
-- Retained the honest order-30 phase-box result: 42/66 certified pairs, all
-  correct, with 24 unresolved through interval widening.
+- Improved the exact-root order-30 phase-box mechanism result to 52/66
+  certified pairs, all correct, with 14 unresolved through interval widening.
+- Reconfirmed the primary direct exact-root ordering theorem at 66/66.
 
 ## [0.2.0] - 2026-07-29
 

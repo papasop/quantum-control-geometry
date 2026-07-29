@@ -1,7 +1,7 @@
 {
   "title": "PASQAL exact response-fibre Krawczyk audit",
-  "version": "1.2",
-  "validation_seed": 20260807,
+  "version": "1.3",
+  "frozen_cohort_sha256": "9942af610c1e9499a10e989e4ae069e3912d58eec4fd3ad1d3d39947c232c356",
   "declared_paths": 12,
   "evaluated_paths": 12,
   "constraint_dimension": 16,
@@ -11,6 +11,9 @@
   "fixed_radius_mode": true,
   "adaptive_radius_schedule": [],
   "arb_precision_bits": 192,
+  "proof_engine": "python-flint",
+  "proof_engine_version_required": "0.8.0",
+  "numeric_preconditioner_source": "frozen decimal point preconditioners in the cohort",
   "constraint_map": "two complex symmetric-subspace projective endpoint coordinates plus their exact first derivatives in amplitude, detuning, and interaction directions",
   "formal_interval_arithmetic": true,
   "hardware_evidence": false

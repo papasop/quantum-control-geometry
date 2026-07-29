@@ -1,5 +1,6 @@
 {
-  "protocol_sha256": "413979346d75aa054e9f55e845d59702c1be09773140b4ecafccd68718d69bed",
+  "protocol_sha256": "a19d01ec77a783be4e3858dd92ca080aa9fde2b09b77541b0e1ad7f392ff3124",
+  "frozen_cohort_sha256": "9942af610c1e9499a10e989e4ae069e3912d58eec4fd3ad1d3d39947c232c356",
   "candidate_phases_decimal": {
     "pv01": [
       "5.760808916873498",
@@ -5528,10 +5529,7 @@
     {
       "path": "pv01",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 7.614255940999204e-15,
-      "transverse_jacobian_condition_number": 343.4606265451837,
-      "minimum_retained_singular_value": 0.07835711481003828,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.31e-14]",
@@ -5630,25 +5628,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5812208360002842,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5812208360002842
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv02",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 6.849421930374517e-15,
-      "transverse_jacobian_condition_number": 240.24392943718942,
-      "minimum_retained_singular_value": 0.11116164061485119,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.29e-14]",
@@ -5747,25 +5732,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5793602359990473,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5793602359990473
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv03",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 7.014976210231539e-15,
-      "transverse_jacobian_condition_number": 294.93666197776486,
-      "minimum_retained_singular_value": 0.07353668556044297,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 9.75e-15]",
@@ -5864,25 +5836,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5792170029963017,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5792170029963017
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv04",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 1.5527758673475903e-14,
-      "transverse_jacobian_condition_number": 330.28471153291144,
-      "minimum_retained_singular_value": 0.07841945489206431,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.31e-14]",
@@ -5981,25 +5940,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5832134039956145,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5832134039956145
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv05",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 1.3739450859869867e-14,
-      "transverse_jacobian_condition_number": 354.7595952881808,
-      "minimum_retained_singular_value": 0.07836328525172827,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.36e-14]",
@@ -6098,25 +6044,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5826719980032067,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5826719980032067
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv06",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 1.05662990970874e-14,
-      "transverse_jacobian_condition_number": 352.3970459405502,
-      "minimum_retained_singular_value": 0.07595040780513192,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.67e-14]",
@@ -6215,25 +6148,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5807611829950474,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5807611829950474
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv07",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 1.245718371512035e-14,
-      "transverse_jacobian_condition_number": 185.92640422952914,
-      "minimum_retained_singular_value": 0.1162353681777615,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 2.68e-14]",
@@ -6332,25 +6252,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5816316290001851,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5816316290001851
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv08",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 8.644302383784677e-15,
-      "transverse_jacobian_condition_number": 178.65724342801897,
-      "minimum_retained_singular_value": 0.11951110826236717,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.25e-14]",
@@ -6449,25 +6356,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.584199343000364,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.584199343000364
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv09",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 4.8591323031451925e-15,
-      "transverse_jacobian_condition_number": 176.62463102458602,
-      "minimum_retained_singular_value": 0.14161859837216426,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.43e-14]",
@@ -6566,25 +6460,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5880875229995581,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5880875229995581
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv10",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 6.100396858601136e-15,
-      "transverse_jacobian_condition_number": 570.7264548145988,
-      "minimum_retained_singular_value": 0.03648166863439546,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.56e-14]",
@@ -6683,25 +6564,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5837123870005598,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5837123870005598
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv11",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 5.9554092143634985e-15,
-      "transverse_jacobian_condition_number": 211.8090689966698,
-      "minimum_retained_singular_value": 0.10748276852255659,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 7.72e-15]",
@@ -6800,25 +6668,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5825893049986917,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5825893049986917
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv12",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 7.413565290439202e-15,
-      "transverse_jacobian_condition_number": 346.32185646480815,
-      "minimum_retained_singular_value": 0.07804764831196613,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.51e-14]",
@@ -6917,17 +6772,7 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5934782609983813,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5934782609983813
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     }
   ]
 }

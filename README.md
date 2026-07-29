@@ -5,8 +5,8 @@ response-matched neutral-atom controls**.
 
 This repository accompanies the manuscript:
 
-> **Covariant Local Jets of Response-Matched Neutral-Atom Controls:
-> From Quartic Prediction to Formal Finite-Error Certification**
+> **Geometric Prediction of Noise-Robust Quantum Control:
+> From Covariant Local Jets to Exact-Root Finite-Error Certification**
 
 The study asks a deliberately narrow question: when control schedules have
 the same nominal output state and the same first-order output-state response
@@ -37,8 +37,10 @@ model:
   inside each of 12 declared phase boxes;
 - direct 192-bit Arb propagation of those exact-root boxes certifies the
   frozen finite-error order for all 66 pairs;
-- the order-30 phase-box mechanism audit separately certifies 42/66 pairs,
+- the order-30 phase-box mechanism audit separately certifies 52/66 pairs,
   with zero reversed certified pairs.
+- a frozen-cohort v1.3 audit performs two complete formal runs and produces
+  byte-identical protocols, certificates, and reports.
 
 The strongest result is a **formal, model-conditional exact-root
 finite-error ordering certificate** for the declared 12-path cohort. It
@@ -62,6 +64,7 @@ results/
   l4_formal/
   exact_fibre_krawczyk/
   exact_root_ordering/
+  reproducibility_summary.json
 tools/
   verify_reference_results.py
 tests/
@@ -75,8 +78,14 @@ the reported science.
 
 ## Quick reproduction
 
-No PASQAL password is required. In Colab, upload and run one of the files in
-`scripts/standalone/`:
+No PASQAL password is required. For the complete deterministic v1.3 audit,
+upload and run this single file in Colab:
+
+```python
+%run /content/pasqal_L4_reproducible_certificate_v1_3_colab.py
+```
+
+The earlier stage-specific entry points remain available:
 
 ```python
 %run /content/pasqal_two_atom_G4_standalone_colab.py
@@ -91,6 +100,12 @@ Locally:
 
 ```bash
 python -m pip install -r requirements.txt
+python scripts/standalone/pasqal_L4_reproducible_certificate_v1_3_colab.py
+```
+
+Stage-specific local commands are:
+
+```bash
 python scripts/standalone/pasqal_two_atom_G4_standalone_colab.py
 python scripts/standalone/pasqal_L3_L4_standalone_colab.py
 python scripts/standalone/pasqal_L4_order30_standalone_colab.py
@@ -99,9 +114,11 @@ python scripts/standalone/pasqal_L4_exact_fibre_krawczyk_standalone_colab_v1_2.p
 python scripts/standalone/pasqal_L4_exact_root_ordering_standalone_colab.py
 ```
 
-Run the last two commands in the same working directory: the exact-root
-ordering audit consumes the Krawczyk certificate and the earlier frozen
-formal-order certificate. The formal audits pin `python-flint==0.8.0`.
+Run the last two stage-specific commands in the same working directory. The
+v1.3 single-file audit instead embeds the frozen cohort and predecessor
+ordering certificate, fixes the common Krawczyk radius at `3e-12`, performs
+two complete runs, and requires byte-identical proof artifacts. The formal
+audits pin `python-flint==0.8.0`.
 
 ## Verify the bundled reference artifacts
 
@@ -110,8 +127,10 @@ python tools/verify_reference_results.py
 python -m unittest discover -s tests -v
 ```
 
-These checks validate the declared gates in the bundled JSON artifacts. They
-do not replace rerunning the scientific audits.
+These checks recompute the canonical JSON hashes, validate the scientific
+gates, reject runtime fields inside hashed proof objects, and verify the
+recorded two-run identity result. They do not replace rerunning the scientific
+audits.
 
 ## Result hierarchy
 
@@ -123,7 +142,8 @@ do not replace rerunning the scientific audits.
 | L4 order 30 | Zero-point jet through order 30 plus tail | Complete 66/66 ordering for the frozen serialized cohort |
 | Exact-fibre step | Interval Newton/Krawczyk | Unique local exact matched root in each of 12 declared boxes |
 | Exact-root direct L4 | Direct Arb propagation of certified root boxes | Complete 66/66 frozen finite-error ordering |
-| Exact-root order-30 mechanism | Jet propagation over certified root boxes | Correct partial order, 42/66 with zero reversals |
+| Exact-root order-30 mechanism | Jet propagation over certified root boxes | Correct partial order, 52/66 with zero reversals |
+| Reproducibility closure | Two complete frozen-cohort formal runs | Byte-identical protocols, certificates, and reports |
 
 The quartic result and the order-30 result must not be conflated. The analytic
 tail after order 30 is not a remainder bound for truncation after order four.

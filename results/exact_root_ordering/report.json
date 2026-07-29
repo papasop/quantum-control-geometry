@@ -1,8 +1,8 @@
 {
   "scientific_status": "L4_EXACT_ROOT_DIRECT_FINITE_ERROR_ORDERING_SUPPORTED",
   "claim_boundary": "Formal for exact roots enclosed by the supplied Krawczyk phase boxes in the serialized finite-dimensional model. Not hardware, model-discrepancy, or many-body evidence.",
-  "protocol_sha256": "ffa3aec065fb2e97f6865e4f60f76c10bc0c912ac82d04ce9f90c5e659ef7c0e",
-  "exact_root_ordering_certificate_sha256": "79461ee9a8950b183ad08c4f65569a241458a6ac58b532b9aa7deb110ae3d098",
+  "protocol_sha256": "f51ecfd2e4572f271e276cae18697005baa3f0ec3f3ab94f98f919cd50c3f844",
+  "exact_root_ordering_certificate_sha256": "03c4db75cb80a149ce1a61e11c227039f9bd79c3f1304b3defa311a491ea2d1e",
   "formal_interval_arithmetic": true,
   "arb_precision_bits": 192,
   "n_exact_root_boxes": 12,

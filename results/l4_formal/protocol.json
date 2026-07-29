@@ -11,7 +11,6 @@
   "G4_pair_coverage_gate": 0.1,
   "order30_pair_coverage_gate": 0.95,
   "formal_interval_arithmetic": true,
-  "infidelity_target": "single common Arb-propagated reference-path nominal state",
   "model_boundary": "serialized decimal pulse phases and constants in the stated finite-dimensional piecewise two-atom Hamiltonian",
   "outcomes_used_before_certificate": false
 }

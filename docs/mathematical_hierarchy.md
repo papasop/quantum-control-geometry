@@ -81,7 +81,13 @@ over the corresponding phase enclosure then yields intervals
 \]
 
 All \(66\) comparisons pass. The order-30 jet propagated over the same boxes
-separates \(42/66\) pairs, all in the frozen direction. Thus direct box
+separates \(52/66\) pairs, all in the frozen direction. Thus direct box
 propagation supplies the primary finite-radius theorem, while the local jet
 supplies a correct but partial mechanism certificate on the exact-root
 boxes.
+
+The v1.3 proof freezes the phase centres, transverse bases, and point
+preconditioners as decimal inputs and fixes a common box radius of
+\(3\times10^{-12}\). Runtime metadata is stored outside the hashed proof
+objects. Two complete executions produce byte-identical protocols,
+certificates, and reports.

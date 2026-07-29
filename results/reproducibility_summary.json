@@ -1,0 +1,26 @@
+{
+  "scientific_status": "L4_REPRODUCIBLE_CERTIFICATE_SUPPORTED",
+  "formal_interval_arithmetic": true,
+  "arb_precision_bits": 192,
+  "fixed_box_radius": 3e-12,
+  "two_run_proof_files_byte_identical": true,
+  "proof_file_comparisons": {
+    "krawczyk/protocol.json": true,
+    "krawczyk/krawczyk_certificate.json": true,
+    "krawczyk/report.json": true,
+    "ordering/protocol.json": true,
+    "ordering/exact_root_ordering_certificate.json": true,
+    "ordering/report.json": true
+  },
+  "frozen_cohort_sha256": "9942af610c1e9499a10e989e4ae069e3912d58eec4fd3ad1d3d39947c232c356",
+  "krawczyk_protocol_sha256": "a19d01ec77a783be4e3858dd92ca080aa9fde2b09b77541b0e1ad7f392ff3124",
+  "krawczyk_certificate_sha256": "fc3ad3823597bd5281b7b9292f227f723c2b3a9a8aa4e42c9f0353921b4d8fec",
+  "ordering_protocol_sha256": "f51ecfd2e4572f271e276cae18697005baa3f0ec3f3ab94f98f919cd50c3f844",
+  "ordering_certificate_sha256": "03c4db75cb80a149ce1a61e11c227039f9bd79c3f1304b3defa311a491ea2d1e",
+  "krawczyk_inclusions": 12,
+  "direct_certified_pairs": 66,
+  "possible_pairs": 66,
+  "order30_certified_pairs": 52,
+  "order30_incorrect_certified_pairs": 0,
+  "claim_boundary": "Serialized two-atom model only; not PASQAL hardware, calibration, model-discrepancy, or QPU evidence."
+}

@@ -49,8 +49,8 @@ analytic tail.
 The earlier complete formal ranking uses all known terms through order 30 at
 the frozen serialized controls. After exact-root correction, direct
 finite-error box propagation certifies all 66 pairs. Propagating the
-order-30 jet over the full Krawczyk boxes certifies 42/66 pairs and no
-opposite pair; the remaining 24 comparisons are unresolved because of
+order-30 jet over the full Krawczyk boxes certifies 52/66 pairs and no
+opposite pair; the remaining 14 comparisons are unresolved because of
 interval widening.
 Therefore:
 
@@ -70,3 +70,9 @@ The exact-root finite-radius ordering chain is closed for the serialized
 two-atom model and declared error functional. Remaining work concerns model
 discrepancy, open-system and many-body extensions, independent reproduction,
 and PASQAL Cloud/QPU validation.
+
+The v1.3 implementation additionally closes an artifact-reproducibility gap:
+the cohort and point preconditioners are frozen, runtime metadata is excluded
+from hashed proof objects, and two complete executions produce byte-identical
+proof files. This is computational reproducibility for the serialized model,
+not independent scientific replication or hardware validation.

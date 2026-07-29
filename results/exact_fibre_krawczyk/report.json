@@ -1,176 +1,21 @@
 {
   "scientific_status": "L4_EXACT_RESPONSE_FIBRE_KRAWCZYK_SUPPORTED",
   "claim_boundary": "Formal existence and local uniqueness apply to the declared 16-dimensional projective state-and-exact-response map with the eight chart fibre coordinates fixed. No hardware or finite-error ordering claim is added by this audit alone.",
-  "protocol_sha256": "09a6ebc066c78ae51318dfc5e6c5a9712942bbb925ee8dd1d5d8f45b1f2e5bf8",
-  "krawczyk_certificate_sha256": "aad9f050164320b9f9e349155f6c0221bebcf6493c25dc103ae938e416aa37ac",
+  "protocol_sha256": "a19d01ec77a783be4e3858dd92ca080aa9fde2b09b77541b0e1ad7f392ff3124",
+  "krawczyk_certificate_sha256": "fc3ad3823597bd5281b7b9292f227f723c2b3a9a8aa4e42c9f0353921b4d8fec",
   "formal_interval_arithmetic": true,
   "arb_precision_bits": 192,
+  "frozen_cohort_sha256": "9942af610c1e9499a10e989e4ae069e3912d58eec4fd3ad1d3d39947c232c356",
   "reference_exact_response_rank": 16,
   "evaluated_paths": 12,
   "declared_paths": 12,
   "all_evaluated_krawczyk_inclusions_pass": true,
   "full_declared_cohort": true,
-  "generation_constraint_geometry": {
-    "rank": 16,
-    "nullity": 8,
-    "singular_values": [
-      28.158379787036694,
-      21.84442739324497,
-      11.278107415289254,
-      10.052969878337866,
-      7.988817573361994,
-      4.568482977683473,
-      3.9295241171114665,
-      3.057537342283385,
-      2.438579721305262,
-      1.7190069300448974,
-      1.2686900888502994,
-      0.9633780136477023,
-      0.6018438508679862,
-      0.40747396117431917,
-      0.28638656298596915,
-      0.13996679447673308,
-      5.126234178230378e-07,
-      4.124959387782773e-07,
-      4.0558598457987014e-07,
-      1.380812155933916e-07,
-      9.683115016818839e-08,
-      8.865630898960425e-08,
-      7.285170918839267e-11,
-      3.140075502583199e-11
-    ],
-    "rank_cutoff": 1e-06
-  },
-  "generation_attempts": [
-    {
-      "attempt_index": 0,
-      "optimizer_success": true,
-      "optimizer_nfev": 29,
-      "initial_null_scale": 0.6467914162057326,
-      "constraint_residual_norm": 3.5932092338563614e-11,
-      "reference_phase_distance": 0.9960583860283712,
-      "minimum_previous_pair_distance": Infinity,
-      "accepted": true
-    },
-    {
-      "attempt_index": 1,
-      "optimizer_success": true,
-      "optimizer_nfev": 30,
-      "initial_null_scale": 1.1360882939160506,
-      "constraint_residual_norm": 4.061382683171341e-11,
-      "reference_phase_distance": 2.4022699088421984,
-      "minimum_previous_pair_distance": 2.591225668664541,
-      "accepted": true
-    },
-    {
-      "attempt_index": 2,
-      "optimizer_success": true,
-      "optimizer_nfev": 25,
-      "initial_null_scale": 0.890607283598525,
-      "constraint_residual_norm": 3.157422660003962e-11,
-      "reference_phase_distance": 1.9151132582433676,
-      "minimum_previous_pair_distance": 2.0595735157502846,
-      "accepted": true
-    },
-    {
-      "attempt_index": 3,
-      "optimizer_success": true,
-      "optimizer_nfev": 30,
-      "initial_null_scale": 0.8476183584154937,
-      "constraint_residual_norm": 3.4265042779516465e-11,
-      "reference_phase_distance": 1.6340319172249893,
-      "minimum_previous_pair_distance": 2.1816998599647723,
-      "accepted": true
-    },
-    {
-      "attempt_index": 4,
-      "optimizer_success": true,
-      "optimizer_nfev": 27,
-      "initial_null_scale": 0.889703978454221,
-      "constraint_residual_norm": 3.973403061363305e-11,
-      "reference_phase_distance": 2.09519913587589,
-      "minimum_previous_pair_distance": 2.1354480334943298,
-      "accepted": true
-    },
-    {
-      "attempt_index": 5,
-      "optimizer_success": true,
-      "optimizer_nfev": 25,
-      "initial_null_scale": 0.6847844376247947,
-      "constraint_residual_norm": 3.829918061961312e-11,
-      "reference_phase_distance": 1.7325297492258924,
-      "minimum_previous_pair_distance": 2.082157107578398,
-      "accepted": true
-    },
-    {
-      "attempt_index": 6,
-      "optimizer_success": true,
-      "optimizer_nfev": 84,
-      "initial_null_scale": 1.4999947750041047,
-      "constraint_residual_norm": 2.874176913658816e-11,
-      "reference_phase_distance": 6.080560178941197,
-      "minimum_previous_pair_distance": 5.874692556845046,
-      "accepted": true
-    },
-    {
-      "attempt_index": 7,
-      "optimizer_success": true,
-      "optimizer_nfev": 24,
-      "initial_null_scale": 1.2795829256235254,
-      "constraint_residual_norm": 2.8796162409190214e-11,
-      "reference_phase_distance": 2.3138876728743694,
-      "minimum_previous_pair_distance": 1.513645679170216,
-      "accepted": true
-    },
-    {
-      "attempt_index": 8,
-      "optimizer_success": true,
-      "optimizer_nfev": 25,
-      "initial_null_scale": 0.8259790897130526,
-      "constraint_residual_norm": 3.688644099332497e-11,
-      "reference_phase_distance": 1.9116422738096388,
-      "minimum_previous_pair_distance": 2.3238842492420635,
-      "accepted": true
-    },
-    {
-      "attempt_index": 9,
-      "optimizer_success": true,
-      "optimizer_nfev": 74,
-      "initial_null_scale": 1.4672850002289821,
-      "constraint_residual_norm": 2.966525143110166e-11,
-      "reference_phase_distance": 8.287316700813335,
-      "minimum_previous_pair_distance": 7.7029491044765175,
-      "accepted": true
-    },
-    {
-      "attempt_index": 10,
-      "optimizer_success": true,
-      "optimizer_nfev": 29,
-      "initial_null_scale": 1.05215076629606,
-      "constraint_residual_norm": 3.847894064524015e-11,
-      "reference_phase_distance": 1.9961486564937916,
-      "minimum_previous_pair_distance": 1.86616957169528,
-      "accepted": true
-    },
-    {
-      "attempt_index": 11,
-      "optimizer_success": true,
-      "optimizer_nfev": 26,
-      "initial_null_scale": 1.066871939492422,
-      "constraint_residual_norm": 3.012597725015629e-11,
-      "reference_phase_distance": 1.861583750209286,
-      "minimum_previous_pair_distance": 1.752146592502534,
-      "accepted": true
-    }
-  ],
   "paths": [
     {
       "path": "pv01",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 7.614255940999204e-15,
-      "transverse_jacobian_condition_number": 343.4606265451837,
-      "minimum_retained_singular_value": 0.07835711481003828,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.31e-14]",
@@ -269,25 +114,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5812208360002842,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5812208360002842
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv02",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 6.849421930374517e-15,
-      "transverse_jacobian_condition_number": 240.24392943718942,
-      "minimum_retained_singular_value": 0.11116164061485119,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.29e-14]",
@@ -386,25 +218,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5793602359990473,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5793602359990473
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv03",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 7.014976210231539e-15,
-      "transverse_jacobian_condition_number": 294.93666197776486,
-      "minimum_retained_singular_value": 0.07353668556044297,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 9.75e-15]",
@@ -503,25 +322,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5792170029963017,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5792170029963017
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv04",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 1.5527758673475903e-14,
-      "transverse_jacobian_condition_number": 330.28471153291144,
-      "minimum_retained_singular_value": 0.07841945489206431,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.31e-14]",
@@ -620,25 +426,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5832134039956145,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5832134039956145
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv05",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 1.3739450859869867e-14,
-      "transverse_jacobian_condition_number": 354.7595952881808,
-      "minimum_retained_singular_value": 0.07836328525172827,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.36e-14]",
@@ -737,25 +530,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5826719980032067,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5826719980032067
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv06",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 1.05662990970874e-14,
-      "transverse_jacobian_condition_number": 352.3970459405502,
-      "minimum_retained_singular_value": 0.07595040780513192,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.67e-14]",
@@ -854,25 +634,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5807611829950474,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5807611829950474
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv07",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 1.245718371512035e-14,
-      "transverse_jacobian_condition_number": 185.92640422952914,
-      "minimum_retained_singular_value": 0.1162353681777615,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 2.68e-14]",
@@ -971,25 +738,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5816316290001851,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5816316290001851
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv08",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 8.644302383784677e-15,
-      "transverse_jacobian_condition_number": 178.65724342801897,
-      "minimum_retained_singular_value": 0.11951110826236717,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.25e-14]",
@@ -1088,25 +842,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.584199343000364,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.584199343000364
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv09",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 4.8591323031451925e-15,
-      "transverse_jacobian_condition_number": 176.62463102458602,
-      "minimum_retained_singular_value": 0.14161859837216426,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.43e-14]",
@@ -1205,25 +946,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5880875229995581,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5880875229995581
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv10",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 6.100396858601136e-15,
-      "transverse_jacobian_condition_number": 570.7264548145988,
-      "minimum_retained_singular_value": 0.03648166863439546,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.56e-14]",
@@ -1322,25 +1050,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5837123870005598,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5837123870005598
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv11",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 5.9554092143634985e-15,
-      "transverse_jacobian_condition_number": 211.8090689966698,
-      "minimum_retained_singular_value": 0.10748276852255659,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 7.72e-15]",
@@ -1439,25 +1154,12 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5825893049986917,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5825893049986917
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     },
     {
       "path": "pv12",
       "box_radius": 3e-12,
-      "numerical_exact_feature_residual_norm": 7.413565290439202e-15,
-      "transverse_jacobian_condition_number": 346.32185646480815,
-      "minimum_retained_singular_value": 0.07804764831196613,
-      "maximum_discarded_singular_value": 0.0,
+      "accepted_radius": 3e-12,
       "krawczyk_intervals": [
         {
           "ball": "[+/- 1.51e-14]",
@@ -1556,17 +1258,7 @@
           "strictly_inside": true
         }
       ],
-      "krawczyk_inclusion_pass": true,
-      "elapsed_seconds": 0.5934782609983813,
-      "radius_attempts": [
-        {
-          "box_radius": 3e-12,
-          "evaluation_completed": true,
-          "krawczyk_inclusion_pass": true,
-          "elapsed_seconds": 0.5934782609983813
-        }
-      ],
-      "accepted_radius": 3e-12
+      "krawczyk_inclusion_pass": true
     }
   ]
 }
