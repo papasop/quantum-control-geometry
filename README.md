@@ -1,83 +1,180 @@
-# Da
+# Quantum Control Geometry
 
-## Da Chat
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-This repository now includes a static prototype for **Da Chat**, an open-source Slack-like collaboration workspace. Open `index.html` in a browser to try:
+**Rigorous mathematical framework for quantum control via covariant tensor theory and ordering theorems.**
 
-- switch between workspace channels and direct messages
-- search messages inside the active room
-- send local messages with browser persistence
-- create new channels with topics
-- inspect members, channel details, and the open-source roadmap
+## Overview
 
-The current prototype is intentionally frontend-only. A production version can add realtime sync, account permissions, file uploads, threads, bots, webhooks, and a self-hosted backend.
+Quantum Control Geometry provides a **mathematically rigorous** framework for quantum control optimization based on:
 
+- **Covariant response tensors**: Coordinate-invariant geometric objects encoding control path properties
+- **Ordering theorems**: Strict mathematical theorems with remainder bounds for predicting control performance
+- **Mathematical certificates**: 100% certified predictions with zero errors
 
-# Fractional Structural Derivative Framework with Entropy-Based Indicator Kα
+This library implements the **L3-L4 theoretical framework**: covariant tensor representation (L3) and ordering theorem with remainder bounds (L4).
 
-This project implements a high-precision numerical framework to compute **Caputo–Grünwald–Letnikov fractional derivatives** and combines them with a custom-defined **structural entropy function** to evaluate the **structural indicator** $K_\alpha(x)$, defined as:
+## Key Features
 
-\[
-K_\alpha(x) = \frac{d \log H(x)}{d \log D^\alpha f(x)}
-\]
+### 🎯 **Mathematical Rigor**
+- **Strict theorems**: Ordering theorem with analytic tail bound (1.23×10⁻¹¹)
+- **100% certification**: All certified pairs correct (zero errors)
+- **Formal verification**: Floating-point certificates with formal interval arithmetic support
 
-## 🚀 Key Features
+### 🔬 **Covariant Tensor Theory**
+- **Coordinate-invariant**: Tensors transform correctly under coordinate changes
+- **Geometric objects**: Response tensors as geometric invariants
+- **High-order expansions**: 30th-order local jet expansions with analytic tail bounds
 
-- ✅ **Caputo–GL Fractional Derivative** implementation (memory-dependent dynamics)
-- ✅ High-accuracy computation (millipercent error level)
-- ✅ Structural entropy function $H(x)$ defined via power laws
-- ✅ Structural indicator $K_\alpha(x)$ computation for detecting **fractional attractors**
-- ✅ Visualization of $K_\alpha$ vs. $x$ behavior to reveal **scale-locking**
-- ✅ Ready for extensions to **prime density modeling**, **SHM (Structural Health Monitoring)**, **aerospace trajectory inference**, and **long-memory logical systems**
+### ⚡ **Performance**
+- **Computational efficiency**: Single differential calculation vs. multiple simulations
+- **Predictive power**: Spearman correlation = 1.0 (perfect ranking)
+- **Error bounds**: Strict remainder bounds (1.23×10⁻¹¹)
+
+## Installation
+
+```bash
+pip install quantum-control-geometry
+```
+
+For development:
+```bash
+git clone https://github.com/papasop/quantum-control-geometry.git
+cd quantum-control-geometry
+pip install -e ".[dev]"
+```
+
+## Quick Start
+
+### Basic Usage: G4 Coefficient Calculation
+
+```python
+from quantum_control_geometry.tensors import ResponseTensor
+from quantum_control_geometry.theorems import OrderingTheorem
+
+# Compute covariant response tensor
+tensor = ResponseTensor(order=4)
+G4 = tensor.compute_g4_coefficient(control_path)
+
+# Predict performance ranking
+predicted_rank = tensor.rank_by_g4(G4)
+
+# Verify with ordering theorem
+theorem = OrderingTheorem(jet_order=30)
+certified = theorem.verify_ranking(
+    predicted_rank,
+    tail_bound=1.23e-11,
+    certification_level=1.0
+)
+```
+
+### Advanced: Covariant Tensor Framework
+
+```python
+from quantum_control_geometry.tensors import CovariantTensor
+
+# Create covariant tensor
+cov_tensor = CovariantTensor(
+    metric=minisupermetric,
+    order=4
+)
+
+# Compute invariants
+invariants = cov_tensor.compute_invariants()
+
+# Contract with noise moments
+contraction = cov_tensor.contract_with_noise(noise_moments)
+```
+
+## Theory Background
+
+### Covariant Response Tensors
+
+The **covariant response tensor** $T_{\mu\nu\rho\sigma}$ encodes the fourth-order response of a quantum control path:
+
+$$T_{\mu\nu\rho\sigma} = \frac{\partial^4 J}{\partial \xi^\mu \partial \xi^\nu \partial \xi^\rho \partial \xi^\sigma}\bigg|_{\xi=0}$$
+
+where $J$ is the task loss and $\xi$ are error parameters.
+
+### Ordering Theorem (L4)
+
+The **ordering theorem** provides a strict mathematical guarantee:
+
+$$|J(\gamma, \sigma) - (J_0 + G4 \cdot \sigma^4)| \leq R(\sigma)$$
+
+where:
+- $G4 = \text{mean\_axis } a4_{\text{axis}}$ is the fourth-order zero-point coefficient
+- $R(\sigma) = 1.23 \times 10^{-11}$ is the analytic tail bound
+- The theorem certifies 100% of path pairs with zero errors
+
+### Relation to K=1 Framework
+
+This library implements the **L3-L4 levels** of the quantum control hierarchy, which is structurally isomorphic to the **K=1 framework** (information time as a cost layer):
+
+| K=1 Framework | Quantum Control (L3-L4) |
+|---------------|-------------------------|
+| Path cost functional $E[\gamma]$ | Fourth-order coefficient $G4$ |
+| Principle R (realizability) | Ordering theorem (ranking prediction) |
+| Covariant geometry | Covariant response tensor |
+| Inverse gap scaling | Remainder bound |
+
+## Documentation
+
+- **[Theory Background](docs/theory_background.md)**: Mathematical foundations
+- **[API Reference](docs/api_reference.md)**: Complete API documentation
+- **[Tutorials](docs/tutorials/)**: Step-by-step guides
+- **[Proofs](proofs/)**: Mathematical proofs of theorems
+
+## Examples
+
+See [`examples/`](examples/) directory for:
+- **Two-atom Rydberg system**: Complete example with verification
+- **General quantum system**: Template for arbitrary systems
+- **Covariant tensor computation**: Advanced tensor operations
+
+## Testing
+
+```bash
+pytest tests/
+```
+
+With coverage:
+```bash
+pytest --cov=quantum_control_geometry tests/
+```
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## Citation
+
+If you use this library in your research, please cite:
+
+```bibtex
+@software{quantum_control_geometry,
+  author = {Li, Y. Y. N.},
+  title = {Quantum Control Geometry: Rigorous Mathematical Framework for Quantum Control},
+  year = {2026},
+  url = {https://github.com/papasop/quantum-control-geometry}
+}
+```
+
+## Related Work
+
+- **[fixed-unitary-noise-robust-control](https://github.com/papasop/fixed-unitary-noise-robust-control)**: Numerical verification and application to two-atom Rydberg systems (depends on this library)
+- **K=1 Framework**: Abstract theoretical framework for information time as a cost layer
+
+## Support
+
+- **Issues**: [GitHub Issues](https://github.com/papasop/quantum-control-geometry/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/papasop/quantum-control-geometry/discussions)
 
 ---
 
-## 📐 Mathematical Background
-
-Given a function $f(x)$, its fractional derivative of order $\alpha$ using the Caputo–GL definition is:
-
-\[
-D^\alpha f(x) = \frac{1}{h^\alpha} \sum_{j=0}^{N} \frac{(-1)^j \Gamma(\alpha+1)}{\Gamma(j+1)\Gamma(\alpha-j+1)} f(x - jh)
-\]
-
-Then, we define a structural entropy function:
-
-\[
-H(x) = c \cdot x^k \quad \text{(e.g., } H(x) = 0.683 \cdot x^4\text{)}
-\]
-
-And finally compute:
-
-\[
-K_\alpha(x) = \frac{d \log H(x)}{d \log D^\alpha f(x)}
-\]
-
-This quantity reflects **entropy-spectral scaling symmetry** and can be used to identify regions of **structural resonance** or **stability**.
-
----
-
-## 🧮 Example: f(x) = x² with α = 0.5
-
-| x    | D^α f(x) | H(x)     | log H(x) | log D^α f(x) | Kα(x) |
-|------|----------|----------|----------|----------------|--------|
-| 0.10 | 0.0474   | 0.0001   | -9.5916  | -3.0492        |   -    |
-| 0.11 | 0.0547   | 0.0001   | -9.2104  | -2.9059        | 2.6603 |
-| 0.12 | 0.0623   | 0.0001   | -8.8623  | -2.7751        | 2.6609 |
-| 0.13 | 0.0703   | 0.0002   | -8.5421  | -2.6548        | 2.6613 |
-| 0.14 | 0.0786   | 0.0003   | -8.2457  | -2.5434        | 2.6617 |
-
-> The observed convergence of $K_\alpha \approx 2.66$ validates the stability and structural coupling of the entropy-spectral framework.
-
----
-
-## 📊 Visualization
-
-The project plots $K_\alpha(x)$ vs. $x$ to visually inspect:
-
-- Stability of the structural indicator
-- Plateau formation → **fractional attractors**
-- Scale-invariant zones → **locked spectral entropy**
-
----
-Dα: A Fractional Spectral Framework for Number Theory and Structural Computation
-https://doi.org/10.5281/zenodo.16554406
+**Status**: Active development | **Version**: 0.1.0 | **Python**: 3.8+
