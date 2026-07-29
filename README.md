@@ -1,109 +1,97 @@
 # Quantum Control Geometry
 
-Reproducible research code for **covariant local response jets on
-response-matched neutral-atom controls**.
+Reproducible research artifacts for covariant local response jets and
+exact-root finite-error certification in a serialized two-atom neutral-atom
+control model.
 
 This repository accompanies the manuscript:
 
 > **Geometric Prediction of Noise-Robust Quantum Control:
 > From Covariant Local Jets to Exact-Root Finite-Error Certification**
 
-The study asks a deliberately narrow question: when control schedules have
-the same nominal output state and the same first-order output-state response
-to amplitude, detuning, and interaction errors, what local information
-determines their finite-error performance ordering?
-
-## What is supported
-
-For the declared two-atom, finite-dimensional, piecewise-constant Hamiltonian
-model:
-
-- a 24-parameter phase control has a numerical constraint-Jacobian rank of
-  16, leaving an eight-dimensional numerical implementation fibre;
-- the matched quadratic response has relative spread of order \(10^{-7}\);
-- a symmetric fourth-order response tensor has 15 independent components in
-  the three-dimensional error space;
-- its coordinate transformation and invariant noise-moment contraction were
-  verified to approximately \(10^{-14}\) and \(2\times10^{-15}\);
-- a frozen 20-path prospective cohort gave quartic-ranking Spearman
-  correlation \(0.998496\) and the correct top path;
-- the quartic term alone formally separates only a subset of the 66 path
-  pairs;
-- the zero-point jet through order 30, together with a Cauchy-alias enclosure
-  and an analytic order-32 tail enclosure, separates all 66 pairs in a
-  192-bit Arb calculation;
-- a square 16-dimensional transverse chart and outward-rounded Krawczyk
-  calculation certify a unique exact state-and-first-response-matched root
-  inside each of 12 declared phase boxes;
-- direct 192-bit Arb propagation of those exact-root boxes certifies the
-  frozen finite-error order for all 66 pairs;
-- the order-30 phase-box mechanism audit separately certifies 52/66 pairs,
-  with zero reversed certified pairs.
-- a frozen-cohort v1.3 audit performs two complete formal runs and produces
-  byte-identical protocols, certificates, and reports.
-
-The strongest result is a **formal, model-conditional exact-root
-finite-error ordering certificate** for the declared 12-path cohort. It
-proves local existence and uniqueness inside each supplied Krawczyk box, not
-global uniqueness of the implementation fibre. It is not PASQAL Cloud or QPU
-evidence.
-
-## Repository layout
+Canonical v0.3.1 commit:
 
 ```text
-paper/
-  manuscript.tex
-  manuscript.pdf
-scripts/
-  standalone/       # one-file Colab/Jupyter entry points
-  core/             # readable audit engines and shared model code
-results/
-  g4_prospective/
-  l3_covariance/
-  l4_order30/
-  l4_formal/
-  exact_fibre_krawczyk/
-  exact_root_ordering/
-  reproducibility_summary.json
-tools/
-  verify_reference_results.py
-tests/
-  test_reference_artifacts.py
+284974c9f6b952f4e114c8c5bdc9c2c299c4065c
 ```
 
-The former placeholder `quantum_control_geometry` package has been removed.
-It computed path-coordinate moments rather than the Hamiltonian response
-tensor defined in the manuscript, so it was not a valid implementation of
-the reported science.
+## Strongest Result
 
-## Quick reproduction
+For the frozen finite-dimensional two-atom Hamiltonian model and declared
+six-axis mean error functional, the zero-point geometric order is preserved
+at locally unique exact state-and-first-response-matched roots.
 
-No PASQAL password is required. For the complete deterministic v1.3 audit,
-upload and run this single file in Colab:
+The main theorem-level certificate is:
+
+- 12/12 strict Krawczyk inclusions certify one locally unique exact matched
+  root in each declared transverse phase box.
+- 66/66 direct finite-error pairwise orderings are certified by 192-bit
+  outward-rounded Arb propagation over those exact-root boxes.
+- Two complete v1.3 formal runs produce byte-identical protocols,
+  certificates, and reports.
+
+This is a formal, model-conditional certificate. It is not PASQAL Cloud,
+QPU, calibration, or model-discrepancy evidence.
+
+## Counts At A Glance
+
+| Certificate layer | Coverage | Meaning |
+|---|---:|---|
+| Quartic-only serialized-control audit | 35/66 | Low-order G4 comparison certifies a substantial subset, but not all close pairs |
+| Frozen-point order-30 Arb certificate | 66/66 | Order-30 zero-point jet plus alias and tail bounds certifies the frozen serialized controls |
+| Exact-root order-30 mechanism certificate | 52/66 | Order-30 jet propagated over exact-root Krawczyk boxes certifies 52 pairs with zero reversals |
+| Exact-root direct finite-error certificate | 66/66 | Primary result: direct Arb propagation over certified exact-root boxes closes all pairwise orderings |
+| Reproducibility closure | PASS | Two complete v1.3 executions produce byte-identical proof artifacts |
+
+Do not conflate these numbers. The 35/66 quartic result, the 52/66
+exact-root order-30 mechanism result, and the 66/66 direct exact-root result
+come from different certificate layers.
+
+## Quick Verification
+
+No PASQAL account is required to verify the bundled artifacts.
+
+```bash
+python tools/verify_reference_results.py
+python -m unittest discover -s tests -v
+shasum -a 256 -c SHA256SUMS.txt
+```
+
+The verifier recomputes canonical JSON hashes, checks the scientific gates,
+rejects runtime fields inside hashed proof objects, and confirms the recorded
+two-run identity result.
+
+## Reproduce The Certificates
+
+The complete deterministic v1.3 audit is packaged as a single Colab/Jupyter
+entry point:
+
+```bash
+python scripts/standalone/pasqal_L4_reproducible_certificate_v1_3_colab.py
+```
+
+In Colab:
 
 ```python
 %run /content/pasqal_L4_reproducible_certificate_v1_3_colab.py
 ```
 
-The earlier stage-specific entry points remain available:
+This script embeds the frozen cohort and predecessor formal ordering
+certificate, fixes the common Krawczyk radius at `3e-12`, generates the
+Krawczyk and exact-root certificates twice, and requires byte-identical proof
+artifacts.
 
-```python
-%run /content/pasqal_two_atom_G4_standalone_colab.py
-%run /content/pasqal_L3_L4_standalone_colab.py
-%run /content/pasqal_L4_order30_standalone_colab.py
-%run /content/pasqal_L4_formal_arb_standalone_colab.py
-%run /content/pasqal_L4_exact_fibre_krawczyk_standalone_colab_v1_2.py
-%run /content/pasqal_L4_exact_root_ordering_standalone_colab.py
-```
-
-Locally:
+Formal audits require:
 
 ```bash
 python -m pip install -r requirements.txt
-python scripts/standalone/pasqal_L4_reproducible_certificate_v1_3_colab.py
 ```
 
-Stage-specific local commands are:
+The formal dependency pin is `python-flint==0.8.0`.
+
+## Stage-Specific Entry Points
+
+Earlier standalone audits remain available for inspecting individual layers:
 
 ```bash
 python scripts/standalone/pasqal_two_atom_G4_standalone_colab.py
@@ -114,46 +102,91 @@ python scripts/standalone/pasqal_L4_exact_fibre_krawczyk_standalone_colab_v1_2.p
 python scripts/standalone/pasqal_L4_exact_root_ordering_standalone_colab.py
 ```
 
-Run the last two stage-specific commands in the same working directory. The
-v1.3 single-file audit instead embeds the frozen cohort and predecessor
-ordering certificate, fixes the common Krawczyk radius at `3e-12`, performs
-two complete runs, and requires byte-identical proof artifacts. The formal
-audits pin `python-flint==0.8.0`.
+Readable core audit engines are in `scripts/core/`.
 
-## Verify the bundled reference artifacts
+## Repository Navigation
 
-```bash
-python tools/verify_reference_results.py
-python -m unittest discover -s tests -v
+```text
+paper/
+  manuscript.tex
+  manuscript.pdf
+
+scripts/
+  standalone/       single-file Colab/Jupyter entry points
+  core/             readable audit engines and shared model code
+
+results/
+  g4_prospective/          prospective quartic ranking artifacts
+  l3_covariance/           tensor covariance and invariant contraction audit
+  l4_order30/              floating order-30 reconstruction and tail audit
+  l4_formal/               192-bit Arb frozen serialized-control certificate
+  exact_fibre_krawczyk/    frozen cohort, protocol, Krawczyk certificate, report
+  exact_root_ordering/     protocol, direct exact-root ordering certificate, report
+  reproducibility_summary.json
+
+tools/
+  verify_reference_results.py
+
+tests/
+  test_reference_artifacts.py
 ```
 
-These checks recompute the canonical JSON hashes, validate the scientific
-gates, reject runtime fields inside hashed proof objects, and verify the
-recorded two-run identity result. They do not replace rerunning the scientific
-audits.
+`SHA256SUMS.txt` records byte hashes for the repository snapshot. The
+certificate reports also store canonical JSON hashes for the proof payloads.
+Those canonical hashes are recomputed by `tools/verify_reference_results.py`.
 
-## Result hierarchy
+## Certificate Hierarchy
 
 | Stage | Object | Supported conclusion |
 |---|---|---|
-| Prospective G4 | Scalar fourth-order contraction | Strong mean-performance predictor on the frozen 20-path cohort |
-| L3 | Symmetric fourth-order response tensor | Coordinate-covariant tensor and invariant noise-moment contraction |
-| L4 quartic | G4 plus all known higher terms placed in the radius | Partial pairwise certification |
-| L4 order 30 | Zero-point jet through order 30 plus tail | Complete 66/66 ordering for the frozen serialized cohort |
-| Exact-fibre step | Interval Newton/Krawczyk | Unique local exact matched root in each of 12 declared boxes |
-| Exact-root direct L4 | Direct Arb propagation of certified root boxes | Complete 66/66 frozen finite-error ordering |
-| Exact-root order-30 mechanism | Jet propagation over certified root boxes | Correct partial order, 52/66 with zero reversals |
+| G4 prospective | Scalar fourth-order contraction | Strong mean-performance predictor on the frozen 20-path cohort |
+| L3 tensor | Symmetric fourth-order response tensor | Coordinate-covariant tensor and invariant noise-moment contraction |
+| L4 quartic | G4 interval with higher terms placed in the radius | Partial pairwise certification: 35/66 |
+| L4 order 30 | Zero-point jet through order 30 plus alias and tail bounds | Complete 66/66 ordering for frozen serialized controls |
+| Exact-fibre Krawczyk | Interval Newton/Krawczyk in transverse charts | 12/12 locally unique exact matched roots |
+| Exact-root order-30 mechanism | Jet propagation over certified root boxes | 52/66 pairs certified, zero reversals |
+| Exact-root direct L4 | Direct Arb propagation over certified root boxes | Complete 66/66 frozen finite-error ordering |
 | Reproducibility closure | Two complete frozen-cohort formal runs | Byte-identical protocols, certificates, and reports |
 
-The quartic result and the order-30 result must not be conflated. The analytic
-tail after order 30 is not a remainder bound for truncation after order four.
-Likewise, direct exact-root propagation is the primary finite-radius theorem;
-the order-30 phase-box calculation is a secondary mechanism certificate.
+The direct exact-root propagation is the primary finite-radius theorem. The
+exact-root order-30 calculation is a separate, computationally distinct
+mechanism certificate; it does not need to resolve all pairs to support the
+stronger direct result.
+
+## Non-Claims
+
+This repository does not certify:
+
+- PASQAL hardware, FRESNEL, PASQAL Cloud, or QPU execution;
+- calibration, waveform filtering, decoherence, Doppler effects, leakage,
+  position fluctuations, or model discrepancy;
+- global uniqueness of the full implementation fibre outside the certified
+  local boxes;
+- worst-case-error ranking;
+- a universal fourth-order robustness law;
+- many-body scaling.
+
+The result is intentionally narrower: in one frozen serialized two-atom model,
+the exact-root direct interval certificate closes the finite-error ordering
+for all 66 path pairs, while lower-order geometric objects explain and
+partially certify the same order.
+
+## Code And Data Availability
+
+All source code, frozen numerical inputs, outward-rounded interval
+certificates, verification utilities, and manuscript source are included in
+this repository. Version `v0.3.1` is fixed at commit
+`284974c9f6b952f4e114c8c5bdc9c2c299c4065c`.
+
+An archival DOI should be inserted after GitHub-Zenodo deposition. Once the
+DOI is assigned, update only DOI/version metadata in the manuscript and
+recompile the PDF; do not change numerical artifacts or scientific
+conclusions.
 
 ## Citation
 
-See [`CITATION.cff`](CITATION.cff). Until an archival paper or software
-release is available, cite the repository and the exact commit used.
+See [`CITATION.cff`](CITATION.cff). Until the archival DOI is assigned, cite
+the repository, version `v0.3.1`, and the canonical commit above.
 
 ## License
 
