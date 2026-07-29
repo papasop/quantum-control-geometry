@@ -37,6 +37,9 @@ class ReferenceArtifactTests(unittest.TestCase):
     def test_manuscript_exists(self) -> None:
         self.assertTrue((ROOT / "paper" / "manuscript.tex").is_file())
 
+    def test_clean_environment_notebook_exists(self) -> None:
+        self.assertTrue((ROOT / "notebooks" / "reproduce_v0_3_1.ipynb").is_file())
+
 
 if __name__ == "__main__":
     unittest.main()
