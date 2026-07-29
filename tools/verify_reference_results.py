@@ -63,6 +63,33 @@ def verify() -> list[str]:
     assert int(field(formal, "G4_certified_pairs")) < 66
     messages.append("L4 formal Arb gates: PASS")
 
+    krawczyk = load_report("results/exact_fibre_krawczyk/report.json")
+    assert field(krawczyk, "scientific_status") == (
+        "L4_EXACT_RESPONSE_FIBRE_KRAWCZYK_SUPPORTED"
+    )
+    assert bool(krawczyk["formal_interval_arithmetic"])
+    assert int(krawczyk["evaluated_paths"]) == 12
+    assert int(krawczyk["krawczyk_inclusions"]) == 12
+    assert bool(krawczyk["all_evaluated_krawczyk_inclusions_pass"])
+    assert bool(krawczyk["full_declared_cohort"])
+    messages.append("Exact-fibre Krawczyk gates: PASS")
+
+    exact_root = load_report("results/exact_root_ordering/report.json")
+    assert field(exact_root, "scientific_status") == (
+        "L4_EXACT_ROOT_DIRECT_FINITE_ERROR_ORDERING_SUPPORTED"
+    )
+    assert bool(exact_root["formal_interval_arithmetic"])
+    assert int(exact_root["n_exact_root_boxes"]) == 12
+    assert int(exact_root["direct_certified_pairs"]) == 66
+    assert float(exact_root["direct_pair_coverage"]) == 1.0
+    assert bool(exact_root["direct_matches_frozen_order"])
+    assert int(exact_root["order30_certified_pairs"]) == 42
+    assert int(exact_root["order30_incorrect_certified_pairs"]) == 0
+    assert bool(
+        exact_root["order30_all_certified_pairs_match_frozen_order"]
+    )
+    messages.append("Exact-root direct ordering gates: PASS")
+
     return messages
 
 

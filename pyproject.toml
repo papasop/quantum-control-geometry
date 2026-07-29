@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "quantum-control-geometry-artifact"
-version = "0.2.0"
-description = "Reproducible audits for covariant local jets of response-matched neutral-atom controls"
+version = "0.3.0"
+description = "Formal exact-root and finite-error ordering audits for response-matched neutral-atom controls"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}

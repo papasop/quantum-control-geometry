@@ -18,7 +18,7 @@ SPEC.loader.exec_module(VERIFY)
 class ReferenceArtifactTests(unittest.TestCase):
     def test_declared_scientific_gates(self) -> None:
         messages = VERIFY.verify()
-        self.assertEqual(len(messages), 4)
+        self.assertEqual(len(messages), 6)
 
     def test_standalone_entry_points_exist(self) -> None:
         expected = (
@@ -27,6 +27,7 @@ class ReferenceArtifactTests(unittest.TestCase):
             "pasqal_L4_order30_standalone_colab.py",
             "pasqal_L4_formal_arb_standalone_colab.py",
             "pasqal_L4_exact_fibre_krawczyk_standalone_colab_v1_2.py",
+            "pasqal_L4_exact_root_ordering_standalone_colab.py",
         )
         for name in expected:
             self.assertTrue((ROOT / "scripts" / "standalone" / name).is_file())

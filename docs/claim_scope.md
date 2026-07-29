@@ -2,10 +2,12 @@
 
 ## Certified statement
 
-For the twelve serialized phase schedules in the formal artifact, the
-declared finite-dimensional two-atom Hamiltonian, the common reference
-target, and the six signed axial errors, 192-bit outward-rounded Arb balls
-certify the order of all 66 unordered path pairs.
+For each of the twelve declared schedules, an outward-rounded Krawczyk
+inclusion certifies one locally unique exact state-and-first-response-matched
+root inside its 16-dimensional transverse phase box. For the declared
+finite-dimensional two-atom Hamiltonian, common reference target, and six
+signed axial errors, direct 192-bit Arb propagation of those boxes certifies
+the frozen order of all 66 unordered path pairs.
 
 The certificate includes:
 
@@ -15,6 +17,8 @@ The certificate includes:
 - coefficients through order 30;
 - an analytic enclosure of the even tail beginning at order 32;
 - direct checks that ordinary held-out values lie inside the formal balls.
+- 12/12 strict Krawczyk inclusions in the declared transverse charts;
+- direct finite-error propagation over the entire certified phase boxes.
 
 ## Not certified
 
@@ -23,8 +27,8 @@ The repository does not certify:
 - PASQAL hardware, FRESNEL, or PASQAL Cloud behavior;
 - model discrepancy, calibration drift, sampling noise, decoherence, Doppler
   effects, leakage, waveform filtering, or position fluctuations;
-- exact equality of the optimizer constraints;
-- exact existence or dimension of the matched implementation fibre;
+- global uniqueness or global eight-dimensional manifold structure of the
+  matched implementation fibre outside the certified local boxes;
 - worst-case-error ranking;
 - a universal fourth-order robustness law;
 - many-body scaling.
@@ -42,7 +46,12 @@ every close comparison. A quartic-only interval places the known sixth-
 through-thirtieth-order correction inside its radius, in addition to the
 analytic tail.
 
-The complete formal ranking instead uses all known terms through order 30.
+The earlier complete formal ranking uses all known terms through order 30 at
+the frozen serialized controls. After exact-root correction, direct
+finite-error box propagation certifies all 66 pairs. Propagating the
+order-30 jet over the full Krawczyk boxes certifies 42/66 pairs and no
+opposite pair; the remaining 24 comparisons are unresolved because of
+interval widening.
 Therefore:
 
 \[
@@ -50,12 +59,14 @@ Therefore:
 \ne
 \text{partial quartic certification}
 \ne
-\text{complete order-30 certification}.
+\text{order-30 mechanism coverage}
+\ne
+\text{direct exact-root finite-radius certification}.
 \]
 
-## Remaining theorem
+## Remaining scope
 
-The missing closure step is a square transverse formulation of the matching
-constraints followed by an interval-Newton or Krawczyk inclusion proof.
-Propagating the resulting phase balls through the Arb calculation would
-connect exact response matching to the formal finite-error ordering.
+The exact-root finite-radius ordering chain is closed for the serialized
+two-atom model and declared error functional. Remaining work concerns model
+discrepancy, open-system and many-body extensions, independent reproduction,
+and PASQAL Cloud/QPU validation.

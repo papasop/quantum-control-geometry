@@ -5,6 +5,20 @@
 ### Added
 
 - Standalone exact response-fibre Krawczyk audit v1.2 Colab script.
+- Exact-root direct finite-error ordering audit v1.1, with direct Arb
+  propagation as the primary theorem gate and order-30 as a separately
+  reported mechanism certificate.
+- Representative summaries for the 12/12 Krawczyk inclusions and the direct
+  66/66 exact-root ordering closure.
+
+### Scientific closure
+
+- Certified one locally unique exact state-and-first-response-matched root
+  inside every declared transverse Krawczyk box.
+- Certified all 66 frozen finite-error pair orderings by direct
+  outward-rounded propagation of the exact-root phase boxes.
+- Retained the honest order-30 phase-box result: 42/66 certified pairs, all
+  correct, with 24 unresolved through interval widening.
 
 ## [0.2.0] - 2026-07-29
 

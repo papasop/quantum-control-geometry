@@ -1,0 +1,39 @@
+{
+  "scientific_status": "L4_EXACT_RESPONSE_FIBRE_KRAWCZYK_SUPPORTED",
+  "formal_interval_arithmetic": true,
+  "arb_precision_bits": 192,
+  "constraint_dimension": 16,
+  "fixed_fibre_dimension": 8,
+  "fixed_radius_mode": false,
+  "radius_schedule": [
+    1e-10,
+    3e-11,
+    1e-11,
+    3e-12,
+    1e-12,
+    3e-13,
+    1e-13
+  ],
+  "evaluated_paths": 12,
+  "declared_paths": 12,
+  "krawczyk_inclusions": 12,
+  "accepted_radii": {
+    "pv01": 3e-12,
+    "pv02": 3e-12,
+    "pv03": 3e-12,
+    "pv04": 3e-12,
+    "pv05": 3e-12,
+    "pv06": 3e-12,
+    "pv07": 3e-12,
+    "pv08": 3e-12,
+    "pv09": 3e-12,
+    "pv10": 3e-12,
+    "pv11": 1e-11,
+    "pv12": 1e-11
+  },
+  "all_evaluated_krawczyk_inclusions_pass": true,
+  "full_declared_cohort": true,
+  "protocol_sha256": "142f00ae77d5ce4e659cf25c1e11cf874d4a50d27bf22b63c30c6fcc0f06dc0b",
+  "krawczyk_certificate_sha256": "1fbe8159b289c38dab6a8fb672f5b040f8766f6cb8431a7cb92eab763b3c10f4",
+  "claim_boundary": "Local existence and uniqueness inside each declared Krawczyk box for the serialized two-atom model; not global fibre uniqueness or PASQAL hardware evidence."
+}

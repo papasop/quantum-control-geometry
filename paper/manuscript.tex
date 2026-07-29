@@ -76,10 +76,19 @@ alone certifies 35 of 66 path pairs, whereas the order-thirty jet certifies
 all 66 pairs.  All ordinary held-out outcomes lie inside the formal
 intervals.
 
-The result is a formal ordering certificate for a serialized-decimal,
-finite-dimensional Hamiltonian model.  It is not evidence from PASQAL
-hardware, and exact existence of the numerically matched implementation
-fibre remains to be certified by an interval-Newton or Krawczyk argument.
+We then close the numerical-matching gap.  A square sixteen-dimensional
+transverse chart and outward-rounded Krawczyk calculation certify one locally
+unique exact state-and-first-response-matched root inside each of twelve
+declared phase boxes.  Direct 192-bit Arb propagation of those boxes through
+the six finite-error points certifies the frozen order of all 66 pairs.  The
+order-thirty jet propagated over the same boxes separately certifies 42 pairs,
+all in the frozen direction, with the other 24 unresolved through interval
+widening.
+
+The result is a formal exact-root finite-error ordering certificate for a
+serialized-decimal, finite-dimensional Hamiltonian model.  It is not evidence
+from PASQAL hardware and does not establish global uniqueness or a global
+eight-dimensional fibre theorem.
 \end{abstract}
 
 \section{Introduction}
@@ -113,20 +122,25 @@ ranking followed by held-out finite-error evaluation.
 contraction with a physical noise moment is invariant.
 \item We compute higher local derivatives and produce an outward-rounded
 Arb ball-arithmetic certificate of finite-error ordering.
+\item We certify exact matched representatives by Krawczyk inclusions and
+propagate their full phase boxes directly to the finite-error functional.
 \end{enumerate}
 
 The central outcome is deliberately narrower than a universal robustness
 law.  The fourth-order term is often predictive and can certify a substantial
 subset of pairwise comparisons, but close paths require higher derivatives.
 For the serialized model studied here, the order-thirty local jet plus an
-analytic tail bound certifies the complete finite-error ordering.  This
-distinguishes three statements that are often conflated:
+analytic tail bound freezes a complete finite-error ordering.  Krawczyk
+inclusions and direct propagation then certify that the same order holds at
+the exact matched roots.  This distinguishes statements that are often
+conflated:
 \[
+\begin{aligned}
 \text{low-order correlation}
-\;\neq\;
-\text{partial pairwise certification}
-\;\neq\;
-\text{complete bounded reconstruction}.
+&\ne \text{partial pairwise certification}\\
+&\ne \text{complete bounded reconstruction}\\
+&\ne \text{exact-root finite-radius certification}.
+\end{aligned}
 \]
 
 \section{Two-atom control model}
@@ -295,12 +309,29 @@ No held-out finite-error outcome is evaluated during candidate generation.
 The maximum constraint residual in the reported runs is of order
 $10^{-11}$.
 
-\begin{remark}[Unfinished exact-fibre step]
-The numerical rank and residual establish a highly accurate computational
-fibre, not the exact existence of an eight-dimensional solution manifold.
-A complete exact-fibre theorem requires a square transverse formulation and
-an interval-Newton or Krawczyk inclusion proof.  This limitation is kept
-separate from the formal ordering certificate below.
+\begin{theorem}[Certified local exact representatives]
+\label{thm:krawczyk}
+Fix the eight fibre coordinates used to define each member of the declared
+twelve-path cohort and use the frozen sixteen-dimensional transverse chart.
+For every path, the outward-rounded Krawczyk image lies strictly inside one
+of the declared transverse boxes.  Consequently, each box contains one
+locally unique zero of the exact state-and-first-response constraint map.
+\end{theorem}
+
+\begin{proof}[Computer-assisted proof]
+The constraint dimension is sixteen.  Exact Newton refinement precedes the
+formal audit, after which the phase/error Jacobian is evaluated with
+192-bit Arb balls.  A frozen radius schedule is tested without reference to
+finite-error outcomes.  Strict Krawczyk inclusion passes for all twelve
+paths, at radii $3\times10^{-12}$ for paths \texttt{pv01}--\texttt{pv10}
+and $10^{-11}$ for \texttt{pv11}--\texttt{pv12}.
+\end{proof}
+
+\begin{remark}[Local, not global, fibre statement]
+Theorem~\ref{thm:krawczyk} proves existence and uniqueness in each declared
+transverse box at fixed fibre coordinates.  It does not by itself establish
+global uniqueness, connectedness, or a global eight-dimensional manifold
+structure for the complete matched set.
 \end{remark}
 
 \section{Local response hierarchy}
@@ -607,9 +638,44 @@ is verified to lie inside its corresponding formal ball.
 \begin{remark}[Scope of Theorem~\ref{thm:formal}]
 The theorem is conditional on the serialized-decimal finite Hamiltonian
 model and the listed candidate controls.  It does not certify model
-discrepancy, calibration drift, sampling noise, or PASQAL hardware.  It also
-does not prove that the numerical paths lie on an exact first-order matched
-fibre; it proves the finite-error ordering of those serialized controls.
+discrepancy, calibration drift, sampling noise, or PASQAL hardware.
+\end{remark}
+
+\begin{theorem}[Exact-root finite-error ordering]
+\label{thm:exactroot}
+Let $X_k$ be the twelve phase boxes certified in
+Theorem~\ref{thm:krawczyk}.  For the declared six-axis mean finite-error
+functional, direct 192-bit outward-rounded Arb propagation over the full
+boxes $X_k$ produces pairwise disjoint intervals in the prospectively frozen
+order.  Hence the locally unique exact matched roots inside the boxes obey
+all 66 frozen pairwise orderings.
+\end{theorem}
+
+\begin{proof}[Computer-assisted proof]
+Each exact root belongs to its certified phase box.  Every trigonometric
+evaluation, Hamiltonian matrix exponential, state propagation, and
+finite-error infidelity is evaluated over the complete phase enclosure with
+outward-rounded Arb/ACB arithmetic.  Direct comparison separates all
+$\binom{12}{2}=66$ interval pairs and their orientations equal the frozen
+order.  The exact-root ordering protocol and certificate hashes are,
+respectively,
+\begin{center}
+\texttt{6f055d4c33d3af3619123d4e2f87d12d}\\
+\texttt{062d232849744037c59a605c86727674},
+\end{center}
+and
+\begin{center}
+\texttt{c1aea9572f503221f526b03fbe2b2acb}\\
+\texttt{4892d1efb95952eb596eff8b7424ced9}.
+\end{center}
+\end{proof}
+
+\begin{remark}[Order-thirty mechanism on the root boxes]
+Propagating the order-thirty local-jet enclosure over the full Krawczyk boxes
+certifies 42 of 66 pairs.  All 42 orientations agree with the frozen order
+and none is reversed; interval widening leaves 24 unresolved.  This partial
+mechanism certificate does not veto Theorem~\ref{thm:exactroot}, whose direct
+finite-error propagation has no Taylor truncation.
 \end{remark}
 
 \section{Results}
@@ -636,6 +702,12 @@ Arb formal: quartic only
 &12&--&35/66&partial\\
 Arb formal: order 30
 &12&1.000000&66/66&pass\\
+Exact matched roots: Krawczyk
+&12&--&12/12&pass\\
+Exact-root direct finite error
+&12&1.000000&66/66&pass\\
+Exact-root order-30 mechanism
+&12&--&42/66&partial\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -659,6 +731,10 @@ Cauchy points & 64\\
 Taylor order & 30\\
 Formal quartic pair coverage & $35/66=53.03\%$\\
 Formal order-30 pair coverage & $66/66=100\%$\\
+Strict Krawczyk inclusions & $12/12=100\%$\\
+Exact-root direct pair coverage & $66/66=100\%$\\
+Exact-root order-30 pair coverage & $42/66=63.64\%$\\
+Exact-root order-30 reversed pairs & $0$\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -673,6 +749,9 @@ substantial subset of path pairs.
 \item \textbf{High-order closure:} close comparisons depend on higher local
 derivatives.  The order-thirty local jet plus a bounded tail certifies the
 complete ordering for the serialized cohort.
+\item \textbf{Exact-root closure:} Krawczyk inclusions certify locally unique
+exact matched representatives, and direct phase-box propagation certifies
+that all 66 frozen orderings hold at those roots.
 \end{enumerate}
 
 \section{Discussion}
@@ -747,10 +826,10 @@ model validation rather than exhaustive ranking.
 
 The present work has five explicit limitations.
 \begin{enumerate}[leftmargin=2.2em]
-\item \textbf{Exact-fibre existence.}
-The matching constraints are satisfied to numerical tolerance.  A formal
-interval-Newton/Krawczyk proof has not yet established a nearby exact matched
-solution for every candidate.
+\item \textbf{Local rather than global fibre theorem.}
+The Krawczyk proof certifies a locally unique exact representative inside
+each declared transverse box.  It does not establish global uniqueness,
+connectedness, or a global eight-dimensional matched manifold.
 \item \textbf{Finite-dimensional model.}
 Spontaneous emission, Doppler effects, laser phase noise, position
 fluctuations, leakage levels, and waveform filtering are absent.
@@ -764,21 +843,18 @@ The calculations are local and require no PASQAL credentials.  They do not
 constitute PASQAL Cloud, FRESNEL, or physical-QPU evidence.
 \end{enumerate}
 
-The next mathematical step is to decompose the 24-dimensional phase space
-into sixteen transverse variables and eight fibre variables, formulate an
-independent analytic constraint map, and prove a Krawczyk inclusion
-\[
-K(X)\subset\operatorname{int}(X)
-\]
-for a box $X$ around each numerical path.  Propagating the resulting phase
-balls through the formal jet calculation would close the chain
+The exact-root finite-radius chain is now closed:
 \[
 \text{exact matched control}
 \;+\;
-\text{bounded local jet}
+\text{direct bounded phase-box propagation}
 \;\Longrightarrow\;
 \text{finite-error ordering}.
 \]
+The next theorem should incorporate an open-system or experimentally
+calibrated uncertainty model and determine whether the certified gaps survive
+model discrepancy.  Many-body scaling and independent hardware validation
+remain separate problems.
 
 \section{Reproducibility}
 
@@ -787,7 +863,9 @@ The principal standalone scripts are:
 \item \texttt{pasqal\_two\_atom\_G4\_standalone\_colab.py};
 \item \texttt{pasqal\_L3\_L4\_standalone\_colab.py};
 \item \texttt{pasqal\_L4\_order30\_standalone\_colab.py};
-\item \texttt{pasqal\_L4\_formal\_arb\_standalone\_colab.py}.
+\item \texttt{pasqal\_L4\_formal\_arb\_standalone\_colab.py};
+\item \texttt{pasqal\_L4\_exact\_fibre\_krawczyk\_standalone\_colab\_v1\_2.py};
+\item \texttt{pasqal\_L4\_exact\_root\_ordering\_standalone\_colab.py}.
 \end{itemize}
 The final formal protocol hash is
 \begin{center}
@@ -811,12 +889,16 @@ comparisons require higher derivatives.  For a frozen twelve-path
 serialized model, the zero-error jet through order thirty, combined with
 rigorous Cauchy-alias and Dyson-tail enclosures, yields an Arb
 outward-rounded certificate of all 66 finite-error pairwise orderings.
+Krawczyk inclusions then certify locally unique exact matched roots in all
+twelve declared transverse boxes, and direct Arb propagation of those boxes
+certifies the same 66/66 order at the exact roots.
 
 The strongest justified conclusion is therefore conditional but precise:
-finite-error ordering in this model is recoverable from a finite local jet
-with a formal remainder enclosure.  Establishing exact matched-fibre
-existence and extending the certificate to open-system, many-atom, and
-hardware data are the remaining steps.
+finite-error ordering in this model is recoverable from a finite local jet,
+and the ordering persists at locally unique exact matched representatives
+under direct formal phase-box propagation.  Global fibre structure and
+extensions to open-system, many-atom, model-discrepancy, and hardware data
+remain open.
 
 \begin{thebibliography}{99}
 
