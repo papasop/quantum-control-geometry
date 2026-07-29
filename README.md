@@ -217,6 +217,19 @@ the exact-root direct interval certificate closes the finite-error ordering
 for all 66 path pairs, while lower-order geometric objects explain and
 partially certify the same order.
 
+## Research Program
+
+This work establishes the static layer of response-matched quantum-control
+geometry: local zero-point response geometry and certified finite-error
+ordering among a declared set of exact response-matched roots. It does not
+establish a global or connected response fibre.
+
+A separate future direction concerns the dynamic layer: connections,
+transport, and geometric memory on a quantum-control fibre bundle. In that
+setting, task-space motion is lifted through a chosen connection, while
+closed loops may leave vertical control or noise-channel holonomy. These are
+research directions rather than results of the present v0.3.1 certificate.
+
 ## Code And Data Availability
 
 All source code, frozen numerical inputs, outward-rounded interval
@@ -224,15 +237,19 @@ certificates, verification utilities, and manuscript source are included in
 this repository. Version `v0.3.1` is fixed at commit
 `284974c9f6b952f4e114c8c5bdc9c2c299c4065c`.
 
-An archival DOI should be inserted after GitHub-Zenodo deposition. Once the
-DOI is assigned, update only DOI/version metadata in the manuscript and
-recompile the PDF; do not change numerical artifacts or scientific
-conclusions.
+The archived Zenodo record for the manuscript and companion artifacts is:
+
+> **Geometric Prediction and Exact-Root Certification of Finite-Error Ordering
+> in Quantum Control**  
+> https://zenodo.org/records/21695363
+
+Later manuscript or metadata updates must not change the frozen numerical
+artifacts or scientific conclusions.
 
 ## Citation
 
-See [`CITATION.cff`](CITATION.cff). Until the archival DOI is assigned, cite
-the repository, version `v0.3.1`, and the canonical commit above.
+See [`CITATION.cff`](CITATION.cff). Cite the Zenodo record above together
+with repository version `v0.3.1` and the canonical commit above.
 
 ## License
 
