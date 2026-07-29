@@ -149,8 +149,9 @@ Those canonical hashes are recomputed by `tools/verify_reference_results.py`.
 | Reproducibility closure | Two complete frozen-cohort formal runs | Byte-identical protocols, certificates, and reports |
 
 The direct exact-root propagation is the primary finite-radius theorem. The
-exact-root order-30 calculation is an independent mechanism certificate; it
-does not need to resolve all pairs to support the stronger direct result.
+exact-root order-30 calculation is a separate, computationally distinct
+mechanism certificate; it does not need to resolve all pairs to support the
+stronger direct result.
 
 ## Non-Claims
 
