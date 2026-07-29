@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Standalone exact response-fibre Krawczyk audit v1.2 Colab script.
+
 ## [0.2.0] - 2026-07-29
 
 ### Scientific corrections

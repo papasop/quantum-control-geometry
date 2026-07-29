@@ -26,6 +26,7 @@ class ReferenceArtifactTests(unittest.TestCase):
             "pasqal_L3_L4_standalone_colab.py",
             "pasqal_L4_order30_standalone_colab.py",
             "pasqal_L4_formal_arb_standalone_colab.py",
+            "pasqal_L4_exact_fibre_krawczyk_standalone_colab_v1_2.py",
         )
         for name in expected:
             self.assertTrue((ROOT / "scripts" / "standalone" / name).is_file())
