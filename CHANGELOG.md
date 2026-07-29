@@ -2,8 +2,12 @@
 
 ## [Unreleased]
 
-- Synchronized the manuscript title, PDF, citation metadata, and reported
-  numerical values with the frozen v0.3.1 artifacts.
+- Reframed the manuscript around the theorem-first exact-root ordering result
+  and renamed it to use the more precise term “finite-error ordering.”
+- Corrected the projective phase-alignment factor by conjugating the
+  reference-to-path overlap.
+- Synchronized the manuscript PDF, README, citation metadata, CI text gates,
+  and manuscript-artifact consistency tests.
 - Corrected manuscript quartic-only coverage to 34/66 (51.52%) and the
   prospective $G_4$ Spearman value to 0.996992.
 

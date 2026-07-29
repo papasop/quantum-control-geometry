@@ -53,12 +53,13 @@ jobs:
           sudo apt-get install -y poppler-utils
           pdftotext manuscript.pdf manuscript.txt
           grep -q "Geometric Prediction and Exact-Root Certification" manuscript.txt
-          grep -q "Finite-Error Robustness in Quantum Control" manuscript.txt
+          grep -q "Finite-Error Ordering in Quantum Control" manuscript.txt
           grep -q "0.996992" manuscript.txt
           grep -q "34/66" manuscript.txt
-          grep -q "Code and data availability" manuscript.txt
+          grep -q "Code and Data Availability" manuscript.txt
           grep -q "github.com/papasop/quantum-control-geometry" manuscript.txt
           grep -q "284974c9f6b952f4e114c8c5bdc9c2c299c4065c" manuscript.txt
           ! grep -q "0.998496" manuscript.txt
           ! grep -q "35/66" manuscript.txt
           ! grep -q "53.03" manuscript.txt
+          ! grep -q "Finite-Error Robustness in Quantum Control" manuscript.txt

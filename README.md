@@ -7,7 +7,7 @@ control model.
 This repository accompanies the manuscript:
 
 > **Geometric Prediction and Exact-Root Certification of
-> Finite-Error Robustness in Quantum Control**
+> Finite-Error Ordering in Quantum Control**
 
 Canonical v0.3.1 commit:
 
@@ -15,17 +15,21 @@ Canonical v0.3.1 commit:
 284974c9f6b952f4e114c8c5bdc9c2c299c4065c
 ```
 
+Version `v0.3.1` freezes the scientific artifacts. The manuscript on `main`
+may contain later expository and formula-level corrections without changes to
+the frozen numerical certificates.
+
 ## Strongest Result
 
 For the frozen finite-dimensional two-atom Hamiltonian model and declared
-six-axis mean error functional, the zero-point geometric order is preserved
-at locally unique exact projective-state-and-first-projective-response-matched
-roots.
+six-axis mean error functional, direct outward-rounded Arb propagation over
+twelve locally unique projectively matched root boxes certifies the
+predeclared finite-error ordering for all 66 unordered path pairs.
 
 The main theorem-level certificate is:
 
-- 12/12 strict Krawczyk inclusions certify one locally unique exact matched
-  root in each declared transverse phase box.
+- 12/12 strict Krawczyk inclusions certify one locally unique projectively
+  matched root in each declared transverse phase box.
 - 66/66 direct finite-error pairwise orderings are certified by 192-bit
   outward-rounded Arb propagation over those exact-root boxes.
 - Two complete v1.3 formal runs produce byte-identical protocols,
@@ -169,6 +173,7 @@ tools/
   verify_reference_results.py
 
 tests/
+  test_manuscript_consistency.py
   test_reference_artifacts.py
 ```
 
