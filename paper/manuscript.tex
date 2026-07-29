@@ -8,12 +8,16 @@
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{enumitem}
+\emergencystretch=1.5em
+\usepackage{xurl}
 
 \hypersetup{
   colorlinks=true,
   linkcolor=blue!55!black,
   citecolor=blue!55!black,
-  urlcolor=blue!55!black
+  urlcolor=blue!55!black,
+  pdftitle={Geometric Prediction and Exact-Root Certification of Finite-Error Ordering in Quantum Control},
+  pdfauthor={Y. Y. N. Li}
 }
 
 \newtheorem{definition}{Definition}
@@ -38,67 +42,154 @@
 \newcommand{\I}{\mathcal{I}}
 
 \title{\textbf{
-Geometric Prediction and Exact-Root Certification of\\
-Finite-Error Ordering in Quantum Control
+Geometric Prediction and Exact-Root Certification\\ of Finite-Error Ordering in Quantum Control
 }}
 
 \author{Y.\,Y.\,N.\ Li\\
 \small Independent Researcher}
 
-\date{\today}
+\date{}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-On a protocol-frozen prospective twenty-path cohort, a zero-point quartic geometric scalar strongly predicts held-out finite-error performance. Separately, on a frozen twelve-path formal cohort, locally unique roots exactly matched in projective output state and first projective response obey a complete 66-pair finite-error ordering certified by outward-rounded interval propagation.
+Quantum controls that agree at the nominal endpoint and in their complete
+first-order response to calibrated errors need not have the same finite-error
+robustness. We study this residual implementation dependence in a serialized
+two-atom Rydberg model with twenty-four control phases and three global error
+coordinates.
 
-We study this phenomenon in a two-atom Rydberg model with piecewise-constant phase control. Twenty-four control phases are constrained to match the output state and its first-order state response to global amplitude, detuning, and interaction errors. The resulting numerical constraint Jacobian has rank sixteen, leaving an eight-dimensional numerical null space that organizes the candidate implementation fibre. Paths on this fibre display distinct finite-error infidelities.
+A fourth-order zero-point response coefficient is first frozen as a
+prospective ranking rule. On a held-out twenty-path cohort, it achieves
+Spearman correlation $0.996992$ with mean finite-error performance and
+correctly identifies the best path. The coefficient is then represented as
+the contraction of a symmetric fourth-order response tensor in the
+three-dimensional error space with the fourth noise moment; direct
+recomputation under a nonorthogonal coordinate change verifies the
+associated covariance and contraction invariance.
 
-We first identify a fourth-order symmetric response coefficient, $\cG_4$, as a strong low-order predictor of mean finite-error performance. In a protocol-frozen prospective twenty-path validation it attains Spearman correlation $0.996992$ and predicts the best path correctly. We then recover the full three-dimensional symmetric fourth-order tensor. Under a nonorthogonal change of error coordinates, direct recomputation agrees with the tensor transformation law to $1.08\times10^{-14}$, while contraction with the transformed fourth noise moment is invariant to $2.36\times10^{-15}$.
+For a separate twelve-path cohort, strict 192-bit Krawczyk inclusions certify
+locally unique roots whose projective output states and first projective
+responses exactly match the reference. Direct outward-rounded Arb propagation
+of the certified root boxes through the declared six-axis error functional
+then proves the complete finite-error ordering for all $66$ unordered path
+pairs, agreeing with an order frozen before the direct propagation. A
+separate order-thirty local-jet calculation certifies $52/66$ comparisons
+with no reversed certified pair, while the quartic term alone certifies
+$34/66$.
 
-The quartic term is not universally sufficient. We therefore compute the zero-error Taylor jet through order thirty by block-matrix exponentials and bound the uncomputed tail analytically. For every declared path, a strict Krawczyk inclusion certifies a locally unique root exactly matched in projective output state and first projective response inside its transverse phase box. Direct 192-bit outward-rounded Arb propagation of these boxes certifies all $66$ frozen finite-error pairwise orderings. The order-thirty jet propagated over the same boxes separately certifies $52/66$ pairs without a reversed comparison. In the preceding serialized-control formal audit, the quartic term alone certifies $34/66$ pairs.
-
-The result is a formal exact-root ordering theorem for the serialized two-atom model, not PASQAL hardware evidence.
+The main result is therefore a computer-assisted exact-root finite-error
+ordering theorem for the declared finite-dimensional model. It does not
+constitute PASQAL hardware, model-discrepancy, global-fibre, or many-body
+evidence.
 \end{abstract}
 
 \section{Introduction}
 
-Pulse-level control of programmable neutral-atom arrays provides direct access to Rabi amplitude, phase, detuning, geometry, and Rydberg-mediated interactions \cite{Silverio2022,Henriet2020,Saffman2016}. This flexibility also creates a basic identification problem. Two implementations may realize the same ideal state and have the same leading response to calibrated errors, yet behave differently when the errors are finite. Endpoint agreement alone does not identify an implementation, and even first-order robustness data may leave a nontrivial family of controls.
+Programmable neutral-atom systems expose a rich pulse-level control space,
+including Rabi amplitude, phase, detuning, atomic geometry, and
+Rydberg-mediated interactions
+\cite{Silverio2022,Henriet2020,Saffman2016}. This flexibility permits many
+control schedules to realize the same nominal task. It also creates an
+identification problem: nominally equivalent implementations can respond
+differently when calibration errors are finite.
 
-Composite-pulse and robust-control methods commonly cancel or suppress leading error terms \cite{Wimperis1994,Kukita2022,Barnes2015}. The question asked here is different:
+Endpoint equivalence does not resolve this ambiguity. Even matching the
+complete first-order output-state response to the relevant error coordinates
+may leave a family of implementations with different higher-order behaviour.
+The resulting question is not whether leading errors can be cancelled, but
+whether the remaining finite-error ordering can be inferred before those
+finite-error outcomes are evaluated.
+
+Composite-pulse and robust-control methods suppress leading error terms
+\cite{Wimperis1994,Kukita2022,Barnes2015,Khaneja2005,Vandersypen2005}, and
+control-landscape theory analyses the critical-point structure of control
+objectives \cite{Rabitz2004,Chakrabarti2007}. Here we instead condition on a
+strong equivalence relation: candidate controls must share both the nominal
+output state and the complete first-order output-state response to global
+amplitude, detuning, and interaction errors. We then ask:
 \begin{quote}
-\emph{After the ideal output state and the complete first-order output-state response have been matched, what local object predicts the residual finite-error ordering inside the remaining implementation fibre?}
+\emph{Within the remaining implementation fibre, can a zero-error geometric
+quantity prospectively predict finite-error robustness, and can that ordering
+be certified at locally unique projectively matched controls?}
 \end{quote}
 
-We address the question in four stages, corresponding to the four-layer theorem structure below.
-\begin{enumerate}[leftmargin=2.2em]
-\item We construct phase schedules with a common endpoint and common first-order state response to amplitude, detuning, and Rydberg-interaction errors.
-\item We test a low-order quartic response scalar, $\cG_4$, as a prospective geometric predictor, using a protocol-frozen ranking followed by held-out finite-error evaluation.
-\item We promote $\cG_4$ to a coordinate-covariant fourth-order tensor whose contraction with a physical noise moment is invariant.
-\item We establish strict Krawczyk inclusions for locally unique roots exactly matched in projective output state and first projective response, then produce outward-rounded Arb ball certificates of finite-error ordering for the frozen twelve-path cohort.
-\end{enumerate}
+This formulation separates two logically distinct tasks. The first is
+\emph{prediction}: a local quantity must be fixed before held-out finite-error
+evaluation and must rank previously unseen paths. The second is
+\emph{certification}: numerical matching must be replaced by exact-root
+existence and uniqueness, and the finite-error ordering must be enclosed by
+outward-rounded interval arithmetic, in the validated-numerics tradition of
+computer-assisted proof \cite{Lanford1982,Tucker2002,vandenBerg2015}. High
+correlation alone does not provide the second conclusion.
 
-The central outcome is deliberately narrower than a universal robustness law. The fourth-order term is often predictive and can certify a substantial subset of pairwise comparisons, but close paths require higher derivatives. For the serialized model studied here, the exact-root direct Arb certificate establishes the complete finite-error ordering, while the order-thirty local jet over the same boxes certifies $52/66$ pairs with zero reversals. This distinguishes four statements that are often conflated:
+We study a two-atom Rydberg model with twenty-four piecewise-constant phase
+variables. The numerical matching Jacobian has rank sixteen, leaving an
+eight-dimensional numerical tangent null space that organizes the candidate
+implementation fibre.
+
+\subsection{Main results}
+
+\paragraph{Main theorem (informal statement).}
+Consider the frozen twelve-path cohort, the serialized finite-dimensional
+two-atom Hamiltonian, the declared transverse phase boxes, and the six-axis
+mean finite-error functional. For each declared control, a strict Krawczyk
+inclusion certifies a locally unique root exactly matched in projective output
+state and first projective response. Direct 192-bit outward-rounded Arb
+propagation over the twelve certified root boxes produces pairwise disjoint
+performance intervals whose orientations agree with the pre-outcome frozen
+ordering for all
 \[
-\begin{aligned}
-\text{low-order correlation}
-&\ne \text{partial geometric certification}\\
-&\ne \text{bounded high-order reconstruction}\\
-&\ne \text{exact-root finite-radius certification}.
-\end{aligned}
+\binom{12}{2}=66
 \]
+unordered path pairs. The formal statements and computer-assisted proofs are
+given in Theorems~\ref{thm:krawczyk} and~\ref{thm:exactroot}. This result is
+conditional on the serialized model and declared error functional; it is not
+a claim about PASQAL hardware, model discrepancy, global fibre topology, or
+many-body scaling.
 
-\subsection{Contributions}
+\paragraph{Mechanism proposition (informal statement).}
+Over the same certified Krawczyk boxes, propagation of the zero-point Taylor
+jet through order thirty, including formal Cauchy-alias and analytic tail
+enclosures, certifies $52/66$ pairwise comparisons with no reversed certified
+pair. This order-thirty calculation is a separate, computationally distinct
+mechanism certificate. It is not a premise or computational step in the
+direct proof of the main theorem. The formal statement appears in
+Proposition~\ref{prop:order30}.
 
-The main contributions of this work are:
-\begin{itemize}[leftmargin=2em]
-\item A prospective geometric predictor, $\cG_4$, achieving Spearman correlation $0.996992$ and top-path correctness on a protocol-frozen prospective twenty-path cohort.
-\item A coordinate-covariant fourth-order response tensor whose contraction with the physical fourth noise moment is invariant under linear error reparameterization.
-\item Strict Krawczyk inclusions for 12/12 declared controls, establishing locally unique roots exactly matched in projective output state and first projective response inside transverse phase boxes.
-\item An exact-root finite-error ordering theorem: all 66 unordered path pairs are certified by outward-rounded interval propagation, with the frozen order preserved.
-\item A mechanism certificate: order-thirty jet propagation over the same Krawczyk boxes certifies 52/66 pairs with no reversed comparison.
-\end{itemize}
+\paragraph{Reading guide.}
+Four quantitative results play different logical roles:
+\begin{center}
+\small
+\fbox{\begin{tabular}{@{}c@{\;}l@{}}
+$66/66$ & direct exact-root theorem\\
+$52/66$ & order-thirty mechanism certificate\\
+$34/66$ & quartic-only boundary\\
+$\rho=0.996992$ & prospective evidence (separate cohort)
+\end{tabular}}
+\end{center}
+The $66/66$ direct exact-root certificate is the main theorem. The $52/66$
+order-thirty result explains how much of that ordering is resolved by a finite
+local jet. The $34/66$ quartic certificate marks the limit of the lowest-order
+geometric description. The Spearman result is prospective evidence obtained
+on a separate held-out twenty-path cohort; the frozen order used in the
+exact-root theorem is supplied by the pre-outcome order-thirty certificate
+for the twelve-path cohort, and no pathwise identity between the two cohorts
+is claimed.
+
+The remainder of the paper follows the logical development from prospective
+prediction to exact-root certification. Section~4 introduces the prospective
+quartic predictor; Section~5 constructs its covariant tensor form;
+Section~6 certifies locally unique exact projective matched roots; and
+Section~7 proves the direct finite-error ordering theorem and reports the
+separate order-thirty mechanism certificate.
+
+The result is intentionally model-conditional. It concerns the serialized
+finite-dimensional two-atom Hamiltonian, the declared transverse boxes, and
+the six-axis mean finite-error functional. It does not establish global fibre
+topology, worst-case ranking, many-body scaling, open-system robustness, or
+PASQAL QPU performance.
 
 \section{Two-atom control model}
 
@@ -154,12 +245,13 @@ the output state is
 \begin{equation}
 |\psi_\gamma(\boldsymbol{\epsilon})\rangle
 =
-\prod_{j=24}^{1}
-\exp[-\ii\tau H_j(\boldsymbol{\epsilon})]
-|gg\rangle.
+U_{24}(\boldsymbol{\epsilon})\cdots U_{2}(\boldsymbol{\epsilon})\,U_{1}(\boldsymbol{\epsilon})\,|gg\rangle,
+\qquad
+U_j(\boldsymbol{\epsilon})=\exp[-\ii\tau H_j(\boldsymbol{\epsilon})],
 \label{eq:state}
 \end{equation}
-All primary calculations use exact matrix exponentials for the piecewise constant, finite-dimensional model. Pulser/QutipEmulator was used in an earlier two-atom cross-check, but the formal certificate in this work is independent of Pulser and does not invoke a cloud backend.
+with time-ordered application from segment $1$ to segment $24$.
+All primary calculations use exact matrix exponentials for the piecewise constant, finite-dimensional model. Pulser/\allowbreak QutipEmulator was used in an earlier two-atom cross-check, but the formal certificate in this work is independent of Pulser and does not invoke a cloud backend.
 
 \subsection{Loss and held-out error law}
 
@@ -168,22 +260,25 @@ Let $\gamma_{\mathrm{ref}}$ denote the reference schedule and define
 |\psi_{\mathrm{ref}}\rangle
 =|\psi_{\gamma_{\mathrm{ref}}}(\mathbf{0})\rangle.
 \]
-The phase alignment for path $\gamma$ uses
+Two infidelities are used. For the extraction of local response coefficients, the target is the path-local nominal state,
 \begin{equation}
-c_\gamma=
-\frac{\overline{\langle\psi_{\mathrm{ref}}|\psi_\gamma(\mathbf 0)\rangle}}
-{|\langle\psi_{\mathrm{ref}}|\psi_\gamma(\mathbf 0)\rangle|}.
-\label{eq:phasefactor}
+\cI^{\mathrm{loc}}_\gamma(\boldsymbol{\epsilon})
+=
+1-\left|
+\langle\psi_\gamma(\mathbf{0})\,|\,\psi_\gamma(\boldsymbol{\epsilon})\rangle
+\right|^2.
+\label{eq:infidelityloc}
 \end{equation}
-The state infidelity is
+For held-out and direct finite-error comparisons, the target is the common reference state,
 \begin{equation}
-\cI_\gamma(\boldsymbol{\epsilon})
+\cI^{\mathrm{ref}}_\gamma(\boldsymbol{\epsilon})
 =1-\left|
-\langle\psi_{\mathrm{ref}}|
+\langle\psi_{\mathrm{ref}}\,|\,
 \psi_\gamma(\boldsymbol{\epsilon})\rangle
 \right|^2.
 \label{eq:infidelity}
 \end{equation}
+At an exact response-matched root, $[\psi_\gamma(\mathbf{0})]=[\psi_{\mathrm{ref}}]$ projectively, so the two definitions coincide; for numerically matched prospective cohorts, they differ only within the declared matching tolerance. Unless stated otherwise, $\cI_\gamma$ below denotes $\cI^{\mathrm{ref}}_\gamma$.
 
 The held-out error design contains the six signed axial errors
 \begin{equation}
@@ -210,15 +305,17 @@ Worst-case infidelity is retained as a secondary diagnostic. The present predict
 
 \subsection{Endpoint and first-order constraints}
 
-At zero error, remove the unobservable global phase by the horizontal projector
+At zero error, remove the unobservable global phase by the path-local horizontal projector
 \[
-P_\perp=I-|\psi_0\rangle\langle\psi_0|.
+P_{\gamma,\perp}
+=
+I-|\psi_\gamma(\mathbf{0})\rangle\langle\psi_\gamma(\mathbf{0})|,
 \]
-Define the horizontal first-order responses
+and define the path-local horizontal first-order responses
 \begin{equation}
 J_{\gamma,a}
 =
-P_\perp
+P_{\gamma,\perp}
 \left.
 \frac{\partial}{\partial\epsilon_a}
 |\psi_\gamma(\boldsymbol{\epsilon})\rangle
@@ -227,6 +324,18 @@ P_\perp
 a\in\{\Omega,\Delta,V\}.
 \label{eq:tangents}
 \end{equation}
+Since $\psi_\gamma(\mathbf{0})$ and $\psi_{\mathrm{ref}}$ agree only up to a global phase, align them before comparison by the common phase factor
+\begin{equation}
+c_\gamma
+=
+\frac{\overline{\langle\psi_{\mathrm{ref}}\,|\,\psi_\gamma(\mathbf{0})\rangle}}
+{|\langle\psi_{\mathrm{ref}}\,|\,\psi_\gamma(\mathbf{0})\rangle|}
+\in U(1),
+\qquad
+\widetilde J_{\gamma,a}=c_\gamma\,J_{\gamma,a},
+\label{eq:phasealign}
+\end{equation}
+and compare the phase-aligned response $\widetilde J_{\gamma,a}$ with $J_{\mathrm{ref},a}$.
 
 \begin{definition}[Numerically matched implementation fibre]
 For a declared tolerance $\eta$, the numerical matched fibre
@@ -234,13 +343,54 @@ $\cF_\eta$ consists of controls $\gamma$ satisfying
 \begin{align}
 \cI_\gamma(\mathbf{0})&\le\eta,
 \nonumber\\
-\|J_{\gamma,a}-J_{\mathrm{ref},a}\|&\le\eta,
-\qquad a\in\{\Omega,\Delta,V\}.
+\|\widetilde J_{\gamma,a}-J_{\mathrm{ref},a}\|&\le\eta,
+\qquad a\in\{\Omega,\Delta,V\},
 \label{eq:fibre}
 \end{align}
+with $\widetilde J_{\gamma,a}$ the phase-aligned response of Eq.~\eqref{eq:phasealign}.
 \end{definition}
 
-The actual optimizer retains the full phase-aligned complex output state and the three full phase-aligned complex state tangents. Redundant real components are retained in the residual vector, while singular-value decomposition determines the independent rank.
+\subsection{Exact projective constraint map}
+\label{sec:projchart}
+
+The dynamics preserves the exchange-symmetric three-dimensional subspace. In a fixed symmetric basis we write the state as
+\[
+\boldsymbol{\psi}=(\psi_0,\psi_1,\psi_2)^{T}\in\C^3,
+\]
+and eliminate the unobservable global phase by the projective coordinates
+\begin{equation}
+w_c=\frac{\psi_c}{\psi_0},
+\qquad
+c=1,2,
+\label{eq:projcoords}
+\end{equation}
+valid on any region where the chart denominator $\psi_0$ excludes zero. For each error direction $a\in\{\Omega,\Delta,V\}$, the induced projective first response is
+\begin{equation}
+\dot w_{a,c}
+=
+\frac{\dot\psi_{a,c}\,\psi_0-\psi_c\,\dot\psi_{a,0}}{\psi_0^{2}},
+\qquad
+c=1,2,
+\label{eq:projresp}
+\end{equation}
+where $\dot\psi_{a}=\partial_{\epsilon_a}\boldsymbol{\psi}\bigr|_{\boldsymbol{\epsilon}=0}$. The exact constraint map is then
+\begin{equation}
+F(\boldsymbol{\phi})
+=
+\begin{pmatrix}
+\Re(w-w_{\mathrm{ref}})\\
+\Im(w-w_{\mathrm{ref}})\\
+\Re(\dot w_{\Omega}-\dot w_{\Omega,\mathrm{ref}})\\
+\Im(\dot w_{\Omega}-\dot w_{\Omega,\mathrm{ref}})\\
+\Re(\dot w_{\Delta}-\dot w_{\Delta,\mathrm{ref}})\\
+\Im(\dot w_{\Delta}-\dot w_{\Delta,\mathrm{ref}})\\
+\Re(\dot w_{V}-\dot w_{V,\mathrm{ref}})\\
+\Im(\dot w_{V}-\dot w_{V,\mathrm{ref}})
+\end{pmatrix}
+\in\R^{16}.
+\label{eq:constraintmap}
+\end{equation}
+The exact matching used below is therefore \emph{exact projective output-state and first-projective-response matching}: it is exact after elimination of the global phase, rather than a componentwise equality of raw state vectors. The numerical optimizer retains the full phase-aligned complex output state and the three full phase-aligned complex state tangents; redundant real components are retained in the residual vector, while singular-value decomposition determines the independent rank.
 
 \subsection{Dimension count and generation}
 
@@ -275,8 +425,8 @@ For a direction $v\in\R^3$, define the symmetric response
 S_\gamma(t,v)
 =
 \frac{
-\cI_\gamma(tDv)+
-\cI_\gamma(-tDv)
+\cI^{\mathrm{loc}}_\gamma(tDv)+
+\cI^{\mathrm{loc}}_\gamma(-tDv)
 }{2}.
 \label{eq:symmetric}
 \end{equation}
@@ -295,6 +445,8 @@ First-order output-state matching fixes the leading quadratic loss to numerical 
 
 \subsection{Prospective quartic ranking}
 
+The quartic rule developed here is a \emph{geometric predictor}, not a universal theorem: it is gap-dependent and certifies only a subset of pairwise comparisons, a boundary made precise in Sections 5--7.
+
 \subsubsection{Discovery and validation separation}
 
 The initial four named controls were used only for discovery and orientation. A twelve-path cohort was then used to compare candidate formulas. The smallest sufficient rule on that training cohort was
@@ -304,6 +456,16 @@ The initial four named controls were used only for discovery and orientation. A 
 \text{smaller mean finite-error infidelity}.
 \]
 The addition of the sixth-order coefficient did not improve the training rank correlation, so the quartic rule was frozen.
+
+For the L1 prospective audit, the coefficients $q_2,q_4,q_6$ were estimated by a frozen least-squares fit of
+\[
+S_\gamma(t,e_a)=q_{2,a}t^2+q_{4,a}t^4+q_{6,a}t^6
+\]
+at
+\[
+t\in\left\{\tfrac1{32},\tfrac1{24},\tfrac1{20},\tfrac1{16},\tfrac1{14},\tfrac1{12},\tfrac1{10},\tfrac18\right\}.
+\]
+The L2 tensor audit below is computationally distinct: its directional derivatives are evaluated directly at $t=0$ by block-matrix exponentials, rather than by fitting nonzero-radius samples.
 
 A new twenty-path cohort was generated with a different seed. For each candidate, a ranking certificate containing phases, local coefficients, and predicted order was written and SHA-256 hashed before the held-out outcome evaluator was enabled. The predeclared primary gate was
 \[
@@ -324,19 +486,15 @@ The twenty-path Colab run gave
 p=1.89\times10^{-21}.
 \label{eq:g4rho}
 \end{equation}
-The predicted and observed top path agreed. Only one adjacent pair was inverted in the complete ranking. Two local coefficient-extraction windows had rank correlation one, and the maximum local fit residual was $1.15\times10^{-10}$.
+The predicted and observed top path agreed. Only two adjacent pairs were inverted in the complete ranking. Two local coefficient-extraction windows had rank correlation one, and the maximum local fit residual was $1.48\times10^{-10}$.
 
 Subsequent cohorts show that $\cG_4$ is not universally sufficient. Depending on the generated matched paths, prospective quartic Spearman correlations ranged from approximately $0.85$ to $1.00$. This variation motivated the bounded higher-order analysis rather than post hoc replacement of the quartic formula.
-
-\begin{remark}[Scope of L1]
-The quartic predictor is a \emph{geometric predictor}, not a universal theorem. It strongly organizes mean finite-error performance but does not alone certify all pairwise comparisons.
-\end{remark}
 
 \section{L2: Covariant fourth-order tensor}
 
 \subsection{Quartic tensor}
 
-There exists a symmetric fourth-order tensor $A^{(4)}_\gamma$ such that
+The object recovered in this section is a quartic susceptibility of the endpoint loss---a component of the fourth jet of the endpoint map composed with infidelity---not a Riemannian curvature. There exists a symmetric fourth-order tensor $A^{(4)}_\gamma$ such that
 \begin{equation}
 q_{4,\gamma}(v)
 =
@@ -348,9 +506,15 @@ In three dimensions a symmetric fourth-order tensor has
 \[
 \binom{3+4-1}{4}=15
 \]
-independent components. We recover them from 36 seeded directions. The directional Taylor coefficients are computed directly at $t=0$ through order six by block-matrix exponentials, rather than by fitting nonzero-radius samples.
+independent components. The tensor $A^{(4)}_\gamma$ is reconstructed from the fourth jet of the path-local loss $\cI^{\mathrm{loc}}_\gamma$: we recover its components from 36 seeded directions, whose directional Taylor coefficients are computed directly at $t=0$ through order six by block-matrix exponentials, rather than by fitting nonzero-radius samples.
 
-For the six-axis law in Eq.~\eqref{eq:errorlaw}, define the fourth moment
+Let
+\[
+z\sim\operatorname{Unif}\{\pm e_\Omega,\pm e_\Delta,\pm e_V\},
+\qquad
+\boldsymbol{\epsilon}=Dz,
+\]
+so that the physical error scales $0.06^{4},0.04^{4},0.05^{4}$ are carried by $D$ and absorbed into the tensor components. For the six-axis law in Eq.~\eqref{eq:errorlaw}, define the fourth moment
 \[
 M^{(4)}_{ijkl}
 =\E[z_i z_j z_k z_l].
@@ -405,7 +569,7 @@ This proposition is algebraic. The numerical audit additionally recomputes the t
 
 The covariant object is not the scalar $\cG_4$ in isolation. It is the fourth-order response tensor $A^{(4)}$ together with the physical fourth noise moment $M^{(4)}$. Their contraction is independent of a linear reparameterization of error coordinates. This avoids interpreting a coordinate-specific axis average as an intrinsic curvature.
 
-The tensor should also not be identified automatically with Riemann curvature. It is a quartic susceptibility of the endpoint loss---a component of the fourth jet of the endpoint map composed with infidelity. Establishing a relation to a canonical connection or curvature on a control quotient would require additional structure.
+Establishing a relation of this susceptibility to a canonical connection or curvature on a control quotient would require additional structure.
 
 For a noise moment $M$, the low-cost screening problem is
 \[
@@ -416,24 +580,57 @@ A^{(4)}_\gamma:M^{(4)}.
 \]
 Pairs that fail the quartic gap test can be escalated adaptively to sixth, eighth, or higher jet order until their intervals separate. This suggests a certified branch-and-bound control selector: compute low-order local tensors for all candidates, refine only ambiguous pairs, and reserve direct finite-error simulation or hardware evaluation for model validation rather than exhaustive ranking.
 
-The gap-dependent quartic certification criterion is:
+The gap-dependent certification criterion used by the implementation retains the residual constant and quadratic terms explicitly. The certified quantity is the six-axis averaged reference loss at radius $t$,
 \begin{equation}
-|\cG_{4,a}-\cG_{4,b}|
->
-B_{a}^{(\ge6)}+B_{b}^{(\ge6)}
-\quad\Longrightarrow\quad
-\text{quartic ordering is certified}.
+\overline{\cI}^{\mathrm{ref}}_k(t)
+=
+\frac{1}{6}
+\sum_{a\in\{\Omega,\Delta,V\}}
+\sum_{\sigma=\pm1}
+\cI^{\mathrm{ref}}_{\gamma_k}(\sigma t D e_a).
+\label{eq:avloss}
+\end{equation}
+For each path $k$ write the truncated local model and its enclosure as
+\begin{equation}
+P_k(t)=C_{0,k}+C_{2,k}\,t^2+\cG_{4,k}\,t^4,
+\qquad
+\overline{\cI}^{\mathrm{ref}}_k(t)\in P_k(t)+[-B_k(t),\,B_k(t)].
+\label{eq:gapmodel}
+\end{equation}
+If
+\begin{equation}
+|P_a(t)-P_b(t)|>B_a(t)+B_b(t),
 \label{eq:gap}
 \end{equation}
-
-\section{L3: Certified exact projective matched roots via Krawczyk inclusions}
-
-The numerical paths satisfy the endpoint and first-order matching constraints to order $10^{-11}$. To move from numerical candidates to exact mathematical roots, we formulate the constraint map $\cC:\R^{24}\to\R^{16}$ (after eliminating redundant real components) and decompose the phase space into 16 transverse variables $x$ and 8 fibre variables $y$. For each declared numerical path $\gamma_k$, we fix its fibre coordinates $y_k$ and consider the reduced map
+then the sign of $\overline{\cI}^{\mathrm{ref}}_a(t)-\overline{\cI}^{\mathrm{ref}}_b(t)$ is strictly certified. Only when $C_{0,a}=C_{0,b}$ and $C_{2,a}=C_{2,b}$ does this reduce to the simplified quartic-gap form
 \[
-F_k(x)=\cC(x,y_k).
+|\cG_{4,a}-\cG_{4,b}|\,|t|^4>B_a(t)+B_b(t).
+\]
+The implementation folds the residual $C_0$ and $C_2$ differences into the correction intervals, so they are not omitted from the certificate.
+
+\section{L3: Certified exact roots via Krawczyk inclusions}
+
+The numerical paths satisfy the endpoint and first-order matching constraints to order $10^{-11}$. To move from numerical candidates to exact mathematical roots, we use the projective constraint map $F:\R^{24}\to\R^{16}$ of Eq.~\eqref{eq:constraintmap} and decompose the phase space into 16 transverse variables $x$ and 8 fibre variables $y$. For each declared numerical path $\gamma_k$, we fix its fibre coordinates $y_k$ and consider the reduced square map
+\[
+F_k(x)=F(x,y_k).
 \]
 
-The projective chart denominator is formally verified to exclude zero on every accepted box, ensuring the coordinate chart is valid throughout the Krawczyk computation.
+For a box $X\subset\R^{16}$ with centre $x_0$, the Krawczyk operator is
+\begin{equation}
+K(X)
+=
+x_0-CF(x_0)
++
+\bigl(I-C\,[DF(X)]\bigr)(X-x_0),
+\label{eq:krawczyk}
+\end{equation}
+where $C$ is a frozen nonsingular numerical preconditioner (an approximate inverse of the midpoint Jacobian) and $[DF(X)]$ is an interval enclosure of the Jacobian over $X$. In centered coordinates $x_0=0$, as used by the implementation, this reduces to
+\[
+K(X)=-CF(0)+\bigl(I-C\,[DF(X)]\bigr)X.
+\]
+The strict inclusion $K(X)\subset\operatorname{int}(X)$ then implies that $F_k$ has a unique zero inside $X$ \cite{Moore2009,Tucker2011}.
+
+The projective chart denominator $\psi_0$ of Eq.~\eqref{eq:projcoords} is formally verified to exclude zero on every accepted box, ensuring the coordinate chart is valid throughout the Krawczyk computation.
 
 \begin{theorem}[Krawczyk inclusions for 12 declared controls]
 \label{thm:krawczyk}
@@ -445,7 +642,7 @@ such that the Krawczyk operator satisfies
 \[
 K_k(X_k)\subset\operatorname{int}(X_k).
 \]
-Consequently, each box $X_k$ contains a locally unique exact root $x_k^*$ of $F_k(x)=0$, i.e., a control $\gamma_k^*=(x_k^*,y_k)$ whose root is exactly matched in projective output state and first projective response.
+Consequently, each box $X_k$ contains a locally unique exact root $x_k^*$ of $F_k(x)=0$, i.e., a control $\gamma_k^*=(x_k^*,y_k)$ that is exactly matched in projective output state and first projective response to the reference.
 \end{theorem}
 
 \begin{proof}[Computer-assisted proof]
@@ -459,7 +656,7 @@ and the certificate hash is
 \texttt{fc3ad3823597bd5281b7b9292f227f72}\\
 \texttt{3c2b3a9a8aa4e42c9f0353921b4d8fec}.
 \end{center}
-By the Krawczyk theorem \cite{Moore2009,Tucker2011}, each box contains a locally unique root.
+By the Krawczyk theorem \cite{Moore2009,Tucker2011,Tucker2002}, each box contains a locally unique root.
 \end{proof}
 
 \begin{remark}[Scope of L3]
@@ -478,7 +675,7 @@ For each of the twelve declared controls, let $X_k$ be the transverse phase box 
 \end{theorem}
 
 \begin{proof}[Computer-assisted proof]
-By Theorem~\ref{thm:krawczyk}, the locally unique exact projective matched control $\gamma_k^\ast$ belongs to the certified phase box $X_k$.
+By Theorem~\ref{thm:krawczyk}, the locally unique projectively matched control $\gamma_k^\ast$ belongs to the certified phase box $X_k$.
 
 For every box $X_k$, the six declared finite-error Hamiltonians are evaluated directly using 192-bit outward-rounded Arb/ACB arithmetic. Every phase-dependent trigonometric factor, Hamiltonian matrix exponential, state propagation, overlap, infidelity, and six-point mean is enclosed. Denote the resulting real performance interval by $B_k$. Therefore
 \[
@@ -521,7 +718,7 @@ In all reported runs, every ordinary held-out floating-point outcome is verified
 
 \subsection{Order-thirty mechanism certificate}
 
-The following proposition provides a separate, independent mechanism certificate using the zero-point jet. Unlike the main theorem, it uses Taylor coefficients, Cauchy extraction, alias enclosures, and Dyson tail bounds. It is not part of the main theorem proof.
+The following proposition provides a separate, computationally distinct mechanism certificate using the zero-point jet. Unlike the main theorem, it uses Taylor coefficients, Cauchy extraction, alias enclosures, and Dyson tail bounds. It is not part of the main theorem proof.
 
 The floating-point precursor obtains the order-thirty jet by block-matrix exponentials. The formal phase-box certificate used in Proposition~\ref{prop:order30} instead extracts the coefficients with a 64-point outward-rounded Cauchy transform.
 
@@ -531,7 +728,16 @@ Propagation of the zero-point jet through order thirty over the twelve Krawczyk 
 \end{proposition}
 
 \begin{proof}[Computer-assisted proof]
-Amplitude coefficients are extracted by a 64-point outward-rounded Cauchy discrete Fourier transform on the complex unit circle:
+For path $k$ and physical error axis $a$, define the analytic transition amplitude
+\[
+g_{k,a}(\lambda)
+=
+\langle\psi_{\mathrm{ref}}\,|\,
+\psi_{\gamma_k}(\lambda D e_a)\rangle
+=
+\sum_{n\ge0} g_{k,a,n}\,\lambda^{n}.
+\]
+Its coefficients are extracted by a 64-point outward-rounded Cauchy discrete Fourier transform on the complex unit circle:
 \begin{equation}
 \widehat g_n
 =\frac{1}{64}
@@ -545,10 +751,23 @@ The discrete transform aliases coefficients $g_{n+64\ell}$. A path-uniform Dyson
 \[
 e^{K_a}\frac{K_a^{64}}{64!}<10^{-40}
 \]
-for every physical error axis, where $K_a$ is the integrated spectral norm of the Hamiltonian perturbation along axis $a$:
+for every physical error axis, where the dependence is parameterized as
 \[
-K_a=\int_0^T\|\partial_t H_a(t)\|_2\,\dd t.
+H(s;\lambda_a)=H_0(s)+\lambda_a H_{1,a}(s),
 \]
+with $s$ the physical time and $\lambda_a$ the dimensionless error parameter along axis $a$, and
+\[
+K_a
+=\int_0^T\|H_{1,a}(s)\|_2\,\dd s
+=\int_0^T
+\left\|
+\left.
+\frac{\partial H(s;\lambda_a)}{\partial\lambda_a}
+\right|_{\lambda_a=0}
+\right\|_2
+\dd s
+\]
+is the integrated spectral norm of the Hamiltonian perturbation along axis $a$.
 
 Fidelity coefficients are formed by ball convolution,
 \[
@@ -561,21 +780,17 @@ Propagating the resulting order-thirty jet over the twelve Krawczyk phase boxes 
 
 \section{Results}
 
-The prospective $G_4$ prediction audit uses a held-out twenty-path cohort.
-The Krawczyk, exact-root order-30, and direct exact-root certificates use the
-separate frozen twelve-path cohort declared in the v0.3.1 formal artifacts.
-
 \begin{table}[t]
 \centering
 \caption{Representative prospective and formal audits. ``Pairs'' denotes certified unordered comparisons. Candidate sets differ between stages and between numerical environments; every stage freezes its protocol and ranking before held-out evaluation. The direct exact-root ordering is the main theorem.}
 \label{tab:results}
 \small
-\begin{tabular}{p{4.5cm}cccc}
+\begin{tabular}{>{\raggedright\arraybackslash}p{4.5cm}cccc}
 \toprule
 Audit & Paths & Spearman $\rho$ & Certified pairs & Status\\
 \midrule
 Prospective $G_4$ prediction & 20 & 0.996992 & -- & pass\\
-Covariant fourth-order tensor & 12 & 1.000000 & -- & pass\\
+Covariant fourth-order tensor & 12 & 0.965035 & -- & pass\\
 Formal quartic-only certificate & 12 & -- & 34/66 & partial\\
 Frozen-point order-30 certificate & 12 & 1.000000 & 66/66 & pass\\
 Exact-root Krawczyk inclusion & 12 & -- & 12/12 & pass\\
@@ -595,10 +810,10 @@ Exact-root direct Arb ordering & 12 & 1.000000 & 66/66 & pass\\
 Diagnostic & Value\\
 \midrule
 Fourth-tensor independent components & 15\\
-Maximum tensor recovery relative residual & $4.16\times10^{-15}$\\
+Maximum tensor recovery relative residual & $4.63\times10^{-15}$\\
 Direct coordinate-refit relative error & $1.08\times10^{-14}$\\
 Invariant-contraction relative error & $2.36\times10^{-15}$\\
-Quadratic-coefficient relative spread & $1.33\times10^{-7}$\\
+Quadratic-coefficient relative spread & $1.09\times10^{-7}$\\
 Arb precision & 192 bits\\
 Cauchy points & 64\\
 Taylor order & 30\\
@@ -628,22 +843,9 @@ This is preferable to declaring the quartic rule either universally true or fals
 
 \subsection{Order-30 mechanism versus direct propagation}
 
-The order-30 jet propagated over the Krawczyk boxes certifies $52/66$ pairs with zero reversals (Proposition~\ref{prop:order30}). The remaining 14 pairs are not physically reversed---they are unresolved due to dependency and wrapping in the phase-box propagation of the jet enclosure. Direct Arb propagation of the same boxes certifies all 66 pairs (Theorem~\ref{thm:exactroot}), demonstrating that the unresolved cases are an artefact of the jet propagation and interval wrapping, not a physical failure of the frozen ordering.
+The order-30 jet propagated over the Krawczyk boxes certifies $52/66$ pairs with zero reversals (Proposition~\ref{prop:order30}). The remaining 14 pairs are not physically reversed---they are unresolved due to dependency and wrapping in the phase-box propagation of the jet enclosure. Direct Arb propagation of the same boxes certifies all 66 pairs (Theorem~\ref{thm:exactroot}), demonstrating that the unresolved cases are an artefact of the jet propagation and interval wrapping, not a physical failure of the frozen ordering. The $52/66$ mechanism certificate and the $66/66$ direct certificate arise from different propagation levels and should not be conflated: the latter is the main theorem.
 
-\begin{remark}[On 52/66 vs 66/66]
-The $52/66$ and $66/66$ numbers arise from different certificates and different propagation levels. They should not be conflated. The $52/66$ mechanism certificate shows that the order-thirty jet already resolves a substantial fraction without reversal. The $66/66$ direct certificate is the main theorem.
-\end{remark}
-
-\subsection{Relation to analyticity}
-
-An analytic finite-dimensional propagator is determined by its full local germ, so the existence of some sufficiently high reconstructing order is not by itself surprising. The nontrivial computational content is quantitative:
-\begin{itemize}[leftmargin=2em]
-\item a finite order, 30, suffices to certify a substantial fraction (52/66) of exact-root comparisons with zero reversals;
-\item the omitted tail is explicitly bounded and does not contribute to the unresolved cases (which arise from wrapping, not truncation);
-\item direct outward-rounded propagation closes the remaining cases;
-\item a much lower fourth-order object already certifies a substantial fraction (34/66) of comparisons in the preceding serialized-control audit.
-\end{itemize}
-Thus the result is not that ``analytic functions have Taylor series,'' but that a finite, auditable local resource closes a nontrivial control-ranking problem when combined with exact-root certification.
+The content is quantitative rather than existential: an analytic finite-dimensional propagator is determined by its local germ, but here a fixed finite order, 30, resolves $52/66$ comparisons with an explicitly bounded tail, and the unresolved cases arise from interval wrapping rather than truncation.
 
 \section{Limitations and next theorem}
 
@@ -661,11 +863,7 @@ The primary result concerns the declared six-axis mean. Worst-case ranking is no
 The calculations are local and require no PASQAL credentials. They do not constitute PASQAL Cloud, FRESNEL, or physical-QPU evidence.
 \end{enumerate}
 
-The most accurate limitations sentence is:
-
-\begin{quote}
-The certificate is formal for the serialized finite-dimensional two-atom Hamiltonian, the declared transverse boxes, and the six-axis mean error functional. It does not certify model discrepancy, global fibre topology, many-body scaling, or PASQAL hardware.
-\end{quote}
+In short, the certificate is formal for the serialized finite-dimensional two-atom Hamiltonian, the declared transverse boxes, and the six-axis mean error functional; it does not certify model discrepancy, global fibre topology, many-body scaling, or PASQAL hardware.
 
 The next mathematical step is a validated implicit-function theorem or a parameter-dependent Krawczyk atlas: treat the eight fibre coordinates as parameters and certify a unique transverse solution varying over a declared fibre neighbourhood. The target mathematical structure is
 \[
@@ -676,15 +874,17 @@ and the goal is to prove that a unique transverse solution $x=x(y)$ exists and i
 \section{Reproducibility}
 
 The principal standalone scripts are:
-\begin{itemize}[leftmargin=2em]
-\item \texttt{pasqal\_two\_atom\_G4\_standalone\_colab.py};
-\item \texttt{pasqal\_L3\_L4\_standalone\_colab.py};
-\item \texttt{pasqal\_L4\_order30\_standalone\_colab.py};
-\item \texttt{pasqal\_L4\_formal\_arb\_standalone\_colab.py};
-\item \texttt{pasqal\_L4\_exact\_fibre\_krawczyk\_standalone\_colab\_v1\_2.py};
-\item \texttt{pasqal\_L4\_exact\_root\_ordering\_standalone\_colab.py}.
-\item \texttt{pasqal\_L4\_reproducible\_certificate\_v1\_3\_colab.py}.
-\end{itemize}
+\begin{quote}
+\small\ttfamily
+pasqal\_two\_atom\_G4\_standalone\_colab.py\\
+pasqal\_L3\_L4\_standalone\_colab.py\\
+pasqal\_L4\_order30\_standalone\_colab.py\\
+pasqal\_L4\_formal\_arb\_standalone\_colab.py\\
+pasqal\_L4\_exact\_fibre\_krawczyk\_standalone\_colab\_v1\_2.py\\
+pasqal\_L4\_exact\_root\_ordering\_standalone\_colab.py\\
+pasqal\_L4\_reproducible\_certificate\_v1\_3\_colab.py
+\end{quote}
+The last script produces all formal proof objects.
 
 The v1.3 standalone freezes the twelve-path cohort, transverse bases, and
 point preconditioners, fixes the common Krawczyk radius at
@@ -695,55 +895,97 @@ certificate, and report files. The frozen cohort hash is
 \texttt{9942af610c1e9499a10e989e4ae069e3}\\
 \texttt{912d58eec4fd3ad1d3d39947c232c356}.
 \end{center}
+
 The deterministic protocol and certificate hashes are:
 \begin{itemize}[leftmargin=2em]
+
 \item Krawczyk protocol:
 \begin{center}
 \texttt{a19d01ec77a783be4e3858dd92ca080a}\\
 \texttt{a9fde2b09b77541b0e1ad7f392ff3124}
 \end{center}
+
 \item Krawczyk certificate:
 \begin{center}
 \texttt{fc3ad3823597bd5281b7b9292f227f72}\\
 \texttt{3c2b3a9a8aa4e42c9f0353921b4d8fec}
 \end{center}
+
 \item Exact-root ordering protocol:
 \begin{center}
 \texttt{f51ecfd2e4572f271e276cae18697005}\\
 \texttt{baa3f0ec3f3ab94f98f919cd50c3f844}
 \end{center}
+
 \item Exact-root ordering certificate:
 \begin{center}
 \texttt{03c4db75cb80a149ce1a61e11c227039}\\
 \texttt{f9bd79c3f1304b3defa311a491ea2d1e}
 \end{center}
+
 \end{itemize}
 
 The formal standalone script pins \texttt{python-flint==0.8.0}. NumPy and
 SciPy provide numerical diagnostics, while the v1.3 proof consumes the frozen
 decimal cohort and uses Arb/ACB for the formal interval certificate.
 
-\section*{Code and data availability}
-
-All source code, frozen numerical inputs, outward-rounded interval
-certificates, verification utilities, and manuscript source are available in
-the companion repository \emph{Quantum Control Geometry}:
-\begin{center}
-\url{https://github.com/papasop/quantum-control-geometry}
-\end{center}
-The formal computational artifacts used in this work are fixed in release
-\texttt{v0.3.1} at commit
-\begin{center}
+\paragraph{Clean-environment reproduction.}
+The complete v1.3 audit was rerun in a clean external Colab environment from
+the public \texttt{v0.3.1} Git tag. The tag resolved
+to commit
 \texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}.
-\end{center}
-The synchronized manuscript source is maintained on the repository's
-\texttt{main} branch. The archival DOI will be inserted after deposition.
+Dependency installation, repository SHA-256 verification, reference-artifact
+validation, regression tests, and the complete two-run formal recomputation
+all passed. The run required no PASQAL account or cloud credentials.
 
 \section{Conclusion}
 
-We establish two complementary results on distinct frozen cohorts. On a prospective twenty-path cohort, the zero-point quartic geometric scalar strongly predicts held-out finite-error performance. On a separate twelve-path formal cohort, direct outward-rounded interval propagation certifies all 66 pairwise finite-error orderings at locally unique roots exactly matched in projective output state and first projective response. We have separated finite-error robustness inside a numerically matched neutral-atom implementation fibre into a hierarchy of local information. The common endpoint and complete first-order projective state response leave residual path dependence. A coordinate-covariant fourth-order response tensor provides a strong and partially certifying low-order description. Close comparisons require higher derivatives. For the frozen twelve-path serialized model, strict Krawczyk inclusions establish 12 locally unique roots exactly matched in projective output state and first projective response. The zero-error jet through order thirty, combined with rigorous Cauchy-alias and Dyson-tail enclosures, certifies 52/66 exact-root comparisons with zero reversals as a separate mechanism certificate. Direct 192-bit outward-rounded Arb propagation of the Krawczyk boxes certifies all 66 pairwise orderings as the main theorem.
+We establish two complementary results on distinct frozen cohorts.
+On a prospective twenty-path cohort, the zero-point quartic geometric
+scalar strongly predicts held-out finite-error performance. On a
+separate twelve-path formal cohort, direct outward-rounded interval
+propagation certifies all 66 pairwise finite-error orderings at locally
+unique roots exactly matched in projective output state and first
+projective response.
 
-The finite local jet supplies the prospectively frozen geometric ordering and a $52/66$ exact-root mechanism certificate, while direct outward-rounded phase-box propagation certifies the complete $66/66$ ordering at the locally unique exact projective matched roots. Establishing a global fibre theorem and extending the certificate to open-system, many-atom, and hardware data are the remaining steps.
+The common endpoint and complete first-order state response leave residual
+path dependence. A coordinate-covariant fourth-order response tensor provides
+a strong and partially certifying low-order description, but close
+comparisons require higher derivatives. On the twelve-path cohort, strict
+Krawczyk inclusions establish the twelve locally unique exact roots. The
+zero-error jet through order thirty, combined with rigorous Cauchy-alias and
+Dyson-tail enclosures, certifies $52/66$ exact-root comparisons with zero
+reversals as a separate mechanism certificate. Direct 192-bit outward-rounded
+Arb propagation of the Krawczyk boxes certifies all $66$ pairwise orderings
+as the main theorem.
+
+Establishing a global fibre theorem and extending the certificate to
+open-system, many-atom, and hardware data are the remaining steps.
+
+\section*{Code and Data Availability}
+
+All code, frozen inputs, formal certificates, and reproduction scripts
+are available at
+\begin{center}
+\url{https://github.com/papasop/quantum-control-geometry}
+\end{center}
+The formal computational artifacts used in this work are fixed in
+release \texttt{v0.3.1} at commit
+\texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}.
+The synchronized manuscript source is maintained on the repository's
+\texttt{main} branch.
+No PASQAL account or cloud credentials are required.
+
+\section*{Funding}
+The author received no external funding for this work.
+
+\section*{Competing Interests}
+The author declares no competing interests.
+
+\section*{Author Contributions}
+Y.Y.N. Li conceived the study, developed the theoretical framework,
+implemented the numerical and formal audits, analyzed the results,
+and wrote the manuscript.
 
 \begin{thebibliography}{99}
 
@@ -814,6 +1056,56 @@ F.~J.~Dyson,
 W.~Tucker,
 \emph{Validated Numerics: A Short Introduction to Rigorous Computations},
 Princeton University Press, Princeton (2011).
+
+\bibitem{Tucker2002}
+W.~Tucker,
+``A rigorous ODE solver and Smale's 14th problem,''
+\emph{Found. Comput. Math.} \textbf{2}, 53--117 (2002).
+\href{https://doi.org/10.1007/s002080010018}
+{doi:10.1007/s002080010018}.
+
+\bibitem{Lanford1982}
+O.~E.~Lanford,
+``A computer-assisted proof of the Feigenbaum conjectures,''
+\emph{Bull. Amer. Math. Soc.} \textbf{6}, 427--434 (1982).
+\href{https://doi.org/10.1090/S0273-0979-1982-15008-X}
+{doi:10.1090/S0273-0979-1982-15008-X}.
+
+\bibitem{vandenBerg2015}
+J.~B.~van den Berg and J.-P.~Lessard,
+``Rigorous numerics in dynamics,''
+\emph{Notices Amer. Math. Soc.} \textbf{62}, 1057--1061 (2015).
+\href{https://doi.org/10.1090/noti1276}
+{doi:10.1090/noti1276}.
+
+\bibitem{Rabitz2004}
+H.~A.~Rabitz, M.~M.~Hsieh, and C.~M.~Rosenthal,
+``Quantum optimally controlled transition landscapes,''
+\emph{Science} \textbf{303}, 1998--2001 (2004).
+\href{https://doi.org/10.1126/science.1093649}
+{doi:10.1126/science.1093649}.
+
+\bibitem{Chakrabarti2007}
+R.~Chakrabarti and H.~Rabitz,
+``Quantum control landscapes,''
+\emph{Int. Rev. Phys. Chem.} \textbf{26}, 671--735 (2007).
+\href{https://doi.org/10.1080/01442350701633300}
+{doi:10.1080/01442350701633300}.
+
+\bibitem{Khaneja2005}
+N.~Khaneja, T.~Reiss, C.~Kehlet, T.~Schulte-Herbr\"uggen, and S.~J.~Glaser,
+``Optimal control of coupled spin dynamics: design of NMR pulse sequences
+by gradient ascent algorithms,''
+\emph{J. Magn. Reson.} \textbf{172}, 296--305 (2005).
+\href{https://doi.org/10.1016/j.jmr.2004.11.004}
+{doi:10.1016/j.jmr.2004.11.004}.
+
+\bibitem{Vandersypen2005}
+L.~M.~K.~Vandersypen and I.~L.~Chuang,
+``NMR techniques for quantum control and computation,''
+\emph{Rev. Mod. Phys.} \textbf{76}, 1037--1069 (2005).
+\href{https://doi.org/10.1103/RevModPhys.76.1037}
+{doi:10.1103/RevModPhys.76.1037}.
 
 \bibitem{Moore2009}
 R.~E.~Moore, R.~B.~Kearfott, and M.~J.~Cloud,

@@ -17,15 +17,16 @@ SPEC.loader.exec_module(VERIFY)
 
 
 EXPECTED_TITLE = (
-    "Geometric Prediction and Exact-Root Certification of\\\\\n"
+    "Geometric Prediction and Exact-Root Certification\\\\ of "
     "Finite-Error Ordering in Quantum Control"
 )
 REPOSITORY_URL = "https://github.com/papasop/quantum-control-geometry"
 FROZEN_COMMIT = "284974c9f6b952f4e114c8c5bdc9c2c299c4065c"
-PHASE_FACTOR = (
-    "c_\\gamma=\n"
-    "\\frac{\\overline{\\langle\\psi_{\\mathrm{ref}}|\\psi_\\gamma(\\mathbf 0)\\rangle}}\n"
-    "{|\\langle\\psi_{\\mathrm{ref}}|\\psi_\\gamma(\\mathbf 0)\\rangle|}."
+PHASE_ALIGNMENT_FRAGMENTS = (
+    "c_\\gamma",
+    "\\frac{\\overline{\\langle\\psi_{\\mathrm{ref}}\\,|\\,\\psi_\\gamma(\\mathbf{0})\\rangle}}",
+    "{|\\langle\\psi_{\\mathrm{ref}}\\,|\\,\\psi_\\gamma(\\mathbf{0})\\rangle|}",
+    "\\widetilde J_{\\gamma,a}=c_\\gamma\\,J_{\\gamma,a}",
 )
 
 
@@ -59,7 +60,7 @@ class ManuscriptConsistencyTests(unittest.TestCase):
             "twenty-path cohort",
             "twelve-path formal cohort",
             EXPECTED_TITLE,
-            PHASE_FACTOR,
+            *PHASE_ALIGNMENT_FRAGMENTS,
             REPOSITORY_URL,
             FROZEN_COMMIT,
         )

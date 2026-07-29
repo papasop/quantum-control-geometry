@@ -15,12 +15,16 @@ Canonical v0.3.1 commit:
 284974c9f6b952f4e114c8c5bdc9c2c299c4065c
 ```
 
+Version `v0.3.1` freezes the scientific artifacts. The manuscript on `main`
+may contain later expository and formula-level corrections without changes to
+the frozen numerical certificates.
+
 ## Strongest Result
 
 For the frozen finite-dimensional two-atom Hamiltonian model and declared
-six-axis mean error functional, direct Arb propagation certifies the
-predeclared finite-error ordering for all 66 pairs over 12 certified
-exact-root boxes.
+six-axis mean error functional, direct outward-rounded Arb propagation over
+twelve locally unique projectively matched root boxes certifies the
+predeclared finite-error ordering for all 66 unordered path pairs.
 
 The main theorem-level certificate is:
 
@@ -33,10 +37,6 @@ The main theorem-level certificate is:
 
 This is a formal, model-conditional certificate. It is not PASQAL Cloud,
 QPU, calibration, or model-discrepancy evidence.
-
-Version `v0.3.1` freezes the scientific artifacts. The manuscript on `main`
-may contain later expository and formula-level corrections without changes to
-the frozen numerical certificates.
 
 ## Counts At A Glance
 
