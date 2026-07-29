@@ -40,6 +40,28 @@ class ReferenceArtifactTests(unittest.TestCase):
     def test_clean_environment_notebook_exists(self) -> None:
         self.assertTrue((ROOT / "notebooks" / "reproduce_v0_3_1.ipynb").is_file())
 
+    def test_readme_quartic_counts_match_formal_report(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        formal = VERIFY.load_json("results/l4_formal/report.json")
+        certified = int(VERIFY.field(formal, "G4_certified_pairs"))
+        possible = int(VERIFY.field(formal, "possible_pairs"))
+        coverage = 100.0 * float(VERIFY.field(formal, "G4_pair_coverage"))
+        public_count = f"{certified}/{possible}"
+        public_coverage = f"{coverage:.2f}%"
+
+        self.assertEqual(public_count, "34/66")
+        self.assertIn(
+            "| Quartic-only serialized-control audit | "
+            f"{public_count} ({public_coverage}) |",
+            readme,
+        )
+        self.assertIn(f"The {public_count} quartic result", readme)
+        self.assertIn(
+            f"Partial pairwise certification: {public_count} ({public_coverage})",
+            readme,
+        )
+        self.assertNotIn("35/66", readme)
+
 
 if __name__ == "__main__":
     unittest.main()

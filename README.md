@@ -19,7 +19,8 @@ Canonical v0.3.1 commit:
 
 For the frozen finite-dimensional two-atom Hamiltonian model and declared
 six-axis mean error functional, the zero-point geometric order is preserved
-at locally unique exact state-and-first-response-matched roots.
+at locally unique exact projective-state-and-first-projective-response-matched
+roots.
 
 The main theorem-level certificate is:
 
@@ -37,13 +38,13 @@ QPU, calibration, or model-discrepancy evidence.
 
 | Certificate layer | Coverage | Meaning |
 |---|---:|---|
-| Quartic-only serialized-control audit | 35/66 | Low-order G4 comparison certifies a substantial subset, but not all close pairs |
+| Quartic-only serialized-control audit | 34/66 (51.52%) | Low-order G4 comparison certifies a substantial subset, but not all close pairs |
 | Frozen-point order-30 Arb certificate | 66/66 | Order-30 zero-point jet plus alias and tail bounds certifies the frozen serialized controls |
 | Exact-root order-30 mechanism certificate | 52/66 | Order-30 jet propagated over exact-root Krawczyk boxes certifies 52 pairs with zero reversals |
 | Exact-root direct finite-error certificate | 66/66 | Primary result: direct Arb propagation over certified exact-root boxes closes all pairwise orderings |
 | Reproducibility closure | PASS | Two complete v1.3 executions produce byte-identical proof artifacts |
 
-Do not conflate these numbers. The 35/66 quartic result, the 52/66
+Do not conflate these numbers. The 34/66 quartic result, the 52/66
 exact-root order-30 mechanism result, and the 66/66 direct exact-root result
 come from different certificate layers.
 
@@ -54,6 +55,17 @@ No PASQAL account is required to verify the bundled artifacts.
 ```bash
 python tools/verify_reference_results.py
 python -m unittest discover -s tests -v
+```
+
+Linux / Colab:
+
+```bash
+sha256sum -c SHA256SUMS.txt
+```
+
+macOS:
+
+```bash
 shasum -a 256 -c SHA256SUMS.txt
 ```
 
@@ -170,7 +182,7 @@ Those canonical hashes are recomputed by `tools/verify_reference_results.py`.
 |---|---|---|
 | G4 prospective | Scalar fourth-order contraction | Strong mean-performance predictor on the frozen 20-path cohort |
 | L3 tensor | Symmetric fourth-order response tensor | Coordinate-covariant tensor and invariant noise-moment contraction |
-| L4 quartic | G4 interval with higher terms placed in the radius | Partial pairwise certification: 35/66 |
+| L4 quartic | G4 interval with higher terms placed in the radius | Partial pairwise certification: 34/66 (51.52%) |
 | L4 order 30 | Zero-point jet through order 30 plus alias and tail bounds | Complete 66/66 ordering for frozen serialized controls |
 | Exact-fibre Krawczyk | Interval Newton/Krawczyk in transverse charts | 12/12 locally unique exact matched roots |
 | Exact-root order-30 mechanism | Jet propagation over certified root boxes | 52/66 pairs certified, zero reversals |

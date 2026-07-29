@@ -93,7 +93,9 @@ def verify() -> list[str]:
     assert float(field(formal, "order30_pair_coverage")) == 1.0
     assert bool(formal["gates"]["order30_certified_pairs_correct"])
     assert bool(formal["gates"]["ordinary_outcomes_inside_formal_intervals"])
-    assert int(field(formal, "G4_certified_pairs")) < 66
+    assert int(field(formal, "G4_certified_pairs")) == 34
+    assert int(field(formal, "possible_pairs")) == 66
+    assert float(field(formal, "G4_pair_coverage")) == 34 / 66
     messages.append("L4 formal Arb gates and hashes: PASS")
 
     cohort = load_json("results/exact_fibre_krawczyk/cohort.json")
