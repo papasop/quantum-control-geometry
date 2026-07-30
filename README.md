@@ -224,10 +224,11 @@ geometry: local zero-point response geometry and certified finite-error
 ordering among a declared set of exact response-matched roots. It does not
 establish a global or connected response fibre.
 
-A separate future direction concerns the dynamic layer: connections,
-transport, and geometric memory on a quantum-control fibre bundle. In that
-setting, task-space motion is lifted through a chosen connection, while
-closed loops may leave vertical control or noise-channel holonomy. These are
+A separate future direction asks whether an appropriate quantum-control
+fibre-bundle structure can be established and, if so, whether it supports
+connections, transport, and geometric memory. In such a setting, task-space
+motion could be lifted through a chosen connection, while closed loops could
+leave vertical-control or noise-channel holonomy. These are conjectural
 research directions rather than results of the present v0.3.1 certificate.
 
 ## Code And Data Availability
