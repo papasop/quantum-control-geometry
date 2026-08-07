@@ -3,6 +3,10 @@
 This repository accompanies the manuscript **Exact-Root Certification of
 Finite-Error Ordering in Quantum Control**.
 
+Published version of record: [Zenodo DOI 10.5281/zenodo.21831180](https://doi.org/10.5281/zenodo.21831180).
+The version-independent concept DOI is
+[10.5281/zenodo.20713301](https://doi.org/10.5281/zenodo.20713301).
+
 ## What is proved
 
 For the declared serialized two-atom model and six-axis finite-error

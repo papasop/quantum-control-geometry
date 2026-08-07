@@ -75,3 +75,9 @@ jobs:
           ! grep -q "Finite-Error Robustness in Quantum Control" manuscript.txt
           ! grep -q "Geometric Prediction and Exact-Root Certification" manuscript.txt
           ! grep -q "two claims in the title" manuscript.txt
+
+      - name: Verify published Zenodo metadata
+        run: |
+          grep -q "10.5281/zenodo.21831180" README.md
+          grep -q "10.5281/zenodo.21831180" CITATION.cff
+          grep -q "10.5281/zenodo.21831180" REVIEWER_GUIDE.md

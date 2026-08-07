@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this research artifact, please cite the repository and the exact release or commit."
+message: "If you use this research artifact, please cite the published manuscript and the exact repository release or commit."
 title: "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
 type: software
 authors:
@@ -10,6 +10,9 @@ year: 2026
 repository-code: "https://github.com/papasop/quantum-control-geometry"
 license: MIT
 version: 0.3.1
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.21831180"
 preferred-citation:
   type: article
   title: "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
@@ -18,4 +21,5 @@ preferred-citation:
       given-names: "Y. Y. N."
       orcid: "https://orcid.org/0009-0002-6471-139X"
   year: 2026
-  url: "https://github.com/papasop/quantum-control-geometry"
+  doi: "10.5281/zenodo.21831180"
+  url: "https://doi.org/10.5281/zenodo.21831180"

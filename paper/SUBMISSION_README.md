@@ -2,6 +2,8 @@ LaTeX source for
 "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
  (Y.Y.N. Li)
 Version of record: paper-exact-root-v1.0 (2026-08-07)
+Zenodo DOI: 10.5281/zenodo.21831180
+Zenodo concept DOI: 10.5281/zenodo.20713301
 
 All files in this directory constitute the complete submission source.
 The compiled PDF is manuscript.pdf in THIS SAME directory.
@@ -31,7 +33,7 @@ Frozen build record (this copy):
   Command   : tectonic main.tex  (single command; equivalent to the
               three pdflatex runs above)
   Output    : manuscript.pdf, 20 pages
-  SHA-256   : 413bf864968586201daa2ea4a1e5464a14a1a142606c52d853b61eb9637f9040
+  SHA-256   : 898c194c5c35e719e2734329e2680d1d8a5e3f50cff070704dbd1eb135ed2f71
 Note: The bundled Tectonic-generated manuscript.pdf is the frozen
 version of record. Other TeX engines may produce typographically
 equivalent output with a different byte hash; page breaks may also

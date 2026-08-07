@@ -249,15 +249,18 @@ certificates, verification utilities, and manuscript source are included in
 this repository. Version `v0.3.1` is fixed at commit
 `284974c9f6b952f4e114c8c5bdc9c2c299c4065c`.
 
-An archival DOI should be inserted after GitHub-Zenodo deposition. Once the
-DOI is assigned, update only DOI/version metadata in the manuscript and
-recompile the PDF; do not change numerical artifacts or scientific
-conclusions.
+The published manuscript version of record is archived at Zenodo:
+
+- Version DOI: [`10.5281/zenodo.21831180`](https://doi.org/10.5281/zenodo.21831180)
+- Concept DOI: [`10.5281/zenodo.20713301`](https://doi.org/10.5281/zenodo.20713301)
+
+The repository keeps the frozen numerical certificates separate from the
+published manuscript record.
 
 ## Citation
 
-See [`CITATION.cff`](CITATION.cff). Until the archival DOI is assigned, cite
-the repository, version `v0.3.1`, and the canonical commit above.
+See [`CITATION.cff`](CITATION.cff). Cite the published manuscript DOI together
+with the repository version or exact commit used for reproduction.
 
 For submission freezing, keep `v0.3.1` as the scientific certificate version.
 After the final manuscript source and PDF are synchronized, create a separate

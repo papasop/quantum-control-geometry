@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT_PDF_SHA256 = (
-    "413bf864968586201daa2ea4a1e5464a14a1a142606c52d853b61eb9637f9040"
+    "898c194c5c35e719e2734329e2680d1d8a5e3f50cff070704dbd1eb135ed2f71"
 )
 VERIFY_PATH = ROOT / "tools" / "verify_reference_results.py"
 SPEC = importlib.util.spec_from_file_location("verify_reference_results", VERIFY_PATH)
@@ -49,6 +49,12 @@ class ReferenceArtifactTests(unittest.TestCase):
             text = (ROOT / relative).read_text(encoding="utf-8")
             self.assertIn(expected, " ".join(text.split()))
             self.assertNotIn(obsolete, text)
+
+    def test_published_doi_is_synchronized(self) -> None:
+        doi = "10.5281/zenodo.21831180"
+        for relative in ("README.md", "CITATION.cff", "REVIEWER_GUIDE.md"):
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn(doi, text)
 
     def test_manuscript_pdf_hash_matches_submission_version(self) -> None:
         digest = hashlib.sha256(
