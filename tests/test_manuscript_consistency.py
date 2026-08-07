@@ -23,8 +23,8 @@ SPEC.loader.exec_module(VERIFY)
 
 
 EXPECTED_TITLE = (
-    "Geometric Prediction and Exact-Root Certification\\\\ of "
-    "Finite-Error Ordering in Quantum Control"
+    "Exact-Root Certification of Finite-Error Ordering\\\\ "
+    "in Quantum Control"
 )
 REPOSITORY_URL = "https://github.com/papasop/quantum-control-geometry"
 FROZEN_COMMIT = "284974c9f6b952f4e114c8c5bdc9c2c299c4065c"
@@ -91,6 +91,7 @@ class ManuscriptConsistencyTests(unittest.TestCase):
             "response to calibrated errors",
             "twelve pairwise ordered performance intervals",
             "the minimal interacting setting",
+            "Geometric Prediction and Exact-Root Certification",
         )
         for fragment in stale_fragments:
             with self.subTest(fragment=fragment):

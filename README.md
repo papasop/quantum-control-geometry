@@ -13,8 +13,7 @@ control model.
 
 This repository accompanies the manuscript:
 
-> **Geometric Prediction and Exact-Root Certification of
-> Finite-Error Ordering in Quantum Control**
+> **Exact-Root Certification of Finite-Error Ordering in Quantum Control**
 
 Canonical v0.3.1 commit:
 

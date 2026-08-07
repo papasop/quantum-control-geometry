@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this research artifact, please cite the repository and the exact release or commit."
-title: "Geometric Prediction and Exact-Root Certification of Finite-Error Ordering in Quantum Control"
+title: "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
 type: software
 authors:
   - family-names: "Li"
@@ -12,7 +12,7 @@ license: MIT
 version: 0.3.1
 preferred-citation:
   type: article
-  title: "Geometric Prediction and Exact-Root Certification of Finite-Error Ordering in Quantum Control"
+  title: "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
   authors:
     - family-names: "Li"
       given-names: "Y. Y. N."

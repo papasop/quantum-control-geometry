@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT_PDF_SHA256 = (
-    "378c0c5d92fc18e49d409ddfcc3dba649eb9e78098fdf27dc3c99c0480875a76"
+    "413bf864968586201daa2ea4a1e5464a14a1a142606c52d853b61eb9637f9040"
 )
 VERIFY_PATH = ROOT / "tools" / "verify_reference_results.py"
 SPEC = importlib.util.spec_from_file_location("verify_reference_results", VERIFY_PATH)
@@ -41,6 +41,14 @@ class ReferenceArtifactTests(unittest.TestCase):
     def test_manuscript_exists(self) -> None:
         self.assertTrue((ROOT / "paper" / "main.tex").is_file())
         self.assertTrue((ROOT / "paper" / "manuscript.pdf").is_file())
+
+    def test_short_title_is_synchronized(self) -> None:
+        expected = "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
+        obsolete = "Geometric Prediction and Exact-Root Certification"
+        for relative in ("README.md", "CITATION.cff", "REVIEWER_GUIDE.md"):
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn(expected, " ".join(text.split()))
+            self.assertNotIn(obsolete, text)
 
     def test_manuscript_pdf_hash_matches_submission_version(self) -> None:
         digest = hashlib.sha256(

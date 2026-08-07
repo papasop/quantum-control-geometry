@@ -1,59 +1,58 @@
 \begin{table}[t]
 \centering
-\caption{Representative prospective and formal audits. ``Rank diagnostic'' denotes the
-Spearman correlation of the corresponding ranking stage; covariance itself is verified by
-the $10^{-14}$--$10^{-15}$ relative residuals collected in Appendix~\ref{app:hashes}.
-``Certified result'' states the certified object explicitly, distinguishing certified roots
-from certified unordered pairs. Candidate sets differ between stages and between numerical
-environments; every stage freezes its protocol and ranking before held-out evaluation. The
-direct exact-root ordering is the main theorem.}
+\caption{Logical hierarchy of the prospective and formal audits. ``Rank diagnostic''
+denotes ranking correlation, while ``Certified result'' identifies the formally enclosed
+object (``cert.''\ = formally certified pairs; ``numerical'' = point-valued diagnostic).
+Cohorts differ across stages and all protocols are frozen before held-out evaluation. The
+final row is the main theorem; covariance residuals are reported in
+Appendix~\ref{app:hashes}.}
 \label{tab:audits}
 \footnotesize
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}lllll@{}}
 \toprule
 Audit & Paths & Rank diagnostic & Certified result & Logical role\\
 \midrule
 Prospective $\Gg_{4}$ ranking & 20 & $\rho=0.996992$ & -- & prospective evidence\\
 Covariant $\Gg_{4}$ contraction ranking & 12 & $\rho=0.965035$ & -- & covariance/ranking audit\\
-Formal quartic-only bound & 12 & -- & 34/66 pairs & low-order boundary\\
-Frozen numerical-point order-30 & 12 & $\rho=1$ & 66/66 pairs & diagnostic\\
+Formal quartic-only bound & 12 & -- & 34/66 cert. & low-order boundary\\
+Frozen point-valued order-30 diagnostic & 12 & $\rho=1$ & 66/66 numerical & diagnostic\\
 Exact-root Krawczyk inclusion & 12 & -- & 12/12 roots & existence/uniqueness\\
-Exact-root order-30 jet & 12 & -- & 52/66 pairs & mechanism certificate\\
-Exact-root direct Arb propagation & 12 & $\rho=1$ & 66/66 pairs & main theorem\\
+Exact-root order-30 jet & 12 & -- & 52/66 cert. & mechanism certificate\\
+\midrule
+\textbf{Exact-root direct Arb propagation} & 12 & $\rho=1$ & \textbf{66/66 cert.} & \textbf{main theorem}\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \section{Summary of certified and prospective results}\label{sec:results}
 
-Table~\ref{tab:audits} separates the main theorem, its local-root prerequisite, the
-higher-order mechanism certificate, and the independent prospective evidence. One
-distinction does require explanation: for the twelve serialized numerical phase points,
-before propagation over the Krawczyk root boxes, the order-thirty jet and its analytic
-tail enclosure certify all 66/66 pairwise comparisons. This frozen-point diagnostic is
-witnessed by the proof objects in \texttt{results/l4\_order30/}; it is not an
-exact-response-root certificate. Propagation over the certified root boxes subsequently
-resolves 52/66 pairs with zero reversals (Proposition~\ref{prop:order30}). Numerical
-integrity diagnostics from representative runs are collected in Appendix~\ref{app:hashes}.
-
-Figure~\ref{fig:evidence} displays the two data-level statements behind the title: the
-prospective ranking on the held-out cohort and the certified exact-root intervals of the
-main theorem.
-
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.95\textwidth]{fig2.png}
-\caption{Direct visual evidence for the two claims in the title. (a) Prospective
+\caption{Direct visual evidence for the prospective ranking result and the exact-root
+certification theorem. (a) Prospective
 prediction: $-\Gg_{4}$ predicted versus actual ranks on the held-out twenty-path cohort.
 The frozen order reproduces the actual mean-loss ranking up to two adjacent transpositions
 (marked), giving Spearman $\rho=0.996992$. This panel reports prospective empirical
 evidence; it is not a certificate. (b) Exact-root certification: the twelve certified
 direct performance intervals $B_{k}$ from 192-bit outward-rounded Arb propagation, drawn to
 scale in the frozen order. All 66 unordered pairs are formally disjoint; the tightest pair,
-pv08--pv11, has the certified margin $\Delta_{\min}=2.50\times10^{-5}$ of
-Corollary~\ref{cor:stability} (inset: magnification of that pair).}
+pv08--pv11 (highlighted), has the certified margin $\Delta_{\min}=2.50\times10^{-5}$ of
+Corollary~\ref{cor:stability} (margin marked in the panel).}
 \label{fig:evidence}
 \end{figure}
+
+Table~\ref{tab:audits} separates the main theorem, its local-root prerequisite, the
+higher-order mechanism certificate, and the independent prospective evidence;
+Figure~\ref{fig:evidence} gives the two corresponding data-level statements. One
+distinction must be made explicit: the frozen-point order-30 audit certifies 66/66
+comparisons before propagation over the Krawczyk boxes and is not an exact-root
+certificate (proof objects in \texttt{results/l4\_order30/}); propagation of the same jet
+over the root boxes resolves 52/66 comparisons with no reversal
+(Proposition~\ref{prop:order30}), whereas direct finite-error propagation over those boxes
+proves all 66/66. Numerical integrity diagnostics are collected in
+Appendix~\ref{app:hashes}.
 
 \section{Discussion}\label{sec:discussion}
 
@@ -71,14 +70,11 @@ correct statement is gap-dependent as in Eq.~\eqref{eq:gaptest}.
 
 \subsection{Minimal model versus scalable certification}
 
-The role of the two-atom model is to isolate the response-matching mechanism in the
-smallest interacting Rydberg system, not to approximate a many-body processor. The present
-certificate shows that residual finite-error ordering survives exact projective state and
-complete first-response matching without being attributable to optimizer residuals. Turning
-this result into a many-body compilation method requires a separate scalability programme,
-including structured state representations and dependency-preserving validated propagation.
-The current theorem should therefore be read as a minimal rigorous existence-and-ordering
-result rather than as a scalable hardware-design algorithm.
+The two-atom model isolates response matching in the smallest interacting Rydberg system
+and establishes a minimal rigorous existence-and-ordering result, with residual
+finite-error ordering not attributable to optimizer residuals. Many-body extension
+requires a separate scalable representation and validated propagation architecture, as
+quantified in Section~\ref{sec:limitations}.
 
 \subsection{Order-30 mechanism versus direct propagation}
 
@@ -103,14 +99,12 @@ The present work has five explicit limitations.
 \item \textbf{Global fibre structure.} Twelve locally unique roots exactly matched in
 projective output state and first projective response are certified in transverse boxes.
 The global eight-dimensional solution manifold structure remains unproved.
-\item \textbf{Finite-dimensional model.} Spontaneous emission, Doppler effects, laser phase
-noise, position fluctuations, leakage levels, and waveform filtering are absent. An
-open-system extension is not obtained by appending a dissipative curve to the present
-certificate. Exact matching of density matrices or quantum channels and their first
-responses defines a different constraint map, whose dimension generally scales with
-$d^{2}$ rather than $d$. It would require new matched controls, new root boxes, and
-validated Liouvillian propagation. Arbitrary dissipative perturbations need not preserve
-the present ordering, and no noise-model-independent ordering theorem is claimed here.
+\item \textbf{Finite-dimensional closed model.} Spontaneous emission, Doppler effects,
+leakage, waveform filtering, and other model-discrepancy terms are absent. An open-system
+extension requires a new density-matrix or channel constraint map (whose dimension
+generally scales with $d^{2}$ rather than $d$), new matched controls and root boxes, and
+validated Liouvillian propagation; the present ordering need not survive arbitrary
+dissipative perturbations, and no noise-model-independent ordering theorem is claimed.
 \item \textbf{Two atoms.} No many-body scaling theorem is claimed.
 \item \textbf{Mean axial error law.} The primary result concerns the declared six-axis
 mean. Worst-case ranking is not supported by the present scalar.
@@ -160,18 +154,14 @@ over a declared $y$-region, not to prove a single global isolated root.
 
 \section{Reproducibility}\label{sec:repro}
 
-The complete formal pipeline is frozen in a single standalone audit (v1.3). The
-twelve-path cohort, the transverse bases, and the point preconditioners are fixed; the
-common Krawczyk radius is $3\times10^{-12}$; and runtime metadata is excluded from every
-hashed proof object. As an integrity diagnostic, every ordinary held-out floating-point
-outcome is verified to lie inside its corresponding formal ball; this diagnostic is not
-part of the theorem proofs. Two complete formal executions produce byte-identical protocol,
-certificate, and report files, and the full audit was also rerun in a clean external Colab
-environment from the public v0.3.1 Git tag (commit
-\texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}) with all checks passing and no vendor
-account required. The SHA-256 certificate identifiers, numerical integrity diagnostics,
-script inventory, and clean-environment run records are collected in
-Appendices~\ref{app:hashes} and~\ref{app:scripts}.
+The complete v1.3 pipeline freezes the cohort, transverse bases, preconditioners, and
+Krawczyk radius, excludes runtime metadata from hashed proof objects, and produces
+byte-identical certificates in two complete runs; every ordinary held-out floating-point
+outcome is also verified to lie inside its formal ball as an integrity diagnostic. A clean
+external reproduction from tag \texttt{v0.3.1} (commit
+\texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}) passed with no vendor account. Hashes,
+scripts, dependencies, and run records are given in Appendices~\ref{app:hashes}
+and~\ref{app:scripts}.
 
 \section{Conclusion}\label{sec:conclusion}
 

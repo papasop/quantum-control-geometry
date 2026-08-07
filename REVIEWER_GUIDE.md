@@ -1,7 +1,7 @@
 # Reviewer guide
 
-This repository accompanies the manuscript **Geometric Prediction and
-Exact-Root Certification of Finite-Error Ordering in Quantum Control**.
+This repository accompanies the manuscript **Exact-Root Certification of
+Finite-Error Ordering in Quantum Control**.
 
 ## What is proved
 
