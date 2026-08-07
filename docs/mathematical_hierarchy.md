@@ -86,6 +86,19 @@ propagation supplies the primary finite-radius theorem, while the local jet
 supplies a correct but partial mechanism certificate on the exact-root
 boxes.
 
+Version v0.3.2 records the regularity condition for the production
+preconditioners used in those Krawczyk inclusions. For each frozen
+preconditioner \(Y\), an approximate inverse \(R\) is chosen and 256-bit
+outward-rounded Arb arithmetic verifies
+
+\[
+\rho=\lVert I-RY\rVert_\infty < 1.
+\]
+
+By the Neumann-series argument, \(RY\) and therefore \(Y\) are nonsingular.
+This closes the regularity premise for the production Krawczyk operator; it
+does not replace the v0.3.1 exact-root Arb certificate.
+
 The v1.3 proof freezes the phase centres, transverse bases, and point
 preconditioners as decimal inputs and fixes a common box radius of
 \(3\times10^{-12}\). Runtime metadata is stored outside the hashed proof

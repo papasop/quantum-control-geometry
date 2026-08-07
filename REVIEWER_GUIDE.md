@@ -42,6 +42,21 @@ On macOS, replace the final command with:
 shasum -a 256 -c SHA256SUMS.txt
 ```
 
+## v0.3.2 audit closure
+
+- P0: rigorous regularity certificate for the production preconditioners.
+- P1: independent high-precision point reconstruction.
+- P2: analytic and mutation-tested Krawczyk operator checks.
+
+These checks strengthen but do not replace the frozen v0.3.1 Arb certificate.
+
+```bash
+python tests/audit_closure/p0_preconditioner_nonsingularity.py
+python tests/audit_closure/p2_krawczyk_unit_tests.py
+python tests/audit_closure/run_mutation_tests.py
+python tests/audit_closure/p1_independent_model.py
+```
+
 ## Full formal reproduction
 
 Install the frozen formal environment and run the single complete entry point:
@@ -60,6 +75,9 @@ twice and requires byte-identical proof artifacts.
 - `paper/main.tex`: canonical LaTeX entry point.
 - `results/exact_fibre_krawczyk/`: locally unique root certificates.
 - `results/exact_root_ordering/`: direct 66/66 ordering certificate.
+- `results/audit_closure/`: v0.3.2 production-preconditioner regularity
+  certificate.
+- `tests/audit_closure/`: P0, P1, P2, and mutation-test scripts.
 - `results/reproducibility_summary.json`: two-run identity record.
 - `docs/claim_scope.md`: exact claim boundary.
 - `tools/verify_reference_results.py`: fast artifact verifier.
@@ -73,5 +91,7 @@ open-system, worst-case-error, or many-body certification.
 ## Frozen versions
 
 - `v0.3.1` freezes the scientific certificate artifacts.
+- `v0.3.2` freezes the audit-closure supplement after P1 has a successful
+  GitHub Actions run.
 - `paper-exact-root-v1.0` freezes the synchronized submission manuscript and
   reviewer-facing repository state after CI passes.

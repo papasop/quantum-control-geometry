@@ -200,6 +200,7 @@ paper/
 scripts/
   standalone/       single-file Colab/Jupyter entry points
   core/             readable audit engines and shared model code
+    README.md       core engine map and certificate-of-record entry points
 
 notebooks/
   reproduce_v0_3_1.ipynb
@@ -211,14 +212,20 @@ results/
   l4_formal/               192-bit Arb frozen serialized-control certificate
   exact_fibre_krawczyk/    frozen cohort, protocol, Krawczyk certificate, report
   exact_root_ordering/     protocol, direct exact-root ordering certificate, report
+  audit_closure/           v0.3.2 production-preconditioner regularity certificate
   reproducibility_summary.json
 
 tools/
   verify_reference_results.py
 
 tests/
+  audit_closure/           P0, P1, P2, and mutation-tested audit supplement
   test_manuscript_consistency.py
   test_reference_artifacts.py
+
+.github/workflows/
+  audit_closure_fast.yml         P0 + P2 + mutation tests on push/PR
+  audit_closure_independent.yml  P1 manual/weekly independent reconstruction
 ```
 
 `SHA256SUMS.txt` records byte hashes for the repository snapshot. The
