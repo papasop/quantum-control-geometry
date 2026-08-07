@@ -134,6 +134,7 @@ physical model, exact-root boxes, manuscript, or the v0.3.1 66/66 ordering
 certificate.
 
 ```bash
+python -m pip install -r requirements-lock.txt
 python tests/audit_closure/p0_preconditioner_nonsingularity.py
 python tests/audit_closure/p2_krawczyk_unit_tests.py
 python tests/audit_closure/run_mutation_tests.py

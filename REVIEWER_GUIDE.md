@@ -51,6 +51,7 @@ shasum -a 256 -c SHA256SUMS.txt
 These checks strengthen but do not replace the frozen v0.3.1 Arb certificate.
 
 ```bash
+python -m pip install -r requirements-lock.txt
 python tests/audit_closure/p0_preconditioner_nonsingularity.py
 python tests/audit_closure/p2_krawczyk_unit_tests.py
 python tests/audit_closure/run_mutation_tests.py

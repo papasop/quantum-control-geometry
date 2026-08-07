@@ -51,7 +51,7 @@ python tools/verify_reference_results.py
 python -m unittest discover -s tests -v
 
 # v0.3.2 audit closure
-python -m pip install -r requirements.txt
+python -m pip install -r requirements-lock.txt
 python tests/audit_closure/p0_preconditioner_nonsingularity.py
 python tests/audit_closure/p2_krawczyk_unit_tests.py
 python tests/audit_closure/run_mutation_tests.py
