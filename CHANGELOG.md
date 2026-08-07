@@ -20,6 +20,11 @@
 - Replaced the editable manuscript source with the split submission tree
   rooted at `paper/main.tex` while retaining `paper/manuscript.pdf` as the
   public PDF version of record.
+- Sharpened the submission manuscript into the theorem-first 21-page text and
+  refreshed the public PDF hash.
+- Removed the duplicate standalone manuscript workflow; the main CI workflow
+  remains the manuscript compile and text-gate authority.
+- Clarified that code is MIT licensed and manuscript materials are CC BY 4.0.
 
 ## [0.3.1] - 2026-07-29
 

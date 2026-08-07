@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+MANUSCRIPT_PDF_SHA256 = (
+    "cf6be20efa2d6d33af6baf4647bb620fb47afbd2c8cc77346104d2bd4d7dffaa"
+)
 VERIFY_PATH = ROOT / "tools" / "verify_reference_results.py"
 SPEC = importlib.util.spec_from_file_location("verify_reference_results", VERIFY_PATH)
 assert SPEC is not None and SPEC.loader is not None
@@ -37,6 +41,12 @@ class ReferenceArtifactTests(unittest.TestCase):
     def test_manuscript_exists(self) -> None:
         self.assertTrue((ROOT / "paper" / "main.tex").is_file())
         self.assertTrue((ROOT / "paper" / "manuscript.pdf").is_file())
+
+    def test_manuscript_pdf_hash_matches_submission_version(self) -> None:
+        digest = hashlib.sha256(
+            (ROOT / "paper" / "manuscript.pdf").read_bytes()
+        ).hexdigest()
+        self.assertEqual(digest, MANUSCRIPT_PDF_SHA256)
 
     def test_clean_environment_notebook_exists(self) -> None:
         self.assertTrue((ROOT / "notebooks" / "reproduce_v0_3_1.ipynb").is_file())

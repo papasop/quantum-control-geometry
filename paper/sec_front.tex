@@ -2,34 +2,29 @@
 \noindent
 Quantum controls that agree at the nominal endpoint and in their complete first-order
 response to the declared global error coordinates need not have the same finite-error
-robustness. We study this
-residual implementation dependence in a serialized two-atom Rydberg model, a minimal
-interacting setting in which amplitude, detuning, and interaction-calibration responses
-coexist, with twenty-four control phases and three global error coordinates.
+robustness. We study this residual implementation dependence in a serialized two-atom
+Rydberg model---a minimal interacting setting in which amplitude, detuning, and
+interaction-calibration responses coexist---with twenty-four control phases and three
+global error coordinates.
 
-A fourth-order zero-point response coefficient is first frozen as a prospective ranking
-rule. In the predeclared held-out twenty-path cohort, it achieves Spearman correlation
-$0.996992$ with mean finite-error performance and identifies the best path. Additional
-seeded cohorts showed appreciable variation in the prospective correlation, so the quartic
-rule is treated as empirical evidence rather than a universal ranking theorem. The
-coefficient is then represented as the contraction of a symmetric fourth-order response
-tensor in the three-dimensional error space with the fourth noise moment; direct
-recomputation under a nonorthogonal coordinate change verifies the associated covariance
-and contraction invariance.
+The main result is a computer-assisted exact-root finite-error ordering theorem. For a
+frozen twelve-path cohort, strict 192-bit Krawczyk inclusions certify twelve locally
+unique roots whose projective output states and first projective responses exactly match
+the reference. Direct outward-rounded Arb propagation of the certified root boxes through
+the declared six-axis error functional produces twelve pairwise disjoint performance
+intervals, totally ordered according to an order frozen before the propagation, certifying
+the complete finite-error ordering for all 66 unordered path pairs. Two computationally
+independent mechanism certificates expose the internal structure of this ordering: a
+zero-point Taylor jet through order thirty, with formal Cauchy-alias and Dyson-tail
+enclosures, certifies 52/66 comparisons with no reversed pair, while the lowest-order
+quartic term alone certifies 34/66.
 
-For a separate twelve-path cohort, whose target order was frozen by its own pre-outcome
-order-thirty point calculation, independently of the twenty-path quartic study, strict
-192-bit Krawczyk inclusions certify locally unique roots whose projective output states and
-first projective responses exactly match the reference. Direct outward-rounded Arb
-propagation of the certified root boxes through the declared six-axis error functional then
-proves the complete finite-error ordering for all 66 unordered path pairs, agreeing with an
-order frozen before the direct propagation. A separate order-thirty local-jet calculation
-certifies 52/66 comparisons with no reversed certified pair, while the quartic term alone
-certifies 34/66.
-
-The main result is therefore a computer-assisted exact-root finite-error ordering theorem
-for the declared finite-dimensional model. It does not constitute hardware,
-model-discrepancy, global-fibre, or many-body evidence.
+On a separate prospective cohort, a frozen quartic response contraction strongly predicts
+the held-out finite-error ranking (Spearman $\rho=0.996992$ on twenty paths), and its
+tensor representation is verified to transform covariantly under nonorthogonal
+error-coordinate changes. This prospective evidence is not a premise of the theorem. The
+theorem is conditional on the declared finite-dimensional model and error functional; it
+does not constitute hardware, model-discrepancy, global-fibre, or many-body evidence.
 \end{abstract}
 
 \section{Introduction}
@@ -55,7 +50,10 @@ control~\cite{green2013}; quantum geometric approaches endow state and parameter
 with the quantum geometric tensor and its curvature~\cite{provost1980}; and
 control-landscape theory analyses the critical-point structure of control
 objectives~\cite{rabitz2004,chakrabarti2007}. These methods typically optimize or cancel
-designated low-order sensitivities of a control. Here we instead condition on a strong
+designated low-order sensitivities of a control. What remains unresolved by these
+viewpoints is whether controls that are exactly indistinguishable at the endpoint and
+throughout their complete first-order projective response can nevertheless admit a
+rigorously certifiable finite-error ordering. Here we condition on that strong
 equivalence relation---candidate controls must share both the nominal output state and the
 complete first-order output-state response to global amplitude, detuning, and interaction
 errors---and study the finite-radius ordering that remains on the implementation fibre,
@@ -105,19 +103,15 @@ Proposition~\ref{prop:order30}.
 \textbf{Reading guide.} Four quantitative results play different logical roles:
 \begin{center}
 \begin{tabular}{ll}
-66/66 & direct exact-root theorem\\
+66/66 & direct exact-root theorem (main result)\\
 52/66 & order-thirty mechanism certificate\\
 34/66 & quartic-only boundary\\
 $\rho = 0.996992$ & prospective evidence (separate cohort)
 \end{tabular}
 \end{center}
-The 66/66 direct exact-root certificate is the main theorem. The 52/66 order-thirty result
-explains how much of that ordering is resolved by a finite local jet. The 34/66 quartic
-certificate marks the limit of the lowest-order geometric description. The Spearman result
-is prospective evidence obtained on a separate held-out twenty-path cohort; the frozen
-order used in the exact-root theorem is supplied by the pre-outcome order-thirty
-certificate for the twelve-path cohort, and no pathwise identity between the two cohorts is
-claimed.
+The frozen order used in the exact-root theorem is supplied by the pre-outcome
+order-thirty certificate for the twelve-path cohort; no pathwise identity between the
+twenty-path prospective cohort and the twelve-path formal cohort is claimed.
 
 The remainder of the paper follows the logical development from prospective prediction to
 exact-root certification. Section~\ref{sec:model} fixes the model and the benchmark error

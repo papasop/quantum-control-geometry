@@ -52,6 +52,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y poppler-utils
+          pdfinfo paper/main.pdf | grep -Eq "Pages:[[:space:]]+21"
           pdftotext paper/main.pdf manuscript.txt
           grep -q "Geometric Prediction and Exact-Root Certification" manuscript.txt
           grep -q "Finite-Error Ordering in Quantum Control" manuscript.txt

@@ -26,29 +26,17 @@ Exact-root direct Arb propagation & 12 & $\rho=1$ & 66/66 pairs & main theorem\\
 
 \section{Results}\label{sec:results}
 
-\textbf{Frozen-point diagnostic.} For the twelve serialized numerical phase points, before
-propagation over the Krawczyk root boxes, the order-thirty jet and its analytic tail
-enclosure certify all 66/66 pairwise comparisons. This pointwise diagnostic is witnessed by
-the proof objects in \texttt{results/l4\_order30/}. It is not an exact-response-root
-certificate. Propagation over the certified root boxes subsequently resolves 52/66 pairs
-with zero reversals (Proposition~\ref{prop:order30}).
-
-Numerical integrity diagnostics from representative runs are collected in
-Appendix~\ref{app:hashes}. The sequence of results supports the following hierarchy.
-\begin{enumerate}[itemsep=0.1em]
-\item \textbf{Implementation memory:} endpoint and complete first-order output-state
-matching do not numerically determine finite-error performance.
-\item \textbf{Low-order organization:} the covariant quartic contraction $\Gg_{4}$ strongly
-organizes mean performance and formally certifies a substantial subset of path pairs
-(34/66 at the formal ball level).
-\item \textbf{Exact-root certification:} strict Krawczyk inclusions establish 12 locally
-unique roots exactly matched in projective output state and first projective response.
-\item \textbf{High-order mechanism:} the order-thirty jet propagated over the Krawczyk
-boxes certifies 52/66 pairs with zero reversals (Proposition~\ref{prop:order30}).
-\item \textbf{Complete ordering:} direct 192-bit outward-rounded Arb propagation of the
-Krawczyk boxes certifies all 66 pairs with the frozen order preserved
-(Theorem~\ref{thm:ordering}).
-\end{enumerate}
+Table~\ref{tab:audits} collects the audits in the fixed hierarchy of the paper: the 66/66
+direct exact-root ordering theorem (main result), supported by the 12/12 Krawczyk local
+uniqueness certificates; the 52/66 order-thirty mechanism certificate; the 34/66
+quartic-only boundary; and the prospective $\rho=0.996992$ evidence on the separate
+cohort. A frozen-point diagnostic sharpens the picture: for the twelve serialized
+numerical phase points, before propagation over the Krawczyk root boxes, the order-thirty
+jet and its analytic tail enclosure certify all 66/66 pairwise comparisons. This pointwise
+diagnostic is witnessed by the proof objects in \texttt{results/l4\_order30/}; it is not an
+exact-response-root certificate. Propagation over the certified root boxes subsequently
+resolves 52/66 pairs with zero reversals (Proposition~\ref{prop:order30}). Numerical
+integrity diagnostics from representative runs are collected in Appendix~\ref{app:hashes}.
 
 Figure~\ref{fig:evidence} displays the two data-level statements behind the title: the
 prospective ranking on the held-out cohort and the certified exact-root intervals of the
@@ -190,42 +178,34 @@ The complete formal pipeline is frozen in a single standalone audit (v1.3). The
 twelve-path cohort, the transverse bases, and the point preconditioners are fixed; the
 common Krawczyk radius is $3\times10^{-12}$; and runtime metadata is excluded from every
 hashed proof object. Two complete formal executions produce byte-identical protocol,
-certificate, and report files. The SHA-256 certificate identifiers and the numerical
-integrity diagnostics are collected in Appendix~\ref{app:hashes}; the script inventory,
-dependency pins, and clean-environment runs are collected in Appendix~\ref{app:scripts}.
-
-\textbf{Clean-environment reproduction.} The complete v1.3 audit was rerun in a clean
-external Colab environment from the public v0.3.1 Git tag, which resolved to commit
-\begin{center}
-\footnotesize\texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}.
-\end{center}
-Dependency installation, repository
-SHA-256 verification, reference-artifact validation, regression tests, and the complete
-two-run formal recomputation all passed. The run required no vendor account or cloud
-credentials.
+certificate, and report files, and the full audit was also rerun in a clean external Colab
+environment from the public v0.3.1 Git tag (commit
+\texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}) with all checks passing and no vendor
+account required. The SHA-256 certificate identifiers, numerical integrity diagnostics,
+script inventory, and clean-environment run records are collected in
+Appendices~\ref{app:hashes} and~\ref{app:scripts}.
 
 \section{Conclusion}\label{sec:conclusion}
 
-We establish two complementary results on distinct frozen cohorts. On a prospective
-twenty-path cohort, the zero-point quartic geometric scalar strongly predicts held-out
-finite-error performance. On a separate twelve-path formal cohort, direct outward-rounded
-interval propagation certifies all 66 pairwise finite-error orderings at locally unique
-roots exactly matched in projective output state and first projective response.
+The main result is a computer-assisted exact-root finite-error ordering theorem: on the
+frozen twelve-path cohort, strict Krawczyk inclusions certify twelve locally unique roots
+exactly matched in projective output state and first projective response, and direct
+192-bit outward-rounded Arb propagation of the certified root boxes certifies the complete
+frozen ordering for all 66 unordered path pairs.
 
-The common endpoint and complete first-order state response leave residual path dependence.
-A coordinate-covariant fourth-order response tensor provides a strong and partially
-certifying low-order description, but close comparisons require higher derivatives. On the
-twelve-path cohort, strict Krawczyk inclusions establish the twelve locally unique exact
-roots. The zero-error jet through order thirty, combined with rigorous Cauchy-alias and
-Dyson-tail enclosures, certifies 52/66 exact-root comparisons with zero reversals as a
-separate mechanism certificate. Direct 192-bit outward-rounded Arb propagation of the
-Krawczyk boxes certifies all 66 pairwise orderings as the main theorem.
+The mechanism behind the ordering is geometric. Exact projective first-response matching
+makes the quadratic loss form common, so the first possible discriminator is the quartic
+response tensor, whose covariant contraction with the noise moment organizes the
+comparison: it certifies 34/66 pairs alone, and a zero-point jet through order thirty
+certifies 52/66 with no reversals as a computationally independent mechanism certificate.
+On a separate twenty-path cohort, the frozen quartic contraction predicts the held-out
+ranking prospectively ($\rho=0.996992$); this evidence is an application of the same
+structure, not a premise of the theorem.
 
-The explicit constraint-dimension count identifies the boundary of the present dense
-certificate: it remains tractable in the minimal interacting model and in suitably reduced
-symmetry sectors, but no generic many-body scalability claim is made. The next steps are
-parameterized root continuation, certified model-discrepancy budgets, structured many-body
-propagation, and separate open-system and compiled-hardware validation.
+The certificate is conditional on the declared serialized model and error functional. The
+next mathematical step is a parameterized Krawczyk or validated implicit-function
+continuation over the fibre coordinates; scalability, open-system, and hardware
+extensions each require new certificates, not extensions of the present one.
 
 \appendix
 

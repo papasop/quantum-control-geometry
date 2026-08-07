@@ -261,4 +261,8 @@ note relating that paper package to the `v0.3.1` scientific artifacts.
 
 ## License
 
-MIT License. See [`LICENSE`](LICENSE).
+Code is released under the MIT License. See [`LICENSE`](LICENSE).
+
+The manuscript source, compiled manuscript PDF, and manuscript figures in
+`paper/` are released under the Creative Commons Attribution 4.0 International
+License (CC BY 4.0).
