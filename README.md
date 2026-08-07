@@ -17,7 +17,9 @@ Canonical v0.3.1 commit:
 
 Version `v0.3.1` freezes the scientific artifacts. The manuscript on `main`
 may contain later expository and formula-level corrections without changes to
-the frozen numerical certificates.
+the frozen numerical certificates. A separate immutable paper-exact tag, for
+example `paper-exact-root-v1.0`, should freeze the synchronized submission
+manuscript source and PDF without moving `v0.3.1`.
 
 ## Strongest Result
 
@@ -103,7 +105,21 @@ Formal audits require:
 python -m pip install -r requirements.txt
 ```
 
-The formal dependency pin is `python-flint==0.8.0`.
+For review-time reproduction of the formal certificate environment, use the
+exact lock file:
+
+```bash
+python -m pip install -r requirements-lock.txt
+```
+
+`requirements.txt` records the supported compatibility range. The
+`requirements-lock.txt` file records the exact dependency versions used for
+the formal submission certificate environment.
+
+The full exact-root certificate reproduction is also available as a manual
+GitHub Actions workflow, `Full exact-root certificate reproduction`. It runs
+`scripts/standalone/pasqal_L4_reproducible_certificate_v1_3_colab.py` and
+uploads the generated log and certificate directory.
 
 ## External Clean-Environment Reproduction
 
@@ -150,8 +166,11 @@ Readable core audit engines are in `scripts/core/`.
 
 ```text
 paper/
-  manuscript.tex
-  manuscript.pdf
+  main.tex            canonical editable manuscript entry point
+  sec_front.tex       front matter, introduction, and scope
+  sec_mid.tex         exact-root construction and theorem
+  sec_back.tex        validation, availability, and references
+  manuscript.pdf      public PDF version of record
 
 scripts/
   standalone/       single-file Colab/Jupyter entry points
@@ -233,6 +252,12 @@ conclusions.
 
 See [`CITATION.cff`](CITATION.cff). Until the archival DOI is assigned, cite
 the repository, version `v0.3.1`, and the canonical commit above.
+
+For submission freezing, keep `v0.3.1` as the scientific certificate version.
+After the final manuscript source and PDF are synchronized, create a separate
+immutable paper-exact tag such as `paper-exact-root-v1.0` and attach the final
+PDF, LaTeX source package, SHA-256 hashes, reproduction entry point, and a
+note relating that paper package to the `v0.3.1` scientific artifacts.
 
 ## License
 

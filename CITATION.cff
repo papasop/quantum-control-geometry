@@ -5,7 +5,17 @@ type: software
 authors:
   - family-names: "Li"
     given-names: "Y. Y. N."
+    orcid: "https://orcid.org/0009-0002-6471-139X"
 year: 2026
 repository-code: "https://github.com/papasop/quantum-control-geometry"
 license: MIT
 version: 0.3.1
+preferred-citation:
+  type: article
+  title: "Geometric Prediction and Exact-Root Certification of Finite-Error Ordering in Quantum Control"
+  authors:
+    - family-names: "Li"
+      given-names: "Y. Y. N."
+      orcid: "https://orcid.org/0009-0002-6471-139X"
+  year: 2026
+  url: "https://github.com/papasop/quantum-control-geometry"

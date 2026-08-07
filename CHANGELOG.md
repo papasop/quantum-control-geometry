@@ -10,6 +10,16 @@
   and manuscript-artifact consistency tests.
 - Corrected manuscript quartic-only coverage to 34/66 (51.52%) and the
   prospective $G_4$ Spearman value to 0.996992.
+- Tightened manuscript boundary wording for declared global error coordinates,
+  exact-root interval ordering, pre-outcome formal-cohort ordering freeze, and
+  the minimal two-atom interacting setting claim.
+- Added ORCID and preferred manuscript/software citation separation to
+  `CITATION.cff`.
+- Added a locked formal dependency file and a manual full exact-root
+  certificate reproduction workflow.
+- Replaced the editable manuscript source with the split submission tree
+  rooted at `paper/main.tex` while retaining `paper/manuscript.pdf` as the
+  public PDF version of record.
 
 ## [0.3.1] - 2026-07-29
 

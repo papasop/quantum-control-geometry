@@ -1,0 +1,422 @@
+\section{Prospective fourth-order response prediction}\label{sec:quartic}
+
+\subsection{Symmetric local response}
+
+Introduce normalized error coordinates $z\in\Rr^{3}$ through
+\[
+\eps=Dz,\qquad D=\diag(0.06,0.04,0.05).
+\]
+For a direction $v\in\Rr^{3}$, define the symmetric response
+\begin{equation}\label{eq:symmetric}
+S_{\gamma}(t,v)=\frac{\Iloc_{\gamma}(tDv)+\Iloc_{\gamma}(-tDv)}{2}.
+\end{equation}
+Analyticity of the finite matrix exponential gives
+\begin{equation}\label{eq:taylor}
+S_{\gamma}(t,v)=q_{2,\gamma}(v)t^{2}+q_{4,\gamma}(v)t^{4}+q_{6,\gamma}(v)t^{6}+\cdots.
+\end{equation}
+Odd powers cancel by construction.
+
+By Lemma~\ref{lem:quadratic}, exact projective first-response matching forces the quadratic
+loss forms of matched controls to coincide exactly, so the quartic term is the first
+possible symmetric discriminator. The numerical cohorts here are matched only within
+tolerance; consistently, the relative spread of the averaged quadratic coefficient across
+the validation cohorts is approximately $10^{-7}$. The first useful discriminator is
+therefore the quartic coefficient.
+
+\subsection{Prospective quartic ranking}
+
+The quartic rule developed here is a \emph{geometric predictor}, not a universal theorem:
+it is gap-dependent and certifies only a subset of pairwise comparisons, a boundary made
+precise in Sections~\ref{sec:covariant}--\ref{sec:certification}.
+
+\subsubsection{Discovery and validation separation}
+
+The initial four named controls were used only for discovery and orientation. A twelve-path
+cohort was then used to compare candidate formulas. The smallest sufficient rule on that
+training cohort was
+\[
+\text{smaller }\Gg_{4}\ \Longrightarrow\ \text{smaller mean finite-error infidelity.}
+\]
+The addition of the sixth-order coefficient did not improve the training rank correlation,
+so the quartic rule was frozen.
+
+For the prospective audit, the coefficients $q_{2},q_{4},q_{6}$ were estimated by a frozen
+least-squares fit of
+\[
+S_{\gamma}(t,e_{a})=q_{2,a}t^{2}+q_{4,a}t^{4}+q_{6,a}t^{6}
+\]
+at
+\[
+t\in\Bigl\{\tfrac{1}{32},\tfrac{1}{24},\tfrac{1}{20},\tfrac{1}{16},
+\tfrac{1}{14},\tfrac{1}{12},\tfrac{1}{10},\tfrac{1}{8}\Bigr\}.
+\]
+The tensor audit below is computationally distinct: its directional derivatives are
+evaluated directly at $t=0$ by block-matrix exponentials, rather than by fitting
+nonzero-radius samples.
+
+A new twenty-path cohort was generated with a different seed. For each candidate, a ranking
+certificate containing phases, local coefficients, and predicted order was written and
+SHA-256 hashed before the held-out outcome evaluator was enabled. The predeclared primary
+gate was
+\[
+\rho_{\mathrm{Spearman}}\ge 0.95,
+\]
+together with correct top-path identification.
+
+\subsubsection{Quartic validation result}
+
+The twenty-path Colab run gave
+\begin{equation}\label{eq:spearman}
+\rho_{\mathrm{Spearman}}\bigl(-\Gg_{4},-\II\bigr)=0.996992.
+\end{equation}
+This prospective rank correlation is empirical evidence on a separately generated held-out
+cohort. It is not used in the proof of the exact-root ordering theorem and does not
+establish a universal fourth-order ranking law. Because the quartic rule, ranking
+direction, acceptance threshold, and ranking certificate were frozen before held-out
+finite-error evaluation, the reported correlation is not an in-sample fit; nevertheless, it
+remains cohort-specific prospective evidence rather than a theorem. The predicted and
+observed rankings differed by two adjacent transpositions, corresponding to
+$\sum_{i}d_{i}^{2}=4$; this is a descriptive rank diagnostic for the frozen seeded cohort,
+and no statistical-population inference is claimed. The predicted and observed top path
+agreed. Two local coefficient-extraction windows had rank correlation one, and the maximum
+local fit residual was $1.48\times10^{-10}$.
+
+Subsequent cohorts show that $\Gg_{4}$ is not universally sufficient: depending on the
+generated matched paths, the prospective quartic correlation varies appreciably across
+seeded cohorts. This variation motivated the bounded higher-order analysis rather than post
+hoc replacement of the quartic formula.
+
+\section{Covariant quartic response geometry}\label{sec:covariant}
+
+\subsection{Quartic tensor}
+
+The object recovered in this section is a quartic susceptibility of the endpoint loss---a
+component of the fourth jet of the endpoint map composed with infidelity---not a
+Riemannian curvature or an instance of the quantum geometric tensor~\cite{provost1980}.
+There exists a symmetric fourth-order tensor $\Aa^{(4)}_{\gamma}$ such that
+\begin{equation}\label{eq:quartictensor}
+q_{4,\gamma}(v)=\Aa^{(4)}_{\gamma,ijkl}\,v_{i}v_{j}v_{k}v_{l}.
+\end{equation}
+In three dimensions a symmetric fourth-order tensor has $\binom{3+4-1}{4}=15$ independent
+components. The tensor $\Aa^{(4)}_{\gamma}$ is reconstructed from the fourth jet of the
+path-local loss $\Iloc_{\gamma}$: we recover its components from 36 seeded directions,
+whose directional Taylor coefficients are computed directly at $t=0$ through order six by
+block-matrix exponentials, rather than by fitting nonzero-radius samples.
+
+Let
+\[
+z\sim\mathrm{Unif}\{\pm e_{\Omega},\pm e_{\Delta},\pm e_{V}\},\qquad \eps=Dz,
+\]
+so that the physical error scales $0.06^{4},0.04^{4},0.05^{4}$ are carried by $D$ and
+absorbed into the tensor components. For the six-axis law in Eq.~\eqref{eq:errorlaw},
+define the fourth moment
+\[
+M^{(4)}_{ijkl}=\ev{z_{i}z_{j}z_{k}z_{l}}.
+\]
+The scalar quartic predictor is
+\begin{equation}\label{eq:g4}
+\Gg_{4}(\gamma;M^{(4)})=\Aa^{(4)}_{\gamma,ijkl}M^{(4)}_{ijkl}.
+\end{equation}
+For the equally weighted signed axes,
+\[
+\Gg_{4}=\frac{1}{3}\Bigl(\Aa^{(4)}_{\Omega\Omega\Omega\Omega}
++\Aa^{(4)}_{\Delta\Delta\Delta\Delta}+\Aa^{(4)}_{VVVV}\Bigr).
+\]
+
+\subsection{Coordinate covariance}
+
+\begin{proposition}[Covariance and invariant contraction]\label{prop:covariance}
+Let $z=Ry$ for an invertible real matrix $R$. Then
+\begin{equation}\label{eq:atransform}
+\Aa^{(4)}_{y,abcd}=\Aa^{(4)}_{z,ijkl}\,R_{ia}R_{jb}R_{kc}R_{ld},
+\end{equation}
+\begin{equation}\label{eq:mtransform}
+M^{(4)}_{y,abcd}=(R^{-1})_{ai}(R^{-1})_{bj}(R^{-1})_{ck}(R^{-1})_{dl}\,M^{(4)}_{z,ijkl},
+\end{equation}
+and
+\begin{equation}\label{eq:invariant}
+\Aa^{(4)}_{y}:M^{(4)}_{y}=\Aa^{(4)}_{z}:M^{(4)}_{z}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Equation~\eqref{eq:atransform} follows by substituting $z=Ry$ into the quartic form.
+Equation~\eqref{eq:mtransform} follows from $y=R^{-1}z$. Contracting all four indices
+cancels each $R$ with the corresponding $R^{-1}$, proving Eq.~\eqref{eq:invariant}.
+\end{proof}
+
+This proposition is algebraic. The numerical audit additionally recomputes the tensor
+directly in the transformed coordinates. For a nonorthogonal map of condition number
+approximately $1.82$, the direct-refit relative error is $1.08\times10^{-14}$ and the
+maximum invariant-contraction relative error is $2.36\times10^{-15}$.
+
+The covariant object is not the scalar $\Gg_{4}$ in isolation. It is the fourth-order
+response tensor $\Aa^{(4)}$ together with the physical fourth noise moment $M^{(4)}$. Their
+contraction is independent of a linear reparameterization of error coordinates. This avoids
+interpreting a coordinate-specific axis average as an intrinsic curvature.
+
+Establishing a relation of this susceptibility to a canonical connection or curvature on a
+control quotient would require additional structure.
+
+For a noise moment $M$, the low-cost screening problem is
+\[
+\gamma^{\star}\in\argmin_{\gamma\in\Ff_{\eta}}\ \Aa^{(4)}_{\gamma}:M^{(4)}.
+\]
+Pairs that fail the quartic gap test can be escalated adaptively to sixth, eighth, or
+higher jet order until their intervals separate. This suggests a certified branch-and-bound
+control selector: compute low-order local tensors for all candidates, refine only ambiguous
+pairs, and reserve direct finite-error simulation or hardware evaluation for model
+validation rather than exhaustive ranking.
+
+The gap-dependent certification criterion used by the implementation retains the residual
+constant and quadratic terms explicitly. The certified quantity is the six-axis averaged
+reference loss at radius $t$,
+\begin{equation}\label{eq:radiusloss}
+\Iref_{k}(t)=\frac{1}{6}\sum_{a\in\{\Omega,\Delta,V\}}\sum_{\sigma=\pm1}
+\Iref_{k}(\sigma t D e_{a}).
+\end{equation}
+For each path $k$ write the truncated local model and its enclosure as
+\begin{equation}\label{eq:truncated}
+P_{k}(t)=C_{0,k}+C_{2,k}t^{2}+\Gg_{4,k}t^{4},\qquad
+\Iref_{k}(t)\in P_{k}(t)+[-B_{k}(t),\,B_{k}(t)].
+\end{equation}
+If
+\begin{equation}\label{eq:gaptest}
+\lvert P_{a}(t)-P_{b}(t)\rvert > B_{a}(t)+B_{b}(t),
+\end{equation}
+then the sign of $\Iref_{a}(t)-\Iref_{b}(t)$ is strictly certified. Only when
+$C_{0,a}=C_{0,b}$ and $C_{2,a}=C_{2,b}$ does this reduce to the simplified quartic-gap form
+\[
+\lvert\Gg_{4,a}-\Gg_{4,b}\rvert\,\lvert t\rvert^{4} > B_{a}(t)+B_{b}(t).
+\]
+The implementation folds the residual $C_{0}$ and $C_{2}$ differences into the correction
+intervals, so they are not omitted from the certificate.
+
+\section{Computer-assisted certification}\label{sec:certification}
+
+\subsection{Krawczyk root theorem}
+
+The numerical paths satisfy the endpoint and first-order matching constraints to order
+$10^{-11}$. To move from numerical candidates to exact mathematical roots, we use the
+projective constraint map $F:\Rr^{24}\to\Rr^{16}$ of Eq.~\eqref{eq:constraintmap} and
+decompose the phase space into 16 transverse variables $x$ and 8 fibre variables $y$. For
+each declared numerical path $\gamma_{k}$, we fix its fibre coordinates $y_{k}$ and
+consider the reduced square map
+\[
+F_{k}(x)=F(x,y_{k}).
+\]
+For a box $X\subset\Rr^{16}$ with centre $x_{0}$, the Krawczyk operator is
+\begin{equation}\label{eq:krawczyk}
+K(X)=x_{0}-CF(x_{0})+\bigl(I-C[DF(X)]\bigr)(X-x_{0}),
+\end{equation}
+where $C$ is a frozen nonsingular numerical preconditioner (an approximate inverse of the
+midpoint Jacobian) and $[DF(X)]$ is an interval enclosure of the Jacobian over $X$. In
+centered coordinates $x_{0}=0$, as used by the implementation, this reduces to
+\[
+K(X)=-CF(0)+\bigl(I-C[DF(X)]\bigr)X.
+\]
+The strict inclusion $K(X)\subset\intt(X)$ then implies that $F_{k}$ has a unique zero
+inside $X$~\cite{moore2009,tucker2011}. The projective chart denominator $\psi_{0}$ of
+Eq.~\eqref{eq:chart} is formally verified to exclude zero on every accepted box, ensuring
+the coordinate chart is valid throughout the Krawczyk computation.
+
+\begin{theorem}[Krawczyk inclusions for 12 declared controls]\label{thm:krawczyk}
+For each of the twelve declared controls, there exists a transverse phase box
+\[
+X_{k}\subset\Rr^{16}
+\]
+such that the Krawczyk operator satisfies
+\[
+K_{k}(X_{k})\subset\intt(X_{k}).
+\]
+Consequently, each box $X_{k}$ contains a locally unique exact root $x^{\ast}_{k}$ of
+$F_{k}(x)=0$, i.e., a control $\gamma^{\ast}_{k}=(x^{\ast}_{k},y_{k})$ that is exactly
+matched in projective output state and first projective response to the reference.
+\end{theorem}
+
+\begin{proof}[Computer-assisted proof]
+A numerical approximate inverse of the midpoint Jacobian is used as the point
+preconditioner. The Jacobian over each full box is then enclosed with 192-bit Arb
+arithmetic, and the resulting Krawczyk image is verified to lie strictly inside the box.
+The projective chart denominator is formally verified to exclude zero on every accepted
+box. For all twelve boxes, the inclusion $K(X)\subset\intt(X)$ is verified. The SHA-256
+protocol and certificate identifiers of this run are recorded in Appendix~\ref{app:hashes}.
+By the Krawczyk theorem~\cite{moore2009,tucker2011,tucker2002}, each box contains a locally
+unique root.
+\end{proof}
+
+\begin{remark}[Scope of the Krawczyk inclusion theorem]
+The theorem establishes local uniqueness inside each declared transverse box. It does not
+certify global uniqueness on the entire fibre, nor does it prove that every point on the
+numerical fibre has an exact representative. The global fibre structure remains open.
+\end{remark}
+
+\subsection{Direct finite-error ordering theorem}
+
+The following theorem is the main result of this work. Its proof uses only the certified
+Krawczyk boxes and direct outward-rounded propagation of the finite-error functional. No
+Taylor truncation, Cauchy extraction, alias enclosure, or local-jet reconstruction is used.
+
+\begin{theorem}[Exact-root finite-error ordering]\label{thm:ordering}
+For each of the twelve declared controls, let $X_{k}$ be the transverse phase box
+satisfying a strict Krawczyk inclusion from Theorem~\ref{thm:krawczyk}. Direct
+outward-rounded Arb propagation of $X_{k}$ through the declared six-point finite-error
+functional produces twelve performance intervals that are pairwise disjoint and totally
+ordered according to the pre-outcome ordering frozen for the independent twelve-path
+formal cohort. Therefore the locally
+unique roots exactly matched in projective output state and first projective response
+inside the boxes obey the complete frozen finite-error ordering.
+\end{theorem}
+
+\begin{proof}[Computer-assisted proof]
+By Theorem~\ref{thm:krawczyk}, the locally unique projectively matched control
+$\gamma^{\ast}_{k}$ belongs to the certified phase box $X_{k}$. For every box $X_{k}$, the
+six declared finite-error Hamiltonians are evaluated directly using 192-bit outward-rounded
+Arb/ACB arithmetic. Every phase-dependent trigonometric factor, Hamiltonian matrix
+exponential, state propagation, overlap, infidelity, and six-point mean is enclosed. Denote
+the resulting real performance interval by $B_{k}$. Therefore
+\[
+\II(\gamma^{\ast}_{k})\in B_{k}.
+\]
+For every frozen ordered pair $a\prec b$, direct interval comparison verifies
+\[
+\sup B_{a}<\inf B_{b}.
+\]
+All $\binom{12}{2}=66$ comparisons pass and have the orientation specified by the frozen
+ordering certificate. Hence
+\[
+\II(\gamma^{\ast}_{a})<\II(\gamma^{\ast}_{b})
+\]
+for every frozen ordered pair. No Taylor truncation or local-jet reconstruction is used in
+this direct certification.
+\end{proof}
+
+The predicted ordering was fixed by the predecessor zero-point ordering certificate before
+the exact-root direct finite-error propagation was evaluated. The final exact-root
+certificate, containing the formal direct intervals and all pairwise comparisons, was
+written and hashed after the propagation. The SHA-256 protocol and certificate identifiers
+of this run are recorded in Appendix~\ref{app:hashes}.
+
+\begin{remark}[Scope of Theorem~\ref{thm:ordering}]
+The theorem is conditional on the serialized-decimal finite Hamiltonian model, the declared
+transverse boxes, and the six-axis mean error functional. It does not certify model
+discrepancy, global fibre topology, many-body scaling, or hardware. It also does not prove
+a global eight-dimensional exact fibre theorem; it proves finite-error ordering for the
+locally unique exact roots inside the declared boxes.
+\end{remark}
+
+\begin{corollary}[Ordering stability under bounded loss discrepancy]\label{cor:stability}
+Let $B_{k}$ denote the certified direct performance interval for the $k$th exact root, and
+define the minimum certified ordering margin
+\[
+\Delta_{\min}=\min_{a\prec b}\bigl(\inf B_{b}-\sup B_{a}\bigr)>0,
+\]
+where $a\prec b$ ranges over the frozen ordered path pairs. Suppose an additional physical
+effect changes the evaluated loss of every fixed certified control by at most $\eta$:
+\[
+\bigl\lvert\widetilde{\II}(\gamma^{\ast}_{k})-\II(\gamma^{\ast}_{k})\bigr\rvert\le\eta
+\quad\text{for every }k.
+\]
+If
+\[
+2\eta<\Delta_{\min},
+\]
+then the complete frozen ordering of the twelve fixed certified controls is preserved under
+the perturbed loss.
+\end{corollary}
+
+\begin{proof}
+For every frozen ordered pair $a\prec b$,
+\[
+\widetilde{\II}(\gamma^{\ast}_{a})\le\sup B_{a}+\eta
+<\inf B_{b}-\eta\le\widetilde{\II}(\gamma^{\ast}_{b}),
+\]
+where the strict middle inequality follows from $2\eta<\Delta_{\min}$.
+\end{proof}
+
+For the frozen twelve-root certificate, the minimum formally certified pairwise margin,
+computed from the outward-rounded endpoints of the frozen direct-certificate intervals, is
+\[
+\Delta_{\min}=2.50\times10^{-5},
+\]
+attained by the pair pv08 and pv11.
+
+\begin{remark}
+Corollary~\ref{cor:stability} is a conditional stability statement for the losses evaluated
+at the same certified controls. It does not prove that an added Lindblad term, waveform
+filter, calibration drift, or other model perturbation satisfies the required bound. It
+also does not certify that the controls remain exact response-matched roots of the
+perturbed model. Proving root continuation under model perturbation would require a
+parameterized Krawczyk or validated implicit-function argument.
+\end{remark}
+
+\begin{remark}[Integrity check]
+In all reported runs, every ordinary held-out floating-point outcome is verified to lie
+inside its corresponding formal ball. This serves as an integrity diagnostic and is not
+part of the theorem proof.
+\end{remark}
+
+\subsection{Order-thirty mechanism certificate}
+
+The following proposition provides a separate, computationally distinct mechanism
+certificate using the zero-point jet. Unlike the main theorem, it uses Taylor coefficients,
+Cauchy extraction, alias enclosures, and Dyson tail bounds. It is not part of the main
+theorem proof.
+
+The floating-point precursor obtains the order-thirty jet by block-matrix exponentials. The
+formal phase-box certificate used in Proposition~\ref{prop:order30} instead extracts the
+coefficients with a 64-point outward-rounded Cauchy transform.
+
+\begin{proposition}[Order-thirty mechanism certificate]\label{prop:order30}
+Propagation of the zero-point jet through order thirty over the twelve Krawczyk phase
+boxes, including the formal Cauchy-alias and analytic order-32 tail enclosures, certifies
+52/66 frozen path pairs. Every certified orientation agrees with the frozen order, and no
+reversed pair is certified.
+\end{proposition}
+
+\begin{proof}[Computer-assisted proof]
+For path $k$ and physical error axis $a$, define the analytic transition amplitude
+\[
+g_{k,a}(\lambda)=\braket{\psi_{\mathrm{ref}}}{\psi_{\gamma_{k}}(\lambda De_{a})}
+=\sum_{n\ge0}g_{k,a,n}\,\lambda^{n}.
+\]
+Its coefficients are extracted by a 64-point outward-rounded Cauchy discrete Fourier
+transform on the complex unit circle:
+\begin{equation}\label{eq:cauchy}
+\widehat{g}_{n}=\frac{1}{64}\sum_{k=0}^{63}g(\zeta_{k})\,\zeta_{k}^{-n},
+\qquad \zeta_{k}=e^{2\pi i k/64}.
+\end{equation}
+The discrete transform aliases coefficients $g_{n+64\ell}$. A path-uniform Dyson
+bound~\cite{dyson1949}
+encloses this alias. The implemented enclosure is $10^{-40}$, and the formal gate verifies
+that
+\[
+\frac{e^{K_{a}}K_{a}^{64}}{64!}<10^{-40}
+\]
+for every physical error axis, where the dependence is parameterized as
+\[
+H_{a}(s;\lambda_{a})=H_{0}(s)+\lambda_{a}H_{1,a}(s),
+\]
+with $s$ the physical time and $\lambda_{a}$ the dimensionless error parameter along axis
+$a$, and
+\[
+K_{a}=\int_{0}^{T}\lVert H_{1,a}(s)\rVert_{2}\,ds
+=\int_{0}^{T}\left\lVert
+\frac{\partial H_{a}(s;\lambda_{a})}{\partial\lambda_{a}}
+\bigg|_{\lambda_{a}=0}\right\rVert_{2}ds
+\]
+is the integrated spectral norm of the Hamiltonian perturbation along axis $a$. Fidelity
+coefficients are formed by ball convolution,
+\[
+F_{n}=\sum_{r=0}^{n}g_{r}\,\bar{g}_{n-r},
+\]
+and the infidelity coefficients follow from $1-F$. The analytic even Dyson tail after order
+thirty is enclosed by $2\times10^{-11}$.
+
+Propagating the resulting order-thirty jet over the twelve Krawczyk phase boxes yields
+performance intervals. Pairwise comparison of the resulting order-thirty intervals
+certifies 52/66 frozen path pairs. Every certified orientation agrees with the frozen
+order, and no reversed pair is certified. The unresolved pairs arise from dependency and
+wrapping in the phase-box propagation of the jet enclosure. They are not reversed physical
+comparisons and do not indicate an omitted-tail failure.
+\end{proof}

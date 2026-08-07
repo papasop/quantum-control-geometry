@@ -39,26 +39,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Compile manuscript
+      - name: Compile split manuscript
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: paper/manuscript.tex
+          root_file: main.tex
+          working_directory: paper
 
       - name: Confirm PDF was produced
-        run: test -s manuscript.pdf
+        run: test -s paper/main.pdf
 
       - name: Check manuscript PDF text
         run: |
           sudo apt-get update
           sudo apt-get install -y poppler-utils
-          pdftotext manuscript.pdf manuscript.txt
+          pdftotext paper/main.pdf manuscript.txt
           grep -q "Geometric Prediction and Exact-Root Certification" manuscript.txt
           grep -q "Finite-Error Ordering in Quantum Control" manuscript.txt
+          grep -q "declared global error coordinates" manuscript.txt
+          grep -q "pairwise disjoint and totally ordered" manuscript.txt
+          grep -q "global fibre structure remains open" manuscript.txt
           grep -q "0.996992" manuscript.txt
           grep -q "34/66" manuscript.txt
+          grep -q "52/66" manuscript.txt
+          grep -q "66/66" manuscript.txt
           grep -q "Code and Data Availability" manuscript.txt
           grep -q "github.com/papasop/quantum-control-geometry" manuscript.txt
           grep -q "284974c9f6b952f4e114c8c5bdc9c2c299c4065c" manuscript.txt
+          ! grep -q "response to calibrated errors" manuscript.txt
           ! grep -q "0.998496" manuscript.txt
           ! grep -q "35/66" manuscript.txt
           ! grep -q "53.03" manuscript.txt
