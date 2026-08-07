@@ -46,6 +46,50 @@ The main theorem-level certificate is:
 This is a formal, model-conditional certificate. It is not PASQAL Cloud,
 QPU, calibration, or model-discrepancy evidence.
 
+## Mathematical Core
+
+For each declared schedule, the exact-response problem is reduced in a
+transverse chart to
+\[
+F_y(x)=0,\qquad x\in\mathbb{R}^{16},
+\]
+where \(y\in\mathbb{R}^{8}\) denotes the retained fibre coordinates and
+\(x\) denotes the transverse phase correction.
+
+Local existence and uniqueness are certified by the Krawczyk operator
+\[
+K(X)=x_0-YF_y(x_0)
++\left(I-Y\,DF_y(X)\right)(X-x_0),
+\]
+through the strict inclusion
+\[
+K(X)\subset\operatorname{int}(X).
+\]
+The v0.3.2 P0 audit additionally verifies
+\[
+\rho=\left\|I-RY\right\|_\infty<1,
+\]
+which rigorously certifies regularity of the production preconditioner
+\(Y\), with \(R\) its independently computed approximate inverse.
+
+For two certified paths \(i\) and \(j\), let \(I_i\) and \(I_j\) be the
+direct outward-rounded Arb intervals of the declared finite-error mean.
+The pairwise order is certified whenever
+\[
+\sup I_i < \inf I_j.
+\]
+For twelve paths there are
+\[
+\binom{12}{2}=66
+\]
+unordered comparisons. The direct exact-root certificate proves strict
+separation for all 66 pairs over the complete certified root boxes.
+
+See the [manuscript](paper/manuscript.pdf),
+[`docs/mathematical_hierarchy.md`](docs/mathematical_hierarchy.md), and
+[`scripts/core/README.md`](scripts/core/README.md) for the full certificate
+hierarchy and certificate-of-record implementations.
+
 ## Counts At A Glance
 
 | Certificate layer | Coverage | Meaning |
