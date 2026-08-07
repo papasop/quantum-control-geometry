@@ -291,11 +291,8 @@ for every frozen ordered pair. No Taylor truncation or local-jet reconstruction 
 this direct certification.
 \end{proof}
 
-The predicted ordering was fixed by the predecessor zero-point ordering certificate before
-the exact-root direct finite-error propagation was evaluated. The final exact-root
-certificate, containing the formal direct intervals and all pairwise comparisons, was
-written and hashed after the propagation. The SHA-256 protocol and certificate identifiers
-of this run are recorded in Appendix~\ref{app:hashes}.
+The predecessor order was frozen before direct propagation; the resulting protocol and
+certificate hashes are reported in Appendix~\ref{app:hashes}.
 
 \begin{remark}[Scope of Theorem~\ref{thm:ordering}]
 The theorem is conditional on the serialized-decimal finite Hamiltonian model, the declared
@@ -341,25 +338,17 @@ computed from the outward-rounded endpoints of the frozen direct-certificate int
 \]
 attained by the pair pv08 and pv11.
 
-\begin{remark}
 Corollary~\ref{cor:stability} is a conditional stability statement for the losses evaluated
 at the same certified controls. It does not prove that an added Lindblad term, waveform
-filter, calibration drift, or other model perturbation satisfies the required bound. It
-also does not certify that the controls remain exact response-matched roots of the
-perturbed model. Proving root continuation under model perturbation would require a
-parameterized Krawczyk or validated implicit-function argument.
-\end{remark}
-
-\begin{remark}[Integrity check]
-In all reported runs, every ordinary held-out floating-point outcome is verified to lie
-inside its corresponding formal ball. This serves as an integrity diagnostic and is not
-part of the theorem proof.
-\end{remark}
+filter, calibration drift, or other model perturbation satisfies the required bound, nor
+that the controls remain exact response-matched roots of the perturbed model. Proving root
+continuation under model perturbation would require a parameterized Krawczyk or validated
+implicit-function argument.
 
 \subsection{Order-thirty mechanism certificate}
 
 The following proposition provides a separate, computationally distinct mechanism
-certificate using the zero-point jet. Unlike the main theorem, it uses Taylor coefficients,
+certificate using the zero-error jet. Unlike the main theorem, it uses Taylor coefficients,
 Cauchy extraction, alias enclosures, and Dyson tail bounds. It is not part of the main
 theorem proof.
 
@@ -368,7 +357,7 @@ formal phase-box certificate used in Proposition~\ref{prop:order30} instead extr
 coefficients with a 64-point outward-rounded Cauchy transform.
 
 \begin{proposition}[Order-thirty mechanism certificate]\label{prop:order30}
-Propagation of the zero-point jet through order thirty over the twelve Krawczyk phase
+Propagation of the zero-error jet through order thirty over the twelve Krawczyk phase
 boxes, including the formal Cauchy-alias and analytic order-32 tail enclosures, certifies
 52/66 frozen path pairs. Every certified orientation agrees with the frozen order, and no
 reversed pair is certified.
@@ -387,8 +376,7 @@ transform on the complex unit circle:
 \qquad \zeta_{k}=e^{2\pi i k/64}.
 \end{equation}
 The discrete transform aliases coefficients $g_{n+64\ell}$. A path-uniform Dyson
-bound~\cite{dyson1949}
-encloses this alias. The implemented enclosure is $10^{-40}$, and the formal gate verifies
+bound~\cite{dyson1949} encloses this alias. The implemented enclosure is $10^{-40}$, and the formal gate verifies
 that
 \[
 \frac{e^{K_{a}}K_{a}^{64}}{64!}<10^{-40}

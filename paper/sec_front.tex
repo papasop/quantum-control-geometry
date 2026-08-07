@@ -3,28 +3,28 @@
 Quantum controls that agree at the nominal endpoint and in their complete first-order
 response to the declared global error coordinates need not have the same finite-error
 robustness. We study this residual implementation dependence in a serialized two-atom
-Rydberg model---a minimal interacting setting in which amplitude, detuning, and
-interaction-calibration responses coexist---with twenty-four control phases and three
-global error coordinates.
+Rydberg model with twenty-four control phases and three global error coordinates.
 
-The main result is a computer-assisted exact-root finite-error ordering theorem. For a
-frozen twelve-path cohort, strict 192-bit Krawczyk inclusions certify twelve locally
-unique roots whose projective output states and first projective responses exactly match
-the reference. Direct outward-rounded Arb propagation of the certified root boxes through
-the declared six-axis error functional produces twelve pairwise disjoint performance
-intervals, totally ordered according to an order frozen before the propagation, certifying
-the complete finite-error ordering for all 66 unordered path pairs. Two computationally
-independent mechanism certificates expose the internal structure of this ordering: a
-zero-point Taylor jet through order thirty, with formal Cauchy-alias and Dyson-tail
-enclosures, certifies 52/66 comparisons with no reversed pair, while the lowest-order
-quartic term alone certifies 34/66.
+Our main result is a computer-assisted exact-root finite-error ordering theorem. For a
+frozen twelve-path cohort, 192-bit Krawczyk inclusions certify locally unique roots at
+which the projective output state and its complete first-order response exactly match the
+reference. Outward-rounded Arb propagation of the resulting root boxes through a six-axis
+finite-error functional produces twelve pairwise disjoint performance intervals. Their
+order agrees with a ranking frozen before direct propagation, thereby certifying all 66
+unordered path comparisons.
 
-On a separate prospective cohort, a frozen quartic response contraction strongly predicts
-the held-out finite-error ranking (Spearman $\rho=0.996992$ on twenty paths), and its
-tensor representation is verified to transform covariantly under nonorthogonal
-error-coordinate changes. This prospective evidence is not a premise of the theorem. The
-theorem is conditional on the declared finite-dimensional model and error functional; it
-does not constitute hardware, model-discrepancy, global-fibre, or many-body evidence.
+Two mechanism certificates, computed independently of the direct theorem, partially
+recover this ordering without direct finite-error propagation. An order-thirty zero-error
+Taylor jet, equipped with Cauchy-alias and Dyson-tail enclosures, certifies 52/66
+comparisons with no certified reversal; its quartic term alone certifies 34/66. On a
+separate twenty-path prospective cohort, a frozen quartic response contraction predicts
+the held-out ranking with Spearman correlation $\rho=0.996992$ and identifies the best
+path. Its symmetric tensor representation is verified to transform covariantly under
+nonorthogonal changes of error coordinates.
+
+The prospective predictor is not a premise of the ordering theorem. All conclusions are
+conditional on the declared finite-dimensional model and error functional and provide no
+hardware, model-discrepancy, global-fibre, or many-body certification.
 \end{abstract}
 
 \section{Introduction}
@@ -93,7 +93,7 @@ error functional; it is not a claim about hardware, model discrepancy, global fi
 topology, or many-body scaling.
 
 \textbf{Mechanism proposition (informal statement).} Over the same certified Krawczyk
-boxes, propagation of the zero-point Taylor jet through order thirty, including formal
+boxes, propagation of the zero-error Taylor jet through order thirty, including formal
 Cauchy-alias and analytic tail enclosures, certifies 52/66 pairwise comparisons with no
 reversed certified pair. This order-thirty calculation is a separate, computationally
 distinct mechanism certificate. It is not a premise or computational step in the direct
@@ -109,9 +109,8 @@ Proposition~\ref{prop:order30}.
 $\rho = 0.996992$ & prospective evidence (separate cohort)
 \end{tabular}
 \end{center}
-The frozen order used in the exact-root theorem is supplied by the pre-outcome
-order-thirty certificate for the twelve-path cohort; no pathwise identity between the
-twenty-path prospective cohort and the twelve-path formal cohort is claimed.
+The prospective and formal results use disjoint frozen cohorts; the former is not a
+premise of the latter.
 
 The remainder of the paper follows the logical development from prospective prediction to
 exact-root certification. Section~\ref{sec:model} fixes the model and the benchmark error
@@ -120,12 +119,8 @@ model-independent quadratic-degeneracy lemma; Section~\ref{sec:quartic} introduc
 prospective quartic predictor; Section~\ref{sec:covariant} constructs its covariant tensor
 form; and Section~\ref{sec:certification} certifies locally unique exact projective matched
 roots and proves the direct finite-error ordering theorem, together with the separate
-order-thirty mechanism certificate.
-
-The result is intentionally model-conditional. It concerns the serialized
-finite-dimensional two-atom Hamiltonian, the declared transverse boxes, and the six-axis
-mean finite-error functional. It does not establish global fibre topology, worst-case
-ranking, many-body scaling, open-system robustness, or hardware-level performance.
+order-thirty mechanism certificate. The precise model boundary and the next certification
+theorem are stated in Section~\ref{sec:limitations}.
 
 \section{Two-atom control model}\label{sec:model}
 

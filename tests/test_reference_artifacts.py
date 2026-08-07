@@ -2,15 +2,15 @@
 
 from __future__ import annotations
 
-import importlib.util
 import hashlib
+import importlib.util
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT_PDF_SHA256 = (
-    "cf6be20efa2d6d33af6baf4647bb620fb47afbd2c8cc77346104d2bd4d7dffaa"
+    "2750d12289149cf281d390fac9813b2a91ef93018f86daebe6ab2577135fbdf3"
 )
 VERIFY_PATH = ROOT / "tools" / "verify_reference_results.py"
 SPEC = importlib.util.spec_from_file_location("verify_reference_results", VERIFY_PATH)

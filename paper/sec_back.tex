@@ -24,16 +24,14 @@ Exact-root direct Arb propagation & 12 & $\rho=1$ & 66/66 pairs & main theorem\\
 \end{tabular}
 \end{table}
 
-\section{Results}\label{sec:results}
+\section{Summary of certified and prospective results}\label{sec:results}
 
-Table~\ref{tab:audits} collects the audits in the fixed hierarchy of the paper: the 66/66
-direct exact-root ordering theorem (main result), supported by the 12/12 Krawczyk local
-uniqueness certificates; the 52/66 order-thirty mechanism certificate; the 34/66
-quartic-only boundary; and the prospective $\rho=0.996992$ evidence on the separate
-cohort. A frozen-point diagnostic sharpens the picture: for the twelve serialized
-numerical phase points, before propagation over the Krawczyk root boxes, the order-thirty
-jet and its analytic tail enclosure certify all 66/66 pairwise comparisons. This pointwise
-diagnostic is witnessed by the proof objects in \texttt{results/l4\_order30/}; it is not an
+Table~\ref{tab:audits} separates the main theorem, its local-root prerequisite, the
+higher-order mechanism certificate, and the independent prospective evidence. One
+distinction does require explanation: for the twelve serialized numerical phase points,
+before propagation over the Krawczyk root boxes, the order-thirty jet and its analytic
+tail enclosure certify all 66/66 pairwise comparisons. This frozen-point diagnostic is
+witnessed by the proof objects in \texttt{results/l4\_order30/}; it is not an
 exact-response-root certificate. Propagation over the certified root boxes subsequently
 resolves 52/66 pairs with zero reversals (Proposition~\ref{prop:order30}). Numerical
 integrity diagnostics from representative runs are collected in Appendix~\ref{app:hashes}.
@@ -84,19 +82,14 @@ result rather than as a scalable hardware-design algorithm.
 
 \subsection{Order-30 mechanism versus direct propagation}
 
-The order-30 jet propagated over the Krawczyk boxes certifies 52/66 pairs with zero
-reversals (Proposition~\ref{prop:order30}). The remaining 14 pairs are not physically
-reversed---they are unresolved due to dependency and wrapping in the phase-box propagation
-of the jet enclosure. Direct Arb propagation of the same boxes certifies all 66 pairs
-(Theorem~\ref{thm:ordering}), demonstrating that the unresolved cases are an artefact of
-the jet propagation and interval wrapping, not a physical failure of the frozen ordering.
-The 52/66 mechanism certificate and the 66/66 direct certificate arise from different
-propagation levels and should not be conflated: the latter is the main theorem.
-
-The content is quantitative rather than existential: an analytic finite-dimensional
-propagator is determined by its local germ, but here a fixed finite order, 30, resolves
-52/66 comparisons with an explicitly bounded tail, and the unresolved cases arise from
-interval wrapping rather than truncation.
+The order-30 jet and the direct propagation answer the same comparison at different
+levels. The gap between their certified counts is methodological rather than
+contradictory: Taylor-coefficient extraction accumulates interval widening in the
+phase-box propagation of the jet enclosure, whereas direct propagation encloses the
+finite-radius functional without reconstructing its local jet. The 14 unresolved pairs are
+therefore not reversed in the declared model, and no omitted-tail failure is involved;
+the 52/66 mechanism certificate and the 66/66 direct certificate should not be conflated,
+the latter being the main theorem.
 
 The particular ordering of the twelve serialized controls is not presented as a universal
 physical law. The reusable contribution is the certificate architecture: transverse
@@ -124,9 +117,6 @@ mean. Worst-case ranking is not supported by the present scalar.
 \item \textbf{No QPU evidence.} The calculations are local and require no hardware access.
 They do not constitute physical-QPU evidence.
 \end{enumerate}
-In short, the certificate is formal for the serialized finite-dimensional two-atom
-Hamiltonian, the declared transverse boxes, and the six-axis mean error functional; it does
-not certify model discrepancy, global fibre topology, many-body scaling, or hardware.
 
 \subsection{Constraint dimension and scalability}
 
@@ -154,13 +144,9 @@ Thus exponential growth is not intrinsic to the Krawczyk operator alone; it aris
 the dimension of the reachable state representation and the cost of enclosing the
 associated propagators and Jacobians. In generic many-body settings, direct dense Arb/ACB
 propagation and naive interval Jacobians would also suffer rapidly increasing dependency
-and wrapping. Possible routes to larger systems include symmetry reduction, sparse or
-block-structured propagation, reduced-observable matching, tensor-network enclosures,
-Taylor or Chebyshev polynomial models with validated remainder bounds, interval
-subdivision, and parameter-dependent Krawczyk charts. Taylor or Chebyshev polynomial models
-with validated remainder bounds may help reduce local propagation overestimation, but they
-do not by themselves remove the exponential growth of a generic many-body state
-representation. None of these extensions is implemented or certified in the present work.
+and wrapping. Possible extensions include symmetry-reduced state representations,
+structured validated propagation, and parameter-dependent Krawczyk charts; none is
+implemented or certified in the present work.
 
 The next mathematical step is a validated implicit-function theorem or a
 parameter-dependent Krawczyk atlas: treat the eight fibre coordinates as parameters and
@@ -177,7 +163,9 @@ over a declared $y$-region, not to prove a single global isolated root.
 The complete formal pipeline is frozen in a single standalone audit (v1.3). The
 twelve-path cohort, the transverse bases, and the point preconditioners are fixed; the
 common Krawczyk radius is $3\times10^{-12}$; and runtime metadata is excluded from every
-hashed proof object. Two complete formal executions produce byte-identical protocol,
+hashed proof object. As an integrity diagnostic, every ordinary held-out floating-point
+outcome is verified to lie inside its corresponding formal ball; this diagnostic is not
+part of the theorem proofs. Two complete formal executions produce byte-identical protocol,
 certificate, and report files, and the full audit was also rerun in a clean external Colab
 environment from the public v0.3.1 Git tag (commit
 \texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}) with all checks passing and no vendor
@@ -196,7 +184,7 @@ frozen ordering for all 66 unordered path pairs.
 The mechanism behind the ordering is geometric. Exact projective first-response matching
 makes the quadratic loss form common, so the first possible discriminator is the quartic
 response tensor, whose covariant contraction with the noise moment organizes the
-comparison: it certifies 34/66 pairs alone, and a zero-point jet through order thirty
+comparison: it certifies 34/66 pairs alone, and a zero-error jet through order thirty
 certifies 52/66 with no reversals as a computationally independent mechanism certificate.
 On a separate twenty-path cohort, the frozen quartic contraction predicts the held-out
 ranking prospectively ($\rho=0.996992$); this evidence is an application of the same
@@ -291,10 +279,10 @@ The last script produces all formal proof objects. The formal standalone script 
 v1.3 proof consumes the frozen decimal cohort and uses Arb/ACB for the formal interval
 certificate.
 
-Two independent clean-environment Colab executions of the complete v1.3 audit, started from
-the public v0.3.1 tag, completed in 52.6 s and 107.9 s respectively; in both runs,
-dependency installation, repository SHA-256 verification, reference-artifact validation,
-regression tests, and the two-run byte-identical formal recomputation passed.
+The two clean-environment Colab executions of Section~\ref{sec:repro}, started from the
+public v0.3.1 tag, completed in 52.6 s and 107.9 s respectively; each run covers dependency
+installation, repository SHA-256 verification, reference-artifact validation, regression
+tests, and the two-run formal recomputation.
 
 \section*{Code and Data Availability}
 All code, frozen inputs, formal certificates, and reproduction scripts are available at
