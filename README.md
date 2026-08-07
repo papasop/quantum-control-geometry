@@ -1,5 +1,12 @@
 # Quantum Control Geometry
 
+
+## Reviewer quick path
+
+Start with [`REVIEWER_GUIDE.md`](REVIEWER_GUIDE.md) for the theorem hierarchy,
+three-minute artifact verification, full formal reproduction, and exact scope
+boundary.
+
 Reproducible research artifacts for covariant local response jets and
 exact-root finite-error certification in a serialized two-atom neutral-atom
 control model.
@@ -45,7 +52,7 @@ QPU, calibration, or model-discrepancy evidence.
 | Certificate layer | Coverage | Meaning |
 |---|---:|---|
 | Quartic-only serialized-control audit | 34/66 (51.52%) | Low-order G4 comparison certifies a substantial subset, but not all close pairs |
-| Frozen-point order-30 Arb certificate | 66/66 | Order-30 zero-point jet plus alias and tail bounds certifies the frozen serialized controls |
+| Frozen-point order-30 Arb certificate | 66/66 | Order-30 zero-error jet plus alias and tail bounds certifies the frozen serialized controls |
 | Exact-root order-30 mechanism certificate | 52/66 | Order-30 jet propagated over exact-root Krawczyk boxes certifies 52 pairs with zero reversals |
 | Exact-root direct finite-error certificate | 66/66 | Primary result: direct Arb propagation over certified exact-root boxes closes all pairwise orderings |
 | Reproducibility closure | PASS | Two complete v1.3 executions produce byte-identical proof artifacts |
@@ -207,7 +214,7 @@ Those canonical hashes are recomputed by `tools/verify_reference_results.py`.
 | G4 prospective | Scalar fourth-order contraction | Strong mean-performance predictor on the frozen 20-path cohort |
 | L3 tensor | Symmetric fourth-order response tensor | Coordinate-covariant tensor and invariant noise-moment contraction |
 | L4 quartic | G4 interval with higher terms placed in the radius | Partial pairwise certification: 34/66 (51.52%) |
-| L4 order 30 | Zero-point jet through order 30 plus alias and tail bounds | Complete 66/66 ordering for frozen serialized controls |
+| L4 order 30 | Zero-error jet through order 30 plus alias and tail bounds | Complete 66/66 ordering for frozen serialized controls |
 | Exact-fibre Krawczyk | Interval Newton/Krawczyk in transverse charts | 12/12 locally unique roots exactly matched in projective output state and first projective response |
 | Exact-root order-30 mechanism | Jet propagation over certified root boxes | 52/66 pairs certified, zero reversals |
 | Exact-root direct L4 | Direct Arb propagation over certified root boxes | Complete 66/66 frozen finite-error ordering |
