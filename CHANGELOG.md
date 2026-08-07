@@ -25,6 +25,12 @@
 - Removed the duplicate standalone manuscript workflow; the main CI workflow
   remains the manuscript compile and text-gate authority.
 - Clarified that code is MIT licensed and manuscript materials are CC BY 4.0.
+- Froze the theorem-first exact-root finite-error ordering submission.
+- Separated the 66/66 direct theorem from the 52/66 order-thirty
+  mechanism certificate, the 34/66 quartic boundary, and the independent
+  prospective ranking result.
+- Updated the manuscript narrative, submission PDF, integrity metadata,
+  and manuscript consistency gates.
 
 ## [0.3.1] - 2026-07-29
 
