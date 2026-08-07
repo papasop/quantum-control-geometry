@@ -32,7 +32,9 @@ mutation-tested analytic unit tests for the Krawczyk operator.
   66/66 finite-error ordering of v0.3.1.
 - The frozen v0.3.1 result directories and all files under `paper/`.
   A separate `results/audit_closure/` directory records the new P0 certificate.
-- `tools/verify_reference_results.py` passes unchanged.
+- `tools/verify_reference_results.py` now verifies the additional P0
+  production-preconditioner regularity certificate while preserving all v0.3.1
+  artifact checks.
 
 ## Scope
 

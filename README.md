@@ -127,6 +127,25 @@ GitHub Actions workflow, `Full exact-root certificate reproduction`. It runs
 `scripts/standalone/pasqal_L4_reproducible_certificate_v1_3_colab.py` and
 uploads the generated log and certificate directory.
 
+## Audit Closure v0.3.2
+
+Version `v0.3.2` adds audit-closure checks without changing the frozen
+physical model, exact-root boxes, manuscript, or the v0.3.1 66/66 ordering
+certificate.
+
+```bash
+python tests/audit_closure/p0_preconditioner_nonsingularity.py
+python tests/audit_closure/p2_krawczyk_unit_tests.py
+python tests/audit_closure/run_mutation_tests.py
+python tests/audit_closure/p1_independent_model.py
+```
+
+P0 certifies production-preconditioner regularity, P2 mutation-tests the
+Krawczyk operator logic, and P1 independently reconstructs the twelve
+finite-error means and complete ordering. The P1 check also has a manual and
+weekly GitHub Actions workflow, `Audit closure (independent) -- P1
+high-precision reconstruction`.
+
 ## External Clean-Environment Reproduction
 
 No PASQAL account is required. The external runner checks out the frozen
