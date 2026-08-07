@@ -1,0 +1,31 @@
+name: Audit closure (independent) -- P1 high-precision reconstruction
+
+# Slower, independent reconstruction of the twelve finite-error means and their
+# complete ordering, with an mpmath 60-digit cross-check. Independent code path
+# (operators rebuilt from scratch, eigendecomposition propagation) exercising
+# the same documented physical model; it cross-validates, it does not replace,
+# the frozen Arb interval certificate. Run on demand and on a weekly schedule.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+
+jobs:
+  audit-closure-independent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: P1 -- independent reconstruction of all 12 means + complete ordering
+        run: python tests/audit_closure/p1_independent_model.py

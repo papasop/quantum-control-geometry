@@ -1,5 +1,36 @@
 # Changelog
 
+## [v0.3.2] -- audit closure
+
+Version v0.3.2 does not change the frozen physical model, exact-root boxes, or
+66/66 ordering result of v0.3.1. It adds a rigorous regularity certificate for
+the production Krawczyk preconditioners, an independent high-precision
+reconstruction of all twelve finite-error means and their complete ordering, and
+mutation-tested analytic unit tests for the Krawczyk operator.
+
+- Added `tests/audit_closure/` with three separable checks:
+  - **P0** (`p0_preconditioner_nonsingularity.py`): rigorous 256-bit Arb
+    non-singularity certificate for each frozen Krawczyk preconditioner `B` (the
+    `Y` actually used by `krawczyk_path`), via `||I - R B||_inf < 1`, plus a
+    verified inverse enclosure. Emits
+    `results/audit_closure/p0_preconditioner_certificate.json`. Closes the
+    Krawczyk regularity precondition.
+  - **P2** (`p2_krawczyk_unit_tests.py`): analytic unit tests for the Krawczyk
+    interval operator (matrix direction, sign, strict-inclusion logic) on
+    linear, no-root, multi-root, and edge-touching families.
+  - **P1** (`p1_independent_model.py`): independent reconstruction of the
+    Hamiltonian, 24-segment propagation, and six-point mean infidelity
+    (operators rebuilt from scratch, eigendecomposition propagation, 60-digit
+    mpmath cross-check); reproduces all twelve means inside the certificate
+    enclosures, the complete ordering, and the six closest certified pairs.
+- Added `tests/audit_closure/run_mutation_tests.py` and
+  `MUTATION_TEST_REPORT.md`: mutation testing confirms the P2 suite fails when
+  the operator's defect direction/sign or correction sign is perturbed.
+- Added CI workflows `audit_closure_fast.yml` (P0 + P2 + mutation, every push)
+  and `audit_closure_independent.yml` (P1, manual / weekly).
+- No changes to the existing frozen v0.3.1 scientific artifacts or `paper/`;
+  `SHA256SUMS.txt` is refreshed only to include the v0.3.2 audit-closure files.
+
 ## [Unreleased]
 
 - Reframed the manuscript around the theorem-first exact-root ordering result

@@ -22,7 +22,8 @@ SPEC.loader.exec_module(VERIFY)
 class ReferenceArtifactTests(unittest.TestCase):
     def test_declared_scientific_gates(self) -> None:
         messages = VERIFY.verify()
-        self.assertEqual(len(messages), 7)
+        self.assertEqual(len(messages), 8)
+        self.assertIn("P0 production-preconditioner regularity: PASS", messages)
 
     def test_standalone_entry_points_exist(self) -> None:
         expected = (

@@ -99,6 +99,28 @@ def verify() -> list[str]:
     messages.append("L4 formal Arb gates and hashes: PASS")
 
     cohort = load_json("results/exact_fibre_krawczyk/cohort.json")
+    p0 = load_json("results/audit_closure/p0_preconditioner_certificate.json")
+    cohort_path = ROOT / "results/exact_fibre_krawczyk/cohort.json"
+    assert p0["method"] == "Rump-Neumann regularity certificate"
+    assert p0["production_preconditioner_conversion"] == (
+        "arb(repr(float(decimal)))"
+    )
+    assert p0["source_cohort_sha256"] == hashlib.sha256(
+        cohort_path.read_bytes()
+    ).hexdigest()
+    assert int(p0["prec_bits"]) == 256
+    assert bool(p0["all_nonsingular"])
+    assert len(p0["results"]) == 12
+    assert {row["path"] for row in p0["results"]} == {
+        f"pv{index:02d}" for index in range(1, 13)
+    }
+    assert all(
+        bool(row["nonsingular"])
+        and 0.0 <= float(row["rho_upper"]) < 1.0
+        and float(row["inverse_error_bound_upper"]) >= 0.0
+        for row in p0["results"]
+    )
+    messages.append("P0 production-preconditioner regularity: PASS")
     kraw_protocol = load_json(
         "results/exact_fibre_krawczyk/protocol.json"
     )
