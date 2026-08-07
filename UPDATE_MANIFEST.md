@@ -7,6 +7,9 @@ This source package is based on repository commit
 
 - `scripts/core/pasqal_L4_exact_root_ordering_audit.py`
 - `scripts/standalone/pasqal_L4_exact_root_ordering_standalone_colab.py`
+- `requirements-lock.txt`
+- `.github/workflows/full-exact-root-reproduction.yml`
+- split manuscript source rooted at `paper/main.tex`
 - recorded exact-fibre Krawczyk and exact-root ordering summaries
 - regression checks for both new summaries
 - frozen cohort, deterministic v1.3 protocols, and complete certificates
@@ -37,6 +40,11 @@ python scripts/standalone/pasqal_L4_reproducible_certificate_v1_3_colab.py
 It embeds the frozen cohort and predecessor formal ordering certificate,
 generates the Krawczyk and exact-root certificates twice, and requires
 byte-identical proof artifacts.
+
+For review-time reproduction of the formal submission environment, install
+`requirements-lock.txt`. The same deterministic audit can also be launched
+manually from GitHub Actions as `Full exact-root certificate reproduction`,
+which uploads the run log and generated certificate directory.
 
 ## Package verification
 

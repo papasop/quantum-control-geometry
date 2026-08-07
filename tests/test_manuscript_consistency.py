@@ -8,7 +8,13 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MANUSCRIPT = ROOT / "paper" / "manuscript.tex"
+MANUSCRIPT_ROOT = ROOT / "paper" / "main.tex"
+MANUSCRIPT_PARTS = (
+    ROOT / "paper" / "main.tex",
+    ROOT / "paper" / "sec_front.tex",
+    ROOT / "paper" / "sec_mid.tex",
+    ROOT / "paper" / "sec_back.tex",
+)
 VERIFY_PATH = ROOT / "tools" / "verify_reference_results.py"
 SPEC = importlib.util.spec_from_file_location("verify_reference_results", VERIFY_PATH)
 assert SPEC is not None and SPEC.loader is not None
@@ -23,17 +29,24 @@ EXPECTED_TITLE = (
 REPOSITORY_URL = "https://github.com/papasop/quantum-control-geometry"
 FROZEN_COMMIT = "284974c9f6b952f4e114c8c5bdc9c2c299c4065c"
 PHASE_ALIGNMENT_FRAGMENTS = (
-    "c_\\gamma",
-    "\\frac{\\overline{\\langle\\psi_{\\mathrm{ref}}\\,|\\,\\psi_\\gamma(\\mathbf{0})\\rangle}}",
-    "{|\\langle\\psi_{\\mathrm{ref}}\\,|\\,\\psi_\\gamma(\\mathbf{0})\\rangle|}",
-    "\\widetilde J_{\\gamma,a}=c_\\gamma\\,J_{\\gamma,a}",
+    "projective output state",
+    "first projective response",
+)
+REQUIRED_BOUNDARY_FRAGMENTS = (
+    "response to the declared global error coordinates",
+    "pairwise disjoint and totally ordered",
+    "pre-outcome ordering frozen for the independent twelve-path",
+    "global fibre structure remains open",
 )
 
 
 class ManuscriptConsistencyTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.manuscript = MANUSCRIPT.read_text(encoding="utf-8")
+        manuscript = "\n".join(
+            path.read_text(encoding="utf-8") for path in MANUSCRIPT_PARTS
+        )
+        cls.manuscript = " ".join(manuscript.split())
         cls.g4 = VERIFY.load_json("results/g4_prospective/report.json")
         cls.formal = VERIFY.load_json("results/l4_formal/report.json")
         cls.krawczyk = VERIFY.load_json("results/exact_fibre_krawczyk/report.json")
@@ -61,6 +74,7 @@ class ManuscriptConsistencyTests(unittest.TestCase):
             "twelve-path formal cohort",
             EXPECTED_TITLE,
             *PHASE_ALIGNMENT_FRAGMENTS,
+            *REQUIRED_BOUNDARY_FRAGMENTS,
             REPOSITORY_URL,
             FROZEN_COMMIT,
         )
@@ -74,10 +88,18 @@ class ManuscriptConsistencyTests(unittest.TestCase):
             "35/66",
             "53.03\\%",
             "Finite-Error Robustness in Quantum Control",
+            "response to calibrated errors",
+            "twelve pairwise ordered performance intervals",
+            "the minimal interacting setting",
         )
         for fragment in stale_fragments:
             with self.subTest(fragment=fragment):
                 self.assertNotIn(fragment, self.manuscript)
+
+    def test_main_tex_is_canonical_entry_point(self) -> None:
+        self.assertTrue(MANUSCRIPT_ROOT.is_file())
+        self.assertFalse((ROOT / "paper" / "manuscript.tex").exists())
+        self.assertIn("\\input{sec_front}", MANUSCRIPT_ROOT.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

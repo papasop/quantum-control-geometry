@@ -1,0 +1,32 @@
+name: Full exact-root certificate reproduction
+
+on:
+  workflow_dispatch:
+
+jobs:
+  full-exact-root-certificate-reproduction:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install locked formal dependencies
+        run: python -m pip install -r requirements-lock.txt
+
+      - name: Run full exact-root certificate reproduction
+        run: |
+          python scripts/standalone/pasqal_L4_reproducible_certificate_v1_3_colab.py 2>&1 | tee full-exact-root-reproduction.log
+
+      - name: Upload reproduction log and artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-exact-root-certificate-reproduction
+          path: |
+            full-exact-root-reproduction.log
+            pasqal_L4_reproducible_v1_3_results/

@@ -1,0 +1,78 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=2.6cm,right=2.6cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{microtype}
+
+\usepackage[
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    bookmarks=true,
+    bookmarksnumbered=true,
+    unicode=true
+]{hyperref}
+\hypersetup{
+    pdftitle={Geometric Prediction and Exact-Root Certification of Finite-Error Ordering in Quantum Control},
+    pdfauthor={Y.Y.N. Li}
+}
+
+% ---------- theorem environments ----------
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+% ---------- macros ----------
+\newcommand{\eps}{\epsilon}
+\newcommand{\Or}{\mathcal{O}}
+\newcommand{\II}{\bar{\mathcal{I}}}
+\newcommand{\Iloc}{\mathcal{I}^{\mathrm{loc}}}
+\newcommand{\Iref}{\mathcal{I}^{\mathrm{ref}}}
+\newcommand{\Gg}{\mathcal{G}}
+\newcommand{\Ff}{\mathcal{F}}
+\newcommand{\Aa}{\mathcal{A}}
+\newcommand{\Zz}{\mathbb{Z}}
+\newcommand{\Rr}{\mathbb{R}}
+\newcommand{\Cc}{\mathbb{C}}
+\newcommand{\Tt}{\mathbb{T}}
+\newcommand{\ket}[1]{\lvert #1 \rangle}
+\newcommand{\bra}[1]{\langle #1 \rvert}
+\newcommand{\braket}[2]{\langle #1 \vert #2 \rangle}
+\newcommand{\ev}[1]{\mathbb{E}\!\left[#1\right]}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\intt}{int}
+\DeclareMathOperator{\argmin}{arg\,min}
+
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{1.2em}
+\emergencystretch=1.5em
+
+\title{\textbf{Geometric Prediction and Exact-Root Certification\\ of Finite-Error Ordering in Quantum Control}}
+\author{Y.Y.N. Li\\
+\small Independent Researcher\\
+\small ORCID: \href{https://orcid.org/0009-0002-6471-139X}{0009-0002-6471-139X}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\input{sec_front}
+
+\input{sec_mid}
+
+\input{sec_back}
+
+\end{document}
