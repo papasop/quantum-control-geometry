@@ -1,0 +1,93 @@
+{
+ "method": "Rump-Neumann regularity certificate",
+ "production_preconditioner_conversion": "arb(repr(float(decimal)))",
+ "source_cohort_sha256": "c6fe71240ff2a2d005abf3d158350d09bebfa25f0f697d64dd8e8efb80fa1bea",
+ "prec_bits": 256,
+ "results": [
+  {
+   "path": "pv01",
+   "rho_upper": 3.641014536087703e-15,
+   "R_norm_upper": 31.92796000676518,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 1.1625016649225927e-13
+  },
+  {
+   "path": "pv02",
+   "rho_upper": 1.7054245451500141e-15,
+   "R_norm_upper": 33.7273412545495,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 5.751943561815948e-14
+  },
+  {
+   "path": "pv03",
+   "rho_upper": 3.678399624759643e-15,
+   "R_norm_upper": 29.946502761218667,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 1.1015520451973076e-13
+  },
+  {
+   "path": "pv04",
+   "rho_upper": 2.6578015625998406e-15,
+   "R_norm_upper": 31.176800913580212,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 8.286175018497785e-14
+  },
+  {
+   "path": "pv05",
+   "rho_upper": 4.57098811380588e-15,
+   "R_norm_upper": 28.096328257472695,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 1.2842798250649655e-13
+  },
+  {
+   "path": "pv06",
+   "rho_upper": 2.885370989211232e-15,
+   "R_norm_upper": 33.81814433533214,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 9.75778925741258e-14
+  },
+  {
+   "path": "pv07",
+   "rho_upper": 1.1126549754489805e-14,
+   "R_norm_upper": 28.55829269613569,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 3.1775526458684006e-13
+  },
+  {
+   "path": "pv08",
+   "rho_upper": 1.7690866035458623e-15,
+   "R_norm_upper": 27.01101423171534,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 4.778482342551432e-14
+  },
+  {
+   "path": "pv09",
+   "rho_upper": 3.1350422309276544e-15,
+   "R_norm_upper": 27.322875439317546,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 8.565836837263676e-14
+  },
+  {
+   "path": "pv10",
+   "rho_upper": 2.0123320745424624e-15,
+   "R_norm_upper": 26.95122573866529,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 5.423481600215064e-14
+  },
+  {
+   "path": "pv11",
+   "rho_upper": 1.7444644956544263e-15,
+   "R_norm_upper": 28.599041468633462,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 4.989001245177978e-14
+  },
+  {
+   "path": "pv12",
+   "rho_upper": 2.8477334327851898e-15,
+   "R_norm_upper": 33.534102454692956,
+   "nonsingular": true,
+   "inverse_error_bound_upper": 9.549618469867332e-14
+  }
+ ],
+ "all_nonsingular": true
+}

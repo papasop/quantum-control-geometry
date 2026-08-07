@@ -1,0 +1,44 @@
+name: Audit closure (fast) -- P0 preconditioner regularity + P2 operator tests
+
+# Fast, deterministic checks that run on every push / PR. They read only the
+# frozen v0.3.1 artifacts and do not recompute the physics certificates.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  audit-closure-fast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: P0 -- rigorous Arb non-singularity of frozen Krawczyk preconditioners
+        run: python tests/audit_closure/p0_preconditioner_nonsingularity.py
+
+      - name: P2 -- analytic Krawczyk operator unit tests
+        run: python tests/audit_closure/p2_krawczyk_unit_tests.py
+
+      - name: P2 -- mutation testing (tests must catch operator sign/direction bugs)
+        run: python tests/audit_closure/run_mutation_tests.py
+
+      - name: Upload P0 certificate and mutation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-closure-fast-artifacts
+          path: |
+            results/audit_closure/p0_preconditioner_certificate.json
+            tests/audit_closure/MUTATION_TEST_REPORT.md

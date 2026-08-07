@@ -1,3 +1,4 @@
 numpy>=1.24
 scipy>=1.10
 python-flint==0.8.0
+mpmath>=1.3
