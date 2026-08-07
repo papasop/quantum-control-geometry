@@ -12,6 +12,9 @@ applicable, and final report emitted by one representative audit.
 - `exact_root_ordering/`: deterministic protocol, complete certificate, and
   report for direct 66/66 exact-root box propagation and the secondary 52/66
   order-30 mechanism audit.
+- `audit_closure/`: v0.3.2 production-preconditioner regularity certificate.
+  This is an audit supplement, not a replacement for the frozen v0.3.1
+  exact-root certificates.
 - `reproducibility_summary.json`: hashes and byte-identity gates from two
   complete v1.3 formal executions.
 

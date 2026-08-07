@@ -67,9 +67,14 @@ Therefore:
 ## Remaining scope
 
 The exact-root finite-radius ordering chain is closed for the serialized
-two-atom model and declared error functional. Remaining work concerns model
-discrepancy, open-system and many-body extensions, independent reproduction,
-and PASQAL Cloud/QPU validation.
+two-atom model and declared error functional. Version v0.3.2 adds an
+independent code-path cross-check: P1 rebuilds the documented model and
+reproduces all twelve finite-error means, the complete ordering, and the
+closest certified pairs. This is an audit supplement to the frozen certificate.
+
+Remaining work still includes independent-team scientific reproduction,
+model-discrepancy studies, open-system and many-body extensions, and PASQAL
+Cloud/QPU validation.
 
 The v1.3 implementation additionally closes an artifact-reproducibility gap:
 the cohort and point preconditioners are frozen, runtime metadata is excluded
