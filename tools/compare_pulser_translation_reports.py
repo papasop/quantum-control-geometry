@@ -12,7 +12,10 @@ from typing import Any
 
 
 EXPECTED_STATUS = "ORDERING_ROBUST_UNDER_PULSER_QUANTIZATION"
-LOSS_ABS_TOL = 5.0e-9
+# GitHub-hosted runner run 31234420564 observed maximum loss drift
+# 1.43549e-8. The 2e-8 tolerance is about 0.019% of the minimum
+# committed path-mean ordering gap, approximately 1.05078e-4.
+LOSS_ABS_TOL = 2.0e-8
 LOSS_REL_TOL = 5.0e-8
 MEAN_ABS_TOL = 5.0e-9
 MEAN_REL_TOL = 5.0e-8
