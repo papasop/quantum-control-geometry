@@ -1,11 +1,13 @@
-# Differential dissipative-susceptibility protocol v1.1
+# Differential dissipative-susceptibility protocol v1.1.1
 
 ## Purpose
 
-This document freezes a protocol-only prospective test of the post-hoc
-open-system pattern observed in `v0.5.0`. The goal is to turn the
-differential dissipative-susceptibility interpretation into a falsifiable
-holdout prediction.
+This document freezes a protocol-only clarification of the prospective test of
+the post-hoc open-system pattern observed in `v0.5.0`. Version `1.1.1`
+supersedes v1.1 before any holdout results are run, read, generated, or used.
+The goal is still to turn the differential dissipative-susceptibility
+interpretation into a falsifiable holdout prediction, but the execution
+semantics are now fully specified.
 
 This PR must not run the holdout grid, inspect holdout outcomes, generate a
 result file, or adjust thresholds after seeing results.
@@ -21,8 +23,11 @@ The v0.5.0 release asset SHA-256 is
 The v1.0 canonical protocol SHA-256 is
 `0ba13647e72a9215072ca70577d3e4d9f0ddf5c95f5796bee5b671e9a08ad888`.
 
-The frozen v1.1 protocol SHA-256 is
+The superseded v1.1 protocol SHA-256 is
 `d749b48c9153a32c4a7baec79400d092dcba71b459acacccaa300b7e40afe7a5`.
+
+The frozen v1.1.1 protocol SHA-256 is
+`d10c5e8a5b152994d7e60d1d7fb4322068734d6b082c72d404365930010b3c60`.
 
 ## Prediction Rule
 
@@ -51,9 +56,34 @@ using only the already public v1.0 training points
 \lambda_{\mathrm{pred},ij}=\frac{\Delta_{ij}}{-\chi_{ij}}.
 ```
 
-A positive-axis crossing is predicted only when `chi_ij < 0` and
-`lambda_pred_ij > 0`; otherwise the pair is labeled
+For a single channel, the point prediction is
+
+```math
+\hat D_{ij}(\lambda)=\Delta_{ij}+\chi_{ij}\lambda.
+```
+
+The pair is predicted preserved when `D_hat_ij(lambda) > 0` and predicted
+flipped when `D_hat_ij(lambda) <= 0`. A positive-axis crossing is predicted
+only when `chi_ij < 0` and `lambda_pred_ij > 0`; otherwise the pair is labeled
 `no-crossing-on-positive-axis`.
+
+For the joint diagonal grid, v1.1.1 freezes the additive first-order rule
+
+```math
+\hat D_{ij}(\lambda_r,\lambda_\phi)
+=\Delta_{ij}-\chi_{\mathrm{decay},ij}\lambda_r
+-\chi_{\mathrm{dephasing},ij}\lambda_\phi.
+```
+
+The joint diagonal crossing scale is
+
+```math
+\lambda_{\mathrm{pred,joint},ij}
+=\frac{\Delta_{ij}}{-(\chi_{\mathrm{decay},ij}
++\chi_{\mathrm{dephasing},ij})}.
+```
+
+It is valid only when the denominator gives a positive finite crossing.
 
 ## Frozen Holdout Grid
 
@@ -66,6 +96,9 @@ The joint holdout grid is the new diagonal grid
 (0.015,0.015), (0.025,0.025)]`.
 
 None of these holdout points are the v1.0 training points.
+
+Actual first flip means the first flip on this frozen discrete grid. It is not
+a continuous crossing estimate and must not be interpolated.
 
 ## Primary Gates
 
@@ -83,6 +116,30 @@ The frozen gates are:
 - successful pairs are not selectively reported;
 - `pv01/pv10` and `pv08/pv11` are diagnostic named pairs only and do not
   determine pass/fail.
+
+The classification accuracy denominator is frozen as all `66` certified pairs
+across all `26` holdout conditions, for a total denominator of `1716`. No
+pair, channel family, or condition may be removed.
+
+The Harrell C-index is computed separately for decay, dephasing, and joint
+families. Within a family, comparable examples are unordered pairs of
+certified path pairs. Two observed flips are comparable only if their discrete
+first-flip lambdas differ. One observed flip and one observed right-censored
+pair are comparable, with the observed flip earlier. Two right-censored items
+or equal observed first-flip lambdas are not comparable. Equal predicted risk
+scores receive `0.5` concordance credit. A family with zero comparable
+examples contributes zero weight. The primary C-index is the comparable-count
+weighted pooled value across the three families; if the pooled denominator is
+zero, the C-index gate fails.
+
+The factor-of-two denominator includes only pair-family items that actually
+flip on the frozen discrete grid and have a positive finite predicted scale.
+The success condition is
+`0.5 * actual_first_flip_lambda <= lambda_pred <= 2.0 * actual_first_flip_lambda`.
+A family with zero eligible items contributes zero weight. The primary
+factor-of-two value is the eligible-count weighted pooled value across decay,
+dephasing, and joint; if the pooled eligible denominator is zero, the gate
+fails.
 
 ## Boundaries
 

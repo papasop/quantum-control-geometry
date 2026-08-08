@@ -1,7 +1,7 @@
 {
   "schema": "differential_dissipative_susceptibility_prediction_protocol",
-  "schema_version": "1.1",
-  "protocol_name": "Differential dissipative-susceptibility prediction protocol",
+  "schema_version": "1.1.1",
+  "protocol_name": "Differential dissipative-susceptibility prediction protocol v1.1.1 clarification",
   "source_repository": "papasop/quantum-control-geometry",
   "source_release": "v0.5.0",
   "source_commit": "2fb0c4a3e339bfb899ef3963bc92ea1fc6a74d45",
@@ -11,12 +11,14 @@
     "open_system_v1_0_protocol_file_sha256": "d6ab773b5244f29d2204eb9d40c8472b5445713b15354c898bc80dc30f2e5371",
     "open_system_v1_0_canonical_protocol_sha256": "0ba13647e72a9215072ca70577d3e4d9f0ddf5c95f5796bee5b671e9a08ad888"
   },
-  "purpose": "Freeze a falsifiable holdout protocol that turns the v0.5.0 post-hoc differential dissipative-susceptibility hypothesis into a prospective prediction.",
+  "purpose": "Clarify and supersede the v1.1 protocol before any holdout results are run, read, generated, or used. The v1.1.1 protocol freezes point prediction, joint-channel prediction, discrete first-flip definitions, C-index handling, classification denominator, and factor-of-two aggregation.",
   "status": {
     "protocol_only": true,
     "holdout_computed": false,
     "outcomes_unlocked": false,
-    "results_file_expected_in_this_pr": false
+    "results_file_expected_in_this_pr": false,
+    "supersedes_v1_1": true,
+    "clarification_only": true
   },
   "pair_universe": {
     "source": "All 66 certified ordered path pairs from the v0.5.0 exact-root/open-system source artifacts.",
@@ -98,11 +100,15 @@
   "formulas": {
     "pair_difference": "D_ij(lambda) = L_j(lambda) - L_i(lambda)",
     "unitary_gap": "Delta_ij = D_ij(0)",
-    "local_slope": "chi_ij = dD_ij/dlambda |_{lambda=0}",
-    "slope_fit": "For each channel, fit D_ij(lambda) on lambda in {0, 1e-4, 3e-4} using the declared least-squares linear model D_ij(lambda)=a_ij + chi_ij lambda; Delta_ij is D_ij(0) from the public unitary point.",
-    "predicted_first_flip_scale": "lambda_pred_ij = Delta_ij / (-chi_ij)",
-    "positive_crossing_rule": "Predict a positive-axis crossing only when chi_ij < 0 and lambda_pred_ij > 0; otherwise label no-crossing-on-positive-axis.",
-    "actual_first_flip_scale": "The first holdout lambda at which the pair direction differs from the lambda=0 frozen direction, evaluated separately for decay, dephasing, and the declared joint diagonal grid."
+    "single_channel_local_slope": "For decay and dephasing separately, chi_ij = dD_ij/dlambda |_{lambda=0}, fitted only from public v1.0 lambdas {0, 1e-4, 3e-4}.",
+    "single_channel_point_prediction": "D_hat_ij(lambda) = Delta_ij + chi_ij * lambda",
+    "single_channel_predicted_preserved": "predicted_preserved iff D_hat_ij(lambda) > 0",
+    "single_channel_predicted_flip": "predicted_flip iff D_hat_ij(lambda) <= 0",
+    "single_channel_predicted_first_flip_scale": "lambda_pred_ij = Delta_ij / (-chi_ij); valid only when chi_ij < 0 and lambda_pred_ij > 0, otherwise no-crossing-on-positive-axis.",
+    "joint_additive_first_order_prediction": "D_hat_ij(lambda_r, lambda_phi) = Delta_ij - chi_decay_ij * lambda_r - chi_dephasing_ij * lambda_phi",
+    "joint_diagonal_crossing": "lambda_pred_joint = Delta_ij / -(chi_decay_ij + chi_dephasing_ij)",
+    "joint_positive_crossing_rule": "The joint diagonal crossing is valid only when -(chi_decay_ij + chi_dephasing_ij) produces a positive finite lambda_pred_joint; otherwise label no-crossing-on-positive-axis.",
+    "actual_first_flip_scale": "The actual first flip is the first point on the frozen discrete holdout grid at which the pair direction flips. It is not a claim about the continuous true crossing."
   },
   "primary_gates": {
     "all_propagation_values_finite": true,
@@ -112,13 +118,63 @@
     "factor_of_two_accuracy_for_actual_flips_with_positive_predictions_at_least": 0.7,
     "report_all_failures": true,
     "no_success_pair_selection": true,
-    "diagnostic_pairs_decide_pass_fail": false
+    "diagnostic_pairs_decide_pass_fail": false,
+    "holdout_condition_count": 26,
+    "classification_accuracy_denominator": 1716
   },
   "classification_rules": {
-    "pair_direction_accuracy_denominator": "All certified ordered pairs across all held-out single-channel and joint conditions.",
-    "harrell_c_index_denominator": "Comparable pair-pair examples with observed first-flip order and finite predicted positive scales; censored no-flip cases are reported and handled according to the released analysis script, not silently dropped.",
-    "factor_of_two_rule": "A positive prediction is within factor two when 0.5 * actual_first_flip_lambda <= lambda_pred <= 2.0 * actual_first_flip_lambda.",
-    "failure_reporting": "Every failed gate, every no-crossing label, every observed flip, and every diagnostic pair result must be reported."
+    "condition_count": {
+      "decay_holdout_conditions": 10,
+      "dephasing_holdout_conditions": 10,
+      "joint_holdout_conditions": 6,
+      "total_holdout_conditions": 26
+    },
+    "pair_direction_classification_accuracy": {
+      "denominator": 1716,
+      "formula": "correct_predictions / (66 pairs * 26 holdout conditions)",
+      "drop_policy": "Do not remove any pair, channel family, or holdout condition.",
+      "single_channel_prediction": "Use D_hat_ij(lambda) = Delta_ij + chi_ij * lambda.",
+      "joint_prediction": "Use D_hat_ij(lambda_r, lambda_phi) = Delta_ij - chi_decay_ij * lambda_r - chi_dephasing_ij * lambda_phi.",
+      "predicted_preserved": "D_hat > 0",
+      "predicted_flip": "D_hat <= 0"
+    },
+    "actual_first_flip": {
+      "definition": "For each family and pair, scan only the frozen discrete holdout grid in ascending severity order and record the first grid point where the actual pair direction flips.",
+      "continuous_crossing_policy": "Do not interpolate and do not report this as a continuous physical crossing.",
+      "right_censoring": "If no flip appears on the frozen family grid, mark the pair as right-censored beyond that family grid maximum."
+    },
+    "harrell_c_index": {
+      "family_values": [
+        "decay",
+        "dephasing",
+        "joint"
+      ],
+      "risk_score": "Smaller finite predicted first-flip lambda means higher predicted flip risk. no-crossing-on-positive-axis is treated as right-censored at +infinity for prediction ordering.",
+      "comparable_pair_pairs": [
+        "Within each family, compare unordered pairs of certified path pairs.",
+        "Two observed flips are comparable only when their discrete first-flip lambdas differ.",
+        "One observed flip and one observed right-censored pair are comparable, with the observed flip ordered earlier than the censored pair.",
+        "Two observed right-censored pairs are not comparable.",
+        "Equal observed first-flip lambdas are ties and are not included in the denominator."
+      ],
+      "prediction_ties": "If a comparable example has equal predicted risk scores, assign 0.5 concordance credit.",
+      "concordant": "A comparable example is concordant when the pair with earlier observed first flip has the smaller predicted first-flip scale, with no-crossing treated as +infinity.",
+      "family_c_index": "family_concordance_credit / family_comparable_count when family_comparable_count > 0; otherwise null.",
+      "zero_family_denominator": "A family with zero comparable pairs contributes 0 comparable pairs and 0 concordance credit to the pooled value.",
+      "primary_pooled_c_index": "sum_family_concordance_credit / sum_family_comparable_count across decay, dephasing, and joint.",
+      "zero_pooled_denominator": "If the pooled comparable-pair count is zero, the primary C-index gate fails."
+    },
+    "factor_of_two_gate": {
+      "eligible_pair_family": "A pair-family item is eligible only if the pair actually flips on that family discrete holdout grid and the prediction has a positive finite lambda_pred for that family.",
+      "single_channel_prediction_scale": "Use the channel-specific lambda_pred_ij = Delta_ij / (-chi_ij).",
+      "joint_prediction_scale": "Use lambda_pred_joint = Delta_ij / -(chi_decay_ij + chi_dephasing_ij).",
+      "success_rule": "0.5 * actual_first_flip_lambda <= lambda_pred <= 2.0 * actual_first_flip_lambda.",
+      "family_fraction": "family_success_count / family_eligible_count when family_eligible_count > 0; otherwise null.",
+      "zero_family_eligible": "A family with zero eligible items contributes 0 successes and 0 eligible items to the pooled value.",
+      "primary_pooled_fraction": "sum_family_success_count / sum_family_eligible_count across decay, dephasing, and joint.",
+      "zero_pooled_eligible": "If the pooled eligible denominator is zero, the primary factor-of-two gate fails."
+    },
+    "failure_reporting": "Report all failed gates, all pair-family no-crossing labels, all observed flips, all censored pair-family items, and both named diagnostic pairs. Do not select only successful pairs."
   },
   "solver_environment": {
     "python": "3.12.x",
@@ -142,7 +198,8 @@
     "permutation_seed_if_added_as_secondary_diagnostic": 20260810
   },
   "non_claims": [
-    "This protocol does not run or reveal holdout results.",
+    "This v1.1.1 clarification protocol does not run, read, or reveal holdout results.",
+    "This protocol supersedes v1.1 before holdout execution by freezing execution semantics only.",
     "This protocol does not modify Arb/Krawczyk proof engines, exact-root boxes, or earlier certificates.",
     "This protocol is not an Arb interval proof.",
     "This protocol is not calibrated PASQAL hardware noise and is not PASQAL Cloud, FRESNEL, or QPU evidence.",
@@ -153,5 +210,6 @@
     "canonical_json": "json.dumps(obj, sort_keys=True, separators=(',', ':'), ensure_ascii=False)",
     "hash_exclusion": "The canonical_protocol_sha256 field is removed before hashing."
   },
-  "canonical_protocol_sha256": "d749b48c9153a32c4a7baec79400d092dcba71b459acacccaa300b7e40afe7a5"
+  "canonical_protocol_sha256": "d10c5e8a5b152994d7e60d1d7fb4322068734d6b082c72d404365930010b3c60",
+  "supersedes_protocol_sha256": "d749b48c9153a32c4a7baec79400d092dcba71b459acacccaa300b7e40afe7a5"
 }
