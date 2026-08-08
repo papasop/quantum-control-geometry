@@ -100,7 +100,43 @@ def verify() -> list[str]:
 
     cohort = load_json("results/exact_fibre_krawczyk/cohort.json")
     p0 = load_json("results/audit_closure/p0_preconditioner_certificate.json")
+    p0_frozen_inverse = load_json(
+        "tests/audit_closure/data/p0_frozen_inverse_hex.json"
+    )
     cohort_path = ROOT / "results/exact_fibre_krawczyk/cohort.json"
+    p0_inverse_path = ROOT / "tests/audit_closure/data/p0_frozen_inverse_hex.json"
+    preconditioner_payload = [
+        {
+            "path": row["path"],
+            "point_preconditioner_decimal": row[
+                "point_preconditioner_decimal"
+            ],
+        }
+        for row in cohort["paths"]
+    ]
+    expected_paths = [f"pv{index:02d}" for index in range(1, 13)]
+
+    assert p0_frozen_inverse["schema"] == "p0_frozen_inverse_hex"
+    assert int(p0_frozen_inverse["schema_version"]) == 1
+    assert p0_frozen_inverse["source_cohort_sha256"] == hashlib.sha256(
+        cohort_path.read_bytes()
+    ).hexdigest()
+    assert p0_frozen_inverse[
+        "production_preconditioner_payload_sha256"
+    ] == sha256_json(preconditioner_payload)
+    assert p0_frozen_inverse["matrix_shape"] == [16, 16]
+    assert p0_frozen_inverse["paths"] == expected_paths
+    assert set(p0_frozen_inverse["matrices"]) == set(expected_paths)
+    for path in expected_paths:
+        matrix = p0_frozen_inverse["matrices"][path]
+        assert len(matrix) == 16
+        assert all(len(row) == 16 for row in matrix)
+        for row in matrix:
+            for value in row:
+                assert float.fromhex(value).hex() == value
+
+    assert p0["schema"] == "p0_preconditioner_certificate"
+    assert int(p0["schema_version"]) == 2
     assert p0["method"] == "Rump-Neumann regularity certificate"
     assert p0["production_preconditioner_conversion"] == (
         "arb(repr(float(decimal)))"
@@ -108,12 +144,19 @@ def verify() -> list[str]:
     assert p0["source_cohort_sha256"] == hashlib.sha256(
         cohort_path.read_bytes()
     ).hexdigest()
+    assert p0["production_preconditioner_payload_sha256"] == sha256_json(
+        preconditioner_payload
+    )
+    assert p0["frozen_inverse_data_sha256"] == hashlib.sha256(
+        p0_inverse_path.read_bytes()
+    ).hexdigest()
+    assert p0["frozen_inverse_schema"] == "p0_frozen_inverse_hex@1"
+    assert p0["matrix_shape"] == [16, 16]
+    assert p0["paths"] == expected_paths
     assert int(p0["prec_bits"]) == 256
     assert bool(p0["all_nonsingular"])
     assert len(p0["results"]) == 12
-    assert {row["path"] for row in p0["results"]} == {
-        f"pv{index:02d}" for index in range(1, 13)
-    }
+    assert [row["path"] for row in p0["results"]] == expected_paths
     assert all(
         bool(row["nonsingular"])
         and 0.0 <= float(row["rho_upper"]) < 1.0
