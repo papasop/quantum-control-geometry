@@ -26,6 +26,19 @@ The evidence layers have different logical roles:
 
 The prospective result is not a premise of the theorem.
 
+## Evidence layers
+
+| Layer | What to run | Logical status |
+|---|---|---|
+| Strict Arb proof | `tools/verify_reference_results.py`; full v1.3 standalone reproduction | Model-conditional interval certificate |
+| Pulser translation robustness | `Pulser translation diagnostic` workflow or `tests/external/recompute_pulser_translation.py` | Independent numerical translation cross-check |
+| Blind prospective Pulser validation | `Blind Pulser response-fibre prospective test` workflow or `tests/external/pasqal_blind_response_fibre_v1_0.py` | Independent prospective numerical validation |
+| PASQAL QPU test | Not available in this repository | No hardware claim |
+
+The JSON validators check committed reports. They are not the same as rerunning
+the Pulser propagation workflows. Pulser is not Arb. Pulser is not PASQAL Cloud
+or a physical QPU.
+
 ## Three-minute verification
 
 No PASQAL account is required.
@@ -70,6 +83,54 @@ python scripts/standalone/pasqal_L4_reproducible_certificate_v1_3_colab.py
 The complete run recomputes the Krawczyk and direct exact-root certificates
 twice and requires byte-identical proof artifacts.
 
+## External numerical validation
+
+The external Pulser workflows are reviewer-facing numerical checks around the
+formal theorem. They do not change or replace the Arb/Krawczyk certificate.
+
+Translation robustness:
+
+```bash
+python -m pip install -r requirements-pulser.txt
+python tests/external/recompute_pulser_translation.py \
+  --output /tmp/pulser_recomputed_report.json
+python tools/validate_pulser_translation_report.py \
+  --report /tmp/pulser_recomputed_report.json
+python tools/compare_pulser_translation_reports.py \
+  --reference results/external/pulser_translation_report.json \
+  --candidate /tmp/pulser_recomputed_report.json
+```
+
+Manual workflow:
+[`Pulser translation diagnostic`](https://github.com/papasop/quantum-control-geometry/actions/workflows/pulser_translation_diagnostic.yml).
+
+Blind prospective validation:
+
+```bash
+python -m pip install -r requirements-pulser-blind.txt
+python tests/external/pasqal_blind_response_fibre_v1_0.py \
+  --report /tmp/pasqal_blind_response_fibre_v1_0_report.json
+python tools/verify_blind_pulser_summary.py
+```
+
+Manual workflow:
+[`Blind Pulser response-fibre prospective test`](https://github.com/papasop/quantum-control-geometry/actions/workflows/blind_pulser_response_fibre.yml).
+
+For both workflows, use **Actions -> Run workflow -> main -> Run workflow**.
+
+Recommended reviewer route:
+
+1. Fast integrity check:
+   `python tools/verify_reference_results.py`,
+   `python -m unittest discover -s tests -v`, and
+   `sha256sum -c SHA256SUMS.txt`.
+2. Formal theorem reproduction:
+   install `requirements-lock.txt` and run
+   `scripts/standalone/pasqal_L4_reproducible_certificate_v1_3_colab.py`.
+3. External Pulser validation:
+   run the 72-propagation translation workflow and the 120-propagation blind
+   workflow.
+
 ## Where to look
 
 - `paper/manuscript.pdf`: submitted manuscript.
@@ -79,6 +140,17 @@ twice and requires byte-identical proof artifacts.
 - `results/audit_closure/`: v0.3.2 production-preconditioner regularity
   certificate.
 - `tests/audit_closure/`: P0, P1, P2, and mutation-test scripts.
+- `results/external/pulser_translation_report.json`: committed 72-cell Pulser
+  translation summary.
+- `results/external/pasqal_blind_response_fibre_v1_0_summary.json`: committed
+  120-propagation blind prospective summary.
+- `docs/pulser_translation_scope.md`: translation robustness scope.
+- `docs/blind_pulser_response_fibre_scope.md`: blind prospective validation
+  scope.
+- `.github/workflows/pulser_translation_diagnostic.yml`: manual 72-propagation
+  Pulser workflow.
+- `.github/workflows/blind_pulser_response_fibre.yml`: manual 120-propagation
+  blind workflow.
 - `results/reproducibility_summary.json`: two-run identity record.
 - `docs/claim_scope.md`: exact claim boundary.
 - `tools/verify_reference_results.py`: fast artifact verifier.
@@ -96,3 +168,5 @@ open-system, worst-case-error, or many-body certification.
   GitHub Actions run.
 - `paper-exact-root-v1.0` freezes the synchronized submission manuscript and
   reviewer-facing repository state after CI passes.
+- `v0.4.1` marks the current main external Pulser-model validation layer as a
+  tag. No GitHub Release exists for `v0.4.1` at the time of this guide update.
