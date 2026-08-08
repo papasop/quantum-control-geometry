@@ -49,11 +49,14 @@ one reason the exact-translation gate remains false.
 
 `tools/compare_pulser_translation_reports.py` compares a recomputed report
 against the committed report. It requires the structural gates to match and
-also compares every one of the 72 losses and all 12 path means. The tolerances
-are `5e-9` absolute and `5e-8` relative for both cell losses and path means.
-These are intentionally much smaller than the observed ordering gaps while
-allowing small ODE and linear-algebra variation across the pinned Pulser 1.9,
-Qutip 5.1.1, NumPy 2.0.2, and SciPy 1.13.1 stack.
+also compares every one of the 72 losses and all 12 path means. Pulser point
+values are not formal interval certificates, and the point-level cell losses
+allow `2e-8` absolute drift across BLAS/ODE runners. Path means keep the
+stricter `5e-9` absolute tolerance. The complete ordering and all 66 pair
+directions remain exact hard gates. The `2e-8` cell-loss tolerance is far below
+the smallest committed path-mean ordering gap, about `1.05078e-4`, and is not a
+physical uncertainty or experimental error. The formal Arb/Krawczyk certificate
+does not use this tolerance.
 
 ## What It Does Not Check
 

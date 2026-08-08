@@ -56,8 +56,8 @@ class PulserTranslationReportTests(unittest.TestCase):
     def test_compare_collects_all_numeric_exceedances(self) -> None:
         reference = PULSER_TRANSLATION.load_report()
         candidate = copy.deepcopy(reference)
-        cell(candidate, "pv01", "amp_plus")["loss"] += 7.0e-9
-        cell(candidate, "pv02", "int_minus")["loss"] += 2.0e-8
+        cell(candidate, "pv01", "amp_plus")["loss"] += 2.1e-8
+        cell(candidate, "pv02", "int_minus")["loss"] += 3.0e-8
         summary = PULSER_COMPARE.audit_reports(reference, candidate)
         self.assertEqual(summary["loss"]["exceeded_count"], 2)
         labels = {
@@ -75,8 +75,8 @@ class PulserTranslationReportTests(unittest.TestCase):
     def test_compare_reports_max_difference_locations(self) -> None:
         reference = PULSER_TRANSLATION.load_report()
         candidate = copy.deepcopy(reference)
-        cell(candidate, "pv01", "amp_plus")["loss"] += 7.0e-9
-        cell(candidate, "pv02", "int_minus")["loss"] += 2.0e-8
+        cell(candidate, "pv01", "amp_plus")["loss"] += 2.1e-8
+        cell(candidate, "pv02", "int_minus")["loss"] += 3.0e-8
         path_row(candidate, "pv07")["mean_loss"] += 2.0e-8
         path_row(candidate, "pv06")["mean_loss"] += 2.1e-8
         summary = PULSER_COMPARE.audit_reports(reference, candidate)
@@ -101,7 +101,7 @@ class PulserTranslationReportTests(unittest.TestCase):
     def test_compare_main_returns_one_on_numeric_exceedance(self) -> None:
         reference = PULSER_TRANSLATION.load_report()
         candidate = copy.deepcopy(reference)
-        cell(candidate, "pv01", "amp_plus")["loss"] += 7.0e-9
+        cell(candidate, "pv01", "amp_plus")["loss"] += 2.1e-8
         with tempfile.TemporaryDirectory() as tmp:
             reference_path = Path(tmp) / "reference.json"
             candidate_path = Path(tmp) / "candidate.json"
@@ -121,6 +121,38 @@ class PulserTranslationReportTests(unittest.TestCase):
             self.assertEqual(result, 1)
             summary = json.loads(summary_path.read_text(encoding="utf-8"))
             self.assertEqual(summary["loss"]["exceeded_count"], 1)
+
+    def test_observed_runner_loss_drift_is_within_tolerance(self) -> None:
+        reference = PULSER_TRANSLATION.load_report()
+        candidate = copy.deepcopy(reference)
+        cell(candidate, "pv12", "int_minus")["loss"] += 1.4354865518484416e-8
+        summary = PULSER_COMPARE.audit_reports(reference, candidate)
+        self.assertTrue(summary["passed"])
+        self.assertEqual(summary["loss"]["exceeded_count"], 0)
+
+    def test_loss_difference_just_below_two_e_minus_eight_passes(self) -> None:
+        reference = PULSER_TRANSLATION.load_report()
+        candidate = copy.deepcopy(reference)
+        cell(candidate, "pv01", "amp_plus")["loss"] += 1.99e-8
+        summary = PULSER_COMPARE.audit_reports(reference, candidate)
+        self.assertTrue(summary["passed"])
+        self.assertEqual(summary["loss"]["exceeded_count"], 0)
+
+    def test_loss_difference_above_two_e_minus_eight_fails(self) -> None:
+        reference = PULSER_TRANSLATION.load_report()
+        candidate = copy.deepcopy(reference)
+        cell(candidate, "pv01", "amp_plus")["loss"] += 2.01e-8
+        summary = PULSER_COMPARE.audit_reports(reference, candidate)
+        self.assertFalse(summary["passed"])
+        self.assertEqual(summary["loss"]["exceeded_count"], 1)
+
+    def test_mean_difference_above_five_e_minus_nine_still_fails(self) -> None:
+        reference = PULSER_TRANSLATION.load_report()
+        candidate = copy.deepcopy(reference)
+        path_row(candidate, "pv01")["mean_loss"] += 6.0e-9
+        summary = PULSER_COMPARE.audit_reports(reference, candidate)
+        self.assertFalse(summary["passed"])
+        self.assertEqual(summary["mean"]["exceeded_count"], 1)
 
     def test_compare_main_returns_zero_within_tolerance(self) -> None:
         reference = PULSER_TRANSLATION.load_report()
@@ -151,12 +183,36 @@ class PulserTranslationReportTests(unittest.TestCase):
             any("complete ordering changed" in item for item in summary["hard_gate_errors"])
         )
 
+    def test_compare_fails_on_path_order_change(self) -> None:
+        reference = PULSER_TRANSLATION.load_report()
+        candidate = copy.deepcopy(reference)
+        candidate["path_order"] = list(reversed(candidate["path_order"]))
+        summary = PULSER_COMPARE.audit_reports(reference, candidate)
+        self.assertFalse(summary["passed"])
+        self.assertIn(
+            "candidate path order differs from reference",
+            summary["hard_gate_errors"],
+        )
+
+    def test_compare_fails_on_pair_direction_change(self) -> None:
+        reference = PULSER_TRANSLATION.load_report()
+        candidate = copy.deepcopy(reference)
+        first = candidate["pair_directions"][0]
+        first["better"], first["worse"] = first["worse"], first["better"]
+        summary = PULSER_COMPARE.audit_reports(reference, candidate)
+        self.assertFalse(summary["passed"])
+        self.assertIn(
+            "candidate pair directions differ from reference",
+            summary["hard_gate_errors"],
+        )
+
     def test_workflow_uploads_artifacts_even_after_failure(self) -> None:
         workflow = WORKFLOW.read_text(encoding="utf-8")
         self.assertIn("set -o pipefail", workflow)
         self.assertIn("tee /tmp/pulser_compare.log", workflow)
         self.assertIn("--summary /tmp/pulser_comparison_summary.json", workflow)
         self.assertIn("if: always()", workflow)
+        self.assertIn("uses: actions/upload-artifact@v7", workflow)
         self.assertIn("/tmp/pulser_compare.log", workflow)
         self.assertIn("/tmp/pulser_comparison_summary.json", workflow)
 
