@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the frozen v1.1.1 dissipative-susceptibility prediction protocol."""
+"""Verify the frozen v1.1.2 dissipative-susceptibility prediction protocol."""
 
 from __future__ import annotations
 
@@ -17,10 +17,13 @@ PROTOCOL_PATH = (
 )
 
 EXPECTED_CANONICAL_SHA256 = (
-    "d10c5e8a5b152994d7e60d1d7fb4322068734d6b082c72d404365930010b3c60"
+    "0c220213ba9485fd06268c56b726848c33b684da10c9d715c96690e9e7ae8476"
 )
-SUPERSEDED_V1_1_SHA256 = (
+SUPERSEDED_PROTOCOL_SHA256 = (
     "d749b48c9153a32c4a7baec79400d092dcba71b459acacccaa300b7e40afe7a5"
+)
+SUPERSEDED_V1_1_1_SHA256 = (
+    "d10c5e8a5b152994d7e60d1d7fb4322068734d6b082c72d404365930010b3c60"
 )
 SOURCE_COMMIT = "2fb0c4a3e339bfb899ef3963bc92ea1fc6a74d45"
 SOURCE_ASSET_SHA256 = (
@@ -50,8 +53,8 @@ def verify() -> list[str]:
     assert protocol["schema"] == (
         "differential_dissipative_susceptibility_prediction_protocol"
     )
-    assert protocol["schema_version"] == "1.1.1"
-    assert protocol["supersedes_protocol_sha256"] == SUPERSEDED_V1_1_SHA256
+    assert protocol["schema_version"] == "1.1.2"
+    assert protocol["supersedes_protocol_sha256"] == SUPERSEDED_V1_1_1_SHA256
     assert protocol["source_release"] == "v0.5.0"
     assert protocol["source_commit"] == SOURCE_COMMIT
     assert (
@@ -71,6 +74,8 @@ def verify() -> list[str]:
     assert status["results_file_expected_in_this_pr"] is False
     assert status["supersedes_v1_1"] is True
     assert status["clarification_only"] is True
+    assert status["correction_only"] is True
+    assert status["outcome_reveal_before_correction"] is False
     assert protocol["training_data_policy"]["no_holdout_access_before_freeze"] is True
     assert protocol["training_data_policy"]["single_channel_training_lambdas"] == [
         0.0,
@@ -135,8 +140,14 @@ def verify() -> list[str]:
         "predicted_flip iff D_hat_ij(lambda) <= 0"
     )
     assert formulas["joint_additive_first_order_prediction"] == (
-        "D_hat_ij(lambda_r, lambda_phi) = Delta_ij - chi_decay_ij * "
-        "lambda_r - chi_dephasing_ij * lambda_phi"
+        "D_hat_ij(lambda_r, lambda_phi) = Delta_ij + chi_decay_ij * "
+        "lambda_r + chi_dephasing_ij * lambda_phi"
+    )
+    assert "lambda_pred_joint = Delta_ij / -(chi_decay_ij + chi_dephasing_ij)" in (
+        formulas["joint_diagonal_crossing"]
+    )
+    assert "chi_decay_ij + chi_dephasing_ij < 0" in (
+        formulas["joint_positive_crossing_rule"]
     )
     assert formulas["actual_first_flip_scale"].startswith(
         "The actual first flip is the first point on the frozen discrete "
@@ -155,12 +166,17 @@ def verify() -> list[str]:
     assert "Do not remove any pair" in rules["pair_direction_classification_accuracy"][
         "drop_policy"
     ]
+    assert rules["pair_direction_classification_accuracy"]["joint_prediction"] == (
+        "Use D_hat_ij(lambda_r, lambda_phi) = Delta_ij + chi_decay_ij * "
+        "lambda_r + chi_dephasing_ij * lambda_phi."
+    )
     c_index = rules["harrell_c_index"]
     assert c_index["family_values"] == ["decay", "dephasing", "joint"]
     assert "zero comparable pairs" in c_index["zero_family_denominator"]
     assert "gate fails" in c_index["zero_pooled_denominator"]
     factor = rules["factor_of_two_gate"]
     assert "positive finite lambda_pred" in factor["eligible_pair_family"]
+    assert "chi_decay_ij + chi_dephasing_ij < 0" in factor["joint_prediction_scale"]
     assert "gate fails" in factor["zero_pooled_eligible"]
     messages.append("classification, C-index, and factor-of-two algorithms: PASS")
 

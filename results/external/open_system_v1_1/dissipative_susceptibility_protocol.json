@@ -1,7 +1,7 @@
 {
   "schema": "differential_dissipative_susceptibility_prediction_protocol",
-  "schema_version": "1.1.1",
-  "protocol_name": "Differential dissipative-susceptibility prediction protocol v1.1.1 clarification",
+  "schema_version": "1.1.2",
+  "protocol_name": "Differential dissipative-susceptibility prediction protocol v1.1.2 algebraic correction",
   "source_repository": "papasop/quantum-control-geometry",
   "source_release": "v0.5.0",
   "source_commit": "2fb0c4a3e339bfb899ef3963bc92ea1fc6a74d45",
@@ -11,14 +11,16 @@
     "open_system_v1_0_protocol_file_sha256": "d6ab773b5244f29d2204eb9d40c8472b5445713b15354c898bc80dc30f2e5371",
     "open_system_v1_0_canonical_protocol_sha256": "0ba13647e72a9215072ca70577d3e4d9f0ddf5c95f5796bee5b671e9a08ad888"
   },
-  "purpose": "Clarify and supersede the v1.1 protocol before any holdout results are run, read, generated, or used. The v1.1.1 protocol freezes point prediction, joint-channel prediction, discrete first-flip definitions, C-index handling, classification denominator, and factor-of-two aggregation.",
+  "purpose": "Correct and supersede the v1.1.1 protocol before any holdout results are run, read, generated, or used. The v1.1.2 protocol fixes the internal algebraic sign convention between the single-channel point prediction and the joint additive first-order model while preserving the frozen holdout grids, gates, classification denominator, C-index rules, factor-of-two rules, and solver settings.",
   "status": {
     "protocol_only": true,
     "holdout_computed": false,
     "outcomes_unlocked": false,
     "results_file_expected_in_this_pr": false,
     "supersedes_v1_1": true,
-    "clarification_only": true
+    "clarification_only": true,
+    "correction_only": true,
+    "outcome_reveal_before_correction": false
   },
   "pair_universe": {
     "source": "All 66 certified ordered path pairs from the v0.5.0 exact-root/open-system source artifacts.",
@@ -105,9 +107,9 @@
     "single_channel_predicted_preserved": "predicted_preserved iff D_hat_ij(lambda) > 0",
     "single_channel_predicted_flip": "predicted_flip iff D_hat_ij(lambda) <= 0",
     "single_channel_predicted_first_flip_scale": "lambda_pred_ij = Delta_ij / (-chi_ij); valid only when chi_ij < 0 and lambda_pred_ij > 0, otherwise no-crossing-on-positive-axis.",
-    "joint_additive_first_order_prediction": "D_hat_ij(lambda_r, lambda_phi) = Delta_ij - chi_decay_ij * lambda_r - chi_dephasing_ij * lambda_phi",
-    "joint_diagonal_crossing": "lambda_pred_joint = Delta_ij / -(chi_decay_ij + chi_dephasing_ij)",
-    "joint_positive_crossing_rule": "The joint diagonal crossing is valid only when -(chi_decay_ij + chi_dephasing_ij) produces a positive finite lambda_pred_joint; otherwise label no-crossing-on-positive-axis.",
+    "joint_additive_first_order_prediction": "D_hat_ij(lambda_r, lambda_phi) = Delta_ij + chi_decay_ij * lambda_r + chi_dephasing_ij * lambda_phi",
+    "joint_diagonal_crossing": "Substituting lambda_r = lambda_phi = lambda gives D_hat_ij(lambda, lambda) = Delta_ij + (chi_decay_ij + chi_dephasing_ij) * lambda, so lambda_pred_joint = Delta_ij / -(chi_decay_ij + chi_dephasing_ij).",
+    "joint_positive_crossing_rule": "The joint diagonal crossing is valid only when chi_decay_ij + chi_dephasing_ij < 0 and lambda_pred_joint is positive and finite; otherwise label no-crossing-on-positive-axis.",
     "actual_first_flip_scale": "The actual first flip is the first point on the frozen discrete holdout grid at which the pair direction flips. It is not a claim about the continuous true crossing."
   },
   "primary_gates": {
@@ -134,7 +136,7 @@
       "formula": "correct_predictions / (66 pairs * 26 holdout conditions)",
       "drop_policy": "Do not remove any pair, channel family, or holdout condition.",
       "single_channel_prediction": "Use D_hat_ij(lambda) = Delta_ij + chi_ij * lambda.",
-      "joint_prediction": "Use D_hat_ij(lambda_r, lambda_phi) = Delta_ij - chi_decay_ij * lambda_r - chi_dephasing_ij * lambda_phi.",
+      "joint_prediction": "Use D_hat_ij(lambda_r, lambda_phi) = Delta_ij + chi_decay_ij * lambda_r + chi_dephasing_ij * lambda_phi.",
       "predicted_preserved": "D_hat > 0",
       "predicted_flip": "D_hat <= 0"
     },
@@ -167,7 +169,7 @@
     "factor_of_two_gate": {
       "eligible_pair_family": "A pair-family item is eligible only if the pair actually flips on that family discrete holdout grid and the prediction has a positive finite lambda_pred for that family.",
       "single_channel_prediction_scale": "Use the channel-specific lambda_pred_ij = Delta_ij / (-chi_ij).",
-      "joint_prediction_scale": "Use lambda_pred_joint = Delta_ij / -(chi_decay_ij + chi_dephasing_ij).",
+      "joint_prediction_scale": "Use lambda_pred_joint = Delta_ij / -(chi_decay_ij + chi_dephasing_ij), valid only when chi_decay_ij + chi_dephasing_ij < 0 and the predicted scale is positive and finite.",
       "success_rule": "0.5 * actual_first_flip_lambda <= lambda_pred <= 2.0 * actual_first_flip_lambda.",
       "family_fraction": "family_success_count / family_eligible_count when family_eligible_count > 0; otherwise null.",
       "zero_family_eligible": "A family with zero eligible items contributes 0 successes and 0 eligible items to the pooled value.",
@@ -198,9 +200,10 @@
     "permutation_seed_if_added_as_secondary_diagnostic": 20260810
   },
   "non_claims": [
-    "This v1.1.1 clarification protocol does not run, read, or reveal holdout results.",
-    "This protocol supersedes v1.1 before holdout execution by freezing execution semantics only.",
-    "This protocol does not modify Arb/Krawczyk proof engines, exact-root boxes, or earlier certificates.",
+    "This v1.1.2 correction protocol does not run, read, or reveal holdout results.",
+    "This protocol supersedes v1.1.1 before holdout execution by correcting an internal algebraic sign inconsistency only.",
+    "Because the correction is made before outcome reveal, it does not break prospective status.",
+    "This protocol does not modify training points, holdout grids, thresholds, C-index rules, factor-of-two rules, solver settings, Arb/Krawczyk proof engines, exact-root boxes, or earlier certificates.",
     "This protocol is not an Arb interval proof.",
     "This protocol is not calibrated PASQAL hardware noise and is not PASQAL Cloud, FRESNEL, or QPU evidence.",
     "The differential dissipative-susceptibility mechanism remains a post-hoc v1.1 hypothesis until this frozen holdout protocol is executed."
@@ -210,6 +213,6 @@
     "canonical_json": "json.dumps(obj, sort_keys=True, separators=(',', ':'), ensure_ascii=False)",
     "hash_exclusion": "The canonical_protocol_sha256 field is removed before hashing."
   },
-  "canonical_protocol_sha256": "d10c5e8a5b152994d7e60d1d7fb4322068734d6b082c72d404365930010b3c60",
-  "supersedes_protocol_sha256": "d749b48c9153a32c4a7baec79400d092dcba71b459acacccaa300b7e40afe7a5"
+  "canonical_protocol_sha256": "0c220213ba9485fd06268c56b726848c33b684da10c9d715c96690e9e7ae8476",
+  "supersedes_protocol_sha256": "d10c5e8a5b152994d7e60d1d7fb4322068734d6b082c72d404365930010b3c60"
 }
