@@ -15,6 +15,7 @@ boundary.
 | Pulser translation diagnostic | 12 paths x 6 errors; complete order and 66/66 pair directions preserved | Independent numerical translation cross-check |
 | Blind Pulser prospective test | 20 paths x 6 errors; preregistered ranking supported | Independent prospective numerical validation |
 | Open-system QuTiP stress audit | 12 paths x 6 errors over 29 decay/dephasing stress conditions | Empirical model-discrepancy stress test |
+| Prospective dissipative-susceptibility reveal | 1715/1716 directions, C-index 1.000, factor-two 19/20 | Frozen prospective QuTiP Lindblad validation |
 | PASQAL Cloud/QPU | Not executed | No hardware claim |
 
 Arb/Krawczyk is the strict interval proof layer. Pulser uses independent local
@@ -337,6 +338,27 @@ and
 One-click workflow:
 [`Open-system ordering-survival stress audit`](https://github.com/papasop/quantum-control-geometry/actions/workflows/open_system_ordering_survival.yml).
 Use **Actions -> Run workflow -> main -> Run workflow**.
+
+### 4. Prospective dissipative-susceptibility reveal
+
+The separately frozen v1.1.2 QuTiP Lindblad reveal records:
+
+- 2,232/2,232 finite density-matrix propagations;
+- 66/66 zero-noise certified pair directions reconstructed;
+- 1,715/1,716 held-out pair-condition directions predicted correctly
+  (`0.999417`, frozen gate `0.90`);
+- pooled Harrell C-index `1.000` over 1,217 comparable items
+  (frozen gate `0.75`);
+- 19/20 eligible first-flip scales within a factor of two (`0.95`, frozen gate
+  `0.70`);
+- all frozen gates passed.
+
+This is prospective numerical evidence in the declared two-atom QuTiP
+Lindblad model. It is not an Arb proof, calibrated PASQAL hardware-noise
+result, PASQAL Cloud run, FRESNEL run, or QPU experiment. See
+[`docs/dissipative_susceptibility_reveal_status.md`](docs/dissipative_susceptibility_reveal_status.md)
+and
+[`results/external/open_system/dissipative_susceptibility_reveal_v1_1_2_summary.json`](results/external/open_system/dissipative_susceptibility_reveal_v1_1_2_summary.json).
 
 ## External Clean-Environment Reproduction
 

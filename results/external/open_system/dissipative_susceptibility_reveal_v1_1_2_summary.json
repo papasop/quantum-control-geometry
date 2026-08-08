@@ -1,0 +1,77 @@
+{
+  "schema": "dissipative_susceptibility_reveal_summary",
+  "schema_version": "1.1.2",
+  "scientific_status": "PROSPECTIVE_DISSIPATIVE_SUSCEPTIBILITY_SUPPORTED",
+  "workflow_run": {
+    "id": 31243388596,
+    "run_number": 2,
+    "url": "https://github.com/papasop/quantum-control-geometry/actions/runs/31243388596",
+    "conclusion": "success",
+    "executed_commit": "134b6ff747b7941d68bd645bec091b6dafbaf8b7"
+  },
+  "protocol": {
+    "merged_protocol_commit": "03055196b5b58d022a5cfcea46b007cb752cea44",
+    "source_commit": "2fb0c4a3e339bfb899ef3963bc92ea1fc6a74d45",
+    "canonical_sha256": "0c220213ba9485fd06268c56b726848c33b684da10c9d715c96690e9e7ae8476",
+    "holdout_conditions": 26,
+    "pair_condition_denominator": 1716
+  },
+  "execution": {
+    "propagations": 2232,
+    "all_values_finite": true,
+    "python": "3.12.13",
+    "numpy": "2.0.2",
+    "scipy": "1.13.1",
+    "qutip": "5.1.1"
+  },
+  "results": {
+    "lambda_zero_preserved_pairs": "66/66",
+    "classification": {
+      "correct": 1715,
+      "denominator": 1716,
+      "accuracy": 0.9994172494172494,
+      "gate": 0.9,
+      "passed": true
+    },
+    "pooled_harrell_c_index": {
+      "comparable_count": 1217,
+      "concordance_credit": 1217.0,
+      "value": 1.0,
+      "gate": 0.75,
+      "passed": true
+    },
+    "pooled_factor_of_two": {
+      "success_count": 19,
+      "eligible_count": 20,
+      "fraction": 0.95,
+      "gate": 0.7,
+      "passed": true
+    },
+    "all_gates_pass": true,
+    "failures": []
+  },
+  "disclosed_exceptions": {
+    "classification": {
+      "pair": "pv07>pv10",
+      "family": "joint",
+      "decay": 0.015,
+      "dephasing": 0.015,
+      "predicted_difference": -0.00007119121273470438,
+      "actual_difference": 0.00006965697110314362
+    },
+    "factor_of_two": {
+      "pair": "pv01>pv10",
+      "family": "joint",
+      "predicted_first_flip": 0.00069942332918687,
+      "actual_first_flip": 0.0015,
+      "ratio": 0.46628221945791337
+    }
+  },
+  "full_report": {
+    "artifact_name": "dissipative-susceptibility-reveal-v1-1-2",
+    "filename": "dissipative_susceptibility_reveal_v1_1_2_report.json",
+    "sha256": "73ca097b726e152035f20097c4e98acff01de26772abeb22370fd4bba863a65b",
+    "committed": false
+  },
+  "claim_boundary": "Prospective numerical support within the frozen two-atom QuTiP Lindblad model; not an Arb proof, calibrated PASQAL hardware-noise result, PASQAL Cloud run, FRESNEL run, or QPU experiment."
+}
