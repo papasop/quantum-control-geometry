@@ -435,6 +435,7 @@ results/
     open_system/
       pasqal_open_system_ordering_survival_v1_0_protocol.json
       pasqal_open_system_ordering_survival_v1_0_summary.json
+      dissipative_susceptibility_reveal_v1_1_2_summary.json
   reproducibility_summary.json
 
 tools/
@@ -443,6 +444,7 @@ tools/
   compare_pulser_translation_reports.py
   verify_blind_pulser_summary.py
   verify_open_system_ordering_survival_v1_0.py
+  verify_dissipative_susceptibility_reveal_summary.py
 
 tests/
   audit_closure/           P0, P1, P2, and mutation-tested audit supplement
@@ -450,6 +452,8 @@ tests/
     recompute_pulser_translation.py
     pasqal_blind_response_fibre_v1_0.py
     pasqal_open_system_ordering_survival_v1_0.py
+    run_dissipative_susceptibility_reveal_v1_1_2.py
+  test_dissipative_susceptibility_reveal_summary.py
   test_manuscript_consistency.py
   test_reference_artifacts.py
 
@@ -457,6 +461,7 @@ docs/
   pulser_translation_scope.md
   blind_pulser_response_fibre_scope.md
   open_system_ordering_survival_scope.md
+  dissipative_susceptibility_reveal_status.md
 
 .github/workflows/
   audit_closure_fast.yml         P0 + P2 + mutation tests on push/PR
@@ -464,6 +469,7 @@ docs/
   pulser_translation_diagnostic.yml  Pulser recomputation and report comparison
   blind_pulser_response_fibre.yml    blind 20-path prospective Pulser validation
   open_system_ordering_survival.yml  open-system ordering-survival stress audit
+  dissipative_susceptibility_reveal.yml  manual v1.1.2 holdout reveal
 ```
 
 `SHA256SUMS.txt` records byte hashes for the repository snapshot. The
