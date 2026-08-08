@@ -14,12 +14,13 @@ boundary.
 | Arb/Krawczyk certificate | 12/12 locally unique roots and 66/66 finite-error pair orderings | Rigorous model-conditional proof |
 | Pulser translation diagnostic | 12 paths x 6 errors; complete order and 66/66 pair directions preserved | Independent numerical translation cross-check |
 | Blind Pulser prospective test | 20 paths x 6 errors; preregistered ranking supported | Independent prospective numerical validation |
+| Open-system QuTiP stress audit | 12 paths x 6 errors over 29 decay/dephasing stress conditions | Empirical model-discrepancy stress test |
 | PASQAL Cloud/QPU | Not executed | No hardware claim |
 
 Arb/Krawczyk is the strict interval proof layer. Pulser uses independent local
 numerical execution paths and is not a second interval proof. The GitHub
-Actions runs execute on GitHub-hosted CPUs; they are not PASQAL Cloud, FRESNEL,
-or physical QPU evidence.
+Actions runs execute on GitHub-hosted CPUs. The open-system stress audit is not
+an interval proof, Pulser run, PASQAL Cloud run, or physical QPU result.
 
 **Response fibre in one sentence.** The response fibre is the family of control
 schedules that share the same nominal projective output state and complete
@@ -300,6 +301,43 @@ One-click workflow:
 [`Blind Pulser response-fibre prospective test`](https://github.com/papasop/quantum-control-geometry/actions/workflows/blind_pulser_response_fibre.yml).
 Use **Actions -> Run workflow -> main -> Run workflow**.
 
+### 3. Open-system ordering-survival stress audit
+
+The open-system QuTiP stress audit records:
+
+- 12 paths x 6 error points x 29 stress conditions = 2088 propagations.
+- 2088/2088 values are finite.
+- The unitary reconstruction preserves 66/66 pair directions and the complete
+  frozen order.
+- Declared decay, dephasing, and joint stress gates pass.
+- 55/66 path pairs never flip on the declared stress grid.
+- The minimum certificate-margin pair `pv08>pv11` never flips on the declared
+  grid.
+- `scientific_status = OPEN_SYSTEM_STRESS_AUDIT_COMPLETE`.
+
+This is an empirical model-discrepancy stress test. It is not an interval
+proof, not a Pulser execution, not a PASQAL Cloud run, and not a physical QPU
+result. The original run was not independently hash-frozen before outcome
+reveal, and the differential-susceptibility follow-up is post-hoc exploratory.
+
+Validate the committed protocol and summary locally with:
+
+```bash
+python tools/verify_open_system_ordering_survival_v1_0.py
+```
+
+The manual GitHub Actions workflow reruns the full 2088-propagation audit,
+compares the generated scientific projection with the committed summary, and
+uploads the full machine report as an artifact. See
+[`docs/open_system_ordering_survival_scope.md`](docs/open_system_ordering_survival_scope.md),
+[`results/external/open_system/pasqal_open_system_ordering_survival_v1_0_summary.json`](results/external/open_system/pasqal_open_system_ordering_survival_v1_0_summary.json),
+and
+[`tools/verify_open_system_ordering_survival_v1_0.py`](tools/verify_open_system_ordering_survival_v1_0.py).
+
+One-click workflow:
+[`Open-system ordering-survival stress audit`](https://github.com/papasop/quantum-control-geometry/actions/workflows/open_system_ordering_survival.yml).
+Use **Actions -> Run workflow -> main -> Run workflow**.
+
 ## External Clean-Environment Reproduction
 
 No PASQAL account is required. The external runner checks out the frozen
@@ -372,6 +410,9 @@ results/
   external/
     pulser_translation_report.json
     pasqal_blind_response_fibre_v1_0_summary.json
+    open_system/
+      pasqal_open_system_ordering_survival_v1_0_protocol.json
+      pasqal_open_system_ordering_survival_v1_0_summary.json
   reproducibility_summary.json
 
 tools/
@@ -379,24 +420,28 @@ tools/
   validate_pulser_translation_report.py
   compare_pulser_translation_reports.py
   verify_blind_pulser_summary.py
+  verify_open_system_ordering_survival_v1_0.py
 
 tests/
   audit_closure/           P0, P1, P2, and mutation-tested audit supplement
   external/
     recompute_pulser_translation.py
     pasqal_blind_response_fibre_v1_0.py
+    pasqal_open_system_ordering_survival_v1_0.py
   test_manuscript_consistency.py
   test_reference_artifacts.py
 
 docs/
   pulser_translation_scope.md
   blind_pulser_response_fibre_scope.md
+  open_system_ordering_survival_scope.md
 
 .github/workflows/
   audit_closure_fast.yml         P0 + P2 + mutation tests on push/PR
   audit_closure_independent.yml  P1 manual/weekly independent reconstruction
   pulser_translation_diagnostic.yml  Pulser recomputation and report comparison
   blind_pulser_response_fibre.yml    blind 20-path prospective Pulser validation
+  open_system_ordering_survival.yml  open-system ordering-survival stress audit
 ```
 
 `SHA256SUMS.txt` records byte hashes for the repository snapshot. The

@@ -1,0 +1,104 @@
+{
+  "schema": "open_system_ordering_survival_protocol",
+  "version": "1.0",
+  "source_repository": "papasop/quantum-control-geometry",
+  "source_tag": "v0.3.2",
+  "path_count": 12,
+  "segments_per_path": 24,
+  "error_points": [
+    {
+      "label": "amp_minus",
+      "amplitude": -0.06,
+      "detuning": 0.0,
+      "interaction": 0.0
+    },
+    {
+      "label": "amp_plus",
+      "amplitude": 0.06,
+      "detuning": 0.0,
+      "interaction": 0.0
+    },
+    {
+      "label": "det_minus",
+      "amplitude": 0.0,
+      "detuning": -0.04,
+      "interaction": 0.0
+    },
+    {
+      "label": "det_plus",
+      "amplitude": 0.0,
+      "detuning": 0.04,
+      "interaction": 0.0
+    },
+    {
+      "label": "int_minus",
+      "amplitude": 0.0,
+      "detuning": 0.0,
+      "interaction": -0.05
+    },
+    {
+      "label": "int_plus",
+      "amplitude": 0.0,
+      "detuning": 0.0,
+      "interaction": 0.05
+    }
+  ],
+  "model": {
+    "basis": [
+      "gg",
+      "gr",
+      "rg",
+      "rr"
+    ],
+    "omega_rad_per_us": 6.283185307179586,
+    "nominal_interaction_rad_per_us": 25.132741228718345,
+    "segment_duration_us": 0.1,
+    "total_duration_us": 2.4000000000000004,
+    "master_equation": "Lindblad GKSL",
+    "decay_operator": "sqrt(Gamma_r) |g><r| on each atom",
+    "dephasing_operator": "sqrt(2 Gamma_phi) |r><r| on each atom",
+    "dephasing_convention": "An isolated g-r coherence decays at rate Gamma_phi."
+  },
+  "stress_grid": {
+    "coordinate": "integrated rate Gamma*T",
+    "single_channel": [
+      0.0,
+      0.0001,
+      0.0003,
+      0.001,
+      0.003,
+      0.01,
+      0.03
+    ],
+    "joint_positive_axes": [
+      0.001,
+      0.003,
+      0.01,
+      0.03
+    ],
+    "evaluation_severity": 0.01,
+    "hardware_calibrated": false
+  },
+  "primary_metrics": [
+    "Spearman correlation to frozen order",
+    "certified pair directions preserved out of 66",
+    "top-1 remains top-2",
+    "bottom-1 remains bottom-2"
+  ],
+  "predeclared_empirical_gates_at_evaluation_severity": {
+    "spearman_at_least": 0.9,
+    "pair_directions_preserved_at_least": 60,
+    "frozen_best_in_observed_top_2": true,
+    "frozen_worst_in_observed_bottom_2": true
+  },
+  "strong_gate": "all 66 pair directions preserved",
+  "scope": {
+    "formal_interval_proof": false,
+    "pasqal_cloud": false,
+    "qpu_hardware": false,
+    "calibrated_device_noise": false,
+    "purpose": "open-system model-discrepancy stress test"
+  },
+  "quick_mode": false,
+  "outcomes_unlocked": false
+}

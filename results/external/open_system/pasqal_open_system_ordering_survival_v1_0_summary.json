@@ -1,0 +1,623 @@
+{
+  "schema": "open_system_ordering_survival_summary",
+  "schema_version": 1,
+  "scientific_status": "OPEN_SYSTEM_STRESS_AUDIT_COMPLETE",
+  "protocol_sha256": "0ba13647e72a9215072ca70577d3e4d9f0ddf5c95f5796bee5b671e9a08ad888",
+  "source_tag": "v0.3.2",
+  "source_hashes": {
+    "krawczyk_payload_sha256": "fc3ad3823597bd5281b7b9292f227f723c2b3a9a8aa4e42c9f0353921b4d8fec",
+    "ordering_payload_sha256": "03c4db75cb80a149ce1a61e11c227039f9bd79c3f1304b3defa311a491ea2d1e"
+  },
+  "original_full_report_sha256": "fcdeae098e41fa3df73017b648fa20bd08cc6ce3afeb40fc68ea184f1ed53bc8",
+  "original_run_provenance": {
+    "prospective_freeze_verified_by_expected_hash": false,
+    "classification": "prespecified-in-code open-system stress audit; not an independently frozen blind test",
+    "runtime": {
+      "python": "3.12.13",
+      "numpy": "2.0.2",
+      "scipy": "1.13.1",
+      "qutip": "5.1.1",
+      "elapsed_seconds": 330.5109565258026
+    }
+  },
+  "coverage": {
+    "conditions": 29,
+    "paths": 12,
+    "error_points": 6,
+    "planned_propagations": 2088,
+    "completed_propagations": 2088,
+    "all_finite": true
+  },
+  "unitary_reconstruction": {
+    "spearman_rho": 1.0,
+    "pair_directions_preserved": 66,
+    "full_order_preserved": true
+  },
+  "evaluation_gates": {
+    "decay": {
+      "available": true,
+      "condition_key": "decay=0.01|dephasing=0",
+      "tests": {
+        "spearman_at_least_0_90": true,
+        "at_least_60_of_66_pairs": true,
+        "frozen_best_in_top_2": true,
+        "frozen_worst_in_bottom_2": true
+      },
+      "pass": true,
+      "strong_66_of_66_gate": false
+    },
+    "dephasing": {
+      "available": true,
+      "condition_key": "decay=0|dephasing=0.01",
+      "tests": {
+        "spearman_at_least_0_90": true,
+        "at_least_60_of_66_pairs": true,
+        "frozen_best_in_top_2": true,
+        "frozen_worst_in_bottom_2": true
+      },
+      "pass": true,
+      "strong_66_of_66_gate": false
+    },
+    "joint": {
+      "available": true,
+      "condition_key": "decay=0.01|dephasing=0.01",
+      "tests": {
+        "spearman_at_least_0_90": true,
+        "at_least_60_of_66_pairs": true,
+        "frozen_best_in_top_2": true,
+        "frozen_worst_in_bottom_2": true
+      },
+      "pass": true,
+      "strong_66_of_66_gate": false
+    }
+  },
+  "all_empirical_evaluation_gates_pass": true,
+  "minimum_certificate_margin": 2.5058740347194686e-05,
+  "minimum_margin_pair": "pv08>pv11",
+  "minimum_margin_pair_first_observed_flip": {
+    "decay": null,
+    "dephasing": null,
+    "joint": null
+  },
+  "pairs": {
+    "total": 66,
+    "flipped_at_least_once": 11,
+    "never_flipped_on_declared_grid": 55
+  },
+  "first_observed_reversal": {
+    "family": "decay",
+    "integrated_decay": 0.003,
+    "integrated_dephasing": 0.0,
+    "reversed_pairs": [
+      {
+        "better": "pv01",
+        "worse": "pv10",
+        "certificate_margin": 0.0002236606613233716,
+        "open_system_difference": -1.8983991836751812e-05,
+        "preserved": false
+      }
+    ]
+  },
+  "margin_flip_association_exploratory": {
+    "decay": {
+      "flipped_pairs_with_observed_threshold": 8,
+      "spearman_margin_vs_first_flip": 0.7637626158259734,
+      "pvalue": 0.027396043909112048,
+      "censoring_note": "Pairs not flipped by the maximum grid value are right-censored and excluded; this metric is exploratory, not a formal survival model."
+    },
+    "dephasing": {
+      "flipped_pairs_with_observed_threshold": 4,
+      "spearman_margin_vs_first_flip": 0.7745966692414834,
+      "pvalue": 0.22540333075851657,
+      "censoring_note": "Pairs not flipped by the maximum grid value are right-censored and excluded; this metric is exploratory, not a formal survival model."
+    }
+  },
+  "condition_summary": [
+    {
+      "family": "unitary",
+      "decay": 0.0,
+      "dephasing": 0.0,
+      "spearman_rho": 1.0,
+      "pair_directions_preserved": 66,
+      "full_order_preserved": true,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "decay",
+      "decay": 0.0001,
+      "dephasing": 0.0,
+      "spearman_rho": 1.0,
+      "pair_directions_preserved": 66,
+      "full_order_preserved": true,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "decay",
+      "decay": 0.0003,
+      "dephasing": 0.0,
+      "spearman_rho": 1.0,
+      "pair_directions_preserved": 66,
+      "full_order_preserved": true,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "decay",
+      "decay": 0.001,
+      "dephasing": 0.0,
+      "spearman_rho": 1.0,
+      "pair_directions_preserved": 66,
+      "full_order_preserved": true,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "decay",
+      "decay": 0.003,
+      "dephasing": 0.0,
+      "spearman_rho": 0.9930069930069931,
+      "pair_directions_preserved": 65,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "decay",
+      "decay": 0.01,
+      "dephasing": 0.0,
+      "spearman_rho": 0.9860139860139862,
+      "pair_directions_preserved": 64,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "decay",
+      "decay": 0.03,
+      "dephasing": 0.0,
+      "spearman_rho": 0.9020979020979022,
+      "pair_directions_preserved": 58,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 1,
+      "frozen_worst_rank_zero_based": 10
+    },
+    {
+      "family": "dephasing",
+      "decay": 0.0,
+      "dephasing": 0.0001,
+      "spearman_rho": 1.0,
+      "pair_directions_preserved": 66,
+      "full_order_preserved": true,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "dephasing",
+      "decay": 0.0,
+      "dephasing": 0.0003,
+      "spearman_rho": 1.0,
+      "pair_directions_preserved": 66,
+      "full_order_preserved": true,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "dephasing",
+      "decay": 0.0,
+      "dephasing": 0.001,
+      "spearman_rho": 0.9930069930069931,
+      "pair_directions_preserved": 65,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "dephasing",
+      "decay": 0.0,
+      "dephasing": 0.003,
+      "spearman_rho": 0.9930069930069931,
+      "pair_directions_preserved": 65,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "dephasing",
+      "decay": 0.0,
+      "dephasing": 0.01,
+      "spearman_rho": 0.9930069930069931,
+      "pair_directions_preserved": 65,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "dephasing",
+      "decay": 0.0,
+      "dephasing": 0.03,
+      "spearman_rho": 0.965034965034965,
+      "pair_directions_preserved": 62,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.001,
+      "dephasing": 0.001,
+      "spearman_rho": 0.9930069930069931,
+      "pair_directions_preserved": 65,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.001,
+      "dephasing": 0.003,
+      "spearman_rho": 0.9930069930069931,
+      "pair_directions_preserved": 65,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.001,
+      "dephasing": 0.01,
+      "spearman_rho": 0.9930069930069931,
+      "pair_directions_preserved": 65,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.001,
+      "dephasing": 0.03,
+      "spearman_rho": 0.965034965034965,
+      "pair_directions_preserved": 62,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.003,
+      "dephasing": 0.001,
+      "spearman_rho": 0.9930069930069931,
+      "pair_directions_preserved": 65,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.003,
+      "dephasing": 0.003,
+      "spearman_rho": 0.9930069930069931,
+      "pair_directions_preserved": 65,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.003,
+      "dephasing": 0.01,
+      "spearman_rho": 0.9930069930069931,
+      "pair_directions_preserved": 65,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.003,
+      "dephasing": 0.03,
+      "spearman_rho": 0.965034965034965,
+      "pair_directions_preserved": 62,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.01,
+      "dephasing": 0.001,
+      "spearman_rho": 0.9860139860139862,
+      "pair_directions_preserved": 64,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.01,
+      "dephasing": 0.003,
+      "spearman_rho": 0.9860139860139862,
+      "pair_directions_preserved": 64,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.01,
+      "dephasing": 0.01,
+      "spearman_rho": 0.965034965034965,
+      "pair_directions_preserved": 62,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 0,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.01,
+      "dephasing": 0.03,
+      "spearman_rho": 0.9510489510489512,
+      "pair_directions_preserved": 61,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 1,
+      "frozen_worst_rank_zero_based": 11
+    },
+    {
+      "family": "joint",
+      "decay": 0.03,
+      "dephasing": 0.001,
+      "spearman_rho": 0.8951048951048951,
+      "pair_directions_preserved": 57,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 1,
+      "frozen_worst_rank_zero_based": 10
+    },
+    {
+      "family": "joint",
+      "decay": 0.03,
+      "dephasing": 0.003,
+      "spearman_rho": 0.8951048951048951,
+      "pair_directions_preserved": 57,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 1,
+      "frozen_worst_rank_zero_based": 10
+    },
+    {
+      "family": "joint",
+      "decay": 0.03,
+      "dephasing": 0.01,
+      "spearman_rho": 0.8951048951048951,
+      "pair_directions_preserved": 57,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 1,
+      "frozen_worst_rank_zero_based": 10
+    },
+    {
+      "family": "joint",
+      "decay": 0.03,
+      "dephasing": 0.03,
+      "spearman_rho": 0.8671328671328673,
+      "pair_directions_preserved": 56,
+      "full_order_preserved": false,
+      "frozen_best_rank_zero_based": 1,
+      "frozen_worst_rank_zero_based": 9
+    }
+  ],
+  "flipped_pair_thresholds": [
+    {
+      "better": "pv01",
+      "worse": "pv05",
+      "certificate_margin": 0.0006125949144383802,
+      "first_observed_flip": {
+        "decay": {
+          "integrated_decay": 0.03,
+          "integrated_dephasing": 0.0,
+          "open_system_difference": -0.000542312265561784
+        },
+        "dephasing": {
+          "integrated_decay": 0.0,
+          "integrated_dephasing": 0.03,
+          "open_system_difference": -0.0002767807532196298
+        },
+        "joint": {
+          "integrated_decay": 0.01,
+          "integrated_dephasing": 0.01,
+          "open_system_difference": -6.453050741697663e-05
+        }
+      }
+    },
+    {
+      "better": "pv01",
+      "worse": "pv10",
+      "certificate_margin": 0.0002236606613233716,
+      "first_observed_flip": {
+        "decay": {
+          "integrated_decay": 0.003,
+          "integrated_dephasing": 0.0,
+          "open_system_difference": -1.8983991836751812e-05
+        },
+        "dephasing": {
+          "integrated_decay": 0.0,
+          "integrated_dephasing": 0.001,
+          "open_system_difference": -1.801896677056103e-05
+        },
+        "joint": {
+          "integrated_decay": 0.001,
+          "integrated_dephasing": 0.001,
+          "open_system_difference": -0.00010877399686837208
+        }
+      }
+    },
+    {
+      "better": "pv02",
+      "worse": "pv08",
+      "certificate_margin": 0.0004588177735314891,
+      "first_observed_flip": {
+        "decay": null,
+        "dephasing": {
+          "integrated_decay": 0.0,
+          "integrated_dephasing": 0.03,
+          "open_system_difference": -6.824440136962706e-05
+        },
+        "joint": {
+          "integrated_decay": 0.001,
+          "integrated_dephasing": 0.03,
+          "open_system_difference": -1.7273432470488181e-06
+        }
+      }
+    },
+    {
+      "better": "pv03",
+      "worse": "pv06",
+      "certificate_margin": 0.0009363130609632286,
+      "first_observed_flip": {
+        "decay": {
+          "integrated_decay": 0.03,
+          "integrated_dephasing": 0.0,
+          "open_system_difference": -0.00048366558999424214
+        },
+        "dephasing": null,
+        "joint": {
+          "integrated_decay": 0.03,
+          "integrated_dephasing": 0.001,
+          "open_system_difference": -0.00047841153221966914
+        }
+      }
+    },
+    {
+      "better": "pv03",
+      "worse": "pv12",
+      "certificate_margin": 0.0002966741066250528,
+      "first_observed_flip": {
+        "decay": {
+          "integrated_decay": 0.01,
+          "integrated_dephasing": 0.0,
+          "open_system_difference": -0.0001673828242403641
+        },
+        "dephasing": null,
+        "joint": {
+          "integrated_decay": 0.01,
+          "integrated_dephasing": 0.001,
+          "open_system_difference": -0.0001761598691220334
+        }
+      }
+    },
+    {
+      "better": "pv04",
+      "worse": "pv02",
+      "certificate_margin": 0.0015057006621744251,
+      "first_observed_flip": {
+        "decay": null,
+        "dephasing": null,
+        "joint": {
+          "integrated_decay": 0.03,
+          "integrated_dephasing": 0.001,
+          "open_system_difference": -1.0759098827334279e-05
+        }
+      }
+    },
+    {
+      "better": "pv07",
+      "worse": "pv10",
+      "certificate_margin": 0.00809085551098783,
+      "first_observed_flip": {
+        "decay": {
+          "integrated_decay": 0.03,
+          "integrated_dephasing": 0.0,
+          "open_system_difference": -0.0018183033097098344
+        },
+        "dephasing": null,
+        "joint": {
+          "integrated_decay": 0.01,
+          "integrated_dephasing": 0.03,
+          "open_system_difference": -0.0012702790271789804
+        }
+      }
+    },
+    {
+      "better": "pv08",
+      "worse": "pv09",
+      "certificate_margin": 0.0011966018824781932,
+      "first_observed_flip": {
+        "decay": {
+          "integrated_decay": 0.03,
+          "integrated_dephasing": 0.0,
+          "open_system_difference": -0.0006778988923427653
+        },
+        "dephasing": null,
+        "joint": {
+          "integrated_decay": 0.03,
+          "integrated_dephasing": 0.001,
+          "open_system_difference": -0.0006732238916775379
+        }
+      }
+    },
+    {
+      "better": "pv11",
+      "worse": "pv06",
+      "certificate_margin": 0.0022591528847869663,
+      "first_observed_flip": {
+        "decay": null,
+        "dephasing": null,
+        "joint": {
+          "integrated_decay": 0.03,
+          "integrated_dephasing": 0.03,
+          "open_system_difference": -9.720486292627561e-05
+        }
+      }
+    },
+    {
+      "better": "pv11",
+      "worse": "pv09",
+      "certificate_margin": 0.0011458768037714562,
+      "first_observed_flip": {
+        "decay": {
+          "integrated_decay": 0.03,
+          "integrated_dephasing": 0.0,
+          "open_system_difference": -0.0017262626200165304
+        },
+        "dephasing": {
+          "integrated_decay": 0.0,
+          "integrated_dephasing": 0.03,
+          "open_system_difference": -0.00022658524889596077
+        },
+        "joint": {
+          "integrated_decay": 0.01,
+          "integrated_dephasing": 0.01,
+          "open_system_difference": -0.00027075599920198257
+        }
+      }
+    },
+    {
+      "better": "pv11",
+      "worse": "pv12",
+      "certificate_margin": 0.0016195139304487904,
+      "first_observed_flip": {
+        "decay": {
+          "integrated_decay": 0.03,
+          "integrated_dephasing": 0.0,
+          "open_system_difference": -0.00035181657703683977
+        },
+        "dephasing": null,
+        "joint": {
+          "integrated_decay": 0.03,
+          "integrated_dephasing": 0.001,
+          "open_system_difference": -0.00037897613079218573
+        }
+      }
+    }
+  ],
+  "interpretation": [
+    "The full 66-pair total order is more fragile than the coarse ranking.",
+    "At integrated severity 0.01, all predeclared empirical gates pass for decay, dephasing, and joint stress.",
+    "The minimum-margin pair pv08>pv11 never flips on the declared grid; certificate margin alone does not determine open-system survival.",
+    "A follow-up differential dissipative-susceptibility model is post-hoc and must be labelled exploratory before held-out validation."
+  ],
+  "non_claims": [
+    "This report is not an Arb or interval certificate.",
+    "The stress-rate grid is not calibrated PASQAL hardware noise.",
+    "This report is not PASQAL Cloud, FRESNEL, or QPU evidence.",
+    "This report does not modify the frozen exact-root theorem."
+  ]
+}

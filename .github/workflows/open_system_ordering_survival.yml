@@ -1,0 +1,53 @@
+name: Open-system ordering-survival stress audit
+
+on:
+  workflow_dispatch:
+
+jobs:
+  open-system-ordering-survival:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install locked numerical environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-pulser.txt
+
+      - name: Verify committed protocol and summary
+        run: python tools/verify_open_system_ordering_survival_v1_0.py
+
+      - name: Recompute 12 paths x 6 errors over 29 stress conditions
+        run: |
+          python tests/external/pasqal_open_system_ordering_survival_v1_0.py \
+            --expected-protocol-sha \
+            0ba13647e72a9215072ca70577d3e4d9f0ddf5c95f5796bee5b671e9a08ad888 \
+            --output /tmp/pasqal_open_system_ordering_survival_v1_0_report.json \
+            --protocol-output /tmp/pasqal_open_system_ordering_survival_v1_0_protocol.json
+
+      - name: Compare generated scientific content with committed summary
+        run: |
+          python tools/verify_open_system_ordering_survival_v1_0.py \
+            --report /tmp/pasqal_open_system_ordering_survival_v1_0_report.json
+
+      - name: Record full report checksum
+        if: always()
+        run: |
+          sha256sum /tmp/pasqal_open_system_ordering_survival_v1_0_report.json || true
+
+      - name: Upload full report and protocol
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: open-system-ordering-survival-v1-0
+          path: |
+            /tmp/pasqal_open_system_ordering_survival_v1_0_report.json
+            /tmp/pasqal_open_system_ordering_survival_v1_0_protocol.json
+          if-no-files-found: warn
