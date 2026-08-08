@@ -211,11 +211,26 @@ Run the diagnostic locally with:
 
 ```bash
 python -m pip install -r requirements-pulser.txt
-python tests/external/pulser_translation_diagnostic.py
+python tools/validate_pulser_translation_report.py
 ```
 
-The same diagnostic is available as the manual GitHub Actions workflow
-`Pulser translation diagnostic`. See
+This command validates the integrity and stated gates of the committed report.
+To actually rerun the Pulser 1.9 propagation layer, use:
+
+```bash
+python tests/external/recompute_pulser_translation.py \
+  --output /tmp/pulser_recomputed_report.json
+python tools/validate_pulser_translation_report.py \
+  --report /tmp/pulser_recomputed_report.json
+python tools/compare_pulser_translation_reports.py \
+  --reference results/external/pulser_translation_report.json \
+  --candidate /tmp/pulser_recomputed_report.json
+```
+
+The manual GitHub Actions workflow `Pulser translation diagnostic` runs that
+full recomputation, validates the recomputed report, compares every Pulser
+loss and path mean to the committed report, and uploads the recomputed report
+and run log. See
 [`docs/pulser_translation_scope.md`](docs/pulser_translation_scope.md) and
 [`results/external/pulser_translation_report.json`](results/external/pulser_translation_report.json).
 
@@ -301,7 +316,7 @@ tests/
 .github/workflows/
   audit_closure_fast.yml         P0 + P2 + mutation tests on push/PR
   audit_closure_independent.yml  P1 manual/weekly independent reconstruction
-  pulser_translation_diagnostic.yml  Pulser report validation, manual trigger
+  pulser_translation_diagnostic.yml  Pulser recomputation and report comparison
 ```
 
 `SHA256SUMS.txt` records byte hashes for the repository snapshot. The

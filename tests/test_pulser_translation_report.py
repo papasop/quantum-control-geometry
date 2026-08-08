@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DIAGNOSTIC = ROOT / "tests/external/pulser_translation_diagnostic.py"
+DIAGNOSTIC = ROOT / "tools/validate_pulser_translation_report.py"
 SPEC = importlib.util.spec_from_file_location("pulser_translation", DIAGNOSTIC)
 assert SPEC is not None and SPEC.loader is not None
 PULSER_TRANSLATION = importlib.util.module_from_spec(SPEC)

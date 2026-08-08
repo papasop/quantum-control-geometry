@@ -24,6 +24,37 @@ The exact-translation gate is false, while the ordering-robustness gate is
 true. This distinction is intentional and is recorded in
 `results/external/pulser_translation_report.json`.
 
+## Committed Report And Recalculation
+
+`tools/validate_pulser_translation_report.py` checks the committed JSON report
+for the declared gate values and forbidden overclaims. It does not rerun
+Pulser.
+
+`tests/external/recompute_pulser_translation.py` performs the numerical
+recalculation. It reads the twelve candidate phase schedules from the frozen
+Krawczyk certificate, rebuilds the two-atom Pulser register and 24-segment
+global Rydberg pulse sequence, runs 12 paths times 6 finite-error points, and
+writes a fresh report to the path given by `--output`.
+
+The interaction-error translation uses the Pulser
+`DigitalAnalogDevice.interaction_coeff` value and
+
+```text
+r = round((r0 / (1 + epsilon_V)^(1/6)) / 0.01 um) * 0.01 um.
+```
+
+The two-decimal-micrometre coordinate quantization is part of this external
+Pulser translation layer. It is not an Arb/Krawczyk interval operation and is
+one reason the exact-translation gate remains false.
+
+`tools/compare_pulser_translation_reports.py` compares a recomputed report
+against the committed report. It requires the structural gates to match and
+also compares every one of the 72 losses and all 12 path means. The tolerances
+are `5e-9` absolute and `5e-8` relative for both cell losses and path means.
+These are intentionally much smaller than the observed ordering gaps while
+allowing small ODE and linear-algebra variation across the pinned Pulser 1.9,
+Qutip 5.1.1, NumPy 2.0.2, and SciPy 1.13.1 stack.
+
 ## What It Does Not Check
 
 This layer is not a formal interval proof and does not replace the

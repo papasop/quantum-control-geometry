@@ -3,24 +3,19 @@
 
 from __future__ import annotations
 
-import importlib.util
 import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DIAGNOSTIC = ROOT / "tests/external/pulser_translation_diagnostic.py"
+sys.path.insert(0, str(ROOT / "tools"))
+
+from validate_pulser_translation_report import load_report, validate_report  # noqa: E402
 
 
 def main() -> int:
-    spec = importlib.util.spec_from_file_location(
-        "pulser_translation_diagnostic", DIAGNOSTIC
-    )
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    report = module.load_report()
-    module.validate_report(report)
+    report = load_report()
+    validate_report(report)
     print(f"Pulser translation report: {report['scientific_status']}")
     return 0
 

@@ -1,11 +1,21 @@
 {
   "schema": "pulser_translation_report",
-  "schema_version": 1,
+  "schema_version": 2,
   "layer": "external_numeric_translation_validation",
   "toolchain": {
     "pulser": "1.9.0",
-    "python": "3.11",
-    "backend": "pulser_simulation_numeric"
+    "pulser_module": "1.9.0",
+    "pulser_simulation": "1.9.0",
+    "pulser_simulation_module": "1.9.0",
+    "python": "3.12",
+    "backend": "pulser_simulation_qutip_emulator",
+    "solver_options": {
+      "atol": 1e-11,
+      "rtol": 1e-11,
+      "max_step": 1.0,
+      "nsteps": 100000
+    },
+    "sampling_rate": 1.0
   },
   "source_model": {
     "formal_certificate_layer": "Arb/Krawczyk exact-root certificate",
@@ -13,9 +23,18 @@
       "v0.3.1",
       "v0.3.2"
     ],
+    "candidate_phase_source": "results/exact_fibre_krawczyk/krawczyk_certificate.json",
+    "arb_interval_source": "results/exact_root_ordering/exact_root_ordering_certificate.json",
     "declared_path_count": 12,
     "declared_error_point_count": 6,
     "declared_pair_count": 66
+  },
+  "translation": {
+    "interaction_coeff_rad_um6_per_us": 5420158.53,
+    "nominal_interaction_rad_per_us": 25.132741228718345,
+    "nominal_distance_um": 7.74,
+    "distance_quantization_um": 0.01,
+    "interaction_error_rule": "r = round((r0 / (1 + epsilon_V)^(1/6)) / 0.01 um) * 0.01 um"
   },
   "scope": {
     "purpose": "Numerical translation and ordering-robustness cross-check under Pulser 1.9 quantized-distance semantics.",
@@ -23,6 +42,12 @@
     "is_hardware_execution": false,
     "is_cloud_execution": false,
     "changes_frozen_certificate": false
+  },
+  "comparison_tolerances": {
+    "loss_abs_tol": 5e-09,
+    "loss_rel_tol": 5e-08,
+    "mean_abs_tol": 5e-09,
+    "mean_rel_tol": 5e-08
   },
   "metrics": {
     "finite_numeric_values": 72,
@@ -51,19 +76,1435 @@
     "pv12",
     "pv06"
   ],
+  "expected_path_order": [
+    "pv07",
+    "pv01",
+    "pv10",
+    "pv05",
+    "pv04",
+    "pv02",
+    "pv08",
+    "pv11",
+    "pv09",
+    "pv03",
+    "pv12",
+    "pv06"
+  ],
   "path_results": [
-    {"path": "pv01", "finite_values": 6, "mean_inside_original_arb_interval": false},
-    {"path": "pv02", "finite_values": 6, "mean_inside_original_arb_interval": false},
-    {"path": "pv03", "finite_values": 6, "mean_inside_original_arb_interval": false},
-    {"path": "pv04", "finite_values": 6, "mean_inside_original_arb_interval": false},
-    {"path": "pv05", "finite_values": 6, "mean_inside_original_arb_interval": false},
-    {"path": "pv06", "finite_values": 6, "mean_inside_original_arb_interval": false},
-    {"path": "pv07", "finite_values": 6, "mean_inside_original_arb_interval": false},
-    {"path": "pv08", "finite_values": 6, "mean_inside_original_arb_interval": false},
-    {"path": "pv09", "finite_values": 6, "mean_inside_original_arb_interval": false},
-    {"path": "pv10", "finite_values": 6, "mean_inside_original_arb_interval": false},
-    {"path": "pv11", "finite_values": 6, "mean_inside_original_arb_interval": false},
-    {"path": "pv12", "finite_values": 6, "mean_inside_original_arb_interval": false}
+    {
+      "path": "pv01",
+      "finite_values": 6,
+      "mean_loss": 0.10641284961370677,
+      "original_arb_interval": {
+        "lower": 0.10557010652402316,
+        "upper": 0.10560091749070072
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.02114743949925879
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.017481886287154746
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.02699353855002895
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.028517109401987928
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.2595278899720084
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.2848092339718018
+        }
+      ]
+    },
+    {
+      "path": "pv02",
+      "finite_values": 6,
+      "mean_loss": 0.10902805143219439,
+      "original_arb_interval": {
+        "lower": 0.10819343198905366,
+        "upper": 0.10822011132775637
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.021548726866815415
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.01659993890979994
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.025018052520055623
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.02906131129854328
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.3387177405292291
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.22322253846872298
+        }
+      ]
+    },
+    {
+      "path": "pv03",
+      "finite_values": 6,
+      "mean_loss": 0.11104806802869453,
+      "original_arb_interval": {
+        "lower": 0.11005136477405975,
+        "upper": 0.1100775565882457
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.021111749254772216
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.01760069354327809
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.0260071576057207
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.028571760654239498
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.2852063106165619
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.2877907364975948
+        }
+      ]
+    },
+    {
+      "path": "pv04",
+      "finite_values": 6,
+      "mean_loss": 0.1071917667965533,
+      "original_arb_interval": {
+        "lower": 0.10665064715824023,
+        "upper": 0.10668773132687924
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.02087850409487768
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.017715678810925062
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.026326632469410693
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.02886919787631481
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.2521540385146459
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.2972065490131457
+        }
+      ]
+    },
+    {
+      "path": "pv05",
+      "finite_values": 6,
+      "mean_loss": 0.10708668850834817,
+      "original_arb_interval": {
+        "lower": 0.1062135124051391,
+        "upper": 0.10625046172623875
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.021281408111022082
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.017344341061673263
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.02503977109470501
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.029094100383194044
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.3297980659699272
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.21996244442956736
+        }
+      ]
+    },
+    {
+      "path": "pv06",
+      "finite_values": 6,
+      "mean_loss": 0.11219486617063673,
+      "original_arb_interval": {
+        "lower": 0.11101386964920892,
+        "upper": 0.11105160390487925
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.02219660499434606
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.016690573719859825
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.024719867019754815
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.02940949055030806
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.3394482580526108
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.24070440268694082
+        }
+      ]
+    },
+    {
+      "path": "pv07",
+      "finite_values": 6,
+      "mean_loss": 0.09790882030909577,
+      "original_arb_interval": {
+        "lower": 0.09769402527487399,
+        "upper": 0.09773372264103626
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.02083531724643861
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.018845496674794515
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.025446002996369455
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.02893940445426091
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.2019020873954943
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.29148461308721685
+        }
+      ]
+    },
+    {
+      "path": "pv08",
+      "finite_values": 6,
+      "mean_loss": 0.10920157220154952,
+      "original_arb_interval": {
+        "lower": 0.10867892910128786,
+        "upper": 0.10870399168571522
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.019719604720310313
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.018810919806289572
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.02633100403257116
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.028175219133000584
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.2734034432651231
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.2887692422520024
+        }
+      ]
+    },
+    {
+      "path": "pv09",
+      "finite_values": 6,
+      "mean_loss": 0.1109078689215615,
+      "original_arb_interval": {
+        "lower": 0.10990059356819341,
+        "upper": 0.10993592146004443
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.021387902528335667
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.017263419620887954
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.024740788131358937
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.02940311472316448
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.3241583304061264
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.24849365811949553
+        }
+      ]
+    },
+    {
+      "path": "pv10",
+      "finite_values": 6,
+      "mean_loss": 0.10673170300917288,
+      "original_arb_interval": {
+        "lower": 0.10582457815202409,
+        "upper": 0.10585442958490879
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.01846014783707961
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.023209018965199668
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.028607027621003867
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.028450936625347145
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.2390470302538178
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.3026160567525892
+        }
+      ]
+    },
+    {
+      "path": "pv11",
+      "finite_values": 6,
+      "mean_loss": 0.10951594570752593,
+      "original_arb_interval": {
+        "lower": 0.10872905042606242,
+        "upper": 0.10875471676442196
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.021097619807648016
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.01770268381519824
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.026779604511339206
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.02818510830526466
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.25654670389782464
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.3067839539078808
+        }
+      ]
+    },
+    {
+      "path": "pv12",
+      "finite_values": 6,
+      "mean_loss": 0.11118185490977263,
+      "original_arb_interval": {
+        "lower": 0.11037423069487075,
+        "upper": 0.11041520727709765
+      },
+      "mean_inside_original_arb_interval": false,
+      "losses": [
+        {
+          "error_label": "amp_minus",
+          "loss": 0.02148290130308428
+        },
+        {
+          "error_label": "amp_plus",
+          "loss": 0.017098688585224342
+        },
+        {
+          "error_label": "det_minus",
+          "loss": 0.024977544486390668
+        },
+        {
+          "error_label": "det_plus",
+          "loss": 0.02931666098743857
+        },
+        {
+          "error_label": "int_minus",
+          "loss": 0.3341951810485394
+        },
+        {
+          "error_label": "int_plus",
+          "loss": 0.24002015304795854
+        }
+      ]
+    }
+  ],
+  "cell_results": [
+    {
+      "path": "pv01",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02114743949925879
+    },
+    {
+      "path": "pv01",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.017481886287154746
+    },
+    {
+      "path": "pv01",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02699353855002895
+    },
+    {
+      "path": "pv01",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.028517109401987928
+    },
+    {
+      "path": "pv01",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.2595278899720084
+    },
+    {
+      "path": "pv01",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.2848092339718018
+    },
+    {
+      "path": "pv02",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.021548726866815415
+    },
+    {
+      "path": "pv02",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.01659993890979994
+    },
+    {
+      "path": "pv02",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.025018052520055623
+    },
+    {
+      "path": "pv02",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02906131129854328
+    },
+    {
+      "path": "pv02",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.3387177405292291
+    },
+    {
+      "path": "pv02",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.22322253846872298
+    },
+    {
+      "path": "pv03",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.021111749254772216
+    },
+    {
+      "path": "pv03",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.01760069354327809
+    },
+    {
+      "path": "pv03",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.0260071576057207
+    },
+    {
+      "path": "pv03",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.028571760654239498
+    },
+    {
+      "path": "pv03",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.2852063106165619
+    },
+    {
+      "path": "pv03",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.2877907364975948
+    },
+    {
+      "path": "pv04",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02087850409487768
+    },
+    {
+      "path": "pv04",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.017715678810925062
+    },
+    {
+      "path": "pv04",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.026326632469410693
+    },
+    {
+      "path": "pv04",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02886919787631481
+    },
+    {
+      "path": "pv04",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.2521540385146459
+    },
+    {
+      "path": "pv04",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.2972065490131457
+    },
+    {
+      "path": "pv05",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.021281408111022082
+    },
+    {
+      "path": "pv05",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.017344341061673263
+    },
+    {
+      "path": "pv05",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02503977109470501
+    },
+    {
+      "path": "pv05",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.029094100383194044
+    },
+    {
+      "path": "pv05",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.3297980659699272
+    },
+    {
+      "path": "pv05",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.21996244442956736
+    },
+    {
+      "path": "pv06",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02219660499434606
+    },
+    {
+      "path": "pv06",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.016690573719859825
+    },
+    {
+      "path": "pv06",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.024719867019754815
+    },
+    {
+      "path": "pv06",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02940949055030806
+    },
+    {
+      "path": "pv06",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.3394482580526108
+    },
+    {
+      "path": "pv06",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.24070440268694082
+    },
+    {
+      "path": "pv07",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02083531724643861
+    },
+    {
+      "path": "pv07",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.018845496674794515
+    },
+    {
+      "path": "pv07",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.025446002996369455
+    },
+    {
+      "path": "pv07",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02893940445426091
+    },
+    {
+      "path": "pv07",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.2019020873954943
+    },
+    {
+      "path": "pv07",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.29148461308721685
+    },
+    {
+      "path": "pv08",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.019719604720310313
+    },
+    {
+      "path": "pv08",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.018810919806289572
+    },
+    {
+      "path": "pv08",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02633100403257116
+    },
+    {
+      "path": "pv08",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.028175219133000584
+    },
+    {
+      "path": "pv08",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.2734034432651231
+    },
+    {
+      "path": "pv08",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.2887692422520024
+    },
+    {
+      "path": "pv09",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.021387902528335667
+    },
+    {
+      "path": "pv09",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.017263419620887954
+    },
+    {
+      "path": "pv09",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.024740788131358937
+    },
+    {
+      "path": "pv09",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02940311472316448
+    },
+    {
+      "path": "pv09",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.3241583304061264
+    },
+    {
+      "path": "pv09",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.24849365811949553
+    },
+    {
+      "path": "pv10",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.01846014783707961
+    },
+    {
+      "path": "pv10",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.023209018965199668
+    },
+    {
+      "path": "pv10",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.028607027621003867
+    },
+    {
+      "path": "pv10",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.028450936625347145
+    },
+    {
+      "path": "pv10",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.2390470302538178
+    },
+    {
+      "path": "pv10",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.3026160567525892
+    },
+    {
+      "path": "pv11",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.021097619807648016
+    },
+    {
+      "path": "pv11",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.01770268381519824
+    },
+    {
+      "path": "pv11",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.026779604511339206
+    },
+    {
+      "path": "pv11",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02818510830526466
+    },
+    {
+      "path": "pv11",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.25654670389782464
+    },
+    {
+      "path": "pv11",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.3067839539078808
+    },
+    {
+      "path": "pv12",
+      "error_label": "amp_minus",
+      "amplitude_error": -0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02148290130308428
+    },
+    {
+      "path": "pv12",
+      "error_label": "amp_plus",
+      "amplitude_error": 0.06,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.017098688585224342
+    },
+    {
+      "path": "pv12",
+      "error_label": "det_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": -0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.024977544486390668
+    },
+    {
+      "path": "pv12",
+      "error_label": "det_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.04,
+      "interaction_fractional_error": 0.0,
+      "distance_um": 7.74,
+      "loss": 0.02931666098743857
+    },
+    {
+      "path": "pv12",
+      "error_label": "int_minus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": -0.05,
+      "distance_um": 7.8100000000000005,
+      "loss": 0.3341951810485394
+    },
+    {
+      "path": "pv12",
+      "error_label": "int_plus",
+      "amplitude_error": 0.0,
+      "detuning_over_omega": 0.0,
+      "interaction_fractional_error": 0.05,
+      "distance_um": 7.68,
+      "loss": 0.24002015304795854
+    }
+  ],
+  "pair_directions": [
+    {
+      "better": "pv01",
+      "worse": "pv02",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv01",
+      "worse": "pv03",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv01",
+      "worse": "pv04",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv01",
+      "worse": "pv05",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv01",
+      "worse": "pv06",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv07",
+      "worse": "pv01",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv01",
+      "worse": "pv08",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv01",
+      "worse": "pv09",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv01",
+      "worse": "pv10",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv01",
+      "worse": "pv11",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv01",
+      "worse": "pv12",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv02",
+      "worse": "pv03",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv04",
+      "worse": "pv02",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv05",
+      "worse": "pv02",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv02",
+      "worse": "pv06",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv07",
+      "worse": "pv02",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv02",
+      "worse": "pv08",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv02",
+      "worse": "pv09",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv10",
+      "worse": "pv02",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv02",
+      "worse": "pv11",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv02",
+      "worse": "pv12",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv04",
+      "worse": "pv03",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv05",
+      "worse": "pv03",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv03",
+      "worse": "pv06",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv07",
+      "worse": "pv03",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv08",
+      "worse": "pv03",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv09",
+      "worse": "pv03",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv10",
+      "worse": "pv03",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv11",
+      "worse": "pv03",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv03",
+      "worse": "pv12",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv05",
+      "worse": "pv04",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv04",
+      "worse": "pv06",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv07",
+      "worse": "pv04",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv04",
+      "worse": "pv08",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv04",
+      "worse": "pv09",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv10",
+      "worse": "pv04",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv04",
+      "worse": "pv11",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv04",
+      "worse": "pv12",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv05",
+      "worse": "pv06",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv07",
+      "worse": "pv05",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv05",
+      "worse": "pv08",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv05",
+      "worse": "pv09",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv10",
+      "worse": "pv05",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv05",
+      "worse": "pv11",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv05",
+      "worse": "pv12",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv07",
+      "worse": "pv06",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv08",
+      "worse": "pv06",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv09",
+      "worse": "pv06",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv10",
+      "worse": "pv06",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv11",
+      "worse": "pv06",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv12",
+      "worse": "pv06",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv07",
+      "worse": "pv08",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv07",
+      "worse": "pv09",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv07",
+      "worse": "pv10",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv07",
+      "worse": "pv11",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv07",
+      "worse": "pv12",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv08",
+      "worse": "pv09",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv10",
+      "worse": "pv08",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv08",
+      "worse": "pv11",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv08",
+      "worse": "pv12",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv10",
+      "worse": "pv09",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv11",
+      "worse": "pv09",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv09",
+      "worse": "pv12",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv10",
+      "worse": "pv11",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv10",
+      "worse": "pv12",
+      "agrees_with_frozen_order": true
+    },
+    {
+      "better": "pv11",
+      "worse": "pv12",
+      "agrees_with_frozen_order": true
+    }
   ],
   "gates": {
     "finite_numeric_values_72_of_72": true,
