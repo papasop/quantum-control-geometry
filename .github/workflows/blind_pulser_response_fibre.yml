@@ -37,7 +37,7 @@ jobs:
 
       - name: Upload generated machine report
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: blind-pulser-response-fibre-report
           path: /tmp/pasqal_blind_response_fibre_v1_0_report.json

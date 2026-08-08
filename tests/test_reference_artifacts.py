@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import json
 import unittest
 from pathlib import Path
 
@@ -87,6 +88,79 @@ class ReferenceArtifactTests(unittest.TestCase):
             readme,
         )
         self.assertNotIn("35/66", readme)
+
+    def test_reviewer_navigation_paths_exist(self) -> None:
+        expected = (
+            "docs/pulser_translation_scope.md",
+            "docs/blind_pulser_response_fibre_scope.md",
+            "results/external/pulser_translation_report.json",
+            "results/external/pasqal_blind_response_fibre_v1_0_summary.json",
+            "tests/external/recompute_pulser_translation.py",
+            "tests/external/pasqal_blind_response_fibre_v1_0.py",
+            "tools/validate_pulser_translation_report.py",
+            "tools/compare_pulser_translation_reports.py",
+            "tools/verify_blind_pulser_summary.py",
+            ".github/workflows/pulser_translation_diagnostic.yml",
+            ".github/workflows/blind_pulser_response_fibre.yml",
+        )
+        for relative in expected:
+            self.assertTrue((ROOT / relative).is_file(), relative)
+
+    def test_pulser_navigation_values_match_frozen_json(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        guide = (ROOT / "REVIEWER_GUIDE.md").read_text(encoding="utf-8")
+        pulser = json.loads(
+            (ROOT / "results/external/pulser_translation_report.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        blind = json.loads(
+            (
+                ROOT
+                / "results/external/pasqal_blind_response_fibre_v1_0_summary.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        metrics = pulser["metrics"]
+        self.assertEqual(metrics["finite_numeric_values"], 72)
+        self.assertEqual(metrics["certified_pair_directions"], 66)
+        self.assertIn("12 paths x 6 error points = 72 propagations", readme)
+        self.assertIn("66/66 unordered path pairs", readme)
+        self.assertIn("exact_translation_pass = false", readme)
+        self.assertIn("ordering_robustness_pass = true", readme)
+
+        blind_metrics = blind["metrics"]
+        self.assertEqual(blind_metrics["propagations"], 120)
+        self.assertIn("20 paths x 6 error points = 120 propagations", readme)
+        self.assertIn(str(blind_metrics["spearman_prediction_vs_pulser"]), readme)
+        self.assertIn(str(blind_metrics["one_sided_permutation_p"]), readme)
+        self.assertIn(str(blind_metrics["best_vs_worst_mean_loss_advantage"]), readme)
+        self.assertIn(blind["source_protocol_sha256"], readme)
+        self.assertIn(blind["prediction_freeze_sha256"], readme)
+        self.assertIn("Pulser is not Arb", guide)
+        self.assertIn("Pulser is not PASQAL Cloud", guide)
+
+    def test_pulser_workflows_use_current_artifact_action(self) -> None:
+        for relative in (
+            ".github/workflows/pulser_translation_diagnostic.yml",
+            ".github/workflows/blind_pulser_response_fibre.yml",
+        ):
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("actions/upload-artifact@v7", text)
+            self.assertNotIn("actions/upload-artifact@v5", text)
+            self.assertIn("workflow_dispatch", text)
+
+    def test_pulser_docs_do_not_overclaim_hardware(self) -> None:
+        for relative in (
+            "README.md",
+            "REVIEWER_GUIDE.md",
+            "docs/pulser_translation_scope.md",
+            "docs/blind_pulser_response_fibre_scope.md",
+        ):
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertNotIn("PASQAL hardware validated", text)
+            self.assertNotIn("QPU verified", text)
+            self.assertNotIn("FRESNEL validation", text)
 
 
 if __name__ == "__main__":

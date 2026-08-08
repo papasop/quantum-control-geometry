@@ -7,6 +7,25 @@ Start with [`REVIEWER_GUIDE.md`](REVIEWER_GUIDE.md) for the theorem hierarchy,
 three-minute artifact verification, full formal reproduction, and exact scope
 boundary.
 
+## Evidence layers
+
+| Evidence layer | Result | Logical status |
+|---|---|---|
+| Arb/Krawczyk certificate | 12/12 locally unique roots and 66/66 finite-error pair orderings | Rigorous model-conditional proof |
+| Pulser translation diagnostic | 12 paths x 6 errors; complete order and 66/66 pair directions preserved | Independent numerical translation cross-check |
+| Blind Pulser prospective test | 20 paths x 6 errors; preregistered ranking supported | Independent prospective numerical validation |
+| PASQAL Cloud/QPU | Not executed | No hardware claim |
+
+Arb/Krawczyk is the strict interval proof layer. Pulser uses independent local
+numerical execution paths and is not a second interval proof. The GitHub
+Actions runs execute on GitHub-hosted CPUs; they are not PASQAL Cloud, FRESNEL,
+or physical QPU evidence.
+
+**Response fibre in one sentence.** The response fibre is the family of control
+schedules that share the same nominal projective output state and complete
+first-order projective response to the declared error coordinates, while
+retaining different higher-order finite-error behaviour.
+
 Reproducible research artifacts for covariant local response jets and
 exact-root finite-error certification in a serialized two-atom neutral-atom
 control model.
@@ -21,11 +40,14 @@ Canonical v0.3.1 commit:
 284974c9f6b952f4e114c8c5bdc9c2c299c4065c
 ```
 
-Version `v0.3.1` freezes the scientific artifacts. The manuscript on `main`
-may contain later expository and formula-level corrections without changes to
-the frozen numerical certificates. A separate immutable paper-exact tag, for
-example `paper-exact-root-v1.0`, should freeze the synchronized submission
-manuscript source and PDF without moving `v0.3.1`.
+Version `v0.3.1` freezes the main strict scientific certificate artifacts.
+Version `v0.3.2` freezes the P0/P1/P2 audit-closure supplement. The current
+`v0.4.1` tag marks the Pulser external model-validation layer on `main`; no
+GitHub Release exists for that tag at the time of this README update. The
+manuscript on `main` may contain later expository and formula-level
+corrections without changes to the frozen numerical certificates. A separate
+immutable paper-exact tag, for example `paper-exact-root-v1.0`, freezes the
+synchronized submission manuscript source and PDF without moving `v0.3.1`.
 
 ## Strongest Result
 
@@ -191,15 +213,24 @@ finite-error means and complete ordering. The P1 check also has a manual and
 weekly GitHub Actions workflow, `Audit closure (independent) -- P1
 high-precision reconstruction`.
 
-## External Pulser Translation Validation
+## Independent Pulser-model validation
 
 The formal Arb/Krawczyk layer remains the frozen-model strict mathematical
-certificate. Pulser is used only as an external numerical translation and
-ordering-robustness cross-check, not as a replacement proof. PASQAL QPU
-execution is not tested in this repository.
+certificate. Pulser is used as an external numerical translation and
+prospective-validation layer, not as a replacement proof. PASQAL Cloud,
+FRESNEL, and QPU execution are not tested in this repository.
 
-The committed Pulser 1.9 report records:
+Pulser 1.8 and Pulser 1.9 play different roles here. The manuscript's frozen
+two-atom model uses the Pulser 1.8 `DigitalAnalogDevice` constant as the
+serialized source of the $C_6$ parameter. The external validation workflows run
+in locked Pulser 1.9 environments. This does not imply the formal certificate
+and the external Pulser checks depend on identical software stacks.
 
+### 1. Translation robustness
+
+The committed Pulser 1.9 translation report records:
+
+- 12 paths x 6 error points = 72 propagations.
 - 72/72 numerical values are finite.
 - The complete twelve-path ordering is identical to the frozen ordering.
 - Certified pair directions agree for 66/66 unordered path pairs.
@@ -233,6 +264,41 @@ loss and path mean to the committed report, and uploads the recomputed report
 and run log. See
 [`docs/pulser_translation_scope.md`](docs/pulser_translation_scope.md) and
 [`results/external/pulser_translation_report.json`](results/external/pulser_translation_report.json).
+
+Pulser and Arb have small absolute point-value offsets under the quantized
+Pulser translation, so this layer supports ordering robustness, not pointwise
+model equivalence.
+
+One-click workflow:
+[`Pulser translation diagnostic`](https://github.com/papasop/quantum-control-geometry/actions/workflows/pulser_translation_diagnostic.yml).
+Use **Actions -> Run workflow -> main -> Run workflow**.
+
+### 2. Blind prospective validation
+
+The blind prospective Pulser summary records:
+
+- 20 paths x 6 error points = 120 propagations.
+- Spearman rho = `0.998496`.
+- One-sided permutation p-value = `4.99975e-05`.
+- Best-worst mean-loss advantage = `0.01131757`.
+- Best-worst bootstrap 95% interval = `[0.007947237, 0.01522103]`.
+- All preregistered gates pass.
+- Protocol SHA-256 =
+  `2bf2d193f9839a7f204984705d3ccef9ddead2bf3cf906e56b52138b402dd71c`.
+- Prediction-freeze SHA-256 =
+  `535f3ed5821997059f5568bab76e824aad12183414199ded755a40a2fa08dad1`.
+- Outcomes were locked before Pulser reveal:
+  `source_outcomes_unlocked = false`.
+
+This is a prospective numerical validation through an independent code path.
+It is not another Arb proof and not a QPU experiment. See
+[`docs/blind_pulser_response_fibre_scope.md`](docs/blind_pulser_response_fibre_scope.md),
+[`results/external/pasqal_blind_response_fibre_v1_0_summary.json`](results/external/pasqal_blind_response_fibre_v1_0_summary.json),
+and [`tools/verify_blind_pulser_summary.py`](tools/verify_blind_pulser_summary.py).
+
+One-click workflow:
+[`Blind Pulser response-fibre prospective test`](https://github.com/papasop/quantum-control-geometry/actions/workflows/blind_pulser_response_fibre.yml).
+Use **Actions -> Run workflow -> main -> Run workflow**.
 
 ## External Clean-Environment Reproduction
 
@@ -285,6 +351,8 @@ paper/
   sec_back.tex        validation, availability, and references
   manuscript.pdf      public PDF version of record
 
+APPLY_GUIDE.md        integration note for the Pulser tolerance calibration PR
+
 scripts/
   standalone/       single-file Colab/Jupyter entry points
   core/             readable audit engines and shared model code
@@ -301,22 +369,34 @@ results/
   exact_fibre_krawczyk/    frozen cohort, protocol, Krawczyk certificate, report
   exact_root_ordering/     protocol, direct exact-root ordering certificate, report
   audit_closure/           v0.3.2 production-preconditioner regularity certificate
-  external/                Pulser numerical translation cross-check report
+  external/
+    pulser_translation_report.json
+    pasqal_blind_response_fibre_v1_0_summary.json
   reproducibility_summary.json
 
 tools/
   verify_reference_results.py
+  validate_pulser_translation_report.py
+  compare_pulser_translation_reports.py
+  verify_blind_pulser_summary.py
 
 tests/
   audit_closure/           P0, P1, P2, and mutation-tested audit supplement
-  external/                Pulser translation diagnostic entry point
+  external/
+    recompute_pulser_translation.py
+    pasqal_blind_response_fibre_v1_0.py
   test_manuscript_consistency.py
   test_reference_artifacts.py
+
+docs/
+  pulser_translation_scope.md
+  blind_pulser_response_fibre_scope.md
 
 .github/workflows/
   audit_closure_fast.yml         P0 + P2 + mutation tests on push/PR
   audit_closure_independent.yml  P1 manual/weekly independent reconstruction
   pulser_translation_diagnostic.yml  Pulser recomputation and report comparison
+  blind_pulser_response_fibre.yml    blind 20-path prospective Pulser validation
 ```
 
 `SHA256SUMS.txt` records byte hashes for the repository snapshot. The
