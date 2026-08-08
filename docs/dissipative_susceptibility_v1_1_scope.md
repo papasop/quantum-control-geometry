@@ -1,13 +1,13 @@
-# Differential dissipative-susceptibility protocol v1.1.1
+# Differential dissipative-susceptibility protocol v1.1.2
 
 ## Purpose
 
 This document freezes a protocol-only clarification of the prospective test of
-the post-hoc open-system pattern observed in `v0.5.0`. Version `1.1.1`
-supersedes v1.1 before any holdout results are run, read, generated, or used.
-The goal is still to turn the differential dissipative-susceptibility
-interpretation into a falsifiable holdout prediction, but the execution
-semantics are now fully specified.
+the post-hoc open-system pattern observed in `v0.5.0`. Version `1.1.2`
+supersedes v1.1.1 before any holdout results are run, read, generated, or
+used. The goal is still to turn the differential dissipative-susceptibility
+interpretation into a falsifiable holdout prediction, while correcting an
+internal algebraic sign inconsistency found before outcome reveal.
 
 This PR must not run the holdout grid, inspect holdout outcomes, generate a
 result file, or adjust thresholds after seeing results.
@@ -26,8 +26,11 @@ The v1.0 canonical protocol SHA-256 is
 The superseded v1.1 protocol SHA-256 is
 `d749b48c9153a32c4a7baec79400d092dcba71b459acacccaa300b7e40afe7a5`.
 
-The frozen v1.1.1 protocol SHA-256 is
+The superseded v1.1.1 protocol SHA-256 is
 `d10c5e8a5b152994d7e60d1d7fb4322068734d6b082c72d404365930010b3c60`.
+
+The frozen v1.1.2 protocol SHA-256 is
+`0c220213ba9485fd06268c56b726848c33b684da10c9d715c96690e9e7ae8476`.
 
 ## Prediction Rule
 
@@ -67,13 +70,18 @@ flipped when `D_hat_ij(lambda) <= 0`. A positive-axis crossing is predicted
 only when `chi_ij < 0` and `lambda_pred_ij > 0`; otherwise the pair is labeled
 `no-crossing-on-positive-axis`.
 
-For the joint diagonal grid, v1.1.1 freezes the additive first-order rule
+For the joint diagonal grid, v1.1.2 freezes the algebraically consistent
+additive first-order rule
 
 ```math
 \hat D_{ij}(\lambda_r,\lambda_\phi)
-=\Delta_{ij}-\chi_{\mathrm{decay},ij}\lambda_r
--\chi_{\mathrm{dephasing},ij}\lambda_\phi.
+=\Delta_{ij}+\chi_{\mathrm{decay},ij}\lambda_r
++\chi_{\mathrm{dephasing},ij}\lambda_\phi.
 ```
+
+Substituting `lambda_r = lambda_phi = lambda` gives
+`D_hat = Delta + (chi_decay + chi_dephasing) * lambda`, so the diagonal
+crossing scale is
 
 The joint diagonal crossing scale is
 
@@ -84,6 +92,9 @@ The joint diagonal crossing scale is
 ```
 
 It is valid only when the denominator gives a positive finite crossing.
+Equivalently, the validity condition is
+`chi_decay_ij + chi_dephasing_ij < 0` and finite positive
+`lambda_pred_joint`.
 
 ## Frozen Holdout Grid
 
@@ -143,9 +154,10 @@ fails.
 
 ## Boundaries
 
-This is a protocol-only freeze. It does not modify the Arb/Krawczyk proof
+This is a protocol-only correction. It does not modify the Arb/Krawczyk proof
 engines, serialized unitary model, exact-root boxes, v0.5.0 release, existing
-certificates, Pulser results, or manuscript theorem.
+certificates, Pulser results, manuscript theorem, training points, holdout
+grids, C-index rules, factor-of-two rules, thresholds, or solver settings.
 
 The differential dissipative-susceptibility mechanism remains a post-hoc v1.1
 hypothesis until this frozen holdout protocol is executed. This protocol is

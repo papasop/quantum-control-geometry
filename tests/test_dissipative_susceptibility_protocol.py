@@ -1,4 +1,4 @@
-"""Regression tests for the protocol-only v1.1.1 susceptibility freeze."""
+"""Regression tests for the protocol-only v1.1.2 susceptibility freeze."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from pathlib import Path
 from tools.verify_dissipative_susceptibility_protocol import (
     EXPECTED_CANONICAL_SHA256,
     PROTOCOL_PATH,
-    SUPERSEDED_V1_1_SHA256,
+    SUPERSEDED_V1_1_1_SHA256,
     canonical_protocol_sha256,
     verify,
 )
@@ -31,10 +31,10 @@ class DissipativeSusceptibilityProtocolTests(unittest.TestCase):
         )
 
     def test_canonical_hash_is_stable(self) -> None:
-        self.assertEqual(self.protocol["schema_version"], "1.1.1")
+        self.assertEqual(self.protocol["schema_version"], "1.1.2")
         self.assertEqual(
             self.protocol["supersedes_protocol_sha256"],
-            SUPERSEDED_V1_1_SHA256,
+            SUPERSEDED_V1_1_1_SHA256,
         )
         self.assertEqual(
             self.protocol["canonical_protocol_sha256"],
@@ -48,6 +48,8 @@ class DissipativeSusceptibilityProtocolTests(unittest.TestCase):
         self.assertFalse(self.protocol["status"]["outcomes_unlocked"])
         self.assertTrue(self.protocol["status"]["supersedes_v1_1"])
         self.assertTrue(self.protocol["status"]["clarification_only"])
+        self.assertTrue(self.protocol["status"]["correction_only"])
+        self.assertFalse(self.protocol["status"]["outcome_reveal_before_correction"])
         self.assertFalse(self.protocol["status"]["results_file_expected_in_this_pr"])
         self.assertFalse(
             (ROOT / "results/external/open_system_v1_1/results.json").exists()
@@ -110,11 +112,35 @@ class DissipativeSusceptibilityProtocolTests(unittest.TestCase):
         )
         self.assertEqual(
             formulas["joint_additive_first_order_prediction"],
-            "D_hat_ij(lambda_r, lambda_phi) = Delta_ij - chi_decay_ij * "
-            "lambda_r - chi_dephasing_ij * lambda_phi",
+            "D_hat_ij(lambda_r, lambda_phi) = Delta_ij + chi_decay_ij * "
+            "lambda_r + chi_dephasing_ij * lambda_phi",
+        )
+        self.assertIn(
+            "lambda_pred_joint = Delta_ij / -(chi_decay_ij + chi_dephasing_ij)",
+            formulas["joint_diagonal_crossing"],
+        )
+        self.assertIn(
+            "chi_decay_ij + chi_dephasing_ij < 0",
+            formulas["joint_positive_crossing_rule"],
         )
         self.assertIn("frozen discrete holdout grid", formulas["actual_first_flip_scale"])
         self.assertIn("not a claim about the continuous", formulas["actual_first_flip_scale"])
+
+    def test_joint_diagonal_crossing_algebra_is_consistent(self) -> None:
+        # No outcomes are used here: this checks only the frozen symbolic rule.
+        delta_coefficient = 1
+        chi_decay_coefficient = 1
+        chi_dephasing_coefficient = 1
+        diagonal_lambda_coefficient = chi_decay_coefficient + chi_dephasing_coefficient
+
+        self.assertEqual(diagonal_lambda_coefficient, 2)
+        derived_denominator = "-(chi_decay_ij + chi_dephasing_ij)"
+        formulas = self.protocol["formulas"]
+        self.assertIn(derived_denominator, formulas["joint_diagonal_crossing"])
+        self.assertIn(
+            "Delta_ij + (chi_decay_ij + chi_dephasing_ij) * lambda",
+            formulas["joint_diagonal_crossing"],
+        )
 
     def test_scoring_algorithms_are_frozen(self) -> None:
         rules = self.protocol["classification_rules"]
@@ -132,6 +158,10 @@ class DissipativeSusceptibilityProtocolTests(unittest.TestCase):
         self.assertIn("Do not remove any pair", accuracy["drop_policy"])
         self.assertEqual(accuracy["predicted_preserved"], "D_hat > 0")
         self.assertEqual(accuracy["predicted_flip"], "D_hat <= 0")
+        self.assertIn(
+            "Delta_ij + chi_decay_ij",
+            accuracy["joint_prediction"],
+        )
 
         c_index = rules["harrell_c_index"]
         self.assertEqual(c_index["family_values"], ["decay", "dephasing", "joint"])
@@ -142,6 +172,10 @@ class DissipativeSusceptibilityProtocolTests(unittest.TestCase):
         factor = rules["factor_of_two_gate"]
         self.assertIn("positive finite lambda_pred", factor["eligible_pair_family"])
         self.assertIn("0.5 * actual_first_flip_lambda", factor["success_rule"])
+        self.assertIn(
+            "chi_decay_ij + chi_dephasing_ij < 0",
+            factor["joint_prediction_scale"],
+        )
         self.assertIn("gate fails", factor["zero_pooled_eligible"])
 
     def test_scope_doc_keeps_post_hoc_boundary(self) -> None:
@@ -151,7 +185,8 @@ class DissipativeSusceptibilityProtocolTests(unittest.TestCase):
         normalized = " ".join(text.split())
         self.assertIn("protocol-only", normalized)
         self.assertIn("must not run the holdout grid", normalized)
-        self.assertIn("supersedes v1.1", normalized)
+        self.assertIn("supersedes v1.1.1", normalized)
+        self.assertIn("outcome reveal", normalized)
         self.assertIn("post-hoc v1.1 hypothesis", normalized)
         self.assertIn(EXPECTED_CANONICAL_SHA256, text)
 
