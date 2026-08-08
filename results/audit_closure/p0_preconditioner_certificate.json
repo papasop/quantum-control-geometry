@@ -1,7 +1,30 @@
 {
+ "schema": "p0_preconditioner_certificate",
+ "schema_version": 2,
  "method": "Rump-Neumann regularity certificate",
  "production_preconditioner_conversion": "arb(repr(float(decimal)))",
  "source_cohort_sha256": "c6fe71240ff2a2d005abf3d158350d09bebfa25f0f697d64dd8e8efb80fa1bea",
+ "production_preconditioner_payload_sha256": "046917918138993ad838489b9c9ee62dcb6c3db191038e12178034cb4630c876",
+ "frozen_inverse_data_sha256": "989935559f0f2bf9086514a78a65aa169f6bbcf521895e81f8228ecd9cb8a2b9",
+ "frozen_inverse_schema": "p0_frozen_inverse_hex@1",
+ "matrix_shape": [
+  16,
+  16
+ ],
+ "paths": [
+  "pv01",
+  "pv02",
+  "pv03",
+  "pv04",
+  "pv05",
+  "pv06",
+  "pv07",
+  "pv08",
+  "pv09",
+  "pv10",
+  "pv11",
+  "pv12"
+ ],
  "prec_bits": 256,
  "results": [
   {
