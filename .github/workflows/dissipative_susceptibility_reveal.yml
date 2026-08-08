@@ -1,0 +1,56 @@
+name: Dissipative susceptibility v1.1.2 reveal
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dissipative-susceptibility-reveal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install locked numerical environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-pulser.txt
+
+      - name: Verify frozen v1.1.2 protocol
+        run: python tools/verify_dissipative_susceptibility_protocol.py
+
+      - name: Run manual v1.1.2 holdout reveal
+        run: |
+          python tests/external/run_dissipative_susceptibility_reveal_v1_1_2.py \
+            --output /tmp/dissipative_susceptibility_reveal_v1_1_2_report.json \
+            2>&1 | tee /tmp/dissipative_susceptibility_reveal_v1_1_2.log
+
+      - name: Verify reveal report structure
+        if: always()
+        run: |
+          python tools/verify_dissipative_susceptibility_reveal.py \
+            --report /tmp/dissipative_susceptibility_reveal_v1_1_2_report.json \
+            2>&1 | tee /tmp/dissipative_susceptibility_reveal_v1_1_2_verify.log
+
+      - name: Record reveal report checksum
+        if: always()
+        run: |
+          sha256sum /tmp/dissipative_susceptibility_reveal_v1_1_2_report.json || true
+
+      - name: Upload reveal artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: dissipative-susceptibility-reveal-v1-1-2
+          path: |
+            /tmp/dissipative_susceptibility_reveal_v1_1_2_report.json
+            /tmp/dissipative_susceptibility_reveal_v1_1_2.log
+            /tmp/dissipative_susceptibility_reveal_v1_1_2_verify.log
+          if-no-files-found: warn
