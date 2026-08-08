@@ -6,7 +6,12 @@ These tests must never run the real holdout propagation path.
 from __future__ import annotations
 
 import json
+import importlib.util
 import math
+import subprocess
+import sys
+import tempfile
+import textwrap
 import unittest
 from pathlib import Path
 
@@ -25,6 +30,7 @@ from tools.verify_dissipative_susceptibility_reveal import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
+RUNNER = ROOT / "tests/external/run_dissipative_susceptibility_reveal_v1_1_2.py"
 
 
 def synthetic_pairs() -> list[dict[str, str]]:
@@ -143,6 +149,75 @@ class DissipativeSusceptibilityRevealTests(unittest.TestCase):
             self.assertNotIn("pull_request:", text)
             self.assertNotIn("push:", text)
             self.assertIn("if: always()", text)
+            self.assertIn("set -o pipefail", text)
+            self.assertIn(
+                "test -s /tmp/dissipative_susceptibility_reveal_v1_1_2_report.json",
+                text,
+            )
+            self.assertIn("python -m tools.verify_dissipative_susceptibility_reveal", text)
+
+    def test_open_system_loader_registers_and_cleans_sys_modules(self) -> None:
+        text = RUNNER.read_text(encoding="utf-8")
+        register = "sys.modules[spec.name] = module"
+        execute = "spec.loader.exec_module(module)"
+        cleanup = "sys.modules.pop(spec.name, None)"
+        self.assertIn(register, text)
+        self.assertIn(execute, text)
+        self.assertIn(cleanup, text)
+        self.assertLess(text.index(register), text.index(execute))
+        self.assertLess(text.index(execute), text.index(cleanup))
+
+    def test_open_system_module_loads_with_dataclass_registration(self) -> None:
+        if importlib.util.find_spec("numpy") is None:
+            self.skipTest("numpy unavailable in dependency-light CI")
+        from tests.external.run_dissipative_susceptibility_reveal_v1_1_2 import (
+            load_open_system_module,
+        )
+
+        try:
+            module = load_open_system_module()
+        except SystemExit as exc:
+            self.skipTest(f"open-system dependencies unavailable: {exc}")
+        self.assertEqual(module.VERSION, "1.0")
+        self.assertTrue(hasattr(module, "FrozenInputs"))
+        self.assertIs(sys.modules.get("open_system_v1_0"), module)
+
+    def test_verifier_module_execution_resolves_imports(self) -> None:
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "tools.verify_dissipative_susceptibility_reveal",
+                "--help",
+            ],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertIn("--report", completed.stdout)
+
+    def test_pipefail_prevents_tee_from_masking_python_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            script = Path(tmp) / "fail.py"
+            log = Path(tmp) / "fail.log"
+            script.write_text("raise SystemExit(7)\n", encoding="utf-8")
+            command = textwrap.dedent(
+                f"""
+                set -o pipefail
+                {sys.executable} {script} 2>&1 | tee {log}
+                """
+            )
+            completed = subprocess.run(
+                ["bash", "-c", command],
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+            self.assertEqual(completed.returncode, 7)
 
 
 if __name__ == "__main__":
