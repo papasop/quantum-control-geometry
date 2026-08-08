@@ -71,9 +71,10 @@ where \(N_k\) is the frozen transverse chart. A strict Krawczyk inclusion
 K_k(X_k)\subset\operatorname{int}(X_k)
 \]
 
-certifies one locally unique exact state-and-first-response-matched root in
-each declared box. Direct outward-rounded evaluation of the six-error mean
-over the corresponding phase enclosure then yields intervals
+certifies one locally unique exact
+projective-state-and-first-projective-response-matched root in each declared
+box. Direct outward-rounded evaluation of the six-error mean over the
+corresponding phase enclosure then yields intervals
 \(\mathcal B_k\). For every frozen ordered pair \(a\prec b\),
 
 \[

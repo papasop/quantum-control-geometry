@@ -3,11 +3,12 @@
 ## Certified statement
 
 For each of the twelve declared schedules, an outward-rounded Krawczyk
-inclusion certifies one locally unique exact state-and-first-response-matched
-root inside its 16-dimensional transverse phase box. For the declared
-finite-dimensional two-atom Hamiltonian, common reference target, and six
-signed axial errors, direct 192-bit Arb propagation of those boxes certifies
-the frozen order of all 66 unordered path pairs.
+inclusion certifies one locally unique exact
+projective-state-and-first-projective-response-matched root inside its
+16-dimensional transverse phase box. For the declared finite-dimensional
+two-atom Hamiltonian, common reference target, and six signed axial errors,
+direct 192-bit Arb propagation of those boxes certifies the frozen order of
+all 66 unordered path pairs.
 
 The certificate includes:
 

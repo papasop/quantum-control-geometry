@@ -32,8 +32,8 @@ The prospective result is not a premise of the theorem.
 |---|---|---|
 | Strict Arb proof | `tools/verify_reference_results.py`; full v1.3 standalone reproduction | Model-conditional interval certificate |
 | Pulser translation robustness | `Pulser translation diagnostic` workflow or `tests/external/recompute_pulser_translation.py` | Independent numerical translation cross-check |
-| Blind prospective Pulser validation | `Blind Pulser response-fibre prospective test` workflow or `tests/external/pasqal_blind_response_fibre_v1_0.py` | Independent prospective numerical validation |
-| Open-system QuTiP stress audit | `Open-system ordering-survival stress audit` workflow or `tools/verify_open_system_ordering_survival_v1_0.py` | Empirical model-discrepancy stress test |
+| Blind prospective Pulser validation | `Blind Pulser response-fibre prospective test` workflow or `tests/external/pasqal_blind_response_fibre_v1_0.py` | Prospective numerical validation through an independent code path |
+| Open-system QuTiP stress audit | `Open-system ordering-survival stress audit` workflow or `tools/verify_open_system_ordering_survival_v1_0.py` | Empirical open-system sensitivity stress test within a declared Lindblad extension |
 | Prospective dissipative-susceptibility reveal | `Dissipative susceptibility reveal` workflow or `tools/verify_dissipative_susceptibility_reveal_summary.py` | Frozen prospective QuTiP Lindblad validation |
 | PASQAL QPU test | Not available in this repository | No hardware claim |
 
