@@ -36,14 +36,20 @@ jobs:
 
       - name: Compare recomputed Pulser report to committed report
         run: |
+          set -o pipefail
           python tools/compare_pulser_translation_reports.py \
             --reference results/external/pulser_translation_report.json \
-            --candidate /tmp/pulser_recomputed_report.json
+            --candidate /tmp/pulser_recomputed_report.json \
+            --summary /tmp/pulser_comparison_summary.json \
+            2>&1 | tee /tmp/pulser_compare.log
 
       - name: Upload Pulser recomputation artifacts
+        if: always()
         uses: actions/upload-artifact@v5
         with:
           name: pulser-recomputed-report
           path: |
             /tmp/pulser_recomputed_report.json
             /tmp/pulser_recompute.log
+            /tmp/pulser_compare.log
+            /tmp/pulser_comparison_summary.json
