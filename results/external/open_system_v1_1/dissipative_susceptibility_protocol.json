@@ -1,0 +1,157 @@
+{
+  "schema": "differential_dissipative_susceptibility_prediction_protocol",
+  "schema_version": "1.1",
+  "protocol_name": "Differential dissipative-susceptibility prediction protocol",
+  "source_repository": "papasop/quantum-control-geometry",
+  "source_release": "v0.5.0",
+  "source_commit": "2fb0c4a3e339bfb899ef3963bc92ea1fc6a74d45",
+  "source_assets": {
+    "open_system_v1_0_zip_sha256": "cb5c5b6e0634f98c306c8d13d39e94da263d7f1808d67cd13ab7113603691453",
+    "open_system_v1_0_full_report_sha256": "25ec3da765afa91b90d3d37d5d89298001821253b5f5be6f8482834e92703bf8",
+    "open_system_v1_0_protocol_file_sha256": "d6ab773b5244f29d2204eb9d40c8472b5445713b15354c898bc80dc30f2e5371",
+    "open_system_v1_0_canonical_protocol_sha256": "0ba13647e72a9215072ca70577d3e4d9f0ddf5c95f5796bee5b671e9a08ad888"
+  },
+  "purpose": "Freeze a falsifiable holdout protocol that turns the v0.5.0 post-hoc differential dissipative-susceptibility hypothesis into a prospective prediction.",
+  "status": {
+    "protocol_only": true,
+    "holdout_computed": false,
+    "outcomes_unlocked": false,
+    "results_file_expected_in_this_pr": false
+  },
+  "pair_universe": {
+    "source": "All 66 certified ordered path pairs from the v0.5.0 exact-root/open-system source artifacts.",
+    "notation": "i>j denotes that certified path i is better than path j in the frozen unitary exact-root ordering.",
+    "total_pairs": 66,
+    "diagnostic_pairs_only": [
+      "pv01>pv10",
+      "pv08>pv11"
+    ],
+    "diagnostic_pair_policy": "Named diagnostic pairs are reported explicitly but do not determine PASS or FAIL."
+  },
+  "training_data_policy": {
+    "source": "Use only v1.0 already public small-perturbation points.",
+    "single_channel_training_lambdas": [
+      0.0,
+      0.0001,
+      0.0003
+    ],
+    "channels": [
+      "decay",
+      "dephasing"
+    ],
+    "joint_training": "none",
+    "no_holdout_access_before_freeze": true
+  },
+  "holdout_grid": {
+    "excludes_v1_0_training_points": true,
+    "single_channel_holdout_lambdas": [
+      0.0005,
+      0.00075,
+      0.0015,
+      0.002,
+      0.004,
+      0.006,
+      0.008,
+      0.015,
+      0.02,
+      0.025
+    ],
+    "single_channel_families": [
+      {
+        "family": "decay",
+        "decay": "lambda",
+        "dephasing": 0.0
+      },
+      {
+        "family": "dephasing",
+        "decay": 0.0,
+        "dephasing": "lambda"
+      }
+    ],
+    "joint_holdout_lambdas": [
+      {
+        "decay": 0.0005,
+        "dephasing": 0.0005
+      },
+      {
+        "decay": 0.0015,
+        "dephasing": 0.0015
+      },
+      {
+        "decay": 0.002,
+        "dephasing": 0.002
+      },
+      {
+        "decay": 0.006,
+        "dephasing": 0.006
+      },
+      {
+        "decay": 0.015,
+        "dephasing": 0.015
+      },
+      {
+        "decay": 0.025,
+        "dephasing": 0.025
+      }
+    ]
+  },
+  "formulas": {
+    "pair_difference": "D_ij(lambda) = L_j(lambda) - L_i(lambda)",
+    "unitary_gap": "Delta_ij = D_ij(0)",
+    "local_slope": "chi_ij = dD_ij/dlambda |_{lambda=0}",
+    "slope_fit": "For each channel, fit D_ij(lambda) on lambda in {0, 1e-4, 3e-4} using the declared least-squares linear model D_ij(lambda)=a_ij + chi_ij lambda; Delta_ij is D_ij(0) from the public unitary point.",
+    "predicted_first_flip_scale": "lambda_pred_ij = Delta_ij / (-chi_ij)",
+    "positive_crossing_rule": "Predict a positive-axis crossing only when chi_ij < 0 and lambda_pred_ij > 0; otherwise label no-crossing-on-positive-axis.",
+    "actual_first_flip_scale": "The first holdout lambda at which the pair direction differs from the lambda=0 frozen direction, evaluated separately for decay, dephasing, and the declared joint diagonal grid."
+  },
+  "primary_gates": {
+    "all_propagation_values_finite": true,
+    "lambda_zero_reconstructs_pair_directions": "66/66",
+    "holdout_pair_direction_classification_accuracy_at_least": 0.9,
+    "harrell_concordance_index_at_least": 0.75,
+    "factor_of_two_accuracy_for_actual_flips_with_positive_predictions_at_least": 0.7,
+    "report_all_failures": true,
+    "no_success_pair_selection": true,
+    "diagnostic_pairs_decide_pass_fail": false
+  },
+  "classification_rules": {
+    "pair_direction_accuracy_denominator": "All certified ordered pairs across all held-out single-channel and joint conditions.",
+    "harrell_c_index_denominator": "Comparable pair-pair examples with observed first-flip order and finite predicted positive scales; censored no-flip cases are reported and handled according to the released analysis script, not silently dropped.",
+    "factor_of_two_rule": "A positive prediction is within factor two when 0.5 * actual_first_flip_lambda <= lambda_pred <= 2.0 * actual_first_flip_lambda.",
+    "failure_reporting": "Every failed gate, every no-crossing label, every observed flip, and every diagnostic pair result must be reported."
+  },
+  "solver_environment": {
+    "python": "3.12.x",
+    "numpy": "2.0.2",
+    "scipy": "1.13.1",
+    "qutip": "5.1.1",
+    "equation": "QuTiP Lindblad/GKSL density-matrix propagation matching open-system v1.0",
+    "solver_options": {
+      "method": "adams",
+      "atol": 1e-11,
+      "rtol": 1e-11,
+      "nsteps": 100000,
+      "max_step": 0.005,
+      "progress_bar": ""
+    }
+  },
+  "random_seeds": {
+    "primary_analysis_randomness": "none",
+    "tie_break_seed": 20260808,
+    "bootstrap_seed_if_added_as_secondary_diagnostic": 20260809,
+    "permutation_seed_if_added_as_secondary_diagnostic": 20260810
+  },
+  "non_claims": [
+    "This protocol does not run or reveal holdout results.",
+    "This protocol does not modify Arb/Krawczyk proof engines, exact-root boxes, or earlier certificates.",
+    "This protocol is not an Arb interval proof.",
+    "This protocol is not calibrated PASQAL hardware noise and is not PASQAL Cloud, FRESNEL, or QPU evidence.",
+    "The differential dissipative-susceptibility mechanism remains a post-hoc v1.1 hypothesis until this frozen holdout protocol is executed."
+  ],
+  "canonicalization": {
+    "json_encoding": "UTF-8",
+    "canonical_json": "json.dumps(obj, sort_keys=True, separators=(',', ':'), ensure_ascii=False)",
+    "hash_exclusion": "The canonical_protocol_sha256 field is removed before hashing."
+  },
+  "canonical_protocol_sha256": "d749b48c9153a32c4a7baec79400d092dcba71b459acacccaa300b7e40afe7a5"
+}
