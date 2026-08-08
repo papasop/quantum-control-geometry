@@ -15,6 +15,14 @@ applicable, and final report emitted by one representative audit.
 - `audit_closure/`: v0.3.2 production-preconditioner regularity certificate.
   This is an audit supplement, not a replacement for the frozen v0.3.1
   exact-root certificates.
+- `external/open_system/pasqal_open_system_ordering_survival_v1_0_summary.json`:
+  compact summary for the 2088-propagation QuTiP Lindblad ordering-survival
+  stress audit.
+- `external/open_system/dissipative_susceptibility_reveal_v1_1_2_summary.json`:
+  compact summary for the successful frozen v1.1.2 prospective
+  dissipative-susceptibility reveal. This is numerical QuTiP Lindblad evidence,
+  not an Arb interval proof, calibrated PASQAL hardware-noise result, PASQAL
+  Cloud run, FRESNEL run, or QPU experiment.
 - `reproducibility_summary.json`: hashes and byte-identity gates from two
   complete v1.3 formal executions.
 

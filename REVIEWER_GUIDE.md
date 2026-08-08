@@ -34,6 +34,7 @@ The prospective result is not a premise of the theorem.
 | Pulser translation robustness | `Pulser translation diagnostic` workflow or `tests/external/recompute_pulser_translation.py` | Independent numerical translation cross-check |
 | Blind prospective Pulser validation | `Blind Pulser response-fibre prospective test` workflow or `tests/external/pasqal_blind_response_fibre_v1_0.py` | Independent prospective numerical validation |
 | Open-system QuTiP stress audit | `Open-system ordering-survival stress audit` workflow or `tools/verify_open_system_ordering_survival_v1_0.py` | Empirical model-discrepancy stress test |
+| Prospective dissipative-susceptibility reveal | `Dissipative susceptibility reveal` workflow or `tools/verify_dissipative_susceptibility_reveal_summary.py` | Frozen prospective QuTiP Lindblad validation |
 | PASQAL QPU test | Not available in this repository | No hardware claim |
 
 The JSON validators check committed reports. They are not the same as rerunning
@@ -128,6 +129,22 @@ The manual workflow reruns 2088 propagations across 29 declared decay/dephasing
 stress conditions and uploads the full machine report:
 [`Open-system ordering-survival stress audit`](https://github.com/papasop/quantum-control-geometry/actions/workflows/open_system_ordering_survival.yml).
 
+Dissipative-susceptibility reveal summary:
+
+```bash
+python tools/verify_dissipative_susceptibility_reveal_summary.py
+```
+
+The committed compact summary records the successful manual v1.1.2
+prospective reveal: 1715/1716 held-out pair-condition directions, pooled
+Harrell C-index 1.000, and 19/20 eligible first-flip scales within a factor
+of two. The full machine report is a workflow artifact, not a tracked proof
+object. Status and provenance are recorded in
+`docs/dissipative_susceptibility_reveal_status.md`.
+
+Manual workflow:
+[`Dissipative susceptibility reveal`](https://github.com/papasop/quantum-control-geometry/actions/workflows/dissipative_susceptibility_reveal.yml).
+
 For all manual workflows, use **Actions -> Run workflow -> main -> Run workflow**.
 
 Recommended reviewer route:
@@ -146,6 +163,10 @@ Recommended reviewer route:
    run `tools/verify_open_system_ordering_survival_v1_0.py` for committed
    summary integrity, then run the manual 2088-propagation workflow if the
    empirical stress layer is under review.
+5. Prospective dissipative-susceptibility reveal:
+   run `tools/verify_dissipative_susceptibility_reveal_summary.py` for the
+   committed compact summary and inspect the manual reveal workflow artifact
+   only if the v1.1.2 holdout layer is under review.
 
 ## Where to look
 
@@ -161,7 +182,14 @@ Recommended reviewer route:
 - `results/external/pasqal_blind_response_fibre_v1_0_summary.json`: committed
   120-propagation blind prospective summary.
 - `results/external/open_system/`: committed open-system protocol and
-  scientific summary for the 2088-propagation stress audit.
+  scientific summary for the 2088-propagation stress audit, plus the compact
+  v1.1.2 dissipative-susceptibility reveal summary.
+- `docs/dissipative_susceptibility_reveal_status.md`: technical-abort history,
+  successful reveal provenance, and claim boundary for v1.1.2.
+- `tools/verify_dissipative_susceptibility_reveal_summary.py`: compact summary
+  verifier for the v1.1.2 reveal.
+- `tests/test_dissipative_susceptibility_reveal_summary.py`: dependency-light
+  regression test for the reveal summary.
 - `docs/pulser_translation_scope.md`: translation robustness scope.
 - `docs/blind_pulser_response_fibre_scope.md`: blind prospective validation
   scope.
@@ -173,6 +201,8 @@ Recommended reviewer route:
   blind workflow.
 - `.github/workflows/open_system_ordering_survival.yml`: manual
   2088-propagation open-system stress workflow.
+- `.github/workflows/dissipative_susceptibility_reveal.yml`: manual v1.1.2
+  holdout reveal workflow.
 - `results/reproducibility_summary.json`: two-run identity record.
 - `docs/claim_scope.md`: exact claim boundary.
 - `tools/verify_reference_results.py`: fast artifact verifier.

@@ -252,6 +252,41 @@ def verify() -> list[str]:
     )
     messages.append("Two-run deterministic certificate identity: PASS")
 
+    reveal = load_json(
+        "results/external/open_system/"
+        "dissipative_susceptibility_reveal_v1_1_2_summary.json"
+    )
+    assert reveal["schema"] == "dissipative_susceptibility_reveal_summary"
+    assert reveal["schema_version"] == "1.1.2"
+    assert reveal["scientific_status"] == (
+        "PROSPECTIVE_DISSIPATIVE_SUSCEPTIBILITY_SUPPORTED"
+    )
+    assert reveal["workflow_run"]["conclusion"] == "success"
+    assert reveal["protocol"]["canonical_sha256"] == (
+        "0c220213ba9485fd06268c56b726848c33b684da10c9d715c96690e9e7ae8476"
+    )
+    assert int(reveal["protocol"]["holdout_conditions"]) == 26
+    assert int(reveal["protocol"]["pair_condition_denominator"]) == 1716
+    assert int(reveal["execution"]["propagations"]) == 2232
+    assert bool(reveal["execution"]["all_values_finite"])
+    reveal_results = reveal["results"]
+    assert reveal_results["lambda_zero_preserved_pairs"] == "66/66"
+    assert int(reveal_results["classification"]["correct"]) == 1715
+    assert int(reveal_results["classification"]["denominator"]) == 1716
+    assert bool(reveal_results["classification"]["passed"])
+    assert int(reveal_results["pooled_harrell_c_index"]["comparable_count"]) == 1217
+    assert float(reveal_results["pooled_harrell_c_index"]["value"]) == 1.0
+    assert bool(reveal_results["pooled_harrell_c_index"]["passed"])
+    assert int(reveal_results["pooled_factor_of_two"]["success_count"]) == 19
+    assert int(reveal_results["pooled_factor_of_two"]["eligible_count"]) == 20
+    assert bool(reveal_results["pooled_factor_of_two"]["passed"])
+    assert bool(reveal_results["all_gates_pass"])
+    assert reveal_results["failures"] == []
+    assert reveal["full_report"]["sha256"] == (
+        "73ca097b726e152035f20097c4e98acff01de26772abeb22370fd4bba863a65b"
+    )
+    messages.append("Dissipative-susceptibility reveal summary gates: PASS")
+
     return messages
 
 
