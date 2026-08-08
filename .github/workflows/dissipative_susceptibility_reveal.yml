@@ -28,6 +28,7 @@ jobs:
 
       - name: Run manual v1.1.2 holdout reveal
         run: |
+          set -o pipefail
           python tests/external/run_dissipative_susceptibility_reveal_v1_1_2.py \
             --output /tmp/dissipative_susceptibility_reveal_v1_1_2_report.json \
             2>&1 | tee /tmp/dissipative_susceptibility_reveal_v1_1_2.log
@@ -35,7 +36,9 @@ jobs:
       - name: Verify reveal report structure
         if: always()
         run: |
-          python tools/verify_dissipative_susceptibility_reveal.py \
+          set -o pipefail
+          test -s /tmp/dissipative_susceptibility_reveal_v1_1_2_report.json
+          python -m tools.verify_dissipative_susceptibility_reveal \
             --report /tmp/dissipative_susceptibility_reveal_v1_1_2_report.json \
             2>&1 | tee /tmp/dissipative_susceptibility_reveal_v1_1_2_verify.log
 
