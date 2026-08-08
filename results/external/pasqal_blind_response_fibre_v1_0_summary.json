@@ -1,0 +1,45 @@
+{
+  "audit": "PASQAL_BLIND_RESPONSE_FIBRE_PROSPECTIVE_TEST",
+  "version": "1.0",
+  "source": "full Colab execution reported on 2026-08-08",
+  "source_protocol_sha256": "2bf2d193f9839a7f204984705d3ccef9ddead2bf3cf906e56b52138b402dd71c",
+  "prediction_freeze_sha256": "535f3ed5821997059f5568bab76e824aad12183414199ded755a40a2fa08dad1",
+  "source_outcomes_unlocked": false,
+  "environment": {
+    "pulser": "1.9.0",
+    "pulser_simulation": "1.9.0"
+  },
+  "scope": "Local Pulser two-atom model blind prospective test; not Arb proof, PASQAL Cloud, or QPU evidence.",
+  "predicted_order_best_to_worst": [
+    "pv15", "pv03", "pv08", "pv02", "pv07", "pv06", "pv13",
+    "pv19", "pv09", "pv10", "pv16", "pv17", "pv01", "pv14",
+    "pv18", "pv04", "pv11", "pv05", "pv12", "pv20"
+  ],
+  "observed_order_best_to_worst": [
+    "pv15", "pv03", "pv08", "pv02", "pv07", "pv06", "pv13",
+    "pv19", "pv09", "pv10", "pv16", "pv17", "pv01", "pv14",
+    "pv04", "pv18", "pv11", "pv05", "pv12", "pv20"
+  ],
+  "metrics": {
+    "paths": 20,
+    "error_points_per_path": 6,
+    "propagations": 120,
+    "reference_return_infidelity": 4.031762377621e-06,
+    "spearman_prediction_vs_pulser": 0.998496,
+    "one_sided_permutation_p": 4.99975e-05,
+    "phase_total_variation_baseline_spearman": -0.263158,
+    "best_vs_worst_mean_loss_advantage": 0.01131757,
+    "best_vs_worst_bootstrap_ci95": [0.007947237, 0.01522103]
+  },
+  "gates": {
+    "full_120_propagations": true,
+    "all_finite": true,
+    "spearman_at_least_0_80": true,
+    "permutation_p_below_0_05": true,
+    "best_vs_worst_ci_above_zero": true,
+    "beats_phase_variation_baseline": true
+  },
+  "scientific_status": "BLIND_PULSER_RESPONSE_FIBRE_PREDICTION_SUPPORTED",
+  "full_machine_report_note": "The executable writes the complete 120-cell machine report. Commit that generated report after rerunning in the locked environment; this summary does not replace it."
+}
+
