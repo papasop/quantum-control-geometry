@@ -1,0 +1,83 @@
+{
+  "schema": "pulser_translation_report",
+  "schema_version": 1,
+  "layer": "external_numeric_translation_validation",
+  "toolchain": {
+    "pulser": "1.9.0",
+    "python": "3.11",
+    "backend": "pulser_simulation_numeric"
+  },
+  "source_model": {
+    "formal_certificate_layer": "Arb/Krawczyk exact-root certificate",
+    "frozen_certificate_tags": [
+      "v0.3.1",
+      "v0.3.2"
+    ],
+    "declared_path_count": 12,
+    "declared_error_point_count": 6,
+    "declared_pair_count": 66
+  },
+  "scope": {
+    "purpose": "Numerical translation and ordering-robustness cross-check under Pulser 1.9 quantized-distance semantics.",
+    "is_formal_certificate": false,
+    "is_hardware_execution": false,
+    "is_cloud_execution": false,
+    "changes_frozen_certificate": false
+  },
+  "metrics": {
+    "finite_numeric_values": 72,
+    "expected_numeric_values": 72,
+    "complete_ordering_identical": true,
+    "path_ordering_matches": 12,
+    "path_ordering_expected": 12,
+    "certified_pair_directions": 66,
+    "certified_pair_expected": 66,
+    "means_inside_original_arb_intervals": 0,
+    "means_inside_original_arb_expected": 12,
+    "exact_translation_pass": false,
+    "ordering_robustness_pass": true
+  },
+  "path_order": [
+    "pv07",
+    "pv01",
+    "pv10",
+    "pv05",
+    "pv04",
+    "pv02",
+    "pv08",
+    "pv11",
+    "pv09",
+    "pv03",
+    "pv12",
+    "pv06"
+  ],
+  "path_results": [
+    {"path": "pv01", "finite_values": 6, "mean_inside_original_arb_interval": false},
+    {"path": "pv02", "finite_values": 6, "mean_inside_original_arb_interval": false},
+    {"path": "pv03", "finite_values": 6, "mean_inside_original_arb_interval": false},
+    {"path": "pv04", "finite_values": 6, "mean_inside_original_arb_interval": false},
+    {"path": "pv05", "finite_values": 6, "mean_inside_original_arb_interval": false},
+    {"path": "pv06", "finite_values": 6, "mean_inside_original_arb_interval": false},
+    {"path": "pv07", "finite_values": 6, "mean_inside_original_arb_interval": false},
+    {"path": "pv08", "finite_values": 6, "mean_inside_original_arb_interval": false},
+    {"path": "pv09", "finite_values": 6, "mean_inside_original_arb_interval": false},
+    {"path": "pv10", "finite_values": 6, "mean_inside_original_arb_interval": false},
+    {"path": "pv11", "finite_values": 6, "mean_inside_original_arb_interval": false},
+    {"path": "pv12", "finite_values": 6, "mean_inside_original_arb_interval": false}
+  ],
+  "gates": {
+    "finite_numeric_values_72_of_72": true,
+    "complete_ordering_identical": true,
+    "certified_pair_directions_66_of_66": true,
+    "original_arb_interval_membership_0_of_12": true,
+    "exact_translation_pass": false,
+    "ordering_robustness_pass": true
+  },
+  "scientific_status": "ORDERING_ROBUST_UNDER_PULSER_QUANTIZATION",
+  "non_claims": [
+    "This report is not a formal Arb interval certificate.",
+    "This report is not a PASQAL Cloud execution result.",
+    "This report is not a QPU execution result.",
+    "This report does not change the frozen exact-root boxes or the 66/66 Arb ordering certificate."
+  ]
+}
