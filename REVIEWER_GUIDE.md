@@ -33,11 +33,13 @@ The prospective result is not a premise of the theorem.
 | Strict Arb proof | `tools/verify_reference_results.py`; full v1.3 standalone reproduction | Model-conditional interval certificate |
 | Pulser translation robustness | `Pulser translation diagnostic` workflow or `tests/external/recompute_pulser_translation.py` | Independent numerical translation cross-check |
 | Blind prospective Pulser validation | `Blind Pulser response-fibre prospective test` workflow or `tests/external/pasqal_blind_response_fibre_v1_0.py` | Independent prospective numerical validation |
+| Open-system QuTiP stress audit | `Open-system ordering-survival stress audit` workflow or `tools/verify_open_system_ordering_survival_v1_0.py` | Empirical model-discrepancy stress test |
 | PASQAL QPU test | Not available in this repository | No hardware claim |
 
 The JSON validators check committed reports. They are not the same as rerunning
 the Pulser propagation workflows. Pulser is not Arb. Pulser is not PASQAL Cloud
-or a physical QPU.
+or a physical QPU. The open-system stress audit is not an interval proof,
+Pulser run, PASQAL Cloud run, or QPU result.
 
 ## Three-minute verification
 
@@ -116,7 +118,17 @@ python tools/verify_blind_pulser_summary.py
 Manual workflow:
 [`Blind Pulser response-fibre prospective test`](https://github.com/papasop/quantum-control-geometry/actions/workflows/blind_pulser_response_fibre.yml).
 
-For both workflows, use **Actions -> Run workflow -> main -> Run workflow**.
+Open-system ordering-survival stress audit:
+
+```bash
+python tools/verify_open_system_ordering_survival_v1_0.py
+```
+
+The manual workflow reruns 2088 propagations across 29 declared decay/dephasing
+stress conditions and uploads the full machine report:
+[`Open-system ordering-survival stress audit`](https://github.com/papasop/quantum-control-geometry/actions/workflows/open_system_ordering_survival.yml).
+
+For all manual workflows, use **Actions -> Run workflow -> main -> Run workflow**.
 
 Recommended reviewer route:
 
@@ -130,6 +142,10 @@ Recommended reviewer route:
 3. External Pulser validation:
    run the 72-propagation translation workflow and the 120-propagation blind
    workflow.
+4. Open-system stress audit:
+   run `tools/verify_open_system_ordering_survival_v1_0.py` for committed
+   summary integrity, then run the manual 2088-propagation workflow if the
+   empirical stress layer is under review.
 
 ## Where to look
 
@@ -144,13 +160,19 @@ Recommended reviewer route:
   translation summary.
 - `results/external/pasqal_blind_response_fibre_v1_0_summary.json`: committed
   120-propagation blind prospective summary.
+- `results/external/open_system/`: committed open-system protocol and
+  scientific summary for the 2088-propagation stress audit.
 - `docs/pulser_translation_scope.md`: translation robustness scope.
 - `docs/blind_pulser_response_fibre_scope.md`: blind prospective validation
+  scope.
+- `docs/open_system_ordering_survival_scope.md`: open-system stress-audit
   scope.
 - `.github/workflows/pulser_translation_diagnostic.yml`: manual 72-propagation
   Pulser workflow.
 - `.github/workflows/blind_pulser_response_fibre.yml`: manual 120-propagation
   blind workflow.
+- `.github/workflows/open_system_ordering_survival.yml`: manual
+  2088-propagation open-system stress workflow.
 - `results/reproducibility_summary.json`: two-run identity record.
 - `docs/claim_scope.md`: exact claim boundary.
 - `tools/verify_reference_results.py`: fast artifact verifier.

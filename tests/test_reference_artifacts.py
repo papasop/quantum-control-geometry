@@ -93,15 +93,21 @@ class ReferenceArtifactTests(unittest.TestCase):
         expected = (
             "docs/pulser_translation_scope.md",
             "docs/blind_pulser_response_fibre_scope.md",
+            "docs/open_system_ordering_survival_scope.md",
             "results/external/pulser_translation_report.json",
             "results/external/pasqal_blind_response_fibre_v1_0_summary.json",
+            "results/external/open_system/pasqal_open_system_ordering_survival_v1_0_protocol.json",
+            "results/external/open_system/pasqal_open_system_ordering_survival_v1_0_summary.json",
             "tests/external/recompute_pulser_translation.py",
             "tests/external/pasqal_blind_response_fibre_v1_0.py",
+            "tests/external/pasqal_open_system_ordering_survival_v1_0.py",
             "tools/validate_pulser_translation_report.py",
             "tools/compare_pulser_translation_reports.py",
             "tools/verify_blind_pulser_summary.py",
+            "tools/verify_open_system_ordering_survival_v1_0.py",
             ".github/workflows/pulser_translation_diagnostic.yml",
             ".github/workflows/blind_pulser_response_fibre.yml",
+            ".github/workflows/open_system_ordering_survival.yml",
         )
         for relative in expected:
             self.assertTrue((ROOT / relative).is_file(), relative)
@@ -140,10 +146,53 @@ class ReferenceArtifactTests(unittest.TestCase):
         self.assertIn("Pulser is not Arb", guide)
         self.assertIn("Pulser is not PASQAL Cloud", guide)
 
+    def test_open_system_navigation_values_match_frozen_summary(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        guide = (ROOT / "REVIEWER_GUIDE.md").read_text(encoding="utf-8")
+        scope = (ROOT / "docs/open_system_ordering_survival_scope.md").read_text(
+            encoding="utf-8"
+        )
+        summary = json.loads(
+            (
+                ROOT
+                / "results/external/open_system/"
+                / "pasqal_open_system_ordering_survival_v1_0_summary.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        normalized_readme = " ".join(readme.split())
+        normalized_scope = " ".join(scope.split())
+        coverage = summary["coverage"]
+        self.assertEqual(coverage["planned_propagations"], 2088)
+        self.assertEqual(coverage["completed_propagations"], 2088)
+        self.assertTrue(coverage["all_finite"])
+        self.assertEqual(summary["unitary_reconstruction"]["pair_directions_preserved"], 66)
+        self.assertEqual(summary["pairs"]["never_flipped_on_declared_grid"], 55)
+        self.assertEqual(summary["minimum_margin_pair"], "pv08>pv11")
+        self.assertEqual(summary["scientific_status"], "OPEN_SYSTEM_STRESS_AUDIT_COMPLETE")
+
+        self.assertIn("2088 propagations", normalized_readme)
+        self.assertIn("55/66 path pairs never flip", normalized_readme)
+        self.assertIn(
+            "scientific_status = OPEN_SYSTEM_STRESS_AUDIT_COMPLETE",
+            normalized_readme,
+        )
+        self.assertIn("not an interval proof", normalized_readme)
+        self.assertIn("not a Pulser execution", normalized_readme)
+        self.assertIn("not a PASQAL Cloud run", normalized_readme)
+        self.assertIn("not a physical QPU", normalized_readme)
+        self.assertIn("2088-propagation open-system stress workflow", guide)
+        self.assertIn(summary["protocol_sha256"], scope)
+        self.assertIn(
+            "not independently hash-frozen before outcome reveal",
+            normalized_scope,
+        )
+
     def test_pulser_workflows_use_current_artifact_action(self) -> None:
         for relative in (
             ".github/workflows/pulser_translation_diagnostic.yml",
             ".github/workflows/blind_pulser_response_fibre.yml",
+            ".github/workflows/open_system_ordering_survival.yml",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
             self.assertIn("actions/upload-artifact@v7", text)
@@ -156,6 +205,7 @@ class ReferenceArtifactTests(unittest.TestCase):
             "REVIEWER_GUIDE.md",
             "docs/pulser_translation_scope.md",
             "docs/blind_pulser_response_fibre_scope.md",
+            "docs/open_system_ordering_survival_scope.md",
         ):
             text = (ROOT / relative).read_text(encoding="utf-8")
             self.assertNotIn("PASQAL hardware validated", text)
