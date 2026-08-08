@@ -1,0 +1,49 @@
+name: Pulser translation diagnostic
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pulser-translation-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Pulser diagnostic dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-pulser.txt
+
+      - name: Recompute Pulser external ordering-robustness report
+        run: |
+          export MPLCONFIGDIR=/tmp/matplotlib
+          mkdir -p /tmp/matplotlib
+          python tests/external/recompute_pulser_translation.py \
+            --output /tmp/pulser_recomputed_report.json \
+            2>&1 | tee /tmp/pulser_recompute.log
+
+      - name: Validate recomputed Pulser report
+        run: |
+          python tools/validate_pulser_translation_report.py \
+            --report /tmp/pulser_recomputed_report.json
+
+      - name: Compare recomputed Pulser report to committed report
+        run: |
+          python tools/compare_pulser_translation_reports.py \
+            --reference results/external/pulser_translation_report.json \
+            --candidate /tmp/pulser_recomputed_report.json
+
+      - name: Upload Pulser recomputation artifacts
+        uses: actions/upload-artifact@v5
+        with:
+          name: pulser-recomputed-report
+          path: |
+            /tmp/pulser_recomputed_report.json
+            /tmp/pulser_recompute.log

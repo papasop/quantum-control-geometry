@@ -191,6 +191,49 @@ finite-error means and complete ordering. The P1 check also has a manual and
 weekly GitHub Actions workflow, `Audit closure (independent) -- P1
 high-precision reconstruction`.
 
+## External Pulser Translation Validation
+
+The formal Arb/Krawczyk layer remains the frozen-model strict mathematical
+certificate. Pulser is used only as an external numerical translation and
+ordering-robustness cross-check, not as a replacement proof. PASQAL QPU
+execution is not tested in this repository.
+
+The committed Pulser 1.9 report records:
+
+- 72/72 numerical values are finite.
+- The complete twelve-path ordering is identical to the frozen ordering.
+- Certified pair directions agree for 66/66 unordered path pairs.
+- 0/12 Pulser means lie inside the original Arb intervals.
+- `exact_translation_pass = false`.
+- `ordering_robustness_pass = true`.
+
+Run the diagnostic locally with:
+
+```bash
+python -m pip install -r requirements-pulser.txt
+python tools/validate_pulser_translation_report.py
+```
+
+This command validates the integrity and stated gates of the committed report.
+To actually rerun the Pulser 1.9 propagation layer, use:
+
+```bash
+python tests/external/recompute_pulser_translation.py \
+  --output /tmp/pulser_recomputed_report.json
+python tools/validate_pulser_translation_report.py \
+  --report /tmp/pulser_recomputed_report.json
+python tools/compare_pulser_translation_reports.py \
+  --reference results/external/pulser_translation_report.json \
+  --candidate /tmp/pulser_recomputed_report.json
+```
+
+The manual GitHub Actions workflow `Pulser translation diagnostic` runs that
+full recomputation, validates the recomputed report, compares every Pulser
+loss and path mean to the committed report, and uploads the recomputed report
+and run log. See
+[`docs/pulser_translation_scope.md`](docs/pulser_translation_scope.md) and
+[`results/external/pulser_translation_report.json`](results/external/pulser_translation_report.json).
+
 ## External Clean-Environment Reproduction
 
 No PASQAL account is required. The external runner checks out the frozen
@@ -258,6 +301,7 @@ results/
   exact_fibre_krawczyk/    frozen cohort, protocol, Krawczyk certificate, report
   exact_root_ordering/     protocol, direct exact-root ordering certificate, report
   audit_closure/           v0.3.2 production-preconditioner regularity certificate
+  external/                Pulser numerical translation cross-check report
   reproducibility_summary.json
 
 tools/
@@ -265,12 +309,14 @@ tools/
 
 tests/
   audit_closure/           P0, P1, P2, and mutation-tested audit supplement
+  external/                Pulser translation diagnostic entry point
   test_manuscript_consistency.py
   test_reference_artifacts.py
 
 .github/workflows/
   audit_closure_fast.yml         P0 + P2 + mutation tests on push/PR
   audit_closure_independent.yml  P1 manual/weekly independent reconstruction
+  pulser_translation_diagnostic.yml  Pulser recomputation and report comparison
 ```
 
 `SHA256SUMS.txt` records byte hashes for the repository snapshot. The
