@@ -4,7 +4,11 @@ from __future__ import annotations
 
 import importlib.util
 import copy
+import re
+import shutil
+import subprocess
 import unittest
+import zlib
 from pathlib import Path
 
 
@@ -39,7 +43,35 @@ REQUIRED_BOUNDARY_FRAGMENTS = (
     "pre-outcome ordering frozen for the independent twelve-path",
     "global fibre structure remains open",
 )
-LEGACY_G4_MANUSCRIPT_SAMPLE = "0.996992"
+FORBIDDEN_G4_EXACT_SAMPLE = "0.996992"
+
+
+def extract_pdf_text_forbidden_scan(path: Path) -> str:
+    pdftotext = shutil.which("pdftotext")
+    if pdftotext is not None:
+        result = subprocess.run(
+            [pdftotext, str(path), "-"],
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        return result.stdout
+
+    # Dependency-light fallback for CI jobs without poppler: inspect raw
+    # and FlateDecode streams for ASCII text fragments such as stale numbers.
+    data = path.read_bytes()
+    chunks = [data]
+    for match in re.finditer(rb"stream\r?\n(.*?)\r?\nendstream", data, re.S):
+        stream = match.group(1)
+        chunks.append(stream)
+        try:
+            chunks.append(zlib.decompress(stream))
+        except zlib.error:
+            pass
+    return "\n".join(
+        chunk.decode("latin-1", errors="ignore") for chunk in chunks
+    )
 
 
 class ManuscriptConsistencyTests(unittest.TestCase):
@@ -48,11 +80,12 @@ class ManuscriptConsistencyTests(unittest.TestCase):
         manuscript = "\n".join(
             path.read_text(encoding="utf-8") for path in MANUSCRIPT_PARTS
         )
+        cls.manuscript_source = manuscript
         cls.manuscript = " ".join(manuscript.split())
-        cls.g4 = VERIFY.load_json("results/g4_prospective/report.json")
-        cls.g4_provenance = VERIFY.load_json(
-            "results/g4_prospective/provenance.json"
+        cls.manuscript_pdf_text = extract_pdf_text_forbidden_scan(
+            ROOT / "paper" / "manuscript.pdf"
         )
+        cls.g4 = VERIFY.load_json("results/g4_prospective/report.json")
         cls.formal = VERIFY.load_json("results/l4_formal/report.json")
         cls.krawczyk = VERIFY.load_json("results/exact_fibre_krawczyk/report.json")
         cls.exact_root = VERIFY.load_json("results/exact_root_ordering/report.json")
@@ -84,18 +117,6 @@ class ManuscriptConsistencyTests(unittest.TestCase):
         for fragment in threshold_fragments:
             with self.subTest(g4_threshold_fragment=fragment):
                 self.assertIn(fragment, self.manuscript)
-
-        if LEGACY_G4_MANUSCRIPT_SAMPLE in self.manuscript:
-            self.assertEqual(
-                self.g4_provenance["legacy_manuscript_sample_status"],
-                "legacy manuscript sample pending paper correction",
-            )
-            original = self.g4_provenance["original_colab_sample"]
-            self.assertEqual(
-                float(original["mean_spearman"]),
-                float(LEGACY_G4_MANUSCRIPT_SAMPLE),
-            )
-            self.assertFalse(original["cross_platform_reproducible"])
 
     def test_manuscript_contains_artifact_values(self) -> None:
         quartic_pairs = int(VERIFY.field(self.formal, "G4_certified_pairs"))
@@ -170,6 +191,7 @@ class ManuscriptConsistencyTests(unittest.TestCase):
 
     def test_manuscript_rejects_stale_values(self) -> None:
         stale_fragments = (
+            FORBIDDEN_G4_EXACT_SAMPLE,
             "0.998496",
             "35/66",
             "53.03\\%",
@@ -182,6 +204,12 @@ class ManuscriptConsistencyTests(unittest.TestCase):
         for fragment in stale_fragments:
             with self.subTest(fragment=fragment):
                 self.assertNotIn(fragment, self.manuscript)
+
+    def test_pdf_rejects_legacy_g4_exact_sample(self) -> None:
+        self.assertNotIn(
+            FORBIDDEN_G4_EXACT_SAMPLE,
+            self.manuscript_pdf_text,
+        )
 
     def test_main_tex_is_canonical_entry_point(self) -> None:
         self.assertTrue(MANUSCRIPT_ROOT.is_file())
