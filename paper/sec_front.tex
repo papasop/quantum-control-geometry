@@ -13,7 +13,7 @@ finite-error functional produces twelve pairwise disjoint performance intervals.
 order agrees with a ranking frozen before direct propagation, thereby certifying all 66
 unordered path comparisons.
 
-Two mechanism certificates, computed independently of the direct theorem, partially
+Two separate mechanism certificates, not used in the direct theorem, partially
 recover this ordering without direct finite-error propagation. An order-thirty zero-error
 Taylor jet, equipped with Cauchy-alias and Dyson-tail enclosures, certifies 52/66
 comparisons with no certified reversal; its quartic term alone certifies 34/66. On a
@@ -237,18 +237,18 @@ J_{\gamma,a}=P_{\gamma,\perp}\,
 Since $\psi_{\gamma}(0)$ and $\psi_{\mathrm{ref}}$ agree only up to a global phase, align
 them before comparison by the common phase factor
 \begin{equation}\label{eq:phasealign}
-c_{\gamma}=\frac{\braket{\psi_{\mathrm{ref}}}{\psi_{\gamma}(0)}}
-{\lvert\braket{\psi_{\mathrm{ref}}}{\psi_{\gamma}(0)}\rvert}\in U(1),
+c_{\gamma}=\frac{\braket{\psi_{\gamma}(0)}{\psi_{\mathrm{ref}}}}
+{\lvert\braket{\psi_{\gamma}(0)}{\psi_{\mathrm{ref}}}\rvert}\in U(1),
 \qquad \widetilde{J}_{\gamma,a}=c_{\gamma}J_{\gamma,a},
 \end{equation}
 and compare the phase-aligned response $\widetilde{J}_{\gamma,a}$ with
 $J_{\mathrm{ref},a}$.
 
 \begin{definition}[Numerically matched implementation fibre]\label{def:fibre}
-For a declared tolerance $\eta_{F}$, the numerical matched fibre $\Ff_{\eta}$ consists of
+For a declared tolerance $\eta$, the numerical matched fibre $\Ff_{\eta}$ consists of
 controls $\gamma$ satisfying
 \begin{equation}\label{eq:fibre}
-\II_{\gamma}(0)\le\eta,\qquad
+\Iref_{\gamma}(0)\le\eta,\qquad
 \lVert \widetilde{J}_{\gamma,a}-J_{\mathrm{ref},a}\rVert\le\eta,
 \quad a\in\{\Omega,\Delta,V\},
 \end{equation}

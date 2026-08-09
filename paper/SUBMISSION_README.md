@@ -40,7 +40,7 @@ booktabs, enumitem, microtype, hyperref (any recent TeX Live).
 
 Current bundled PDF record:
   Output    : manuscript.pdf, 20 pages
-  SHA-256   : bf1b8954ea3cef600750bfefcc3b88f2a7fe9ab46095df5cbb97edb32cdd41b6
+  SHA-256   : b26aba45169c1ebe6a167c864a52774eaa5e185a71a34afa40360bf663a086e5
 Note: The bundled manuscript.pdf is the reviewer-facing PDF synchronized with
 the current main branch and CI manuscript build. Other TeX engines may produce
 typographically equivalent output with a different byte hash; page breaks may
