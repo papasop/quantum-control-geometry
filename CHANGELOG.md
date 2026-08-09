@@ -1,5 +1,26 @@
 # Changelog
 
+## [v0.4.2] -- manuscript G4 qualification and release hygiene
+
+Version v0.4.2 is a manuscript and CI hygiene release. It does not change the
+frozen physical model, exact-root boxes, Arb/Krawczyk proof engines, result
+artifacts, audit-closure artifacts, or certified 12/12 and 66/66 conclusions.
+
+- Qualified the prospective $G_4$ manuscript result across numerical
+  architectures: the stable claim is the predeclared
+  $\rho_{\mathrm{Spearman}}\ge0.95$ threshold, while exact correlations and
+  named top paths are platform-dependent diagnostics.
+- Removed the legacy platform-specific value 0.996992 from the manuscript
+  source and PDF; it remains only as provenance metadata in
+  `results/g4_prospective/provenance.json`.
+- Replaced the two-panel Figure 2 with the exact-root interval panel
+  `paper/fig2_exact_root.png`.
+- Clarified that byte-identical reproducibility applies to the formal
+  Arb/Krawczyk proof artifacts, not to ordinary float64 prospective
+  cohort-generation diagnostics.
+- Updated Artifact checks so the manuscript gate forbids 0.996992, checks the
+  threshold-level G4 wording, and can be run manually with `workflow_dispatch`.
+
 ## [v0.3.2] -- audit closure
 
 Version v0.3.2 does not change the frozen physical model, exact-root boxes, or
@@ -39,8 +60,9 @@ mutation-tested analytic unit tests for the Krawczyk operator.
   reference-to-path overlap.
 - Synchronized the manuscript PDF, README, citation metadata, CI text gates,
   and manuscript-artifact consistency tests.
-- Corrected manuscript quartic-only coverage to 34/66 (51.52%) and the
-  prospective $G_4$ Spearman value to 0.996992.
+- Corrected manuscript quartic-only coverage to 34/66 (51.52%); later
+  release hygiene qualifies the prospective $G_4$ result at threshold level
+  rather than as a cross-platform exact Spearman value.
 - Tightened manuscript boundary wording for declared global error coordinates,
   exact-root interval ordering, pre-outcome formal-cohort ordering freeze, and
   the minimal two-atom interacting setting claim.
