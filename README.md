@@ -13,8 +13,8 @@ boundary.
 |---|---|---|
 | Arb/Krawczyk certificate | 12/12 locally unique roots and 66/66 finite-error pair orderings | Rigorous model-conditional proof |
 | Pulser translation diagnostic | 12 paths x 6 errors; complete order and 66/66 pair directions preserved | Independent numerical translation cross-check |
-| Blind Pulser prospective test | 20 paths x 6 errors; preregistered ranking supported | Independent prospective numerical validation |
-| Open-system QuTiP stress audit | 12 paths x 6 errors over 29 decay/dephasing stress conditions | Empirical model-discrepancy stress test |
+| Blind Pulser prospective test | 20 paths x 6 errors; preregistered ranking supported | Prospective numerical validation through an independent code path |
+| Open-system QuTiP stress audit | 12 paths x 6 errors over 29 decay/dephasing stress conditions | Empirical open-system sensitivity stress test within a declared Lindblad extension |
 | Prospective dissipative-susceptibility reveal | 1715/1716 directions, C-index 1.000, factor-two 19/20 | Frozen prospective QuTiP Lindblad validation |
 | PASQAL Cloud/QPU | Not executed | No hardware claim |
 
@@ -94,7 +94,9 @@ The v0.3.2 P0 audit additionally verifies
 \rho=\left\|I-RY\right\|_\infty<1,
 ```
 which rigorously certifies regularity of the production preconditioner
-$Y$, with $R$ its independently computed approximate inverse.
+$Y$, where $R$ is a frozen binary64 approximate inverse reconstructed
+exactly from hexadecimal data and independently verified using 256-bit
+outward-rounded Arb arithmetic.
 
 For two certified paths $i$ and $j$, let $I_i$ and $I_j$ be the
 direct outward-rounded Arb intervals of the declared finite-error mean.
@@ -316,10 +318,11 @@ The open-system QuTiP stress audit records:
   grid.
 - `scientific_status = OPEN_SYSTEM_STRESS_AUDIT_COMPLETE`.
 
-This is an empirical model-discrepancy stress test. It is not an interval
-proof, not a Pulser execution, not a PASQAL Cloud run, and not a physical QPU
-result. The original run was not independently hash-frozen before outcome
-reveal, and the differential-susceptibility follow-up is post-hoc exploratory.
+This is an empirical open-system sensitivity stress test within a declared
+Lindblad extension. It is not an interval proof, not a Pulser execution, not
+a PASQAL Cloud run, and not a physical QPU result. The original run was not
+independently hash-frozen before outcome reveal, and the
+differential-susceptibility follow-up is post-hoc exploratory.
 
 Validate the committed protocol and summary locally with:
 
