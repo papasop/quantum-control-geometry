@@ -19,21 +19,22 @@ from pathlib import Path
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-STANDALONE_CERTIFICATE = (
-    SCRIPT_DIR.parent / "data" / "exact_root_ordering_certificate.json"
+PACKAGE_ROOT = SCRIPT_DIR.parent          # paper/ in the repo, ZIP root in the standalone package
+REPO_ROOT = SCRIPT_DIR.parents[1]         # repo root when run from paper/scripts/
+# Prefer the certificate bundled next to the standalone submission package
+# (paper/data/ or ZIP-root/data/); fall back to the frozen results/ tree in the
+# full repository. An explicit --certificate always overrides this default.
+STANDALONE_CERTIFICATE = PACKAGE_ROOT / "data" / "exact_root_ordering_certificate.json"
+REPO_CERTIFICATE = (
+    REPO_ROOT
+    / "results"
+    / "exact_root_ordering"
+    / "exact_root_ordering_certificate.json"
 )
-if STANDALONE_CERTIFICATE.exists():
-    DEFAULT_CERTIFICATE = STANDALONE_CERTIFICATE
-    DEFAULT_OUTPUT = SCRIPT_DIR.parent / "fig2_exact_root.png"
-else:
-    REPO_ROOT = SCRIPT_DIR.parent.parent
-    DEFAULT_CERTIFICATE = (
-        REPO_ROOT
-        / "results"
-        / "exact_root_ordering"
-        / "exact_root_ordering_certificate.json"
-    )
-    DEFAULT_OUTPUT = REPO_ROOT / "paper" / "fig2_exact_root.png"
+DEFAULT_CERTIFICATE = (
+    STANDALONE_CERTIFICATE if STANDALONE_CERTIFICATE.exists() else REPO_CERTIFICATE
+)
+DEFAULT_OUTPUT = PACKAGE_ROOT / "fig2_exact_root.png"
 EXPECTED_ORDER = [
     "pv07",
     "pv01",
@@ -167,7 +168,6 @@ def plot_figure(data: dict[str, object], output_path: Path = DEFAULT_OUTPUT) -> 
 
     intervals = data["intervals"]
     assert isinstance(intervals, list)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
     display_gap = str(data["display_gap"])
     min_pair = tuple(data["minimum_gap_pair"])
     mantissa, exponent = display_gap.split("e")
@@ -214,14 +214,57 @@ def plot_figure(data: dict[str, object], output_path: Path = DEFAULT_OUTPUT) -> 
     x1 = float(right_item.lower)
     y0 = intervals.index(left_item)
     y1 = intervals.index(right_item)
-    ax.annotate(
-        rf"$\Delta_{{\min}}={math_gap}$",
-        xy=((x0 + x1) / 2.0, (y0 + y1) / 2.0),
-        xytext=(0.1110, (y0 + y1) / 2.0 + 1.2),
-        arrowprops={"arrowstyle": "->", "color": "#b3261e", "linewidth": 0.9},
-        color="#7a1b14",
-        fontsize=9,
+
+    # ---- tightest-pair inset (all values certificate-derived) ----
+    from matplotlib.patches import Rectangle
+
+    l0, u0, m0 = float(left_item.lower), float(left_item.upper), float(left_item.mid)
+    l1, u1, m1 = float(right_item.lower), float(right_item.upper), float(right_item.mid)
+    span = max(u0, u1) - min(l0, l1)
+    pad = span * 0.20
+    # mark the zoomed region on the main axes
+    ry0, ry1 = min(y0, y1), max(y0, y1)
+    ax.add_patch(
+        Rectangle(
+            (min(l0, l1) - pad, ry0 - 0.45),
+            (max(u0, u1) + pad) - (min(l0, l1) - pad),
+            (ry1 - ry0) + 0.9,
+            fill=False,
+            edgecolor="#999999",
+            linewidth=0.8,
+            linestyle=(0, (3, 2)),
+        )
     )
+    axins = ax.inset_axes([0.50, 0.55, 0.46, 0.38])
+    cap = 0.17
+    for lo, up, mid, yy in ((l0, u0, m0, 1.0), (l1, u1, m1, 0.0)):
+        axins.hlines(yy, lo, up, color="#b3261e", linewidth=2.2)
+        axins.vlines([lo, up], yy - cap, yy + cap, color="#b3261e", linewidth=1.6)
+        axins.plot(mid, yy, "o", color="#7a1b14", markersize=3.0)
+    # double-headed arrow: upper(min_pair[0]) <-> lower(min_pair[1])
+    axins.annotate(
+        "",
+        xy=(x1, 0.5),
+        xytext=(x0, 0.5),
+        arrowprops={"arrowstyle": "<->", "color": "#000000", "linewidth": 1.1},
+    )
+    axins.text(
+        (x0 + x1) / 2.0,
+        0.60,
+        rf"$\Delta_{{\min}}={math_gap}$",
+        ha="center",
+        va="bottom",
+        fontsize=8,
+    )
+    axins.set_xlim(min(l0, l1) - pad, max(u0, u1) + pad)
+    axins.set_ylim(-0.6, 1.6)
+    axins.set_yticks([0.0, 1.0])
+    axins.set_yticklabels([min_pair[1], min_pair[0]], fontsize=7)
+    axins.set_title(
+        f"tightest pair {min_pair[0]}\u2013{min_pair[1]}", fontsize=8
+    )
+    axins.tick_params(axis="x", labelsize=6, rotation=30)
+    axins.grid(axis="x", color="#eeeeee", linewidth=0.4)
 
     ax.margins(x=0.04, y=0.08)
     fig.tight_layout()

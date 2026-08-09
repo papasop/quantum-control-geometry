@@ -32,7 +32,6 @@ ALLOWLIST = {
     "sec_front.tex": ROOT / "paper" / "sec_front.tex",
     "sec_mid.tex": ROOT / "paper" / "sec_mid.tex",
     "sec_back.tex": ROOT / "paper" / "sec_back.tex",
-    "fig1.png": ROOT / "paper" / "fig1.png",
     "fig2_exact_root.png": ROOT / "paper" / "fig2_exact_root.png",
     "manuscript.pdf": ROOT / "paper" / "manuscript.pdf",
     "SUBMISSION_README.md": ROOT / "paper" / "SUBMISSION_README.md",

@@ -218,9 +218,9 @@ class ManuscriptConsistencyTests(unittest.TestCase):
             "computationally distinct mechanism certificate",
             "Rump--Neumann",
             "p0_preconditioner_certificate.json",
-            r"\lVert I-RB\rVert_{\infty}<1",
-            r"1.12\times10^{-14}",
-            "not a second complete interval proof",
+            r"\lVert I-R_{k}C_{k}\rVert_{\infty}<1",
+            "12/12",
+            "not a second full interval ordering proof",
         )
         for fragment in required_source_fragments:
             with self.subTest(fragment=fragment):
