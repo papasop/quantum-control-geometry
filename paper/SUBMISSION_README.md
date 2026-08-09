@@ -1,7 +1,10 @@
 LaTeX source for
 "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
  (Y.Y.N. Li)
-Version of record: paper-exact-root-v1.0 (2026-08-07)
+Submission candidate: paper-exact-root-v1.1
+Source commit: pending until this documentation/package PR is merged and tagged
+Historical paper-exact-root-v1.0 remains immutable and refers to an
+earlier manuscript artifact.
 Zenodo DOI: 10.5281/zenodo.21831180
 Zenodo concept DOI: 10.5281/zenodo.20713301
 
@@ -52,14 +55,30 @@ Figure 2 provenance:
   computes the displayed order and minimum-gap label from certificate
   intervals and rejects non-disjoint interval data before writing
   fig2_exact_root.png.
+  In the standalone submission ZIP, Figure regeneration uses the bundled
+  data/exact_root_ordering_certificate.json copy. The canonical certificate
+  remains in the GitHub repository under results/exact_root_ordering/.
+  Reproduce the Figure 2 semantics from the ZIP root with:
+    python scripts/generate_fig2_exact_root.py \
+      --certificate data/exact_root_ordering_certificate.json \
+      --output fig2_exact_root.regenerated.png
+  Pixel-byte identity depends on the pinned plotting environment; the
+  interval/order/gap semantics are certificate-derived and checked.
+
+Standalone submission ZIP:
+  From the repository root, build the standalone ZIP with:
+    python tools/build_submission_zip.py --output /tmp/qcg_submission_v1_1.zip
+  The ZIP includes the self-contained LaTeX source needed for compilation,
+  the bundled reviewer-facing PDF, the Figure 2 generator, and the exact-root
+  certificate copy required to regenerate Figure 2 semantics. It deliberately
+  excludes .git data, LaTeX build logs, caches, obsolete figures, and temporary
+  files.
 
 Version management (single final source):
   The split-file tree above is the ONLY final manuscript source.
   Sync it to https://github.com/papasop/quantum-control-geometry
   as paper/ via a pull request - do NOT push to main directly. After
-  the PR is merged and CI is green, tag the merge commit as
-  paper-exact-root-v1.0:
-    git fetch origin main && git checkout main && git pull
-    git tag -a paper-exact-root-v1.0 -m "Submission manuscript v1.0"
-    git push origin paper-exact-root-v1.0
-  Do NOT move the frozen v0.3.1 scientific-certificate tag.
+  this documentation/package PR is merged and all checks pass, create
+  a new annotated tag:
+    paper-exact-root-v1.1
+  Never move or replace paper-exact-root-v1.0 or v0.3.1.
