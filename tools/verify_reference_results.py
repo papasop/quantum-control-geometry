@@ -53,15 +53,38 @@ def assert_no_runtime_fields(value: Any) -> None:
             assert_no_runtime_fields(child)
 
 
+def verify_g4_threshold_claim(g4: dict[str, Any]) -> None:
+    assert g4["claim_level"] == "threshold"
+    threshold = float(g4["predeclared_mean_spearman_minimum"])
+    assert threshold == 0.95
+    assert bool(g4["reference_environment_sample"])
+    assert not bool(g4["cross_architecture_exact_value_invariant"])
+    assert not bool(g4["cross_architecture_top_path_invariant"])
+    assert float(g4["validation"]["mean_spearman"]) >= threshold
+    assert bool(g4["gates"]["primary_spearman_gate"])
+    for sample in g4.get("cross_architecture_observations", {}).get(
+        "samples", []
+    ):
+        assert float(sample["mean_spearman"]) >= threshold
+        assert bool(sample["primary_spearman_gate_pass"])
+
+
 def verify() -> list[str]:
     messages: list[str] = []
 
     g4 = load_json("results/g4_prospective/report.json")
+    g4_provenance = load_json("results/g4_prospective/provenance.json")
     assert field(g4, "scientific_status") == (
         "PASQAL_TWO_ATOM_ZERO_POINT_G4_RANKING_SUPPORTED"
     )
-    assert float(g4["validation"]["mean_spearman"]) >= 0.95
+    verify_g4_threshold_claim(g4)
     assert bool(g4["validation"]["top1_pass"])
+    assert g4_provenance["legacy_manuscript_sample_status"] == (
+        "legacy manuscript sample pending paper correction"
+    )
+    original_colab = g4_provenance["original_colab_sample"]
+    assert float(original_colab["mean_spearman"]) == 0.996992
+    assert not bool(original_colab["cross_platform_reproducible"])
     messages.append("G4 prospective gates: PASS")
 
     l3 = load_json("results/l3_covariance/report.json")

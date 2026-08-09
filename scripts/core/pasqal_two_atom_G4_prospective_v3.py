@@ -286,7 +286,6 @@ def main() -> None:
 
     certificate = {
         "protocol_sha256": protocol_hash,
-        "created_unix_time": time.time(),
         "outcomes_unlocked": False,
         "formula": "G4 = mean_axis a4_axis",
         "predicted_order_best_to_worst": predicted_order,
@@ -416,6 +415,49 @@ def main() -> None:
     script_path = Path(__file__) if "__file__" in globals() else None
     report = {
         "scientific_status": status,
+        "claim_level": "threshold",
+        "predeclared_mean_spearman_minimum": SPEARMAN_GATE,
+        "cross_architecture_exact_value_invariant": False,
+        "cross_architecture_top_path_invariant": False,
+        "reference_environment_sample": True,
+        "cross_architecture_observations": {
+            "interpretation": (
+                "The exact held-out Spearman value and top path are "
+                "platform-specific float64 samples. The stable scientific "
+                "claim is threshold-level: the predeclared mean Spearman "
+                "gate is satisfied in the recorded environments."
+            ),
+            "samples": [
+                {
+                    "label": "arm64_reference_environment",
+                    "architecture": "arm64",
+                    "system": "Darwin",
+                    "python": "3.9.6",
+                    "numpy": "2.0.2",
+                    "scipy": "1.13.1",
+                    "blas": "Accelerate",
+                    "mean_spearman": 0.993984962406015,
+                    "worst_spearman_secondary": 0.04962406015037594,
+                    "top_path": "pv17",
+                    "primary_spearman_gate_pass": True,
+                    "top1_pass": True,
+                },
+                {
+                    "label": "x86_rosetta_diagnostic",
+                    "architecture": "x86_64",
+                    "system": "Darwin/Rosetta",
+                    "python": "3.9.6",
+                    "numpy": "2.0.2",
+                    "scipy": "1.13.1",
+                    "blas": "Accelerate",
+                    "mean_spearman": 0.9894736842105262,
+                    "worst_spearman_secondary": 0.39097744360902253,
+                    "top_path": "pv02",
+                    "primary_spearman_gate_pass": True,
+                    "top1_pass": True,
+                },
+            ],
+        },
         "claim_boundary": (
             "Success supports an extracted fourth-order zero-point "
             "symmetric-response coefficient as a prospective predictor "
@@ -424,6 +466,7 @@ def main() -> None:
         ),
         "protocol_sha256": protocol_hash,
         "ranking_certificate_sha256": certificate_hash,
+        "created_unix_time": time.time(),
         "script_sha256": (
             engine.sha256_file(script_path)
             if script_path is not None and script_path.is_file()
