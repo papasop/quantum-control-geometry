@@ -18,14 +18,22 @@ from decimal import Decimal, ROUND_DOWN, localcontext
 from pathlib import Path
 
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_CERTIFICATE = (
-    REPO_ROOT
-    / "results"
-    / "exact_root_ordering"
-    / "exact_root_ordering_certificate.json"
+SCRIPT_DIR = Path(__file__).resolve().parent
+STANDALONE_CERTIFICATE = (
+    SCRIPT_DIR.parent / "data" / "exact_root_ordering_certificate.json"
 )
-DEFAULT_OUTPUT = REPO_ROOT / "paper" / "fig2_exact_root.png"
+if STANDALONE_CERTIFICATE.exists():
+    DEFAULT_CERTIFICATE = STANDALONE_CERTIFICATE
+    DEFAULT_OUTPUT = SCRIPT_DIR.parent / "fig2_exact_root.png"
+else:
+    REPO_ROOT = SCRIPT_DIR.parent.parent
+    DEFAULT_CERTIFICATE = (
+        REPO_ROOT
+        / "results"
+        / "exact_root_ordering"
+        / "exact_root_ordering_certificate.json"
+    )
+    DEFAULT_OUTPUT = REPO_ROOT / "paper" / "fig2_exact_root.png"
 EXPECTED_ORDER = [
     "pv07",
     "pv01",
@@ -159,6 +167,7 @@ def plot_figure(data: dict[str, object], output_path: Path = DEFAULT_OUTPUT) -> 
 
     intervals = data["intervals"]
     assert isinstance(intervals, list)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     display_gap = str(data["display_gap"])
     min_pair = tuple(data["minimum_gap_pair"])
     mantissa, exponent = display_gap.split("e")
