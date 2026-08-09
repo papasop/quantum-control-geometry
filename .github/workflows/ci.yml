@@ -1,6 +1,7 @@
 name: Artifact checks
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
@@ -61,7 +62,10 @@ jobs:
           grep -q "declared global error coordinates" manuscript.txt
           grep -q "computer-assisted exact-root finite-error ordering theorem" manuscript.txt
           grep -q "global fibre structure remains open" manuscript.txt
-          grep -q "0.996992" manuscript.txt
+          grep -q "0.95" manuscript.txt
+          grep -q "predeclared" manuscript.txt
+          grep -q "threshold-level" manuscript.txt
+          ! grep -q "0.996992" manuscript.txt
           grep -q "34/66" manuscript.txt
           grep -q "52/66" manuscript.txt
           grep -q "66/66" manuscript.txt
