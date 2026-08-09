@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import importlib.util
+import os
+import shutil
 import struct
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -146,6 +149,109 @@ class ExactRootFigureDataTests(unittest.TestCase):
                     alpha = image.getchannel("A")
                     self.assertEqual(alpha.getextrema(), (255, 255))
                 self.assertEqual(image.getpixel((0, 0))[:3], (255, 255, 255))
+
+    def test_standalone_zip_generator_uses_bundled_certificate_by_default(self) -> None:
+        if importlib.util.find_spec("matplotlib") is None:
+            self.skipTest("plot regeneration requires optional matplotlib/Pillow dependencies")
+        if importlib.util.find_spec("PIL") is None:
+            self.skipTest("plot regeneration requires optional matplotlib/Pillow dependencies")
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            zip_path = temp / "submission.zip"
+            build = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "tools" / "build_submission_zip.py"),
+                    "--output",
+                    str(zip_path),
+                ],
+                cwd=ROOT,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                check=False,
+            )
+            self.assertEqual(build.returncode, 0, build.stdout)
+
+            extract_dir = temp / "standalone"
+            extract_dir.mkdir()
+            shutil.unpack_archive(str(zip_path), str(extract_dir), "zip")
+
+            guard_dir = temp / "guard"
+            guard_dir.mkdir()
+            (guard_dir / "sitecustomize.py").write_text(
+                f"""
+from pathlib import Path
+
+_REPO_ROOT = Path({str(ROOT)!r}).resolve()
+_ORIGINAL_OPEN = Path.open
+_ORIGINAL_READ_BYTES = Path.read_bytes
+_ORIGINAL_READ_TEXT = Path.read_text
+
+def _is_repo_path(path):
+    resolved = path.resolve()
+    return resolved == _REPO_ROOT or _REPO_ROOT in resolved.parents
+
+def _guarded_open(self, *args, **kwargs):
+    if _is_repo_path(self):
+        raise RuntimeError(f"blocked repository path read: {{self}}")
+    return _ORIGINAL_OPEN(self, *args, **kwargs)
+
+def _guarded_read_bytes(self, *args, **kwargs):
+    if _is_repo_path(self):
+        raise RuntimeError(f"blocked repository path read: {{self}}")
+    return _ORIGINAL_READ_BYTES(self, *args, **kwargs)
+
+def _guarded_read_text(self, *args, **kwargs):
+    if _is_repo_path(self):
+        raise RuntimeError(f"blocked repository path read: {{self}}")
+    return _ORIGINAL_READ_TEXT(self, *args, **kwargs)
+
+Path.open = _guarded_open
+Path.read_bytes = _guarded_read_bytes
+Path.read_text = _guarded_read_text
+""".lstrip(),
+                encoding="utf-8",
+            )
+            env = os.environ.copy()
+            env["PYTHONPATH"] = str(guard_dir) + os.pathsep + env.get("PYTHONPATH", "")
+
+            bare = subprocess.run(
+                [sys.executable, "scripts/generate_fig2_exact_root.py"],
+                cwd=extract_dir,
+                env=env,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                check=False,
+            )
+            self.assertEqual(bare.returncode, 0, bare.stdout)
+            self.assertTrue((extract_dir / "fig2_exact_root.png").is_file())
+            self.assertIn("number of paths: 12", bare.stdout)
+            self.assertIn("disjoint pairs: 66/66", bare.stdout)
+            self.assertIn(f"computed order: {GENERATOR.EXPECTED_ORDER}", bare.stdout)
+            self.assertIn("minimum-gap pair: pv08 -> pv11", bare.stdout)
+            self.assertIn("displayed minimum gap: 2.50e-5", bare.stdout)
+
+            explicit = subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/generate_fig2_exact_root.py",
+                    "--certificate",
+                    "data/exact_root_ordering_certificate.json",
+                    "--output",
+                    "fig2_exact_root.explicit.png",
+                ],
+                cwd=extract_dir,
+                env=env,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                check=False,
+            )
+            self.assertEqual(explicit.returncode, 0, explicit.stdout)
+            self.assertTrue((extract_dir / "fig2_exact_root.explicit.png").is_file())
 
 
 if __name__ == "__main__":
