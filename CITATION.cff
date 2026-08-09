@@ -9,7 +9,7 @@ authors:
 year: 2026
 repository-code: "https://github.com/papasop/quantum-control-geometry"
 license: MIT
-version: 0.4.2
+version: 0.4.2-rc
 identifiers:
   - type: doi
     value: "10.5281/zenodo.21831180"

@@ -14,7 +14,8 @@ Files:
   sec_mid.tex     - Sections 4-6
   sec_back.tex    - Sections 7-11, Appendices A-C, declarations, references
   fig1.png        - Figure 1 (schematic)
-  fig2.png        - Figure 2 (prospective ranking / certified intervals)
+  fig2_exact_root.png
+                  - Figure 2 (exact-root-only certified interval panel)
   manuscript.pdf  - compiled output (20 pages)
   SHA256SUMS.txt  - frozen SHA-256 of manuscript.pdf
 
@@ -28,18 +29,15 @@ references are in a manual thebibliography environment)
 Requirements: pdflatex with amsmath, amssymb, amsthm, graphicx,
 booktabs, enumitem, microtype, hyperref (any recent TeX Live).
 
-Frozen build record (this copy):
-  Engine    : Tectonic (XeTeX-based), package bundle current as of 2026-08-07
-  Command   : tectonic main.tex  (single command; equivalent to the
-              three pdflatex runs above)
+Current bundled PDF record:
   Output    : manuscript.pdf, 20 pages
-  SHA-256   : 898c194c5c35e719e2734329e2680d1d8a5e3f50cff070704dbd1eb135ed2f71
-Note: The bundled Tectonic-generated manuscript.pdf is the frozen
-version of record. Other TeX engines may produce typographically
-equivalent output with a different byte hash; page breaks may also
-differ by +/- 1 page across TeX engines/versions. Freeze the bundled
-PDF (with its SHA-256) as the version of record, or pin a TeX Live
-version and regenerate from this source.
+  SHA-256   : ad5862e1bd79006586e397f10d3cb08d12eb5b43082c8bc2e330aa5fb578cf9b
+Note: The bundled manuscript.pdf is the reviewer-facing PDF synchronized with
+the current main branch and CI manuscript build. Other TeX engines may produce
+typographically equivalent output with a different byte hash; page breaks may
+also differ by +/- 1 page across TeX engines/versions. For release freezing,
+use the bundled PDF and SHA-256 above, or pin a TeX Live version and
+regenerate from this source.
 
 Version management (single final source):
   The split-file tree above is the ONLY final manuscript source.

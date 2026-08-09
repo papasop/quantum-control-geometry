@@ -44,12 +44,13 @@ Canonical v0.3.1 commit:
 
 Version `v0.3.1` freezes the main strict scientific certificate artifacts.
 Version `v0.3.2` freezes the P0/P1/P2 audit-closure supplement. The current
-`v0.4.1` tag marks the Pulser external model-validation layer on `main`; no
-GitHub Release exists for that tag at the time of this README update. The
-manuscript on `main` may contain later expository and formula-level
-corrections without changes to the frozen numerical certificates. A separate
-immutable paper-exact tag, for example `paper-exact-root-v1.0`, freezes the
-synchronized submission manuscript source and PDF without moving `v0.3.1`.
+`v0.4.1` tag marks the Pulser external model-validation layer. The current
+reviewer-facing manuscript and CI metadata on `main` are a `v0.4.2` release
+candidate until the final tag is created. These later expository and
+formula-level corrections do not change the frozen numerical certificates. A
+separate immutable paper-exact tag, for example `paper-exact-root-v1.0`,
+freezes the synchronized submission manuscript source and PDF without moving
+`v0.3.1`.
 
 ## Strongest Result
 

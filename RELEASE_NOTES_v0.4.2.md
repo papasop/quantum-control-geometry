@@ -1,9 +1,10 @@
-# Release notes -- v0.4.2 (G4 manuscript qualification)
+# Release notes -- v0.4.2 release candidate (G4 manuscript qualification)
 
-Version v0.4.2 is a release-hygiene update for the submitted manuscript and
-CI text gates. It does not modify the frozen physical model, exact-root boxes,
-Arb/Krawczyk proof engines, result artifacts, audit-closure artifacts, Pulser
-reports, open-system reports, or the certified 12/12 and 66/66 conclusions.
+The v0.4.2 release candidate is a release-hygiene update for the submitted
+manuscript and CI text gates. It does not modify the frozen physical model,
+exact-root boxes, Arb/Krawczyk proof engines, result artifacts,
+audit-closure artifacts, Pulser reports, open-system reports, or the certified
+12/12 and 66/66 conclusions.
 
 ## What changed
 

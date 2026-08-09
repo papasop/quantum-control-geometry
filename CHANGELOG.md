@@ -1,10 +1,11 @@
 # Changelog
 
-## [v0.4.2] -- manuscript G4 qualification and release hygiene
+## [v0.4.2 release candidate] -- manuscript G4 qualification and release hygiene
 
-Version v0.4.2 is a manuscript and CI hygiene release. It does not change the
-frozen physical model, exact-root boxes, Arb/Krawczyk proof engines, result
-artifacts, audit-closure artifacts, or certified 12/12 and 66/66 conclusions.
+The v0.4.2 release candidate is a manuscript and CI hygiene state. It does not
+change the frozen physical model, exact-root boxes, Arb/Krawczyk proof engines,
+result artifacts, audit-closure artifacts, or certified 12/12 and 66/66
+conclusions.
 
 - Qualified the prospective $G_4$ manuscript result across numerical
   architectures: the stable claim is the predeclared
