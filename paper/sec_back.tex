@@ -13,7 +13,7 @@ Appendix~\ref{app:hashes}.}
 \toprule
 Audit & Paths & Rank diagnostic & Certified result & Logical role\\
 \midrule
-Prospective $\Gg_{4}$ ranking & 20 & $\rho=0.996992$ & -- & prospective evidence\\
+Prospective $\Gg_{4}$ ranking & 20 & $\rho\ge0.95$ gate & -- & prospective evidence\\
 Covariant $\Gg_{4}$ contraction ranking & 12 & $\rho=0.965035$ & -- & covariance/ranking audit\\
 Formal quartic-only bound & 12 & -- & 34/66 cert. & low-order boundary\\
 Frozen point-valued order-30 diagnostic & 12 & $\rho=1$ & 66/66 numerical & diagnostic\\
@@ -33,9 +33,11 @@ Exact-root order-30 jet & 12 & -- & 52/66 cert. & mechanism certificate\\
 \caption{Direct visual evidence for the prospective ranking result and the exact-root
 certification theorem. (a) Prospective
 prediction: $-\Gg_{4}$ predicted versus actual ranks on the held-out twenty-path cohort.
-The frozen order reproduces the actual mean-loss ranking up to two adjacent transpositions
-(marked), giving Spearman $\rho=0.996992$. This panel reports prospective empirical
-evidence; it is not a certificate. (b) Exact-root certification: the twelve certified
+The plotted annotation is the original Colab historical sample; cross-architecture reruns
+of the same frozen float64 prospective pipeline preserve the predeclared
+$\rho_{\mathrm{Spearman}}\ge0.95$ gate while shifting the exact correlation and named top
+path. This panel reports prospective empirical evidence; it is not a certificate. (b)
+Exact-root certification: the twelve certified
 direct performance intervals $B_{k}$ from 192-bit outward-rounded Arb propagation, drawn to
 scale in the frozen order. All 66 unordered pairs are formally disjoint; the tightest pair,
 pv08--pv11 (highlighted), has the certified margin $\Delta_{\min}=2.50\times10^{-5}$ of
@@ -154,11 +156,14 @@ over a declared $y$-region, not to prove a single global isolated root.
 
 \section{Reproducibility}\label{sec:repro}
 
-The complete v1.3 pipeline freezes the cohort, transverse bases, preconditioners, and
-Krawczyk radius, excludes runtime metadata from hashed proof objects, and produces
-byte-identical certificates in two complete runs; every ordinary held-out floating-point
-outcome is also verified to lie inside its formal ball as an integrity diagnostic. A clean
-external reproduction from tag \texttt{v0.3.1} (commit
+The complete v1.3 exact-root pipeline freezes the cohort, transverse bases,
+preconditioners, and Krawczyk radius, excludes runtime metadata from hashed proof objects,
+and produces byte-identical formal certificates in two complete runs. This byte-identical
+claim applies to the formal Arb/Krawczyk proof artifacts, not to the ordinary float64
+candidate-generation and held-out prospective $\Gg_{4}$ diagnostics. Every ordinary
+held-out floating-point outcome used by the formal certificate is also verified to lie
+inside its formal ball as an integrity diagnostic. A clean external reproduction from tag
+\texttt{v0.3.1} (commit
 \texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}) passed with no vendor account. Hashes,
 scripts, dependencies, and run records are given in Appendices~\ref{app:hashes}
 and~\ref{app:scripts}.
@@ -177,8 +182,9 @@ response tensor, whose covariant contraction with the noise moment organizes the
 comparison: it certifies 34/66 pairs alone, and a zero-error jet through order thirty
 certifies 52/66 with no reversals as a computationally independent mechanism certificate.
 On a separate twenty-path cohort, the frozen quartic contraction predicts the held-out
-ranking prospectively ($\rho=0.996992$); this evidence is an application of the same
-structure, not a premise of the theorem.
+ranking prospectively above the predeclared $\rho_{\mathrm{Spearman}}\ge0.95$ gate; this
+threshold-level evidence is an application of the same structure, not a premise of the
+theorem.
 
 The certificate is conditional on the declared serialized model and error functional. The
 next mathematical step is a parameterized Krawczyk or validated implicit-function
