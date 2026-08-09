@@ -235,11 +235,22 @@ matched in projective output state and first projective response to the referenc
 
 \begin{proof}[Computer-assisted proof]
 A numerical approximate inverse of the midpoint Jacobian is used as the point
-preconditioner. The Jacobian over each full box is then enclosed with 192-bit Arb
-arithmetic, and the resulting Krawczyk image is verified to lie strictly inside the box.
-The projective chart denominator is formally verified to exclude zero on every accepted
-box. For all twelve boxes, the inclusion $K(X)\subset\intt(X)$ is verified. The SHA-256
-protocol and certificate identifiers of this run are recorded in Appendix~\ref{app:hashes}.
+preconditioner. For the frozen production preconditioners, nonsingularity is closed by the
+v0.3.2 P0 audit certificate
+\path{results/audit_closure/p0_preconditioner_certificate.json}: using 256-bit
+outward-rounded Arb arithmetic, the Rump--Neumann check verifies
+\[
+\lVert I-RB\rVert_{\infty}<1
+\]
+for the frozen approximate inverse $R$ and production preconditioner matrix $B$. All
+twelve paths pass this regularity gate, with maximum recorded upper bound
+\(\rho\le 1.12\times10^{-14}\). This P0 check establishes regularity of the frozen
+preconditioner matrices; it is not a second complete interval proof of the Krawczyk
+inclusions. The Jacobian over each full box is then enclosed with 192-bit Arb arithmetic,
+and the resulting Krawczyk image is verified to lie strictly inside the box. The projective
+chart denominator is formally verified to exclude zero on every accepted box. For all
+twelve boxes, the inclusion $K(X)\subset\intt(X)$ is verified. The SHA-256 protocol and
+certificate identifiers of this run are recorded in Appendix~\ref{app:hashes}.
 By the Krawczyk theorem~\cite{moore2009,tucker2011,tucker2002}, each box contains a locally
 unique root.
 \end{proof}

@@ -192,6 +192,9 @@ class ManuscriptConsistencyTests(unittest.TestCase):
     def test_manuscript_rejects_stale_values(self) -> None:
         stale_fragments = (
             FORBIDDEN_G4_EXACT_SAMPLE,
+            r"\eta_{F}",
+            r"\II_{\gamma}(0)",
+            r"\braket{\psi_{\mathrm{ref}}}{\psi_{\gamma}(0)}",
             "0.998496",
             "35/66",
             "53.03\\%",
@@ -200,10 +203,28 @@ class ManuscriptConsistencyTests(unittest.TestCase):
             "twelve pairwise ordered performance intervals",
             "the minimal interacting setting",
             "Geometric Prediction and Exact-Root Certification",
+            "computed independently of the direct theorem",
+            "computationally independent mechanism certificate",
         )
         for fragment in stale_fragments:
             with self.subTest(fragment=fragment):
-                self.assertNotIn(fragment, self.manuscript)
+                self.assertNotIn(fragment, self.manuscript_source)
+
+    def test_mathematical_corrections_are_present(self) -> None:
+        required_source_fragments = (
+            r"c_{\gamma}=\frac{\braket{\psi_{\gamma}(0)}{\psi_{\mathrm{ref}}}}",
+            r"\Iref_{\gamma}(0)\le\eta",
+            "separate mechanism certificates, not used in the direct theorem",
+            "computationally distinct mechanism certificate",
+            "Rump--Neumann",
+            "p0_preconditioner_certificate.json",
+            r"\lVert I-RB\rVert_{\infty}<1",
+            r"1.12\times10^{-14}",
+            "not a second complete interval proof",
+        )
+        for fragment in required_source_fragments:
+            with self.subTest(fragment=fragment):
+                self.assertIn(fragment, self.manuscript_source)
 
     def test_pdf_rejects_legacy_g4_exact_sample(self) -> None:
         self.assertNotIn(
