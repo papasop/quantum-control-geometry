@@ -5,8 +5,11 @@ Submission candidate: paper-exact-root-v1.1
 Formal proof snapshot cited in the manuscript:
   284974c9f6b952f4e114c8c5bdc9c2c299c4065c
 Paper release commit:
-  pending until this PR is merged; the merge commit is the paper-release
-  snapshot and is distinct from the formal proof snapshot above.
+  938bfafdec643709ebb76ec966d1041adbdfb910
+Role distinction:
+  284974c9f6b952f4e114c8c5bdc9c2c299c4065c is the formal proof snapshot.
+  938bfafdec643709ebb76ec966d1041adbdfb910 is the 21-page paper release
+  snapshot.
 Zenodo DOI: 10.5281/zenodo.21831180
 Zenodo concept DOI: 10.5281/zenodo.20713301
 
