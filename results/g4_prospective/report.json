@@ -1,10 +1,48 @@
 {
   "scientific_status": "PASQAL_TWO_ATOM_ZERO_POINT_G4_RANKING_SUPPORTED",
+  "claim_level": "threshold",
+  "predeclared_mean_spearman_minimum": 0.95,
+  "cross_architecture_exact_value_invariant": false,
+  "cross_architecture_top_path_invariant": false,
+  "reference_environment_sample": true,
+  "cross_architecture_observations": {
+    "interpretation": "The exact held-out Spearman value and top path are platform-specific float64 samples. The stable scientific claim is threshold-level: the predeclared mean Spearman gate is satisfied in the recorded environments.",
+    "samples": [
+      {
+        "label": "arm64_reference_environment",
+        "architecture": "arm64",
+        "system": "Darwin",
+        "python": "3.9.6",
+        "numpy": "2.0.2",
+        "scipy": "1.13.1",
+        "blas": "Accelerate",
+        "mean_spearman": 0.993984962406015,
+        "worst_spearman_secondary": 0.04962406015037594,
+        "top_path": "pv17",
+        "primary_spearman_gate_pass": true,
+        "top1_pass": true
+      },
+      {
+        "label": "x86_rosetta_diagnostic",
+        "architecture": "x86_64",
+        "system": "Darwin/Rosetta",
+        "python": "3.9.6",
+        "numpy": "2.0.2",
+        "scipy": "1.13.1",
+        "blas": "Accelerate",
+        "mean_spearman": 0.9894736842105262,
+        "worst_spearman_secondary": 0.39097744360902253,
+        "top_path": "pv02",
+        "primary_spearman_gate_pass": true,
+        "top1_pass": true
+      }
+    ]
+  },
   "claim_boundary": "Success supports an extracted fourth-order zero-point symmetric-response coefficient as a prospective predictor inside this matched two-atom fibre. It is not a theorem over all controls and is not PASQAL Cloud or QPU evidence.",
   "protocol_sha256": "2bf2d193f9839a7f204984705d3ccef9ddead2bf3cf906e56b52138b402dd71c",
   "ranking_certificate_sha256": "388a47fe4ba89a865a8b69b25b451ebf1fa1bc59dc9f8965f8fe48252da64086",
-  "created_unix_time": 1786250128.555594,
-  "script_sha256": "26d0cf2e502ea87e3f204266d881ef50136ec4c4f4c61a6b5d592261a1372919",
+  "created_unix_time": 1786252640.8973272,
+  "script_sha256": "abeab09fc9c973254aeb382d490bd3d908b27b24b7f5c304aecf64894c4bb3bb",
   "training_evidence": {
     "role": "FORMULA_SELECTION_ONLY",
     "n_paths": 12,

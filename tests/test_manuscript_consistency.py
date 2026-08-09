@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.util
+import copy
 import unittest
 from pathlib import Path
 
@@ -38,6 +39,7 @@ REQUIRED_BOUNDARY_FRAGMENTS = (
     "pre-outcome ordering frozen for the independent twelve-path",
     "global fibre structure remains open",
 )
+LEGACY_G4_MANUSCRIPT_SAMPLE = "0.996992"
 
 
 class ManuscriptConsistencyTests(unittest.TestCase):
@@ -48,12 +50,54 @@ class ManuscriptConsistencyTests(unittest.TestCase):
         )
         cls.manuscript = " ".join(manuscript.split())
         cls.g4 = VERIFY.load_json("results/g4_prospective/report.json")
+        cls.g4_provenance = VERIFY.load_json(
+            "results/g4_prospective/provenance.json"
+        )
         cls.formal = VERIFY.load_json("results/l4_formal/report.json")
         cls.krawczyk = VERIFY.load_json("results/exact_fibre_krawczyk/report.json")
         cls.exact_root = VERIFY.load_json("results/exact_root_ordering/report.json")
 
+    def assert_g4_threshold_claim_consistent(self, g4: dict) -> None:
+        self.assertEqual(g4["claim_level"], "threshold")
+        threshold = float(g4["predeclared_mean_spearman_minimum"])
+        self.assertEqual(threshold, 0.95)
+        self.assertGreaterEqual(
+            float(g4["validation"]["mean_spearman"]), threshold
+        )
+        self.assertTrue(g4["gates"]["primary_spearman_gate"])
+        self.assertFalse(g4["cross_architecture_exact_value_invariant"])
+        self.assertFalse(g4["cross_architecture_top_path_invariant"])
+
+        for sample in g4.get("cross_architecture_observations", {}).get(
+            "samples", []
+        ):
+            with self.subTest(architecture_sample=sample["label"]):
+                self.assertGreaterEqual(
+                    float(sample["mean_spearman"]), threshold
+                )
+                self.assertTrue(sample["primary_spearman_gate_pass"])
+
+        threshold_fragments = (
+            r"\rho_{\mathrm{Spearman}}\ge 0.95",
+            "predeclared gate",
+        )
+        for fragment in threshold_fragments:
+            with self.subTest(g4_threshold_fragment=fragment):
+                self.assertIn(fragment, self.manuscript)
+
+        if LEGACY_G4_MANUSCRIPT_SAMPLE in self.manuscript:
+            self.assertEqual(
+                self.g4_provenance["legacy_manuscript_sample_status"],
+                "legacy manuscript sample pending paper correction",
+            )
+            original = self.g4_provenance["original_colab_sample"]
+            self.assertEqual(
+                float(original["mean_spearman"]),
+                float(LEGACY_G4_MANUSCRIPT_SAMPLE),
+            )
+            self.assertFalse(original["cross_platform_reproducible"])
+
     def test_manuscript_contains_artifact_values(self) -> None:
-        spearman = float(self.g4["validation"]["mean_spearman"])
         quartic_pairs = int(VERIFY.field(self.formal, "G4_certified_pairs"))
         possible_pairs = int(VERIFY.field(self.formal, "possible_pairs"))
         quartic_coverage = 100.0 * float(
@@ -64,7 +108,6 @@ class ManuscriptConsistencyTests(unittest.TestCase):
         direct_pairs = int(self.exact_root["direct_certified_pairs"])
 
         expected_fragments = (
-            f"{spearman:.6f}",
             f"{quartic_pairs}/{possible_pairs}",
             f"{quartic_coverage:.2f}\\%",
             f"{krawczyk_paths}/{krawczyk_paths}",
@@ -80,6 +123,49 @@ class ManuscriptConsistencyTests(unittest.TestCase):
         )
         for fragment in expected_fragments:
             with self.subTest(fragment=fragment):
+                self.assertIn(fragment, self.manuscript)
+        self.assert_g4_threshold_claim_consistent(self.g4)
+
+    def test_g4_threshold_accepts_alternate_passing_platform_sample(self) -> None:
+        g4 = copy.deepcopy(self.g4)
+        g4["validation"]["mean_spearman"] = 0.9894736842
+        g4["gates"]["primary_spearman_gate"] = True
+        g4["validation"]["predicted_order_best_to_worst"][0] = "pv02"
+        g4["validation"]["actual_mean_order_best_to_worst"][0] = "pv02"
+        self.assert_g4_threshold_claim_consistent(g4)
+
+    def test_g4_threshold_rejects_subthreshold_report(self) -> None:
+        g4 = copy.deepcopy(self.g4)
+        g4["validation"]["mean_spearman"] = 0.949
+        g4["gates"]["primary_spearman_gate"] = False
+        with self.assertRaises(AssertionError):
+            self.assert_g4_threshold_claim_consistent(g4)
+
+    def test_g4_threshold_requires_predeclared_threshold(self) -> None:
+        g4 = copy.deepcopy(self.g4)
+        del g4["predeclared_mean_spearman_minimum"]
+        with self.assertRaises(KeyError):
+            self.assert_g4_threshold_claim_consistent(g4)
+
+    def test_g4_threshold_does_not_depend_on_platform_top_path(self) -> None:
+        g4 = copy.deepcopy(self.g4)
+        g4["validation"]["predicted_order_best_to_worst"][0] = "pv02"
+        g4["validation"]["actual_mean_order_best_to_worst"][0] = "pv02"
+        g4["validation"]["top1_pass"] = True
+        g4["gates"]["top1_gate"] = True
+        self.assert_g4_threshold_claim_consistent(g4)
+
+    def test_formal_l4_values_remain_exact_value_consistent(self) -> None:
+        possible_pairs = int(VERIFY.field(self.formal, "possible_pairs"))
+        exact_fragments = (
+            f"{int(VERIFY.field(self.formal, 'G4_certified_pairs'))}/{possible_pairs}",
+            f"{100.0 * float(VERIFY.field(self.formal, 'G4_pair_coverage')):.2f}\\%",
+            f"{int(self.krawczyk['evaluated_paths'])}/{int(self.krawczyk['evaluated_paths'])}",
+            f"{int(self.exact_root['order30_certified_pairs'])}/{possible_pairs}",
+            f"{int(self.exact_root['direct_certified_pairs'])}/{possible_pairs}",
+        )
+        for fragment in exact_fragments:
+            with self.subTest(formal_fragment=fragment):
                 self.assertIn(fragment, self.manuscript)
 
     def test_manuscript_rejects_stale_values(self) -> None:

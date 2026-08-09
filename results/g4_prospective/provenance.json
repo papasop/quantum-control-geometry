@@ -1,0 +1,25 @@
+{
+  "schema": "g4_prospective_provenance",
+  "schema_version": 1,
+  "legacy_manuscript_sample_status": "legacy manuscript sample pending paper correction",
+  "original_colab_sample": {
+    "mean_spearman": 0.996992,
+    "worst_spearman_secondary": "unknown",
+    "top_path": "unknown",
+    "report_sha256": "unknown",
+    "commit": "unknown",
+    "python": "unknown",
+    "numpy": "unknown",
+    "scipy": "unknown",
+    "blas": "unknown",
+    "architecture": "unknown",
+    "cross_platform_reproducible": false,
+    "notes": "The manuscript contains this historical sample value, but the original environment provenance is not available in the repository. It must not be treated as a cross-platform reproducible G4 constant."
+  },
+  "current_threshold_claim": {
+    "claim_level": "threshold",
+    "predeclared_mean_spearman_minimum": 0.95,
+    "exact_value_cross_platform_invariant": false,
+    "top_path_cross_platform_invariant": false
+  }
+}
