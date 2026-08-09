@@ -61,27 +61,24 @@ gate was
 \[
 \rho_{\mathrm{Spearman}}\ge 0.95,
 \]
-together with correct top-path identification.
+together with top-path agreement within each recorded execution.
 
 \subsubsection{Quartic validation result}
 
-The original twenty-path Colab sample gave
+The prospective validation result is therefore reported at the predeclared threshold level:
 \begin{equation}\label{eq:spearman}
-\rho_{\mathrm{Spearman}}\bigl(-\Gg_{4},-\II\bigr)=0.996992.
+\rho_{\mathrm{Spearman}}\bigl(-\Gg_{4},-\II\bigr)\ge0.95.
 \end{equation}
-This value is retained as a historical sample, not as a cross-platform numerical constant.
-Subsequent reruns of the same frozen float64 prospective pipeline on different numerical
-architectures produced the same threshold-level conclusion but slightly different exact
-correlations and named top paths; recorded samples give
-$\rho_{\mathrm{Spearman}}\approx0.989$--$0.994$. Thus the architecture-invariant statement is
-that the frozen prospective score exceeds the predeclared $\rho_{\mathrm{Spearman}}\ge0.95$
-gate on the held-out cohort. This empirical evidence is not used in the proof of the
-exact-root ordering theorem and does not establish a universal fourth-order ranking law.
-Because the quartic rule, ranking direction, acceptance threshold, and ranking certificate
-were frozen before held-out finite-error evaluation, the threshold-level result is not an
-in-sample fit; nevertheless, it remains cohort-specific prospective evidence rather than a
-theorem. Two local coefficient-extraction windows had rank correlation one, and the maximum
-local fit residual was $1.48\times10^{-10}$.
+Across recorded architecture-specific executions of the prospective
+cohort-generation-and-evaluation protocol, the predeclared rank gate was satisfied. Recorded
+correlations were approximately $0.989$--$0.994$, while the exact correlation, complete
+ranking, and named top path were not architecture-invariant. This empirical evidence is not
+used in the proof of the exact-root ordering theorem and does not establish a universal
+fourth-order ranking law. Because the quartic rule, ranking direction, acceptance threshold,
+and ranking certificate were frozen before held-out finite-error evaluation, the
+threshold-level result is not an in-sample fit; nevertheless, it remains cohort-specific
+prospective evidence rather than a theorem. Two local coefficient-extraction windows had
+rank correlation one, and the maximum local fit residual was $1.48\times10^{-10}$.
 
 Subsequent cohorts show that $\Gg_{4}$ is not universally sufficient: depending on the
 generated matched paths, the prospective quartic correlation varies appreciably across

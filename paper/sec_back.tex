@@ -29,15 +29,10 @@ Exact-root order-30 jet & 12 & -- & 52/66 cert. & mechanism certificate\\
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.95\textwidth]{fig2.png}
-\caption{Direct visual evidence for the prospective ranking result and the exact-root
-certification theorem. (a) Prospective
-prediction: $-\Gg_{4}$ predicted versus actual ranks on the held-out twenty-path cohort.
-The plotted annotation is the original Colab historical sample; cross-architecture reruns
-of the same frozen float64 prospective pipeline preserve the predeclared
-$\rho_{\mathrm{Spearman}}\ge0.95$ gate while shifting the exact correlation and named top
-path. This panel reports prospective empirical evidence; it is not a certificate. (b)
-Exact-root certification: the twelve certified
+\includegraphics[width=0.95\textwidth]{fig2_exact_root.png}
+\caption{Direct visual evidence for the exact-root certification theorem. The prospective
+$\Gg_{4}$ result is reported only at threshold level in the text. This panel shows the
+exact-root certification: the twelve certified
 direct performance intervals $B_{k}$ from 192-bit outward-rounded Arb propagation, drawn to
 scale in the frozen order. All 66 unordered pairs are formally disjoint; the tightest pair,
 pv08--pv11 (highlighted), has the certified margin $\Delta_{\min}=2.50\times10^{-5}$ of
@@ -47,9 +42,10 @@ Corollary~\ref{cor:stability} (margin marked in the panel).}
 
 Table~\ref{tab:audits} separates the main theorem, its local-root prerequisite, the
 higher-order mechanism certificate, and the independent prospective evidence;
-Figure~\ref{fig:evidence} gives the two corresponding data-level statements. One
-distinction must be made explicit: the frozen-point order-30 audit certifies 66/66
-comparisons before propagation over the Krawczyk boxes and is not an exact-root
+Figure~\ref{fig:evidence} gives the exact-root data-level statement, while the prospective
+ranking result is reported only at threshold level in the text. One distinction must be made
+explicit: the frozen-point order-30 audit certifies 66/66 comparisons before propagation
+over the Krawczyk boxes and is not an exact-root
 certificate (proof objects in \texttt{results/l4\_order30/}); propagation of the same jet
 over the root boxes resolves 52/66 comparisons with no reversal
 (Proposition~\ref{prop:order30}), whereas direct finite-error propagation over those boxes
@@ -181,10 +177,11 @@ makes the quadratic loss form common, so the first possible discriminator is the
 response tensor, whose covariant contraction with the noise moment organizes the
 comparison: it certifies 34/66 pairs alone, and a zero-error jet through order thirty
 certifies 52/66 with no reversals as a computationally independent mechanism certificate.
-On a separate twenty-path cohort, the frozen quartic contraction predicts the held-out
-ranking prospectively above the predeclared $\rho_{\mathrm{Spearman}}\ge0.95$ gate; this
-threshold-level evidence is an application of the same structure, not a premise of the
-theorem.
+On architecture-specific executions of the separate twenty-path prospective protocol, the
+frozen quartic contraction predicts the held-out ranking above the predeclared
+$\rho_{\mathrm{Spearman}}\ge0.95$ gate; the exact correlation and named top path are
+platform-dependent. This threshold-level evidence is an application of the same structure,
+not a premise of the theorem.
 
 The certificate is conditional on the declared serialized model and error functional. The
 next mathematical step is a parameterized Krawczyk or validated implicit-function
