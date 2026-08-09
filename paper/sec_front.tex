@@ -388,14 +388,67 @@ mechanism.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.9\textwidth]{fig1.png}
-\caption{Schematic of local response matching and quartic separation. (a) In a local
-control-space chart, the projective output-state and first-response constraints define
-numerical tangent directions; the formal certificate establishes a unique exact matched
-root only inside each declared transverse box and does not assert a global connected fibre.
-(b) Exact projective first-response matching makes the quadratic loss form common.
-Symmetrized finite-error responses can therefore first separate through their quartic
-coefficients. The tensor $\Aa^{(4)}$ is a fourth-order response susceptibility, not a
-Riemannian curvature tensor.}
+\begin{tikzpicture}[>=Latex,line join=round,scale=1.0]
+% ================= Panel (a): local control-space chart =================
+\begin{scope}[xshift=0cm]
+  \node[anchor=west] at (-0.9,4.5) {(a)};
+  % local numerical continuation (the numerical fibre) and its tangent
+  \draw[blue,very thick] plot[smooth,tension=0.9] coordinates
+    {(-0.2,-0.2) (0.9,0.7) (1.7,1.55) (2.0,2.0) (2.35,2.55) (3.1,3.35) (4.0,4.1)};
+  \draw[gray,dashed,thick] (0.95,0.95) -- (3.25,2.9)
+        node[gray,anchor=west,font=\small] {numerical tangent};
+  % transverse Krawczyk box: narrow rectangle rotated to cross the tangent transversally
+  \draw[red,very thick,rotate around={-53:(2.05,2.0)}]
+        (1.28,1.83) rectangle (2.82,2.17);
+  \node[star,star points=5,star point ratio=2.2,fill=black,inner sep=1.6pt] (root) at (2.05,2.0) {};
+  \node[align=center] (rl) at (-0.05,3.65) {certified root $\gamma_{k}^{*}$,\\ unique within $X_{k}$};
+  \draw[->] (rl.south) .. controls (1.05,2.75) .. (root.north west);
+  \node[red,align=center,anchor=west] (bl) at (2.9,0.95)
+        {schematic projection of\\ transverse Krawczyk box $X_{k}$};
+  \draw[red,->] (bl.west) -- (2.55,1.55);
+  \node[blue,align=center] at (1.4,-0.7) {local numerical\\ continuation};
+  \node[font=\itshape,align=center] at (2.0,-1.6)
+        {local schematic only --- no global fibre claim};
+\end{scope}
+% ================= Panel (b): quartic mechanism schematic =================
+\begin{scope}[xshift=8.8cm]
+  \node[anchor=east] at (-1.55,4.4) {(b)};
+  \draw[->] (-1.75,0) -- (2.05,0);
+  \node[anchor=north] at (1.35,-0.12) {normalized radius $t$};
+  \draw[->] (0,-0.3) -- (0,4.3) node[above] {$S_{\gamma}(t,v)$};
+  % declared normalized probe boundaries at t=-1 and t=+1
+  \draw[dotted,thick] (1,0) -- (1,2.35);
+  \draw[dotted,thick] (-1,0) -- (-1,2.35);
+  \node[anchor=south,font=\small] at (1,2.36) {$t{=}{+}1$};
+  \node[anchor=south,font=\small] at (-1,2.36) {$t{=}{-}1$};
+  % three matched controls gamma_k: common quadratic, separating at quartic
+  \draw[blue,very thick]        plot[domain=-1.28:1.28,smooth,samples=60] (\x,{1.70*\x*\x});
+  \draw[teal,thick,dashed]      plot[domain=-1.28:1.28,smooth,samples=60] (\x,{1.70*\x*\x+0.55*\x*\x*\x*\x});
+  \draw[orange,thick,dash dot]  plot[domain=-1.28:1.28,smooth,samples=60] (\x,{1.70*\x*\x+1.05*\x*\x*\x*\x});
+  % curves = matched controls gamma_k
+  \node[align=center,anchor=west,font=\small] (mc) at (1.5,3.35) {matched\\ controls $\gamma_{k}$};
+  \draw[->] (mc.west) -- (1.24,{1.70*1.24*1.24+1.05*1.24*1.24*1.24*1.24});
+  % quartic separation (left)
+  \draw[<->,thick] (-1.2,{1.70*1.2*1.2}) -- (-1.2,{1.70*1.2*1.2+1.05*1.2*1.2*1.2*1.2});
+  \node[align=center,anchor=east,font=\small] (qs) at (-1.5,3.35) {quartic\\ separation};
+  \draw[->] (qs.south) .. controls (-1.35,2.7) .. (-1.22,2.35);
+  % common quadratic response
+  \node[align=center,anchor=north,font=\small] (cq) at (-0.15,-0.75) {common quadratic\\ response};
+  \draw[gray,->] (cq.north) -- (0.12,0.14);
+\end{scope}
+\end{tikzpicture}
+\caption{Schematic of local response matching and quartic separation (illustrative; not a
+proof figure). (a) In a local control-space chart, the projective output-state and
+first-response constraints define a numerical tangent to the numerical continuation; the
+red rectangle is a schematic projection of the transverse Krawczyk box $X_{k}$, drawn
+crossing the tangent transversally, inside which a locally unique certified root
+$\gamma_{k}^{*}$ is established. The panel makes no global connected-fibre claim.
+(b) Quartic mechanism schematic. Exact projective first-response matching makes the
+quadratic loss form common across matched controls $\gamma_{k}$, so symmetrized
+finite-error responses first separate through their quartic coefficients between the
+declared normalized probe boundaries $t=\pm1$. This panel illustrates the low-order
+discrimination mechanism only; it is not the direct outward-rounded Arb propagation that
+proves the main ordering theorem (Theorem~\ref{thm:ordering}). The tensor $\Aa^{(4)}$ is a
+fourth-order response susceptibility, not a Riemannian curvature tensor.}
 \label{fig:schematic}
 \end{figure}

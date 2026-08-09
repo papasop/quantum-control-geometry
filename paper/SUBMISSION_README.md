@@ -2,9 +2,11 @@ LaTeX source for
 "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
  (Y.Y.N. Li)
 Submission candidate: paper-exact-root-v1.1
-Source commit: 08a2c4afcc16bf27cc78d4b53942c2514d2db698
-Historical paper-exact-root-v1.0 remains immutable and refers to an
-earlier manuscript artifact.
+Formal proof snapshot cited in the manuscript:
+  284974c9f6b952f4e114c8c5bdc9c2c299c4065c
+Paper release commit:
+  pending until this PR is merged; the merge commit is the paper-release
+  snapshot and is distinct from the formal proof snapshot above.
 Zenodo DOI: 10.5281/zenodo.21831180
 Zenodo concept DOI: 10.5281/zenodo.20713301
 
@@ -16,32 +18,46 @@ Files:
   sec_front.tex   - abstract, Sections 1-3
   sec_mid.tex     - Sections 4-6
   sec_back.tex    - Sections 7-11, Appendices A-C, declarations, references
-  fig1.png        - Figure 1 (schematic)
+  (Figure 1 is now inline TikZ in sec_front.tex; no separate raster)
   fig2_exact_root.png
                   - Figure 2 (exact-root-only certified interval panel,
                     generated from the frozen exact-root certificate)
   scripts/generate_fig2_exact_root.py
-                  - Figure 2 generator; reads the repository certificate by
-                    default; the standalone submission ZIP uses
-                    data/exact_root_ordering_certificate.json
-                    and checks the 12-path order, 66/66 disjointness, and
+                  - Figure 2 generator; reads
+                    data/exact_root_ordering_certificate.json by default and
+                    checks the 12-path order, 66/66 disjointness, and
                     minimum adjacent gap before plotting
-  manuscript.pdf  - compiled output (20 pages)
+  manuscript.pdf  - compiled output (21 pages)
   SHA256SUMS.txt  - frozen SHA-256 manifest for the paper release files
+
+Standalone submission ZIP:
+  data/exact_root_ordering_certificate.json
+                  - byte-for-byte copy of the frozen Figure 2 input
+                    certificate from results/exact_root_ordering/ in the
+                    repository
 
 Build:
   pdflatex main.tex
   pdflatex main.tex
   pdflatex main.tex
+Regenerate Figure 2 from its frozen certificate:
+  python scripts/generate_fig2_exact_root.py
+The script reads results/exact_root_ordering/exact_root_ordering_certificate.json
+by default in the full repository. In the standalone submission ZIP it detects
+and reads the bundled data/exact_root_ordering_certificate.json copy instead.
+The repository command also accepts an explicit certificate path:
+  --certificate results/exact_root_ordering/exact_root_ordering_certificate.json
+
 (three runs resolve all cross-references; no bibtex/biber needed -
 references are in a manual thebibliography environment)
 
 Requirements: pdflatex with amsmath, amssymb, amsthm, graphicx,
-booktabs, enumitem, microtype, hyperref (any recent TeX Live).
+booktabs, enumitem, microtype, hyperref, tikz/pgf (any recent TeX
+Live; Figure 1 is an inline TikZ picture).
 
 Current bundled PDF record:
-  Output    : manuscript.pdf, 20 pages
-  SHA-256   : b26aba45169c1ebe6a167c864a52774eaa5e185a71a34afa40360bf663a086e5
+  Output    : manuscript.pdf, 21 pages
+  SHA-256   : 32ae60ac2af51a7b05babce2ad7647890ad8c80023fa96647cceeb31db5f189f
 Note: The bundled manuscript.pdf is the reviewer-facing PDF synchronized with
 the current main branch and CI manuscript build. Other TeX engines may produce
 typographically equivalent output with a different byte hash; page breaks may
@@ -56,32 +72,15 @@ Figure 2 provenance:
   computes the displayed order and minimum-gap label from certificate
   intervals and rejects non-disjoint interval data before writing
   fig2_exact_root.png.
-  In the standalone submission ZIP, Figure regeneration uses the bundled
-  data/exact_root_ordering_certificate.json copy. The canonical certificate
-  remains in the GitHub repository under results/exact_root_ordering/.
-  Reproduce the Figure 2 semantics from the ZIP root with:
-    python scripts/generate_fig2_exact_root.py
-  The equivalent explicit command is:
-    python scripts/generate_fig2_exact_root.py \
-      --certificate data/exact_root_ordering_certificate.json \
-      --output fig2_exact_root.regenerated.png
-  Pixel-byte identity depends on the pinned plotting environment; the
-  interval/order/gap semantics are certificate-derived and checked.
-
-Standalone submission ZIP:
-  From the repository root, build the standalone ZIP with:
-    python tools/build_submission_zip.py --output /tmp/qcg_submission_v1_1.zip
-  The ZIP includes the self-contained LaTeX source needed for compilation,
-  the bundled reviewer-facing PDF, the Figure 2 generator, and the exact-root
-  certificate copy required to regenerate Figure 2 semantics. It deliberately
-  excludes .git data, LaTeX build logs, caches, obsolete figures, and temporary
-  files.
 
 Version management (single final source):
   The split-file tree above is the ONLY final manuscript source.
   Sync it to https://github.com/papasop/quantum-control-geometry
   as paper/ via a pull request - do NOT push to main directly. After
-  this documentation/package PR is merged and all checks pass, create
-  a new annotated tag:
-    paper-exact-root-v1.1
-  Never move or replace paper-exact-root-v1.0 or v0.3.1.
+  the PR is merged and CI is green, tag the merge commit as
+  paper-exact-root-v1.1:
+    git fetch origin main && git checkout main && git pull
+    git tag -a paper-exact-root-v1.1 -m "Submission manuscript v1.1 candidate"
+    git push origin paper-exact-root-v1.1
+  Do NOT move paper-exact-root-v1.0 or the frozen v0.3.1
+  scientific-certificate tag.

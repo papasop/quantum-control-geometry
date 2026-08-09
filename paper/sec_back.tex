@@ -32,13 +32,18 @@ the predeclared $\rho\ge0.95$ gate is satisfied.
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.95\textwidth]{fig2_exact_root.png}
-\caption{Direct visual evidence for the exact-root certification theorem. The prospective
-$\Gg_{4}$ result is reported only at threshold level in the text. This panel shows the
-exact-root certification: the twelve certified
-direct performance intervals $B_{k}$ from 192-bit outward-rounded Arb propagation, drawn to
-scale in the frozen order. All 66 unordered pairs are formally disjoint; the tightest pair,
-pv08--pv11 (highlighted), has the certified margin $\Delta_{\min}=2.50\times10^{-5}$ of
-Corollary~\ref{cor:stability} (margin marked in the panel).}
+\caption{Certificate-derived visualization of the exact-root ordering. The twelve certified
+direct performance intervals $B_{k}$ from 192-bit outward-rounded Arb propagation are drawn
+to scale in the frozen order; the prospective $\Gg_{4}$ result is reported only at threshold
+level in the text. All 66 unordered pairs are formally disjoint. In the global plot the
+certified interval widths are near the pixel scale, so each $B_{k}$ renders as an
+essentially point-like marker; the inset therefore zooms the boxed region to resolve the
+tightest gap. The inset shows the two highlighted intervals of the minimum-gap pair
+pv08--pv11 with their endpoint caps and midpoints, and a double-headed arrow connecting
+$\sup B_{\mathrm{pv08}}$ to $\inf B_{\mathrm{pv11}}$; this separation is the certified margin
+$\Delta_{\min}=2.50\times10^{-5}$ of Corollary~\ref{cor:stability}. All intervals, the
+minimum-gap pair, and $\Delta_{\min}$ are derived from the frozen exact-root ordering
+certificate.}
 \label{fig:evidence}
 \end{figure}
 
@@ -91,6 +96,12 @@ The particular ordering of the twelve serialized controls is not presented as a 
 physical law. The reusable contribution is the certificate architecture: transverse
 exact-root isolation, formal propagation of the resulting root boxes, and explicit
 separation between low-order mechanism certificates and direct finite-error theorems.
+
+The certification architecture is not specific to the present pulse family: it applies
+whenever a finite-dimensional differentiable response map admits a validated full-rank
+Jacobian enclosure, local root boxes can be certified, and the target observable can be
+propagated with outward rounding. The present work establishes this chain for one frozen
+two-atom model only; it makes no scaling or multi-model universality claim.
 
 \section{Limitations and next theorem}\label{sec:limitations}
 
@@ -232,6 +243,12 @@ The deterministic protocol and certificate hashes are:
 \footnotesize\texttt{03c4db75cb80a149ce1a61e11c227039}\\
 \footnotesize\texttt{f9bd79c3f1304b3defa311a491ea2d1e}.
 \end{itemize}
+
+The frozen point preconditioners used in Theorem~\ref{thm:krawczyk} are certified
+nonsingular by an independent $256$-bit outward-rounded Rump--Neumann regularity
+certificate (\nolinkurl{results/audit_closure/p0_preconditioner_certificate.json}):
+$\lVert I-R_{k}C_{k}\rVert_{\infty}<1$ for all twelve paths ($12/12$ nonsingular). This is
+a preconditioner-regularity certificate, not a second full interval ordering proof.
 
 \begin{table}[htbp]
 \centering
