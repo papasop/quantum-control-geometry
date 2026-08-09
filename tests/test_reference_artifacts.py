@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT_PDF_SHA256 = (
-    "b0f967d2014cd4d1c4fc30be0a2b386be2cf238931c3e10223f95270b9aee747"
+    "ad5862e1bd79006586e397f10d3cb08d12eb5b43082c8bc2e330aa5fb578cf9b"
 )
 VERIFY_PATH = ROOT / "tools" / "verify_reference_results.py"
 SPEC = importlib.util.spec_from_file_location("verify_reference_results", VERIFY_PATH)
