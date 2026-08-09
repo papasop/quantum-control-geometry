@@ -60,6 +60,8 @@ Figure 2 provenance:
   data/exact_root_ordering_certificate.json copy. The canonical certificate
   remains in the GitHub repository under results/exact_root_ordering/.
   Reproduce the Figure 2 semantics from the ZIP root with:
+    python scripts/generate_fig2_exact_root.py
+  The equivalent explicit command is:
     python scripts/generate_fig2_exact_root.py \
       --certificate data/exact_root_ordering_certificate.json \
       --output fig2_exact_root.regenerated.png
