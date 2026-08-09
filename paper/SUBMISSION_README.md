@@ -2,7 +2,7 @@ LaTeX source for
 "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
  (Y.Y.N. Li)
 Submission candidate: paper-exact-root-v1.1
-Source commit: pending until this documentation/package PR is merged and tagged
+Source commit: 08a2c4afcc16bf27cc78d4b53942c2514d2db698
 Historical paper-exact-root-v1.0 remains immutable and refers to an
 earlier manuscript artifact.
 Zenodo DOI: 10.5281/zenodo.21831180
@@ -21,8 +21,9 @@ Files:
                   - Figure 2 (exact-root-only certified interval panel,
                     generated from the frozen exact-root certificate)
   scripts/generate_fig2_exact_root.py
-                  - Figure 2 generator; reads
-                    ../results/exact_root_ordering/exact_root_ordering_certificate.json
+                  - Figure 2 generator; reads the repository certificate by
+                    default; the standalone submission ZIP uses
+                    data/exact_root_ordering_certificate.json
                     and checks the 12-path order, 66/66 disjointness, and
                     minimum adjacent gap before plotting
   manuscript.pdf  - compiled output (20 pages)
