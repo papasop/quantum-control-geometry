@@ -22,7 +22,7 @@ The evidence layers have different logical roles:
 | 66/66 direct exact-root Arb ordering | Main theorem |
 | 52/66 exact-root order-30 comparisons | Independent mechanism certificate |
 | 34/66 quartic-only comparisons | Lowest-order mechanism boundary |
-| Spearman rho = 0.996992 on 20 held-out paths | Separate prospective evidence |
+| Spearman rho >= 0.95 on the frozen 20-path prospective cohort; exact correlation, complete ranking, and named top path are platform-dependent diagnostics | Separate prospective evidence |
 
 The prospective result is not a premise of the theorem.
 
@@ -220,5 +220,6 @@ open-system, worst-case-error, or many-body certification.
   GitHub Actions run.
 - `paper-exact-root-v1.0` freezes the synchronized submission manuscript and
   reviewer-facing repository state after CI passes.
-- `v0.4.1` marks the current main external Pulser-model validation layer as a
-  tag. No GitHub Release exists for `v0.4.1` at the time of this guide update.
+- `v0.4.1` marks the external Pulser-model validation layer as a tag.
+- The current reviewer-facing manuscript and CI metadata are a `v0.4.2`
+  release candidate until the final tag is created.
