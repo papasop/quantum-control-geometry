@@ -286,7 +286,6 @@ def main() -> None:
 
     certificate = {
         "protocol_sha256": protocol_hash,
-        "created_unix_time": time.time(),
         "outcomes_unlocked": False,
         "formula": "G4 = mean_axis a4_axis",
         "predicted_order_best_to_worst": predicted_order,
@@ -424,6 +423,7 @@ def main() -> None:
         ),
         "protocol_sha256": protocol_hash,
         "ranking_certificate_sha256": certificate_hash,
+        "created_unix_time": time.time(),
         "script_sha256": (
             engine.sha256_file(script_path)
             if script_path is not None and script_path.is_file()
