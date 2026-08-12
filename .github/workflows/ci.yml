@@ -45,6 +45,7 @@ jobs:
         with:
           root_file: main.tex
           working_directory: paper
+          latexmk_use_xelatex: true
 
       - name: Confirm PDF was produced
         run: test -s paper/main.pdf
@@ -54,8 +55,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y poppler-utils
           pages=$(pdfinfo paper/main.pdf | awk '/^Pages:/ {print $2}')
-          test "$pages" -ge 20
-          test "$pages" -le 21
+          test "$pages" -eq 25
           pdftotext paper/main.pdf manuscript.txt
           grep -q "Exact-Root Certification of Finite-Error Ordering" manuscript.txt
           grep -q "in Quantum Control" manuscript.txt
@@ -65,6 +65,8 @@ jobs:
           grep -q "0.95" manuscript.txt
           grep -q "predeclared" manuscript.txt
           grep -q "threshold-level" manuscript.txt
+          grep -q "2.37.*10" manuscript.txt
+          ! grep -q "1.48.*10" manuscript.txt
           ! grep -q "0.996992" manuscript.txt
           grep -q "34/66" manuscript.txt
           grep -q "52/66" manuscript.txt

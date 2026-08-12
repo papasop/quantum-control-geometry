@@ -1,7 +1,7 @@
 {
   "schema": "g4_prospective_provenance",
   "schema_version": 1,
-  "legacy_manuscript_sample_status": "legacy manuscript sample pending paper correction",
+  "legacy_manuscript_sample_status": "legacy manuscript sample corrected in v1.2.1 textual revision",
   "original_colab_sample": {
     "mean_spearman": 0.996992,
     "worst_spearman_secondary": "unknown",

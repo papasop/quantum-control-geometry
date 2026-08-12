@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this research artifact, please cite the published manuscript and the exact repository release or commit."
+message: "If you use this research artifact, cite the historical manuscript DOI when applicable and the exact repository release or commit. The current v1.2.1 paper archive candidate is pending tag, Release, and DOI creation."
 title: "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
 type: software
 authors:
@@ -9,7 +9,7 @@ authors:
 year: 2026
 repository-code: "https://github.com/papasop/quantum-control-geometry"
 license: MIT
-version: 0.4.2-rc
+version: paper-v1.2.1-archive-candidate
 identifiers:
   - type: doi
     value: "10.5281/zenodo.21831180"
