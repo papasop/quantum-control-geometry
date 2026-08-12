@@ -34,7 +34,9 @@ ALLOWLIST = {
     "sec_back.tex": ROOT / "paper" / "sec_back.tex",
     "fig2_exact_root.png": ROOT / "paper" / "fig2_exact_root.png",
     "manuscript.pdf": ROOT / "paper" / "manuscript.pdf",
-    "SUBMISSION_README.md": ROOT / "paper" / "SUBMISSION_README.md",
+    "BUILD_README.md": ROOT / "paper" / "BUILD_README.md",
+    "REVISION_LOG_v1.2.md": ROOT / "paper" / "REVISION_LOG_v1.2.md",
+    "SOURCE_MANIFEST.md": ROOT / "paper" / "SOURCE_MANIFEST.md",
     "scripts/generate_fig2_exact_root.py": ROOT
     / "paper"
     / "scripts"
@@ -81,6 +83,8 @@ def assert_no_forbidden_payload(path: str, data: bytes) -> None:
     if path.endswith((".tex", ".md", ".txt", ".py", ".json")):
         text = data.decode("utf-8")
         for needle in FORBIDDEN_TEXT:
+            if needle == "0.996992" and path == "REVISION_LOG_v1.2.md":
+                continue
             if needle in text:
                 raise SystemExit(f"forbidden text {needle!r} found in {path}")
 

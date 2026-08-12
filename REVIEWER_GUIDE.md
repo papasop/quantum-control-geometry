@@ -3,9 +3,12 @@
 This repository accompanies the manuscript **Exact-Root Certification of
 Finite-Error Ordering in Quantum Control**.
 
-Published version of record: [Zenodo DOI 10.5281/zenodo.21831180](https://doi.org/10.5281/zenodo.21831180).
+Historical manuscript DOI: [10.5281/zenodo.21831180](https://doi.org/10.5281/zenodo.21831180).
 The version-independent concept DOI is
 [10.5281/zenodo.20713301](https://doi.org/10.5281/zenodo.20713301).
+The current reviewer-facing manuscript on `main` is a
+`paper-exact-root-v1.2.1` archive candidate pending tag, GitHub Release, and
+DOI creation. The historical DOI above refers to an older PDF, not to v1.2.1.
 
 ## What is proved
 
@@ -218,8 +221,11 @@ open-system, worst-case-error, or many-body certification.
 - `v0.3.1` freezes the scientific certificate artifacts.
 - `v0.3.2` freezes the audit-closure supplement after P1 has a successful
   GitHub Actions run.
-- `paper-exact-root-v1.0` freezes the synchronized submission manuscript and
-  reviewer-facing repository state after CI passes.
+- `paper-exact-root-v1.0` and `paper-exact-root-v1.1` freeze earlier
+  synchronized manuscript/source packages without moving `v0.3.1`.
 - `v0.4.1` marks the external Pulser-model validation layer as a tag.
-- The current reviewer-facing manuscript and CI metadata are a `v0.4.2`
-  release candidate until the final tag is created.
+- The current reviewer-facing manuscript is a `paper-exact-root-v1.2.1`
+  archive candidate until its tag, GitHub Release, and DOI are created.
+- The v1.2.1 candidate is a text and presentation-layer revision only; it does
+  not rerun Arb, alter theorem-bearing JSON, change certified thresholds, or
+  add hardware/QPU claims.

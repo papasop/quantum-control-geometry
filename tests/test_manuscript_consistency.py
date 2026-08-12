@@ -196,6 +196,7 @@ class ManuscriptConsistencyTests(unittest.TestCase):
             r"\II_{\gamma}(0)",
             r"\braket{\psi_{\mathrm{ref}}}{\psi_{\gamma}(0)}",
             "0.998496",
+            "1.48\\times10^{-10}",
             "35/66",
             "53.03\\%",
             "Finite-Error Robustness in Quantum Control",
@@ -210,11 +211,21 @@ class ManuscriptConsistencyTests(unittest.TestCase):
             with self.subTest(fragment=fragment):
                 self.assertNotIn(fragment, self.manuscript_source)
 
+    def test_g4_residual_text_uses_frozen_report_field(self) -> None:
+        self.assertIn(r"2.37\times10^{-10}", self.manuscript_source)
+        self.assertIn("maximum relative fit residual", self.manuscript_source)
+        self.assertIn(
+            r"\texttt{maximum\_relative\_fit\_residual}",
+            self.manuscript_source,
+        )
+        self.assertNotIn(r"1.48\times10^{-10}", self.manuscript_source)
+
     def test_mathematical_corrections_are_present(self) -> None:
         required_source_fragments = (
             r"c_{\gamma}=\frac{\braket{\psi_{\gamma}(0)}{\psi_{\mathrm{ref}}}}",
             r"\Iref_{\gamma}(0)\le\eta",
-            "separate mechanism certificates, not used in the direct theorem",
+            "mechanism certificate",
+            "not used in the direct theorem",
             "computationally distinct mechanism certificate",
             "Rump--Neumann",
             "p0_preconditioner_certificate.json",

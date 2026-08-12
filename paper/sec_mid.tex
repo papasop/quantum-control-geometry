@@ -69,16 +69,20 @@ The prospective validation result is therefore reported at the predeclared thres
 \begin{equation}\label{eq:spearman}
 \rho_{\mathrm{Spearman}}\bigl(-\Gg_{4},-\II\bigr)\ge0.95.
 \end{equation}
-Across recorded architecture-specific executions of the prospective
-cohort-generation-and-evaluation protocol, the predeclared rank gate was satisfied. Recorded
-correlations were approximately $0.989$--$0.994$, while the exact correlation, complete
-ranking, and named top path were not architecture-invariant. This empirical evidence is not
+Across the recorded architecture-specific executions ($n=2$) of the prospective
+cohort-generation-and-evaluation protocol, the predeclared rank gate was satisfied. The
+arm64 reference environment recorded $\rho=0.99398$ with top path pv17, and the
+x86\_64/Rosetta diagnostic environment recorded $\rho=0.98947$ with top path pv02; thus the
+exact correlation, complete ranking, and named top path were not architecture-invariant,
+while both environments cleared the $\rho\ge0.95$ gate. This empirical evidence is not
 used in the proof of the exact-root ordering theorem and does not establish a universal
 fourth-order ranking law. Because the quartic rule, ranking direction, acceptance threshold,
 and ranking certificate were frozen before held-out finite-error evaluation, the
 threshold-level result is not an in-sample fit; nevertheless, it remains cohort-specific
 prospective evidence rather than a theorem. Two local coefficient-extraction windows had
-rank correlation one, and the maximum local fit residual was $1.48\times10^{-10}$.
+rank correlation one, and the maximum relative fit residual was $2.37\times10^{-10}$, the
+direction-safe upward rendering of the frozen field
+\texttt{maximum\_relative\_fit\_residual} in \texttt{results/g4\_prospective/report.json}.
 
 Subsequent cohorts show that $\Gg_{4}$ is not universally sufficient: depending on the
 generated matched paths, the prospective quartic correlation varies appreciably across
@@ -159,7 +163,7 @@ control quotient would require additional structure.
 
 For a noise moment $M$, the low-cost screening problem is
 \[
-\gamma^{\star}\in\argmin_{\gamma\in\Ff_{\eta}}\ \Aa^{(4)}_{\gamma}:M^{(4)}.
+\gamma^{\star}\in\argmin_{\gamma\in\Ff_{\eta_{\mathrm{match}}}}\ \Aa^{(4)}_{\gamma}:M^{(4)}.
 \]
 Pairs that fail the quartic gap test can be escalated adaptively to sixth, eighth, or
 higher jet order until their intervals separate. This suggests a certified branch-and-bound
@@ -174,6 +178,10 @@ reference loss at radius $t$,
 \Iref_{k}(t)=\frac{1}{6}\sum_{a\in\{\Omega,\Delta,V\}}\sum_{\sigma=\pm1}
 \Iref_{k}(\sigma t D e_{a}).
 \end{equation}
+At unit radius $t=1$ the six signed probe points $\sigma D e_{a}$ are exactly the six
+signed axial errors of the declared error set, so Eq.~\eqref{eq:radiusloss} reduces to the
+six-axis mean functional of Eq.~\eqref{eq:meanloss}; the radius-$t$ form is its
+one-parameter rescaling used for the local jet analysis.
 For each path $k$ write the truncated local model and its enclosure as
 \begin{equation}\label{eq:truncated}
 P_{k}(t)=C_{0,k}+C_{2,k}t^{2}+\Gg_{4,k}t^{4},\qquad
@@ -196,57 +204,105 @@ intervals, so they are not omitted from the certificate.
 \subsection{Krawczyk root theorem}
 
 The numerical paths satisfy the endpoint and first-order matching constraints to order
-$10^{-11}$. To move from numerical candidates to exact mathematical roots, we use the
-projective constraint map $F:\Rr^{24}\to\Rr^{16}$ of Eq.~\eqref{eq:constraintmap} and
-decompose the phase space into 16 transverse variables $x$ and 8 fibre variables $y$. For
-each declared numerical path $\gamma_{k}$, we fix its fibre coordinates $y_{k}$ and
-consider the reduced square map
-\[
-F_{k}(x)=F(x,y_{k}).
-\]
-For a box $X\subset\Rr^{16}$ with centre $x_{0}$, the Krawczyk operator is
-\begin{equation}\label{eq:krawczyk}
-K(X)=x_{0}-CF(x_{0})+\bigl(I-C[DF(X)]\bigr)(X-x_{0}),
+$10^{-11}$ (see Remark~\ref{rem:residual} for the precise norm and its relation to the
+formal boxes). To move from numerical candidates to exact mathematical roots, we use the
+projective constraint map $F:\Rr^{24}\to\Rr^{16}$ of Eq.~\eqref{eq:constraintmap}. We do
+\emph{not} split the 24 original phase coordinates into a fixed subset of 16 transverse
+coordinates and 8 retained fibre coordinates. Instead, for each frozen path $k$ the
+certificate uses the affine transverse parameterization
+\begin{equation}\label{eq:affine}
+\gamma=\widehat{\gamma}_{k}+N_{k}\,x,
+\qquad x\in X=[-3\times10^{-12},\,3\times10^{-12}]^{16}\subset\Rr^{16},
 \end{equation}
-where $C$ is a frozen nonsingular numerical preconditioner (an approximate inverse of the
-midpoint Jacobian) and $[DF(X)]$ is an interval enclosure of the Jacobian over $X$. In
-centered coordinates $x_{0}=0$, as used by the implementation, this reduces to
+where $\widehat{\gamma}_{k}\in\Rr^{24}$ is the frozen box centre of path $k$ and the
+columns of the frozen $24\times16$ matrix $N_{k}$ form the declared orthonormal transverse
+basis. The variable $x$ is the vector of transverse-basis coefficients, not a selection of
+16 of the original 24 phase coordinates, and $N_{k}$ varies from path to path. On this
+declared affine transverse slice we consider the reduced square map
 \[
-K(X)=-CF(0)+\bigl(I-C[DF(X)]\bigr)X.
+F_{k}(x)=F(\widehat{\gamma}_{k}+N_{k}x),\qquad F_{k}:\Rr^{16}\to\Rr^{16},
 \]
-The strict inclusion $K(X)\subset\intt(X)$ then implies that $F_{k}$ has a unique zero
-inside $X$~\cite{moore2009,tucker2011}. The projective chart denominator $\psi_{0}$ of
+whose Jacobian is the reduced $16\times16$ matrix
+\begin{equation}\label{eq:reducedjac}
+DF_{k}(x)=DF(\widehat{\gamma}_{k}+N_{k}x)\,N_{k}\in\Rr^{16\times16}.
+\end{equation}
+All interval operators below act on this path-dependent reduced map; at no point is a
+transverse vector $x\in\Rr^{16}$ passed directly to $F:\Rr^{24}\to\Rr^{16}$. For a box
+$X\subset\Rr^{16}$ with centre $x_{0}$, the Krawczyk operator for path $k$ is
+\begin{equation}\label{eq:krawczyk}
+K_{k}(X)=x_{0}-C_{k}F_{k}(x_{0})+\bigl(I-C_{k}[DF_{k}(X)]\bigr)(X-x_{0}),
+\end{equation}
+where $C_{k}$ is the frozen point preconditioner of the corresponding reduced midpoint
+Jacobian $DF_{k}(x_{0})$ (a numerical approximate inverse) and $[DF_{k}(X)]$ is an
+interval enclosure of the reduced Jacobian~\eqref{eq:reducedjac} over $X$. In centered
+coordinates $x_{0}=0$, as used by the implementation, this reduces to
+\[
+K_{k}(X)=-C_{k}F_{k}(0)+\bigl(I-C_{k}[DF_{k}(X)]\bigr)X.
+\]
+The strict inclusion $K_{k}(X)\subset\intt(X)$ then implies that $F_{k}$ has a unique
+zero inside $X$~\cite{moore2009,tucker2011}. The projective chart denominator $\psi_{0}$ of
 Eq.~\eqref{eq:chart} is formally verified to exclude zero on every accepted box, ensuring
 the coordinate chart is valid throughout the Krawczyk computation.
 
 \begin{theorem}[Krawczyk inclusions for 12 declared controls]\label{thm:krawczyk}
-For each of the twelve declared controls, there exists a transverse phase box
+For each of the twelve declared controls, with the affine transverse parameterization of
+Eq.~\eqref{eq:affine}, the common transverse box
 \[
-X_{k}\subset\Rr^{16}
+X_{k}=X=[-3\times10^{-12},\,3\times10^{-12}]^{16}
 \]
-such that the Krawczyk operator satisfies
+satisfies the strict Krawczyk inclusion
 \[
 K_{k}(X_{k})\subset\intt(X_{k}).
 \]
-Consequently, each box $X_{k}$ contains a locally unique exact root $x^{\ast}_{k}$ of
-$F_{k}(x)=0$, i.e., a control $\gamma^{\ast}_{k}=(x^{\ast}_{k},y_{k})$ that is exactly
-matched in projective output state and first projective response to the reference.
+Consequently, each box $X_{k}$ contains a unique exact root $x^{\ast}_{k}$ of
+$F_{k}(x)=0$, i.e., a control
+$\gamma^{\ast}_{k}=\widehat{\gamma}_{k}+N_{k}x^{\ast}_{k}$ that is exactly matched in
+projective output state and first projective response to the reference. Existence and
+uniqueness are certified within the declared transverse box only, not on the full
+24-dimensional phase space or the whole response fibre.
 \end{theorem}
 
 \begin{proof}[Computer-assisted proof]
 A numerical approximate inverse of the midpoint Jacobian is used as the point
-preconditioner. The regularity of each frozen point preconditioner is separately
-certified by an independent $256$-bit outward-rounded Rump--Neumann argument: for all
-twelve paths $\lVert I-R_{k}C_{k}\rVert_{\infty}<1$, so each $C_{k}$ is nonsingular
-(certificate \nolinkurl{results/audit_closure/p0_preconditioner_certificate.json}). The
-Jacobian over each full box is then enclosed with 192-bit Arb
+preconditioner. The Jacobian over each full box is then enclosed with 192-bit Arb
 arithmetic, and the resulting Krawczyk image is verified to lie strictly inside the box.
 The projective chart denominator is formally verified to exclude zero on every accepted
-box. For all twelve boxes, the inclusion $K(X)\subset\intt(X)$ is verified. The SHA-256
-protocol and certificate identifiers of this run are recorded in Appendix~\ref{app:hashes}.
-By the Krawczyk theorem~\cite{moore2009,tucker2011,tucker2002}, each box contains a locally
-unique root.
+box. For all twelve boxes, the inclusion $K_{k}(X)\subset\intt(X)$ is verified; the worst
+box-normalized utilization, read from the frozen certificate, is
+\[
+\max_{k}\frac{\lVert K_{k}(X)\rVert_{\infty}}{3\times10^{-12}}<0.866<1,
+\]
+so every coordinate image clears the box wall by a factor of at least $1.15$. The SHA-256
+protocol and certificate identifiers of this run are recorded in
+Appendix~\ref{app:hashes}. By the Krawczyk
+theorem~\cite{moore2009,tucker2011,tucker2002}, each box contains a locally unique root.
+As a \emph{supplementary} audit-closure check---not an additional premise of the strict
+inclusion just established---the regularity of each frozen point preconditioner is
+independently certified by a $256$-bit outward-rounded Rump--Neumann argument: for all
+twelve paths $\lVert I-R_{k}C_{k}\rVert_{\infty}<1$, so each $C_{k}$ is nonsingular
+(certificate \nolinkurl{results/audit_closure/p0_preconditioner_certificate.json}). This
+P0 certificate belongs to the later v0.3.2 audit-closure supplement
+(Remark~\ref{rem:p0role}); it strengthens auditability but neither replaces nor alters the
+v0.3.1 frozen Krawczyk certificate that proves the theorem. In the strict-inclusion form
+of the Krawczyk theorem used here, the required regularity is already implied by the
+accepted inclusion; the v0.3.2 P0 certificate is therefore an independent redundant audit
+of the production preconditioner, not an additional premise of Theorem~\ref{thm:krawczyk}.
 \end{proof}
+
+\begin{remark}[Residual, norm, and box relation]\label{rem:residual}
+Two distinct residuals must not be conflated. The \emph{unpreconditioned} constraint
+residual $\lVert F\rVert$ of the numerical candidates is of order $10^{-11}$; it is a
+float64 diagnostic of the candidate-generation optimizer and is \emph{not} compared
+directly with the $3\times10^{-12}$ box radius. The strict Krawczyk inclusion is decided
+instead by the full interval image
+$-C_{k}F_{k}(x_{0})+\bigl(I-C_{k}\,[DF_{k}(X)]\bigr)(X-x_{0})$
+of Eq.~\eqref{eq:krawczyk}, whose outward-rounded endpoints are enclosed on the formal
+cohort box centres $\widehat{\gamma}_{k}$. The preconditioned image
+$\lVert K_{k}(X)\rVert_{\infty}$, already preconditioned by $C_{k}$, is what the
+utilization bound $0.866$ above reports. The frozen certificate does not tabulate a single
+scalar preconditioned centre residual; accordingly we do not quote one, and the
+$10^{-11}$ figure refers only to the unpreconditioned optimizer residual.
+\end{remark}
 
 \begin{remark}[Scope of the Krawczyk inclusion theorem]
 The theorem establishes local uniqueness inside each declared transverse box. It does not
@@ -264,7 +320,13 @@ Taylor truncation, Cauchy extraction, alias enclosure, or local-jet reconstructi
 For each of the twelve declared controls, let $X_{k}$ be the transverse phase box
 satisfying a strict Krawczyk inclusion from Theorem~\ref{thm:krawczyk}. Direct
 outward-rounded Arb propagation of $X_{k}$ through the declared six-point finite-error
-functional produces twelve performance intervals that are pairwise disjoint and totally
+functional produces twelve performance intervals $B_{k}$ covering the complete root box,
+\[
+B_{k}\supseteq
+\Bigl\{\,\overline{\mathcal{E}}\bigl(\widehat{\gamma}_{k}+N_{k}x\bigr):
+x\in[-3\times10^{-12},\,3\times10^{-12}]^{16}\Bigr\},
+\]
+that are pairwise disjoint and totally
 ordered according to the pre-outcome ordering frozen for the independent twelve-path
 formal cohort. Therefore the locally
 unique roots exactly matched in projective output state and first projective response
@@ -273,25 +335,36 @@ inside the boxes obey the complete frozen finite-error ordering.
 
 \begin{proof}[Computer-assisted proof]
 By Theorem~\ref{thm:krawczyk}, the locally unique projectively matched control
-$\gamma^{\ast}_{k}$ belongs to the certified phase box $X_{k}$. For every box $X_{k}$, the
-six declared finite-error Hamiltonians are evaluated directly using 192-bit outward-rounded
-Arb/ACB arithmetic. Every phase-dependent trigonometric factor, Hamiltonian matrix
-exponential, state propagation, overlap, infidelity, and six-point mean is enclosed. Denote
-the resulting real performance interval by $B_{k}$. Therefore
+$\gamma^{\ast}_{k}=\widehat{\gamma}_{k}+N_{k}x^{\ast}_{k}$ belongs to the certified box.
+For every box $X_{k}$, the six declared finite-error Hamiltonians are evaluated directly
+using 192-bit outward-rounded Arb/ACB arithmetic over the \emph{whole} declared transverse
+box, not merely at its centre or at the approximate root: every phase-dependent
+trigonometric factor, Hamiltonian matrix exponential, state propagation, overlap,
+infidelity, and six-point mean is enclosed. Denote the resulting real performance interval
+by $B_{k}$. Because the propagation is over the full box,
+\[
+B_{k}\supseteq
+\Bigl\{\,\overline{\mathcal{E}}\bigl(\widehat{\gamma}_{k}+N_{k}x\bigr):
+x\in[-3\times10^{-12},\,3\times10^{-12}]^{16}\Bigr\},
+\]
+where $\overline{\mathcal{E}}$ is the six-axis mean finite-error functional of
+Eq.~\eqref{eq:meanloss}. Since the certified root satisfies $x^{\ast}_{k}\in X$, its
+exact-root performance lies in the enclosure,
 \[
 \II(\gamma^{\ast}_{k})\in B_{k}.
 \]
-For every frozen ordered pair $a\prec b$, direct interval comparison verifies
+No Taylor truncation, order-30 jet, or local-jet reconstruction enters $B_{k}$. For every
+frozen ordered pair $a\prec b$, direct interval comparison verifies
 \[
 \sup B_{a}<\inf B_{b}.
 \]
 All $\binom{12}{2}=66$ comparisons pass and have the orientation specified by the frozen
-ordering certificate. Hence
+ordering certificate. Because each $B_{k}$ encloses its exact root's performance, the
+strict box separation $\sup B_{a}<\inf B_{b}$ implies the strict exact-root ordering
 \[
 \II(\gamma^{\ast}_{a})<\II(\gamma^{\ast}_{b})
 \]
-for every frozen ordered pair. No Taylor truncation or local-jet reconstruction is used in
-this direct certification.
+for every frozen ordered pair.
 \end{proof}
 
 The predecessor order was frozen before direct propagation; the resulting protocol and
@@ -406,8 +479,9 @@ coefficients are formed by ball convolution,
 \[
 F_{n}=\sum_{r=0}^{n}g_{r}\,\bar{g}_{n-r},
 \]
-and the infidelity coefficients follow from $1-F$. The analytic even Dyson tail after order
-thirty is enclosed by $2\times10^{-11}$.
+and the infidelity coefficients follow from $1-F$. The mean six-axis analytic even Dyson
+tail after order thirty is enclosed by $2\times10^{-11}$; the largest individual-axis tail
+is below $4\times10^{-11}$.
 
 Propagating the resulting order-thirty jet over the twelve Krawczyk phase boxes yields
 performance intervals. Pairwise comparison of the resulting order-thirty intervals

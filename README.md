@@ -45,12 +45,12 @@ Canonical v0.3.1 commit:
 Version `v0.3.1` freezes the main strict scientific certificate artifacts.
 Version `v0.3.2` freezes the P0/P1/P2 audit-closure supplement. The current
 `v0.4.1` tag marks the Pulser external model-validation layer. The current
-reviewer-facing manuscript and CI metadata on `main` are a `v0.4.2` release
-candidate until the final tag is created. These later expository and
-formula-level corrections do not change the frozen numerical certificates. A
-separate immutable paper-exact tag, for example `paper-exact-root-v1.0`,
-freezes the synchronized submission manuscript source and PDF without moving
-`v0.3.1`.
+reviewer-facing manuscript on `main` is a `paper-exact-root-v1.2.1` archive
+candidate pending tag, GitHub Release, and DOI creation. This v1.2.1 paper
+archive is a text and presentation-layer revision only: it does not rerun Arb,
+change theorem-bearing assets, modify certified thresholds, or add hardware/QPU
+claims. Separate immutable paper-exact tags freeze manuscript source/PDF
+snapshots without moving `v0.3.1`.
 
 ## Strongest Result
 
@@ -523,13 +523,15 @@ certificates, verification utilities, and manuscript source are included in
 this repository. Version `v0.3.1` is fixed at commit
 `284974c9f6b952f4e114c8c5bdc9c2c299c4065c`.
 
-The published manuscript version of record is archived at Zenodo:
+The historical manuscript version of record is archived at Zenodo:
 
 - Version DOI: [`10.5281/zenodo.21831180`](https://doi.org/10.5281/zenodo.21831180)
 - Concept DOI: [`10.5281/zenodo.20713301`](https://doi.org/10.5281/zenodo.20713301)
 
-The repository keeps the frozen numerical certificates separate from the
-published manuscript record.
+That DOI corresponds to the older PDF record, not to the pending v1.2.1 paper
+archive candidate. A v1.2.1 tag, GitHub Release URL, and Zenodo DOI have not
+yet been created. The repository keeps the frozen numerical certificates
+separate from the manuscript archive records.
 
 ## Citation
 
@@ -537,10 +539,10 @@ See [`CITATION.cff`](CITATION.cff). Cite the published manuscript DOI together
 with the repository version or exact commit used for reproduction.
 
 For submission freezing, keep `v0.3.1` as the scientific certificate version.
-After the final manuscript source and PDF are synchronized, create a separate
-immutable paper-exact tag such as `paper-exact-root-v1.0` and attach the final
-PDF, LaTeX source package, SHA-256 hashes, reproduction entry point, and a
-note relating that paper package to the `v0.3.1` scientific artifacts.
+For manuscript archival, use a separate immutable paper-exact tag. The pending
+v1.2.1 paper archive should attach the final PDF, LaTeX source package,
+SHA-256 hashes, reproduction entry point, and a note relating that paper
+package to the unchanged `v0.3.1` scientific artifacts.
 
 ## License
 

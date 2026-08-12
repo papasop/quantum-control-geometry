@@ -80,7 +80,7 @@ def verify() -> list[str]:
     verify_g4_threshold_claim(g4)
     assert bool(g4["validation"]["top1_pass"])
     assert g4_provenance["legacy_manuscript_sample_status"] == (
-        "legacy manuscript sample pending paper correction"
+        "legacy manuscript sample corrected in v1.2.1 textual revision"
     )
     original_colab = g4_provenance["original_colab_sample"]
     assert float(original_colab["mean_spearman"]) == 0.996992

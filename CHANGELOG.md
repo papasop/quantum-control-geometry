@@ -1,5 +1,20 @@
 # Changelog
 
+## [paper-exact-root-v1.2.1 archive candidate] -- textual archive alignment
+
+This paper archive candidate is a text and presentation-layer revision only. It
+does not change the frozen physical model, Arb/Krawczyk proof engines,
+theorem-bearing JSON, exact-root boxes, protocols, numerical thresholds,
+certified 12/12 roots, or certified 66/66 direct ordering theorem.
+
+- Archived the 25-page v1.2.1 manuscript source/PDF candidate into `paper/`.
+- Updated manuscript page/hash gates for the v1.2.1 PDF.
+- Closed the legacy G4 manuscript-sample provenance status as corrected in the
+  v1.2.1 textual revision while preserving the historical
+  `original_colab_sample.mean_spearman = 0.996992` provenance value.
+- Recorded that the historical DOI `10.5281/zenodo.21831180` corresponds to an
+  older PDF; the v1.2.1 tag, GitHub Release URL, and DOI remain pending.
+
 ## [v0.4.2 release candidate] -- manuscript G4 qualification and release hygiene
 
 The v0.4.2 release candidate is a manuscript and CI hygiene state. It does not

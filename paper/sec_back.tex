@@ -9,23 +9,30 @@ Appendix~\ref{app:hashes}.}
 \label{tab:audits}
 \footnotesize
 \setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lllll@{}}
 \toprule
-Audit & Paths & Rank diagnostic & Certified result & Logical role\\
+Audit & Cohort & Rank diagnostic & Certified result & Logical role\\
 \midrule
-Prospective $\Gg_{4}$ ranking & 20 & $\rho\ge0.95$ gate & -- & prospective evidence\\
-Covariant $\Gg_{4}$ contraction ranking & 12 & $\rho=0.965035$ & -- & covariance/ranking audit\\
-Formal quartic-only bound & 12 & -- & 34/66 cert. & low-order boundary\\
-Frozen point-valued order-30 diagnostic & 12 & $\rho=1$ & 66/66 numerical & diagnostic\\
-Exact-root Krawczyk inclusion & 12 & -- & 12/12 roots & existence/uniqueness\\
-Exact-root order-30 jet & 12 & -- & 52/66 cert. & mechanism certificate\\
+Prospective $\Gg_{4}$ ranking & 20-path & $\rho\ge0.95$ gate & -- & prospective evidence\\
+Covariant $\Gg_{4}$ contraction ranking & 12-path & $\rho=0.965035$ & -- & covariance/ranking audit\\
+Formal quartic-only bound & 12-path & -- & 34/66 & low-order boundary (point)\\
+Frozen point-valued order-30 diagnostic & 12-path & $\rho=1$ & 66/66 numerical & point-valued diagnostic\\
+Exact-root Krawczyk inclusion & 12-path & -- & 12/12 roots & existence/uniqueness\\
+Exact-root order-30 jet & 12-path & -- & 52/66 cert. & mechanism certificate (box)\\
 \midrule
-\textbf{Exact-root direct Arb propagation} & 12 & $\rho=1$ & \textbf{66/66 cert.} & \textbf{main theorem}\\
+\textbf{Exact-root direct Arb propagation} & 12-path & $\rho=1$ & \textbf{66/66 cert.} & \textbf{main theorem (box)}\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
-The covariant $\rho=0.965035$ entry is a reference-environment numerical value;
-the predeclared $\rho\ge0.95$ gate is satisfied.
+The three rows reporting pair counts are not interchangeable. The quartic-only 34/66 and
+the frozen-point order-30 66/66 are \emph{point-valued} results at the serialized frozen
+decimal points; the exact-root order-30 52/66 and the direct 66/66 are \emph{box-valued}
+certificates over the certified Krawczyk root boxes, and only the last is the main
+theorem. The covariant $\rho=0.965035$ entry is a reference-environment numerical value on
+the twelve-path covariance/ranking audit; it is a separate diagnostic, not a second
+application of the predeclared prospective gate. The predeclared $\rho\ge0.95$ gate applies
+to the independent twenty-path prospective cohort and is satisfied.
 
 \section{Summary of certified and prospective results}\label{sec:results}
 
@@ -51,13 +58,61 @@ Table~\ref{tab:audits} separates the main theorem, its local-root prerequisite, 
 higher-order mechanism certificate, and the independent prospective evidence;
 Figure~\ref{fig:evidence} gives the exact-root data-level statement, while the prospective
 ranking result is reported only at threshold level in the text. One distinction must be made
-explicit: the frozen-point order-30 audit certifies 66/66 comparisons before propagation
-over the Krawczyk boxes and is not an exact-root
-certificate (proof objects in \texttt{results/l4\_order30/}); propagation of the same jet
-over the root boxes resolves 52/66 comparisons with no reversal
-(Proposition~\ref{prop:order30}), whereas direct finite-error propagation over those boxes
-proves all 66/66. Numerical integrity diagnostics are collected in
-Appendix~\ref{app:hashes}.
+explicit: the frozen-point order-30 audit resolves 66/66 pair directions at the frozen
+decimal points, before any propagation over the Krawczyk boxes, and is a point-valued
+numerical diagnostic, not an exact-root box certificate (proof objects in
+\texttt{results/l4\_formal/}, together with the quartic-only 34/66 boundary); propagation
+of the same jet over the root boxes resolves 52/66 comparisons with no reversal
+(Proposition~\ref{prop:order30}, box-valued), whereas direct finite-error propagation over
+those boxes proves all 66/66 (box-valued, the main theorem). Numerical integrity
+diagnostics are collected in Appendix~\ref{app:hashes}. Table~\ref{tab:cohortmap} maps each
+claim layer to its cohort, mathematical object, and artifact path.
+
+\begin{table}[htbp]
+\centering
+\caption{Claim-layer to artifact mapping. ``Point'' = point-valued diagnostic at frozen
+decimal points; ``box'' = box-valued interval certificate over the certified root boxes.
+The training, formal twelve-path, and prospective twenty-path cohorts are distinct frozen
+sets with distinct seeds.}
+\label{tab:cohortmap}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Claim/layer & Cohort & Object & Artifact path & Value type\\
+\midrule
+Quartic-only 34/66 & 12-path formal & quartic gap & \texttt{results/l4\_formal/} & point\\
+Frozen order-30 66/66 & 12-path formal & order-30 point & \texttt{results/l4\_formal/} & point\\
+Exact-root order-30 52/66 & 12-path formal & jet over boxes & \texttt{results/exact\_root\_ordering/} & box\\
+Krawczyk 12/12 roots & 12-path formal & strict inclusion & \texttt{results/exact\_fibre\_krawczyk/} & box\\
+\textbf{Direct exact-root 66/66} & 12-path formal & box propagation & \texttt{results/exact\_root\_ordering/} & box\\
+Prospective $\rho\ge0.95$ & 20-path prospective & rank gate & \texttt{results/g4\_prospective/} & rank\\
+Training (formula selection) & 12-path training & rule freeze & \texttt{results/g4\_prospective/} & rank\\
+Covariance contraction ranking & 12-path covariance & contraction rank & \texttt{results/l3\_covariance/} & rank\\
+P0 preconditioner audit & v0.3.2 supplement & redundant regularity & \texttt{results/audit\_closure/} & audit\\
+\bottomrule
+\end{tabular}}
+\end{table}
+The covariance contraction ranking row is the 12-path covariance audit of
+Table~\ref{tab:audits} (recorded $\rho=0.965035$); it is a rank diagnostic, not a gate
+application. The P0 row is the independent redundant regularity audit of the production
+preconditioner belonging to the v0.3.2 audit-closure supplement
+(Remark~\ref{rem:p0role}); it is not a new premise of the main theorem.
+
+The twelve-path \emph{formal} cohort frozen for the Krawczyk and ordering certificates is a
+decimal-refrozen cohort whose phase values differ from the earlier float64 numerical
+training/validation cohort by less than $6.06\times10^{-7}$ per coordinate
+($\max\lvert\Delta\gamma\rvert<6.06\times10^{-7}$; the recorded maximum coordinate
+mismatch is $6.0520531\ldots\times10^{-7}$, so $6.06\times10^{-7}$ is a direction-safe
+upward quotation). This cohort drift
+is far below every certified interval half-width and every nonzero ordering margin in the
+formal certificate (whose smallest margin is $\Delta_{\min}=2.50\times10^{-5}$), so it does
+not alter any certified interval inequality or theorem-bearing certificate: the frozen
+theorem certificate is unchanged by it. The
+formal cohort is identified by the cohort hash of Appendix~\ref{app:hashes}; the
+prospective twenty-path cohort and the twelve-path training cohort are separately seeded
+and are not the same set.
 
 \section{Discussion}\label{sec:discussion}
 
@@ -171,9 +226,11 @@ and produces byte-identical formal certificates in two complete runs. This byte-
 claim applies to the formal Arb/Krawczyk proof artifacts, not to the ordinary float64
 candidate-generation and held-out prospective $\Gg_{4}$ diagnostics. Every ordinary
 held-out floating-point outcome used by the formal certificate is also verified to lie
-inside its formal ball as an integrity diagnostic. A clean external reproduction from tag
-\texttt{v0.3.1} (commit
-\texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}) passed with no vendor account. Hashes,
+inside its formal ball as an integrity diagnostic. A clean-environment reproduction in
+fresh runtimes from tag \texttt{v0.3.1} (commit
+\texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}) passed with no vendor account. Both
+clean-environment runs were executed by the author within the same research pipeline; they
+are an internal reproducibility check, not an independent third-party reproduction. Hashes,
 scripts, dependencies, and run records are given in Appendices~\ref{app:hashes}
 and~\ref{app:scripts}.
 
@@ -212,16 +269,40 @@ matrix exponential, state propagation, overlap, infidelity, and six-point mean i
 For each declared path, the Krawczyk computation uses a point preconditioner given by a
 numerical inverse of the midpoint Jacobian, a common transverse box radius of
 $3\times10^{-12}$, an interval enclosure of the Jacobian over the full box, and the strict
-inclusion test $K(X)\subset\intt(X)$; the projective chart denominator $\psi_{0}$ is
+inclusion test $K_{k}(X)\subset\intt(X)$; the projective chart denominator $\psi_{0}$ is
 verified to exclude zero on every accepted box. The order-thirty mechanism certificate
 extracts Taylor coefficients by a 64-point outward-rounded Cauchy discrete Fourier
 transform; the discrete-transform alias is enclosed by the path-uniform Dyson bound
-$e^{K_{a}}K_{a}^{64}/64!<10^{-40}$ on every physical error axis, and the analytic even
-Dyson tail after order thirty is enclosed by $2\times10^{-11}$. As an integrity diagnostic,
+$e^{K_{a}}K_{a}^{64}/64!<10^{-40}$ on every physical error axis, and the mean six-axis
+analytic even Dyson tail after order thirty is enclosed by $2\times10^{-11}$ (recorded
+mean tail $1.2342576\ldots\times10^{-11}$), while the largest individual-axis tail is
+below $4\times10^{-11}$ (recorded maximum $3.7027728\ldots\times10^{-11}$). As an integrity
+diagnostic,
 every ordinary held-out floating-point outcome is verified to lie inside its corresponding
 formal ball; this diagnostic is not part of the theorem proofs.
 
 \section{Certificate identifiers and integrity diagnostics}\label{app:hashes}
+
+\textbf{Rounding and hash conventions.} Throughout, outward rounding is used: certified
+decimal \emph{lower} bounds are rounded downward and \emph{upper} bounds upward, so the
+reported interval always contains the exact value; a certified \emph{negative} upper bound
+is rounded toward zero only in the direction that still bounds the true value from above.
+Consequently the displayed minimum margin $\Delta_{\min}=2.50\times10^{-5}$ is a downward
+rounding of the certified value $2.505874\ldots\times10^{-5}$, and the displayed
+utilization bound $0.866$ is an upward rounding of the computed maximum
+$0.8653915\ldots$, so the quoted bound direction-safely exceeds the certified worst
+utilization. An upper-bound quotation (rather than a truncated equality) is the correct
+form here: the certified content of the inclusion theorem is the strict inclusion itself,
+for which only a valid upper bound below $1$ is invoked. Certificate identifiers use
+SHA-256 over a
+canonical JSON serialization (UTF-8, keys sorted, minimal separators, no insignificant
+whitespace); runtime metadata is excluded from every hashed proof object. The mapping from
+each hash to its file is: cohort hash $\to$
+\texttt{results/exact\_fibre\_krawczyk/cohort.json}; Krawczyk protocol/certificate $\to$
+\texttt{results/exact\_fibre\_krawczyk/\allowbreak protocol.json} and
+\texttt{krawczyk\_certificate.json}; exact-root ordering protocol/certificate $\to$
+\texttt{results/exact\_root\_ordering/\allowbreak protocol.json} and
+\texttt{exact\_root\_ordering\_certificate.json}.
 
 The frozen twelve-path cohort hash is
 \begin{center}
@@ -244,11 +325,20 @@ The deterministic protocol and certificate hashes are:
 \footnotesize\texttt{f9bd79c3f1304b3defa311a491ea2d1e}.
 \end{itemize}
 
+\begin{remark}[Role of P0/P1/P2]\label{rem:p0role}
 The frozen point preconditioners used in Theorem~\ref{thm:krawczyk} are certified
 nonsingular by an independent $256$-bit outward-rounded Rump--Neumann regularity
 certificate (\nolinkurl{results/audit_closure/p0_preconditioner_certificate.json}):
 $\lVert I-R_{k}C_{k}\rVert_{\infty}<1$ for all twelve paths ($12/12$ nonsingular). This is
-a preconditioner-regularity certificate, not a second full interval ordering proof.
+a preconditioner-regularity certificate, not a second full interval ordering proof. Three
+audit roles are distinguished by release version. The \textbf{v0.3.1 formal proof snapshot}
+already contains the strict Krawczyk inclusions that are the theorem evidence; it needs no
+further certificate. The \textbf{P0/P1/P2} artifacts belong to the later \textbf{v0.3.2
+audit-closure supplement}: P0 is an independent redundant recheck of production
+preconditioner regularity, P1 is an independent high-precision model rebuild, and P2 is an
+analytic/mutation test. They strengthen auditability but neither replace, modify, nor form
+part of the original v0.3.1 frozen proof snapshot.
+\end{remark}
 
 \begin{table}[htbp]
 \centering
@@ -289,7 +379,9 @@ The principal standalone scripts are:
 The last script produces all formal proof objects. The formal standalone script pins
 \texttt{python-flint==0.8.0}. NumPy and SciPy provide numerical diagnostics, while the
 v1.3 proof consumes the frozen decimal cohort and uses Arb/ACB for the formal interval
-certificate.
+certificate. The ``v1.3 pipeline'' denotes the formal reproduction script generation used
+by the certificate snapshot frozen at repository tag \texttt{v0.3.1}; it is distinct from
+manuscript version v1.2 and from the audit-closure tag \texttt{v0.3.2}.
 
 The two clean-environment Colab executions of Section~\ref{sec:repro}, started from the
 public v0.3.1 tag, completed in 52.6 s and 107.9 s respectively; each run covers dependency
@@ -301,13 +393,14 @@ All code, frozen inputs, formal certificates, and reproduction scripts are avail
 \begin{center}
 \url{https://github.com/papasop/quantum-control-geometry}
 \end{center}
-The formal computational artifacts used in this work are fixed in release v0.3.1 at commit
-\begin{center}
-\footnotesize\texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}.
-\end{center}
-The synchronized manuscript source is
-maintained on the repository's \texttt{main} branch. No PASQAL account or cloud credentials
-are required.
+Four distinct objects must not be conflated. The \textbf{v0.3.1 formal proof snapshot}
+(commit \texttt{284974c9f6b952f4e114c8c5bdc9c2c299c4065c}) fixes the formal certificates
+used in this work. The \textbf{v0.3.2 audit closure} adds the supplementary P0/P1/P2
+audits described in Remark~\ref{rem:p0role} without altering the v0.3.1 proof. The
+\textbf{current manuscript} is a textual revision synchronized on the repository's
+\texttt{main} branch; its wording is aligned to the frozen v0.3.1 proof objects but does
+not change them. Separately, any previously archived record DOI refers to an older PDF,
+not to the present text. No PASQAL account or cloud credentials are required.
 
 \section*{Funding}
 The author received no external funding for this work.
@@ -353,7 +446,7 @@ topological winding,'' \emph{Sci.~Rep.} \textbf{5}, 12685 (2015). doi:10.1038/sr
 
 \bibitem{johansson2017}
 F.~Johansson, ``Arb: Efficient arbitrary-precision midpoint-radius interval arithmetic,''
-\emph{IEEE Trans.~Comput.} \textbf{66}, 1281--1292 (2017). doi:10.1109/TC.2017.269063.
+\emph{IEEE Trans.~Comput.} \textbf{66}, 1281--1292 (2017). doi:10.1109/TC.2017.2690633.
 
 \bibitem{dyson1949}
 F.~J.~Dyson, ``The radiation theories of Tomonaga, Schwinger, and Feynman,''

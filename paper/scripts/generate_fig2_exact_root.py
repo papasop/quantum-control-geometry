@@ -2,9 +2,16 @@
 """Generate Figure 2 from the frozen exact-root ordering certificate.
 
 The interval, order, disjointness, and minimum-gap semantics are derived from
-the committed exact-root certificate and checked before plotting. PNG pixel-byte
-identity additionally depends on the pinned Matplotlib/font environment and is
-not part of the mathematical certificate.
+the committed exact-root certificate and checked before plotting. Each frozen
+Arb endpoint string has the form ``[midpoint +/- radius]``; this script resolves
+both components and uses the outward endpoints (``mid-radius`` for lower,
+``mid+radius`` for upper) for the plotted interval, the disjointness check, and
+the minimum-gap computation, matching the outward-rounded semantics of the
+formal certificate. The endpoint radii (~1e-58) are more than fifty orders of
+magnitude below the minimum gap (~2.5e-5), so the outward correction is far
+below the plotted resolution. PNG pixel-byte identity additionally depends on
+the pinned Matplotlib/font environment and is not part of the mathematical
+certificate.
 """
 
 from __future__ import annotations
@@ -50,7 +57,7 @@ EXPECTED_ORDER = [
     "pv06",
 ]
 EXPECTED_MIN_GAP_PAIR = ("pv08", "pv11")
-INTERVAL_RE = re.compile(r"^\[([^\]]+?) \+/- [^\]]+\]$")
+INTERVAL_RE = re.compile(r"^\[([^\]]+?) \+/- ([^\]]+)\]$")
 
 
 @dataclass(frozen=True)
@@ -64,14 +71,25 @@ class PathInterval:
         return (self.lower + self.upper) / Decimal(2)
 
 
-def parse_arb_endpoint(text: str) -> Decimal:
-    """Parse a full-precision Arb endpoint string such as ``[1.23 +/- 1e-60]``."""
+def parse_arb_endpoint(text: str, side: str) -> Decimal:
+    """Resolve an Arb endpoint string ``[mid +/- radius]`` to its outward endpoint.
+
+    ``side`` must be ``"lower"`` (returns ``mid - radius``) or ``"upper"``
+    (returns ``mid + radius``), matching the outward-rounded semantics of the
+    formal certificate.
+    """
     match = INTERVAL_RE.match(text)
     if not match:
         raise ValueError(f"unexpected Arb endpoint format: {text!r}")
     with localcontext() as ctx:
         ctx.prec = 90
-        return Decimal(match.group(1))
+        midpoint = Decimal(match.group(1))
+        radius = Decimal(match.group(2))
+        if side == "lower":
+            return midpoint - radius
+        if side == "upper":
+            return midpoint + radius
+        raise ValueError(f"side must be 'lower' or 'upper', got {side!r}")
 
 
 def load_direct_intervals(certificate_path: Path = DEFAULT_CERTIFICATE) -> list[PathInterval]:
@@ -83,8 +101,8 @@ def load_direct_intervals(certificate_path: Path = DEFAULT_CERTIFICATE) -> list[
         intervals.append(
             PathInterval(
                 path=row["path"],
-                lower=parse_arb_endpoint(direct["lower"]),
-                upper=parse_arb_endpoint(direct["upper"]),
+                lower=parse_arb_endpoint(direct["lower"], "lower"),
+                upper=parse_arb_endpoint(direct["upper"], "upper"),
             )
         )
     return intervals
@@ -235,7 +253,14 @@ def plot_figure(data: dict[str, object], output_path: Path = DEFAULT_OUTPUT) -> 
             linestyle=(0, (3, 2)),
         )
     )
-    axins = ax.inset_axes([0.50, 0.55, 0.46, 0.38])
+    # Place the inset in the empty lower-left interior so it does not occlude any of the
+    # twelve global interval rows (the upper-right placement previously covered the
+    # pv01/pv10/pv05/pv04 markers). A small rightward offset keeps its y-tick labels clear
+    # of the main y-axis path labels, and the bottom edge is lifted so the inset's rotated
+    # x-tick labels do not collide with the main x-axis tick labels; the lower-left
+    # interior is data-free because the intervals increase left-to-right and the rows
+    # descend top-to-bottom.
+    axins = ax.inset_axes([0.135, 0.14, 0.40, 0.32])
     cap = 0.17
     for lo, up, mid, yy in ((l0, u0, m0, 1.0), (l1, u1, m1, 0.0)):
         axins.hlines(yy, lo, up, color="#b3261e", linewidth=2.2)
