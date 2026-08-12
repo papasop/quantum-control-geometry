@@ -1,19 +1,31 @@
 # Changelog
 
-## [paper-exact-root-v1.2.1 archive candidate] -- textual archive alignment
+## [paper-exact-root-v1.2.1] -- textual archive alignment
 
-This paper archive candidate is a text and presentation-layer revision only. It
+This published paper archive is a text and presentation-layer revision only. It
 does not change the frozen physical model, Arb/Krawczyk proof engines,
 theorem-bearing JSON, exact-root boxes, protocols, numerical thresholds,
 certified 12/12 roots, or certified 66/66 direct ordering theorem.
 
-- Archived the 25-page v1.2.1 manuscript source/PDF candidate into `paper/`.
+- Archived the 25-page v1.2.1 manuscript source/PDF into `paper/`.
 - Updated manuscript page/hash gates for the v1.2.1 PDF.
 - Closed the legacy G4 manuscript-sample provenance status as corrected in the
   v1.2.1 textual revision while preserving the historical
   `original_colab_sample.mean_spearman = 0.996992` provenance value.
 - Recorded that the historical DOI `10.5281/zenodo.21831180` corresponds to an
-  older PDF; the v1.2.1 tag, GitHub Release URL, and DOI remain pending.
+  older PDF, not to v1.2.1.
+- Recorded the published v1.2.1 Zenodo DOI
+  `10.5281/zenodo.21898645`, Zenodo URL
+  `https://zenodo.org/records/21898645`, publication date 2026-08-12,
+  resource type Publication / Preprint, PDF SHA-256
+  `41d783329f1ceb761dc81131127e5cff90720c4e60fbe6a17d21647b048a98ab`, and
+  source ZIP SHA-256
+  `4972a400f4a910d9e7a9fbe6d22cf3c252f5889c8041eba82671f9a5ca447f1e`.
+- Guarded the historical G4 sample value `0.996992`: it is forbidden in the
+  current PDF and scientific claim. The only packaged exception is
+  `REVISION_LOG_v1.2.md`, where the value appears as historical correction
+  audit history; the `build_submission_zip.py` file-level exception is limited
+  to that revision log and does not apply to any other file.
 
 ## [v0.4.2 release candidate] -- manuscript G4 qualification and release hygiene
 

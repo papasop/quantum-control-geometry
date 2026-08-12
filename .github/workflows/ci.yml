@@ -84,6 +84,17 @@ jobs:
 
       - name: Verify published Zenodo metadata
         run: |
-          grep -q "10.5281/zenodo.21831180" README.md
-          grep -q "10.5281/zenodo.21831180" CITATION.cff
-          grep -q "10.5281/zenodo.21831180" REVIEWER_GUIDE.md
+          grep -q "10.5281/zenodo.21898645" README.md
+          grep -q "https://zenodo.org/records/21898645" README.md
+          grep -q "4972a400f4a910d9e7a9fbe6d22cf3c252f5889c8041eba82671f9a5ca447f1e" README.md
+          grep -q "10.5281/zenodo.21898645" CITATION.cff
+          grep -q "10.5281/zenodo.21898645" REVIEWER_GUIDE.md
+          grep -q "10.5281/zenodo.20713301" CITATION.cff
+          python - <<'PY'
+          from pathlib import Path
+          citation = Path("CITATION.cff").read_text(encoding="utf-8")
+          preferred = citation.split("preferred-citation:", 1)[1]
+          assert 'doi: "10.5281/zenodo.21898645"' in preferred
+          assert 'doi: "10.5281/zenodo.21831180"' not in preferred
+          assert 'value: "10.5281/zenodo.21898645"' in citation
+          PY
