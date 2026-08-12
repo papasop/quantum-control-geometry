@@ -85,6 +85,10 @@ def verify() -> list[str]:
     original_colab = g4_provenance["original_colab_sample"]
     assert float(original_colab["mean_spearman"]) == 0.996992
     assert not bool(original_colab["cross_platform_reproducible"])
+    notes = original_colab["notes"]
+    assert "current manuscript has removed it" in notes
+    assert "REVISION_LOG_v1.2.md" in notes
+    assert "not part of the formal theorem" in notes
     messages.append("G4 prospective gates: PASS")
 
     l3 = load_json("results/l3_covariance/report.json")

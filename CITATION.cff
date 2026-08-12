@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this research artifact, cite the historical manuscript DOI when applicable and the exact repository release or commit. The current v1.2.1 paper archive candidate is pending tag, Release, and DOI creation."
+message: "If you use this research artifact, cite the v1.2.1 manuscript DOI and the exact repository release or commit. Historical manuscript DOI 10.5281/zenodo.21831180 refers to an older PDF; concept DOI 10.5281/zenodo.20713301 identifies the all-versions record."
 title: "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
 type: software
 authors:
@@ -9,10 +9,17 @@ authors:
 year: 2026
 repository-code: "https://github.com/papasop/quantum-control-geometry"
 license: MIT
-version: paper-v1.2.1-archive-candidate
+version: v1.2.1
 identifiers:
   - type: doi
+    value: "10.5281/zenodo.21898645"
+    description: "v1.2.1 version DOI"
+  - type: doi
+    value: "10.5281/zenodo.20713301"
+    description: "all-versions concept DOI"
+  - type: doi
     value: "10.5281/zenodo.21831180"
+    description: "historical version DOI for an older PDF"
 preferred-citation:
   type: article
   title: "Exact-Root Certification of Finite-Error Ordering in Quantum Control"
@@ -21,5 +28,5 @@ preferred-citation:
       given-names: "Y. Y. N."
       orcid: "https://orcid.org/0009-0002-6471-139X"
   year: 2026
-  doi: "10.5281/zenodo.21831180"
-  url: "https://doi.org/10.5281/zenodo.21831180"
+  doi: "10.5281/zenodo.21898645"
+  url: "https://zenodo.org/records/21898645"

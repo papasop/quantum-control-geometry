@@ -57,10 +57,33 @@ class ReferenceArtifactTests(unittest.TestCase):
             self.assertNotIn(obsolete, text)
 
     def test_published_doi_is_synchronized(self) -> None:
-        doi = "10.5281/zenodo.21831180"
-        for relative in ("README.md", "CITATION.cff", "REVIEWER_GUIDE.md"):
-            text = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn(doi, text)
+        version_doi = "10.5281/zenodo.21898645"
+        concept_doi = "10.5281/zenodo.20713301"
+        historical_doi = "10.5281/zenodo.21831180"
+        source_zip_sha = (
+            "4972a400f4a910d9e7a9fbe6d22cf3c252f5889c8041eba82671f9a5ca447f1e"
+        )
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+        guide = (ROOT / "REVIEWER_GUIDE.md").read_text(encoding="utf-8")
+
+        for text in (readme, citation, guide):
+            self.assertIn(version_doi, text)
+        self.assertIn("https://zenodo.org/records/21898645", readme)
+        self.assertIn("https://zenodo.org/records/21898645", guide)
+        self.assertIn(source_zip_sha, readme)
+        self.assertIn(source_zip_sha, guide)
+        self.assertIn(concept_doi, citation)
+        self.assertIn(historical_doi, readme)
+        self.assertIn(historical_doi, guide)
+        self.assertIn(historical_doi, citation)
+        self.assertIn("older PDF", readme)
+        self.assertIn("older PDF", guide)
+
+        preferred = citation.split("preferred-citation:", 1)[1]
+        self.assertIn(f'doi: "{version_doi}"', preferred)
+        self.assertNotIn(f'doi: "{historical_doi}"', preferred)
+        self.assertIn(f'value: "{version_doi}"', citation)
 
     def test_manuscript_pdf_hash_matches_submission_version(self) -> None:
         digest = hashlib.sha256(

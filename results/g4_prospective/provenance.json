@@ -14,7 +14,7 @@
     "blas": "unknown",
     "architecture": "unknown",
     "cross_platform_reproducible": false,
-    "notes": "The manuscript contains this historical sample value, but the original environment provenance is not available in the repository. It must not be treated as a cross-platform reproducible G4 constant."
+    "notes": "This is a historical G4 sample value whose original environment provenance is not available in the repository. The current manuscript has removed it from the scientific claim; it remains only in provenance metadata and REVISION_LOG_v1.2.md as audit history. It is not part of the formal theorem and must not be treated as a cross-platform reproducible G4 constant."
   },
   "current_threshold_claim": {
     "claim_level": "threshold",

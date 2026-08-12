@@ -3,12 +3,13 @@
 This repository accompanies the manuscript **Exact-Root Certification of
 Finite-Error Ordering in Quantum Control**.
 
-Historical manuscript DOI: [10.5281/zenodo.21831180](https://doi.org/10.5281/zenodo.21831180).
+Published v1.2.1 manuscript DOI:
+[10.5281/zenodo.21898645](https://doi.org/10.5281/zenodo.21898645).
+Zenodo record: [https://zenodo.org/records/21898645](https://zenodo.org/records/21898645).
 The version-independent concept DOI is
 [10.5281/zenodo.20713301](https://doi.org/10.5281/zenodo.20713301).
-The current reviewer-facing manuscript on `main` is a
-`paper-exact-root-v1.2.1` archive candidate pending tag, GitHub Release, and
-DOI creation. The historical DOI above refers to an older PDF, not to v1.2.1.
+Historical manuscript DOI [10.5281/zenodo.21831180](https://doi.org/10.5281/zenodo.21831180)
+refers to an older PDF, not to v1.2.1.
 
 ## What is proved
 
@@ -224,8 +225,11 @@ open-system, worst-case-error, or many-body certification.
 - `paper-exact-root-v1.0` and `paper-exact-root-v1.1` freeze earlier
   synchronized manuscript/source packages without moving `v0.3.1`.
 - `v0.4.1` marks the external Pulser-model validation layer as a tag.
-- The current reviewer-facing manuscript is a `paper-exact-root-v1.2.1`
-  archive candidate until its tag, GitHub Release, and DOI are created.
-- The v1.2.1 candidate is a text and presentation-layer revision only; it does
+- `paper-exact-root-v1.2.1` freezes the published 25-page manuscript archive
+  associated with Zenodo DOI `10.5281/zenodo.21898645`.
+- The v1.2.1 archive is a text and presentation-layer revision only; it does
   not rerun Arb, alter theorem-bearing JSON, change certified thresholds, or
-  add hardware/QPU claims.
+  add hardware/QPU claims. Its PDF SHA-256 is
+  `41d783329f1ceb761dc81131127e5cff90720c4e60fbe6a17d21647b048a98ab`, and
+  its source ZIP SHA-256 is
+  `4972a400f4a910d9e7a9fbe6d22cf3c252f5889c8041eba82671f9a5ca447f1e`.
